@@ -17,7 +17,7 @@ client_scripts {
 dependencies {
 	'norskpixel-core',
 	'norskpixel-interior',
-	'norskpixel-clothing',
+	'fivem-appearance',
 	'norskpixel-weathersync'
 }
 
