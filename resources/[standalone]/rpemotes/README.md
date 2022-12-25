@@ -169,10 +169,10 @@ Alternatively, you can also hide animal emotes.
 
 - Config option which supports the QB Framework in their fork of the original dpemotes.
 
-If you’re using qb-core, you can now set
+If you’re using norskpixel-core, you can now set
 
 ```lua
-Framework = "qb-core",
+Framework = "norskpixel-core",
 ```
 
 in the config file, otherwise leave it as
@@ -209,7 +209,7 @@ Framework = false,
 
 * Set the desired language and settings in the config.lua
 
-* Qb-Core server owners, set `Framework = 'qb-core'` in the config file, otherwise leave it as false.
+* Qb-Core server owners, set `Framework = 'norskpixel-core'` in the config file, otherwise leave it as false.
 
 * To use the SQL features, install the [oxmysql](https://github.com/overextended/oxmysql) resource then open `keybinds.lua` in RPEmotes. If you do not want to use the SQL features, comment out the `oxmysql` region in fxmanifest.lua.
 
