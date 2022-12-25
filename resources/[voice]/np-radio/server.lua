@@ -1,11 +1,11 @@
 
 local QBCore = exports['qb-core']:GetCoreObject()
 
-QBCore.Functions.CreateUseableItem("pdradio", function(source, item)
-    TriggerClientEvent('qb-radio:use', source)
+QBCore.Functions.CreateUseableItem("radio", function(source, item)
+    TriggerClientEvent('norskpixel-radio:use', source)
 end)
 
-QBCore.Functions.CreateCallback('qb-radio:server:GetItem', function(source, cb, item)
+QBCore.Functions.CreateCallback('norskpixel-radio:server:GetItem', function(source, cb, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player ~= nil then

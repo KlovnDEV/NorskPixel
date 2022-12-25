@@ -13,10 +13,10 @@ $(function() {
 
     document.onkeyup = function (data) {
         if (data.which == 27) { // Escape key
-            $.post('https://qb-radio/escape', JSON.stringify({}));
+            $.post('https://norskpixel-radio/escape', JSON.stringify({}));
             QBRadio.SlideDown()
         } else if (data.which == 13) { // Enter key
-            $.post('https://qb-radio/joinRadio', JSON.stringify({
+            $.post('https://norskpixel-radio/joinRadio', JSON.stringify({
                 channel: $("#channel").val()
             }));
         }
@@ -28,7 +28,7 @@ QBRadio = {}
 $(document).on('click', '#submit', function(e){
     e.preventDefault();
 
-    $.post('https://qb-radio/joinRadio', JSON.stringify({
+    $.post('https://norskpixel-radio/joinRadio', JSON.stringify({
         channel: $("#channel").val()
     }));
 });
@@ -36,7 +36,7 @@ $(document).on('click', '#submit', function(e){
 $(document).on('click', '#disconnect', function(e){
     e.preventDefault();
 
-    $.post('https://qb-radio/leaveRadio');
+    $.post('https://norskpixel-radio/leaveRadio');
 });
 
 QBRadio.SlideUp = function() {

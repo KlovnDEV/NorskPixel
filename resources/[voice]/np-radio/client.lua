@@ -16,11 +16,11 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     leaveradio()
 end)
 
-RegisterNetEvent('qb-radio:use', function()
+RegisterNetEvent('norskpixel-radio:use', function()
     toggleRadio(not radioMenu)
 end)
 
-RegisterNetEvent('qb-radio:onRadioDrop', function()
+RegisterNetEvent('norskpixel-radio:onRadioDrop', function()
     if RadioChannel ~= 0 then
         leaveradio()
     end
@@ -32,13 +32,13 @@ CreateThread(function()
     while true do
         Wait(1000)
         if isLoggedIn and onRadio then
-            QBCore.Functions.TriggerCallback('qb-radio:server:GetItem', function(hasItem)
+            QBCore.Functions.TriggerCallback('norskpixel-radio:server:GetItem', function(hasItem)
                 if not hasItem then
                     if RadioChannel ~= 0 then
                         leaveradio()
                     end
                 end
-            end,"pdradio")
+            end,"radio")
         end
     end
 end)

@@ -1,4 +1,4 @@
-# qb-radio
+# norskpixel-radio
 Radio Script With UI
 
 # License
