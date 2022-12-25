@@ -1,7 +1,6 @@
 fx_version 'cerulean'
 game 'gta5'
 
-author 'Mercy Collective (https://dsc.gg/mercy-coll)'
 description 'Admin Menu'
 
 ui_page "nui/index.html"
