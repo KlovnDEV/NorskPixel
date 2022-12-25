@@ -1,5 +1,5 @@
 # norskpixel-multicharacter
-Multi Character Feature for QB-Core Framework :people_holding_hands:
+Multi Character Feature for norskpixel-Core Framework :people_holding_hands:
 
 # License
 

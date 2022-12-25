@@ -1,5 +1,5 @@
 # norskpixel-traphouse
-Player Trap Houses For QB-Core
+Player Trap Houses For norskpixel-Core
 
 # License
 

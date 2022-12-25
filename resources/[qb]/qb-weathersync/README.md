@@ -1,5 +1,5 @@
 # norskpixel-weathersync
-Synced weather and time for QB-Core Framework :sunrise:
+Synced weather and time for norskpixel-Core Framework :sunrise:
 
 # License
 

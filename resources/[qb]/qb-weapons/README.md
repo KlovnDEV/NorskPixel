@@ -1,5 +1,5 @@
 # norskpixel-weapons
-Weapon Logic Script For QB-Core
+Weapon Logic Script For norskpixel-Core
 
 # License
 

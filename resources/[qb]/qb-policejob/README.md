@@ -1,5 +1,5 @@
 # norskpixel-policejob
-Police Job for QB-Core Framework :police_officer:
+Police Job for norskpixel-Core Framework :police_officer:
 
 # License
 

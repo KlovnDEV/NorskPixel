@@ -1,5 +1,5 @@
 # norskpixel-customs
-Vehicle Customization For QB-Core
+Vehicle Customization For norskpixel-Core
 
 # License
 

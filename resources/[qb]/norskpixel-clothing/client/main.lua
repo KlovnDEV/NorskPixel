@@ -1,6 +1,4 @@
-
 local QBCore = exports['norskpixel-core']:GetCoreObject()
-
 local creatingCharacter = false
 local cam = -1
 local headingToCam = GetEntityHeading(PlayerPedId())
@@ -15,103 +13,103 @@ local skinData = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,        
+        defaultTexture = 0,
     },
     ["pants"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,        
+        defaultTexture = 0,
     },
     ["hair"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,        
+        defaultTexture = 0,
     },
     ["eyebrows"] = {
         item = -1,
         texture = 1,
         defaultItem = -1,
-        defaultTexture = 1,        
+        defaultTexture = 1,
     },
     ["beard"] = {
         item = -1,
         texture = 1,
         defaultItem = -1,
-        defaultTexture = 1,        
+        defaultTexture = 1,
     },
     ["blush"] = {
         item = -1,
         texture = 1,
         defaultItem = -1,
-        defaultTexture = 1,        
+        defaultTexture = 1,
     },
     ["lipstick"] = {
         item = -1,
         texture = 1,
         defaultItem = -1,
-        defaultTexture = 1,        
+        defaultTexture = 1,
     },
     ["makeup"] = {
         item = -1,
         texture = 1,
         defaultItem = -1,
-        defaultTexture = 1,        
+        defaultTexture = 1,
     },
     ["ageing"] = {
         item = -1,
         texture = 0,
         defaultItem = -1,
-        defaultTexture = 0,        
+        defaultTexture = 0,
     },
     ["arms"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,        
+        defaultTexture = 0,
     },
     ["t-shirt"] = {
         item = 1,
         texture = 0,
         defaultItem = 1,
-        defaultTexture = 0,        
+        defaultTexture = 0,
     },
     ["torso2"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,        
+        defaultTexture = 0,
     },
     ["vest"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,        
+        defaultTexture = 0,
     },
     ["bag"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,        
+        defaultTexture = 0,
     },
     ["shoes"] = {
         item = 0,
         texture = 0,
         defaultItem = 1,
-        defaultTexture = 0,        
+        defaultTexture = 0,
     },
     ["mask"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,        
+        defaultTexture = 0,
     },
     ["hat"] = {
         item = -1,
         texture = 0,
         defaultItem = -1,
-        defaultTexture = 0, 
+        defaultTexture = 0,
     },
     ["glass"] = {
         item = 0,
@@ -141,159 +139,153 @@ local skinData = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["decals"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["eye_color"] = {
         item = -1,
         texture = 0,
         defaultItem = -1,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["moles"] = {
         item = 0,
         texture = 0,
         defaultItem = -1,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["nose_0"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["nose_1"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["nose_2"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["nose_3"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
 
     ["nose_4"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["nose_5"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["cheek_1"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["cheek_2"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["cheek_3"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["eye_opening"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["lips_thickness"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["jaw_bone_width"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["eyebrown_high"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["eyebrown_forward"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["jaw_bone_back_lenght"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["chimp_bone_lowering"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["chimp_bone_lenght"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["chimp_bone_width"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["chimp_hole"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
     ["neck_thikness"] = {
         item = 0,
         texture = 0,
         defaultItem = 0,
-        defaultTexture = 0,      
+        defaultTexture = 0,
     },
-} 
+}
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
     TriggerServerEvent("norskpixel-clothes:loadPlayerSkin")
     PlayerData = QBCore.Functions.GetPlayerData()
-    isLoggedIn = true
-end)
-
-RegisterNetEvent('QBCore:Client:OnPlayerUnload')
-AddEventHandler('QBCore:Client:OnPlayerUnload', function()
-    isLoggedIn = false
 end)
 
 RegisterNetEvent('QBCore:Client:OnJobUpdate')
@@ -331,10 +323,10 @@ Citizen.CreateThread(function()
             local clothingShop = AddBlipForCoord(Config.Stores[k].coords)
             SetBlipSprite(clothingShop, 366)
             SetBlipColour(clothingShop, 47)
-            SetBlipScale  (clothingShop, 0.7)
+            SetBlipScale  (clothingShop, 0.6)
             SetBlipAsShortRange(clothingShop, true)
             BeginTextCommandSetBlipName("STRING")
-            AddTextComponentString("Tøj butik")
+            AddTextComponentString("Clothing store")
             EndTextCommandSetBlipName(clothingShop)
         end
 
@@ -342,7 +334,7 @@ Citizen.CreateThread(function()
             local barberShop = AddBlipForCoord(Config.Stores[k].coords)
             SetBlipSprite(barberShop, 71)
             SetBlipColour(barberShop, 0)
-            SetBlipScale  (barberShop, 0.7)
+            SetBlipScale  (barberShop, 0.6)
             SetBlipAsShortRange(barberShop, true)
             BeginTextCommandSetBlipName("STRING")
             AddTextComponentString("Barber")
@@ -353,125 +345,248 @@ Citizen.CreateThread(function()
             local surgeonShop = AddBlipForCoord(Config.Stores[k].coords)
             SetBlipSprite(surgeonShop, 71)
             SetBlipColour(surgeonShop, 0)
-            SetBlipScale  (surgeonShop, 0.7)
+            SetBlipScale  (surgeonShop, 0.6)
             SetBlipAsShortRange(surgeonShop, true)
             BeginTextCommandSetBlipName("STRING")
-            AddTextComponentString("Kirurg")
+            AddTextComponentString("Surgeon")
             EndTextCommandSetBlipName(surgeonShop)
         end
     end
 end)
-
 Citizen.CreateThread(function()
+    local alreadyEnteredZone = false
+    local text = nil
     while true do
-        if LocalPlayer.state.isLoggedIn then
+        -- if LocalPlayer.state.isLoggedIn then
+            wait = 5
             local ped = PlayerPedId()
             local pos = GetEntityCoords(ped)
-            local inRange = false
-
+            local inZone = false
             for k, v in pairs(Config.Stores) do
-		local dist = #(pos - Config.Stores[k].coords)
+		        local dist = #(pos - Config.Stores[k].coords)
                 if dist < 30 then
                     if not creatingCharacter then
                         DrawMarker(2, Config.Stores[k].coords.x,Config.Stores[k].coords.y,Config.Stores[k].coords.z + 0.98, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.2, 255, 255, 255, 255, 0, 0, 0, 1, 0, 0, 0)
-                        if dist < 5 then
-                            if Config.Stores[k].shopType == "clothing" then
-                                 DrawText3Ds(Config.Stores[k].coords.x, Config.Stores[k].coords.y, Config.Stores[k].coords.z + 1.25, '~g~E~w~ - For at købe tøj')
+                        if dist < 3.5 then
+                            wait = 5
+                            inZone  = true
+                            if Config.Stores[k].shopType == "clothing" then 
+                                text = '<b>Clothing Shop</b></p>Press [E] to enter'
                             elseif Config.Stores[k].shopType == "barber" then
-                                DrawText3Ds(Config.Stores[k].coords.x, Config.Stores[k].coords.y, Config.Stores[k].coords.z + 1.25, '~g~E~w~ - For at få klippet håret')
+                                text = '<b>Barber Shop</b></p>Press [E] to enter'
                             elseif Config.Stores[k].shopType == "surgeon" then
-                                DrawText3Ds(Config.Stores[k].coords.x, Config.Stores[k].coords.y, Config.Stores[k].coords.z + 1.25, '~g~E~w~ - For at få ansigtskirurgi')
+                                text = '<b>Plastic Surgery</b></p>Press [E] to enter'
                             end
                             if IsControlJustPressed(0, 38) then -- E
                                 if Config.Stores[k].shopType == "clothing" then
                                     customCamLocation = nil
-                                    openMenu({
-                                        {menu = "character", label = "Tøj", selected = true},
-                                        {menu = "accessoires", label = "Tilbehør", selected = false}
-                                    })
+                                    TriggerEvent("doj:client:clothingMenu")
                                 elseif Config.Stores[k].shopType == "barber" then
                                     customCamLocation = nil
-                                    openMenu({
-                                        {menu = "clothing", label = "Hår", selected = true},
-                                    })
+                                    TriggerEvent("doj:client:barberMenu")
                                 elseif Config.Stores[k].shopType == "surgeon" then
                                     customCamLocation = nil
-                                    openMenu({
-                                        {menu = "clothing", label = "Tilføjelser", selected = true},
-                                    })
+                                    TriggerEvent("doj:client:surgeonMenu")
                                 end
                             end
                         end
                     end
-                    inRange = true
-                end
+                end 
             end
-
-            if not inRange then
-                Citizen.Wait(2000)
-            end
-
+        -- end
+        if inZone and not alreadyEnteredZone then
+            alreadyEnteredZone = true
+            exports['textUi']:DrawTextUi('show', text)
         end
-
-        Citizen.Wait(3)
+        if not inZone and alreadyEnteredZone then
+            alreadyEnteredZone = false
+            exports['textUi']:HideTextUi('hide')
+        end
+        Citizen.Wait(wait)
     end
 end)
 
+
+RegisterNetEvent('doj:client:clothingMenu', function()
+	exports['norskpixel-menu']:openMenu({
+		{
+			header = "Clothing Shop",
+			txt = "Pay with cash: $"..Config.Cost.ClothingCash,
+            params = {
+				event = "doj:server:payForClothing",
+                isServer = true,
+                args = 1
+			}
+		},
+		{
+			header = "Clothing Shop",
+			txt = "Pay with bank: $"..Config.Cost.ClothingBank,
+			params = {
+				event = "doj:server:payForClothing",
+                isServer = true,
+                args = 2
+			}
+		},
+		{
+			header = "exit",
+			txt = "",
+			params = {
+				event = "",
+			}
+		},
+	})
+end)
+
+RegisterNetEvent('doj:client:barberMenu', function()
+	exports['norskpixel-menu']:openMenu({
+		{
+			header = "Barber Shop",
+			txt = "Pay with cash: $"..Config.Cost.BarberCash,
+            params = {
+				event = "doj:server:payForBarber",
+                isServer = true,
+                args = 1
+			}
+		},
+		{
+			header = "Barber Shop",
+			txt = "Pay with bank: $"..Config.Cost.BarberBank,
+			params = {
+				event = "doj:server:payForBarber",
+                isServer = true,
+                args = 2
+			}
+		},
+		{
+			header = "exit",
+			txt = "",
+			params = {
+				event = "",
+			}
+		},
+	})
+end)
+
+
+RegisterNetEvent('doj:client:surgeonMenu', function()
+	exports['norskpixel-menu']:openMenu({
+		{
+			header = "Surgeon Shop",
+			txt = "Pay with cash: $"..Config.Cost.SurgeonCash,
+            params = {
+				event = "doj:server:payWithCash",
+                isServer = true,
+                args = 1
+			}
+		},
+		{
+			header = "Surgeon Shop",
+			txt = "Pay with bank: $"..Config.Cost.SurgeonBank,
+			params = {
+				event = "doj:server:payWithBank",
+                isServer = true,
+                args = 2
+			}
+		},
+		{
+			header = "exit",
+			txt = "",
+			params = {
+				event = "",
+			}
+		},
+	})
+end)
+
+
+RegisterNetEvent('doj:client:accessShop', function(args)
+    local args = tonumber(args)
+    if args == 1 then 
+        openMenu({
+            {menu = "character", label = "Clothing", selected = true},
+            {menu = "accessoires", label = "Accessories", selected = false}
+        
+        })
+    elseif args == 2 then 
+        openMenu({
+            {menu = "clothing", label = "Hair", selected = true},
+        })
+    elseif args == 3 then 
+        openMenu({
+            {menu = "clothing", label = "Features", selected = true},
+        })
+    end
+end)
+
+
+
+
+
+
 Citizen.CreateThread(function()
+    local alreadyEnteredZone = false
+    local text = nil
     while true do
-        if LocalPlayer.state.isLoggedIn then
+        -- if LocalPlayer.state.isLoggedIn then
+            wait = 5
             local ped = PlayerPedId()
             local pos = GetEntityCoords(ped)
-            local inRange = false
+            local inZone = false
             for k, v in pairs(Config.ClothingRooms) do
                 local dist = #(pos - Config.ClothingRooms[k].coords)
                 if dist < 15 then
                     if not creatingCharacter then
                         DrawMarker(2, Config.ClothingRooms[k].coords, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.2, 255, 255, 255, 255, 0, 0, 0, 1, 0, 0, 0)
                         if dist < 2 then
-                            if PlayerData.job.name == Config.ClothingRooms[k].requiredJob then
-                                DrawText3Ds(Config.ClothingRooms[k].coords.x, Config.ClothingRooms[k].coords.y, Config.ClothingRooms[k].coords.z + 0.3, '~g~E~w~ - Se tøj')
+                            wait = 5
+                            inZone  = true
+                            if PlayerData.job.name == Config.ClothingRooms[k].requiredJob then 
+                                text = '<b>View Clothing</b></p>Press [E] to enter'
                                 if IsControlJustPressed(0, 38) then -- E
                                     customCamLocation = Config.ClothingRooms[k].cameraLocation
                                     gender = "male"
                                     if QBCore.Functions.GetPlayerData().charinfo.gender == 1 then gender = "female" end
                                     QBCore.Functions.TriggerCallback('norskpixel-clothing:server:getOutfits', function(result)
                                         openMenu({
-                                            {menu = "roomOutfits", label = "Indstillinger", selected = true, outfits = Config.Outfits[PlayerData.job.name][gender][PlayerData.job.grade.level]},
-                                            {menu = "myOutfits", label = "Mine outfits", selected = false, outfits = result},
-                                            {menu = "character", label = "Tøj", selected = false},
-                                            {menu = "accessoires", label = "Tilbehør", selected = false}
+                                            {menu = "roomOutfits", label = "Presets", selected = true, outfits = Config.Outfits[PlayerData.job.name][gender]},
+                                            {menu = "myOutfits", label = "My Outfits", selected = false, outfits = result},
+                                            {menu = "character", label = "Clothing", selected = false},
+                                            {menu = "accessoires", label = "Accessories", selected = false}
                                         })
                                     end)
                                 end
                             else
                                 if PlayerData.gang.name == Config.ClothingRooms[k].requiredJob then
-                                    DrawText3Ds(Config.ClothingRooms[k].coords.x, Config.ClothingRooms[k].coords.y, Config.ClothingRooms[k].coords.z + 0.3, '~g~E~w~ - Se tøj')
+                                    text = '<b>View Clothing</b></p>Press [E] to enter'
                                     if IsControlJustPressed(0, 38) then -- E
                                         customCamLocation = Config.ClothingRooms[k].cameraLocation
                                         gender = "male"
                                         if QBCore.Functions.GetPlayerData().charinfo.gender == 1 then gender = "female" end
                                         QBCore.Functions.TriggerCallback('norskpixel-clothing:server:getOutfits', function(result)
                                             openMenu({
-                                                {menu = "roomOutfits", label = "Indstillinger", selected = true, outfits = Config.Outfits[PlayerData.gang.name][gender][PlayerData.gang.grade.level]},
-                                                {menu = "myOutfits", label = "Mine outfits", selected = false, outfits = result},
-                                                {menu = "character", label = "Tøj", selected = false},
-                                                {menu = "accessoires", label = "Tilbehør", selected = false}
+                                                {menu = "roomOutfits", label = "Presets", selected = true, outfits = Config.Outfits[PlayerData.gang.name][gender]},
+                                                {menu = "myOutfits", label = "My Outfits", selected = false, outfits = result},
+                                                {menu = "character", label = "Clothing", selected = false},
+                                                {menu = "accessoires", label = "Accessories", selected = false}
                                             })
                                         end)
                                     end
                                 end
                             end
                         end
-                        inRange = true
                     end
                 end
             end
-            if not inRange then
-                Citizen.Wait(2000)
-            end
+        -- end
+        if inZone and not alreadyEnteredZone then
+            alreadyEnteredZone = true
+            exports['textUi']:DrawTextUi('show', text)
         end
-        Citizen.Wait(3)
+        if not inZone and alreadyEnteredZone then
+            alreadyEnteredZone = false
+            exports['textUi']:HideTextUi('hide')
+        end
+        Citizen.Wait(wait)
     end
 end)
 
@@ -479,7 +594,7 @@ RegisterNetEvent('norskpixel-clothing:client:openOutfitMenu')
 AddEventHandler('norskpixel-clothing:client:openOutfitMenu', function()
     QBCore.Functions.TriggerCallback('norskpixel-clothing:server:getOutfits', function(result)
         openMenu({
-            {menu = "myOutfits", label = "Mine Outfits", selected = true, outfits = result},
+            {menu = "myOutfits", label = "My Outfits", selected = true, outfits = result},
         })
     end)
 end)
@@ -493,6 +608,7 @@ RegisterNUICallback('rotateRight', function()
     local ped = PlayerPedId()
     local pedPos = GetEntityCoords(ped)
     local camPos = GetCamCoord(cam)
+
     local heading = headingToCam
 
     heading = heading + 2.5
@@ -507,6 +623,7 @@ RegisterNUICallback('rotateLeft', function()
     local ped = PlayerPedId()
     local pedPos = GetEntityCoords(ped)
     local camPos = GetCamCoord(cam)
+
     local heading = headingToCam
 
     heading = heading - 2.5
@@ -571,9 +688,9 @@ RegisterNetEvent('norskpixel-clothing:client:openMenu')
 AddEventHandler('norskpixel-clothing:client:openMenu', function()
     customCamLocation = nil
     openMenu({
-        {menu = "character", label = "Karakter", selected = true},
-        {menu = "clothing", label = "Tilføjelser", selected = false},
-        {menu = "accessoires", label = "Tilbehør", selected = false}
+        {menu = "character", label = "Character", selected = true},
+        {menu = "clothing", label = "Features", selected = false},
+        {menu = "accessoires", label = "Accessories", selected = false}
     })
 end)
 
@@ -624,7 +741,7 @@ function GetMaxValues()
         ["ear"]         = {type = "accessoires", item = 0, texture = 0},
         ["watch"]       = {type = "accessoires", item = 0, texture = 0},
         ["bracelet"]    = {type = "accessoires", item = 0, texture = 0},
-        
+
     }
     local ped = PlayerPedId()
     for k, v in pairs(clothingCategorys) do
@@ -719,7 +836,7 @@ function openMenu(allowedMenus)
 end
 
 RegisterNUICallback('TrackerError', function()
-    QBCore.Functions.Notify("Du kan ikke fjerne din kæde fra anklen ..", "error")
+    QBCore.Functions.Notify("You can't remove your ankle bracelet ..", "error")
 end)
 
 RegisterNUICallback('saveOutfit', function(data, cb)
@@ -753,6 +870,7 @@ function enableCam()
     if customCamLocation ~= nil then
         SetCamCoord(cam, customCamLocation.x, customCamLocation.y, customCamLocation.z)
     end
+
     headingToCam = GetEntityHeading(PlayerPedId()) + 90
     camOffset = 2.0
 end
@@ -776,6 +894,7 @@ end)
 RegisterNUICallback('setupCam', function(data)
     local value = data.value
     local pedPos = GetEntityCoords(PlayerPedId())
+
     if value == 1 then
         local coords = GetCamCoord(cam)
 		camOffset = 0.75
@@ -959,7 +1078,7 @@ RegisterNUICallback('close', function()
     SetNuiFocus(false, false)
     creatingCharacter = false
     disableCam()
-    
+
     FreezeEntityPosition(PlayerPedId(), false)
 end)
 
@@ -977,7 +1096,7 @@ end)
 
 RegisterNUICallback('removeOutfit', function(data, cb)
     TriggerServerEvent('norskpixel-clothing:server:removeOutfit', data.outfitName, data.outfitId)
-    QBCore.Functions.Notify("Du har slettet"..data.outfitName.." outfit!")
+    QBCore.Functions.Notify("You have deleted your"..data.outfitName.." outfit!")
 end)
 
 function ChangeVariation(data)
@@ -1102,9 +1221,9 @@ function ChangeVariation(data)
             -- print(newitem)
             SetPedFaceFeature(ped, 0, newitem)
             skinData["nose_0"].item = item
-        elseif type == "texture" then 
+        elseif type == "texture" then
         end
-        
+
     elseif clothingCategory == "nose_1" then
         if type == "item" then
             local newitem = (item / 10)
@@ -1112,7 +1231,7 @@ function ChangeVariation(data)
             SetPedFaceFeature(ped, 1, newitem)
             skinData["nose_1"].item = item
         elseif type == "texture" then
-            
+
         end
     elseif clothingCategory == "nose_2" then
         if type == "item" then
@@ -1124,7 +1243,7 @@ function ChangeVariation(data)
             skinData["nose_2"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-            
+
         end
     elseif clothingCategory == "nose_3" then
         if type == "item" then
@@ -1136,7 +1255,7 @@ function ChangeVariation(data)
             skinData["nose_3"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-            
+
         end
     elseif clothingCategory == "nose_4" then
         if type == "item" then
@@ -1148,7 +1267,7 @@ function ChangeVariation(data)
             skinData["nose_4"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-            
+
         end
     elseif clothingCategory == "nose_5" then
         if type == "item" then
@@ -1160,7 +1279,7 @@ function ChangeVariation(data)
             skinData["nose_5"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-           
+
         end
     elseif clothingCategory == "eyebrown_high" then
         if type == "item" then
@@ -1172,7 +1291,7 @@ function ChangeVariation(data)
             skinData["eyebrown_high"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-           
+
         end
     elseif clothingCategory == "eyebrown_forward" then
         if type == "item" then
@@ -1184,7 +1303,7 @@ function ChangeVariation(data)
             skinData["eyebrown_forward"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-            
+
         end
     elseif clothingCategory == "cheek_1" then
         if type == "item" then
@@ -1197,7 +1316,7 @@ function ChangeVariation(data)
         elseif type == "texture" then
 
             -- local curItem = GetPedDrawableVariation(ped, 1)
-            
+
         end
     elseif clothingCategory == "cheek_2" then
         if type == "item" then
@@ -1209,7 +1328,7 @@ function ChangeVariation(data)
             skinData["cheek_1"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-            
+
         end
     elseif clothingCategory == "cheek_3" then
         if type == "item" then
@@ -1221,7 +1340,7 @@ function ChangeVariation(data)
             skinData["cheek_3"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-            
+
         end
     elseif clothingCategory == "eye_opening" then
         if type == "item" then
@@ -1233,7 +1352,7 @@ function ChangeVariation(data)
             skinData["eye_opening"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-            
+
         end
     elseif clothingCategory == "lips_thickness" then
         if type == "item" then
@@ -1245,7 +1364,7 @@ function ChangeVariation(data)
             skinData["lips_thickness"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-            
+
         end
     elseif clothingCategory == "jaw_bone_width" then
         if type == "item" then
@@ -1257,7 +1376,7 @@ function ChangeVariation(data)
             skinData["jaw_bone_width"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-            
+
         end
     elseif clothingCategory == "jaw_bone_back_lenght" then
         if type == "item" then
@@ -1269,7 +1388,7 @@ function ChangeVariation(data)
             skinData["jaw_bone_back_lenght"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-            
+
         end
     elseif clothingCategory == "chimp_bone_lowering" then
         if type == "item" then
@@ -1281,7 +1400,7 @@ function ChangeVariation(data)
             skinData["chimp_bone_lowering"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-            
+
         end
     elseif clothingCategory == "chimp_bone_lenght" then
         if type == "item" then
@@ -1293,7 +1412,7 @@ function ChangeVariation(data)
             skinData["chimp_bone_lenght"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-            
+
         end
     elseif clothingCategory == "chimp_bone_width" then
         if type == "item" then
@@ -1305,7 +1424,7 @@ function ChangeVariation(data)
             skinData["chimp_bone_width"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-            
+
         end
     elseif clothingCategory == "chimp_hole" then
         if type == "item" then
@@ -1317,7 +1436,7 @@ function ChangeVariation(data)
             skinData["chimp_hole"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-            
+
         end
     elseif clothingCategory == "neck_thikness" then
         if type == "item" then
@@ -1329,7 +1448,7 @@ function ChangeVariation(data)
             skinData["chimp_hole"].item = item
         elseif type == "texture" then
             -- local curItem = GetPedDrawableVariation(ped, 1)
-            
+
         end
     elseif clothingCategory == "t-shirt" then
         if type == "item" then
@@ -1467,13 +1586,13 @@ end
 function tprint (tbl, indent)
 	if not indent then indent = 0 end
 	local toprint = string.rep(" ", indent) .. "{\r\n"
-	indent = indent + 2 
+	indent = indent + 2
 	for k, v in pairs(tbl) do
 	  toprint = toprint .. string.rep(" ", indent)
 	  if (type(k) == "number") then
 		toprint = toprint .. "[" .. k .. "] = "
 	  elseif (type(k) == "string") then
-		toprint = toprint  .. k ..  "= "   
+		toprint = toprint  .. k ..  "= "
 	  end
 	  if (type(v) == "number") then
 		toprint = toprint .. v .. ",\r\n"
@@ -1549,7 +1668,7 @@ function ChangeToSkinNoUpdate(skin)
                     })
                 end
             end
-            
+
             if skin == "mp_m_freemode_01" or skin == "mp_f_freemode_01" then
                 ChangeVariation({
                     clothingType = k,
@@ -1596,15 +1715,15 @@ AddEventHandler('norskpixel-clothes:client:CreateFirstCharacter', function()
     QBCore.Functions.GetPlayerData(function(PlayerData)
         local skin = "mp_m_freemode_01"
         openMenu({
-            {menu = "character", label = "Karakter", selected = true},
-            {menu = "clothing", label = "Tilføjelse", selected = false},
-            {menu = "accessoires", label = "Tilbehør", selected = false}
+            {menu = "character", label = "Character", selected = true},
+            {menu = "clothing", label = "Features", selected = false},
+            {menu = "accessoires", label = "Accessories", selected = false}
         })
 
-        if PlayerData.charinfo.gender == 1 then 
-            skin = "mp_f_freemode_01" 
+        if PlayerData.charinfo.gender == 1 then
+            skin = "mp_f_freemode_01"
         end
-        
+
         ChangeToSkinNoUpdate(skin)
         SendNUIMessage({
             action = "ResetValues",
@@ -1749,13 +1868,13 @@ AddEventHandler('norskpixel-clothing:client:loadPlayerClothing', function(data, 
     if data["eye_color"].item ~= -1 and data["eye_color"].item ~= 0 then
         SetPedEyeColor(ped, data['eye_color'].item)
     else
-       
+
     end
 
     if data["moles"].item ~= -1 and data["moles"].item ~= 0 then
         SetPedHeadOverlay(ped, 9, data['moles'].item, (data['moles'].texture / 10))
     else
-       
+
     end
 
     SetPedFaceFeature(ped, 0, (data['nose_0'].item / 10))
@@ -1900,7 +2019,7 @@ AddEventHandler('norskpixel-clothing:client:loadOutfit', function(oData)
     end
 
     if oData.outfitName ~= nil then
-        QBCore.Functions.Notify("Du har valgt "..oData.outfitName.."! Tryk Bekræft for at bekræfte.")
+        QBCore.Functions.Notify("You have chosen "..oData.outfitName.."! Press Confirm to confirm outfit.")
     end
 end)
 
@@ -1918,7 +2037,7 @@ function loadAnimDict( dict )
         RequestAnimDict( dict )
         Citizen.Wait( 5 )
     end
-end 
+end
 
 RegisterNetEvent("norskpixel-clothing:client:adjustfacewear")
 AddEventHandler("norskpixel-clothing:client:adjustfacewear",function(type)
@@ -1980,7 +2099,7 @@ AddEventHandler("norskpixel-clothing:client:adjustfacewear",function(type)
 		PropIndex = 11
 		AnimSet = "oddjobs@basejump@ig_15"
 		AnimationOn = "puton_parachute"
-		AnimationOff = "puton_parachute"	
+		AnimationOff = "puton_parachute"
 		--mp_safehouseshower@male@ male_shower_idle_d_towel
 		--mp_character_creation@customise@male_a drop_clothes_a
 		--oddjobs@basejump@ig_15 puton_parachute_bag
@@ -2071,7 +2190,7 @@ function reloadSkin(health)
     SetPlayerModel(PlayerId(), model)
     SetModelAsNoLongerNeeded(model)
     Citizen.Wait(1000) -- Safety Delay
-
+    
     TriggerServerEvent("norskpixel-clothes:loadPlayerSkin") -- LOADING PLAYER'S CLOTHES
     TriggerServerEvent("norskpixel-clothing:loadPlayerSkin") -- LOADING PLAYER'S CLOTHES - Event 2
 

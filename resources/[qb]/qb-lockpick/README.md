@@ -1,5 +1,5 @@
 # norskpixel-lockpick
-Lockpick Mini-Game For QB-Core
+Lockpick Mini-Game For norskpixel-Core
 
 # License
 

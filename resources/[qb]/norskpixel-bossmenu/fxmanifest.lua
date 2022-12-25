@@ -2,7 +2,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-BossMenu'
+description 'norskpixel-BossMenu'
 version '1.0.0'
 
 client_scripts {

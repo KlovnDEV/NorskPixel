@@ -1,5 +1,5 @@
 # norskpixel-towjob
-Towing Job For QB-Core
+Towing Job For norskpixel-Core
 
 # License
 

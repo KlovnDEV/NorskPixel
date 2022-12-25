@@ -1,5 +1,5 @@
 # norskpixel-atms
-Useable ATMs for QB-Core
+Useable ATMs for norskpixel-Core
 
 # License
 

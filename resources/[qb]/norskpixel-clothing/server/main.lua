@@ -1,5 +1,89 @@
-
 local QBCore = exports['norskpixel-core']:GetCoreObject()
+
+
+RegisterServerEvent("doj:server:payForClothing", function(args)
+    local args = tonumber(args)
+    local Player = QBCore.Functions.GetPlayer(source)
+    local cash = Player.Functions.GetMoney('cash')
+    local bank = Player.Functions.GetMoney('bank')
+    local cashAmount = Config.Cost.ClothingCash
+    local bankAmount = Config.Cost.ClothingBank
+
+    if args == 1 then 
+        if tonumber(cashAmount) <= cash then
+            Player.Functions.RemoveMoney('cash', tonumber(cashAmount))
+            TriggerClientEvent('doj:client:accessShop', source, 1)
+            TriggerClientEvent('QBCore:Notify', source, "Payed $"..cashAmount)
+        else 
+            TriggerClientEvent('QBCore:Notify', source, "You dont have enough cash", "error")
+        end
+    else
+        if tonumber(bankAmount) <= bank then
+            Player.Functions.RemoveMoney('bank', tonumber(bankAmount))
+            TriggerClientEvent('doj:client:accessShop', source, 1)
+            TriggerClientEvent('QBCore:Notify', source, "Payed $"..bankAmount)
+        else 
+            TriggerClientEvent('QBCore:Notify', source, "You dont have enough in the bank", "error")
+        end
+    end
+end)
+
+
+RegisterServerEvent("doj:server:payForBarber", function(args)
+    local args = tonumber(args)
+    local Player = QBCore.Functions.GetPlayer(source)
+    local cash = Player.Functions.GetMoney('cash')
+    local bank = Player.Functions.GetMoney('bank')
+    local cashAmount = Config.Cost.BarberCash
+    local bankAmount = Config.Cost.BarberBank
+    if args == 1 then 
+        if tonumber(cashAmount) <= cash then
+            Player.Functions.RemoveMoney('cash', tonumber(cashAmount))
+            TriggerClientEvent('doj:client:accessShop', source, 2)
+            TriggerClientEvent('QBCore:Notify', source, "Payed $"..cashAmount)
+        else 
+            TriggerClientEvent('QBCore:Notify', source, "You dont have enough cash", "error")
+        end
+    else
+        if tonumber(bankAmount) <= bank then
+            Player.Functions.RemoveMoney('bank', tonumber(bankAmount))
+            TriggerClientEvent('doj:client:accessShop', source, 2)
+            TriggerClientEvent('QBCore:Notify', source, "Payed $"..bankAmount)
+        else 
+            TriggerClientEvent('QBCore:Notify', source, "You dont have enough in the bank", "error")
+        end
+    end
+end)
+
+
+RegisterServerEvent("doj:server:payForSurgeon", function(args)
+    local args = tonumber(args)
+    local Player = QBCore.Functions.GetPlayer(source)
+    local cash = Player.Functions.GetMoney('cash')
+    local bank = Player.Functions.GetMoney('bank')
+    local cashAmount = Config.Cost.SurgeonCash
+    local bankAmount = Config.Cost.SurgeonBank
+    if args == 1 then 
+        if tonumber(cashAmount) <= cash then
+            Player.Functions.RemoveMoney('cash', tonumber(cashAmount))
+            TriggerClientEvent('doj:client:accessShop', source, 3)
+            TriggerClientEvent('QBCore:Notify', source, "Payed $"..cashAmount)
+        else 
+            TriggerClientEvent('QBCore:Notify', source, "You dont have enough cash", "error")
+        end
+    else
+        if tonumber(bankAmount) <= bank then
+            Player.Functions.RemoveMoney('bank', tonumber(bankAmount))
+            TriggerClientEvent('doj:client:accessShop', source, 3)
+            TriggerClientEvent('QBCore:Notify', source, "Payed $"..bankAmount)
+        else 
+            TriggerClientEvent('QBCore:Notify', source, "You dont have enough in the bank", "error")
+        end
+    end
+end)
+
+
+
 
 RegisterServerEvent("norskpixel-clothing:saveSkin")
 AddEventHandler('norskpixel-clothing:saveSkin', function(model, skin)

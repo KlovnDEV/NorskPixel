@@ -127,7 +127,7 @@ $(document).on('click', '.phone-application', function(e){
 
                 if (PressedApplication == "settings") {
                     $("#myPhoneNumber").text(QB.Phone.Data.PlayerData.charinfo.phone);
-                    $("#mySerialNumber").text("QB-" + QB.Phone.Data.PlayerData.metadata["phonedata"].SerialNumber);
+                    $("#mySerialNumber").text("norskpixel-" + QB.Phone.Data.PlayerData.metadata["phonedata"].SerialNumber);
                 } else if (PressedApplication == "twitter") {
                     $.post('https://norskpixel-phone/GetMentionedTweets', JSON.stringify({}), function(MentionedTweets){
                         QB.Phone.Notifications.LoadMentionedTweets(MentionedTweets)

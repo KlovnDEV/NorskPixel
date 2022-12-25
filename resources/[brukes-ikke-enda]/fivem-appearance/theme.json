@@ -1,5 +1,5 @@
 {
-  "currentTheme": "qb-core",
+  "currentTheme": "norskpixel-core",
   "themes": [
     {
       "id": "default",
@@ -16,7 +16,7 @@
       "smoothBackgroundTransition": false
     },
     {
-      "id": "qb-core",
+      "id": "norskpixel-core",
       "borderRadius": "3vh",
       "fontColor": "255, 255, 255",
       "fontColorHover": "255, 255, 255",

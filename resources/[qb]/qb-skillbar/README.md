@@ -1,5 +1,5 @@
 # norskpixel-skillbar
-Skill Bar For QB-Core
+Skill Bar For norskpixel-Core
 
 # License
 

@@ -1,5 +1,5 @@
 # norskpixel-crypto
-Crypto Currency For QB-Core
+Crypto Currency For norskpixel-Core
 
 # Dependency
 https://github.com/qbcore-framework/mhacking

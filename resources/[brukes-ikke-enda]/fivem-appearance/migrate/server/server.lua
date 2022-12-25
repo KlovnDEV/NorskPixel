@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local continue = false
 
 local function MigrateFivemAppearance(source)
@@ -31,7 +31,7 @@ local function MigrateQBClothing(source)
         if not tonumber(allPlayerSkins[i].model) then
             TriggerClientEvent("QBCore:Notify", source, "Skipped skin")
         else
-            TriggerClientEvent("fivem-appearance:client:migration:load-qb-clothing-skin", source, allPlayerSkins[i])
+            TriggerClientEvent("fivem-appearance:client:migration:load-norskpixel-clothing-skin", source, allPlayerSkins[i])
             while not continue do
                 Wait(10)
             end
@@ -43,7 +43,7 @@ local function MigrateQBClothing(source)
     TriggerClientEvent("QBCore:Notify", source, "Migration finished. " .. migrated .. " skins migrated", "success")
 end
 
-RegisterNetEvent("fivem-appearance:server:migrate-qb-clothing-skin", function(citizenid, appearance)
+RegisterNetEvent("fivem-appearance:server:migrate-norskpixel-clothing-skin", function(citizenid, appearance)
     local src = source
     MySQL.Async.execute('DELETE FROM playerskins WHERE citizenid = ?', { citizenid }, function()
         MySQL.Async.insert('INSERT INTO playerskins (citizenid, model, skin, active) VALUES (?, ?, ?, ?)', {
@@ -57,11 +57,11 @@ RegisterNetEvent("fivem-appearance:server:migrate-qb-clothing-skin", function(ci
     end)
 end)
 
-QBCore.Commands.Add('migrateskins', 'Migrate skins to fivem-appearance', {{name='type', help='fivem-appearance / qb-clothing'}}, false, function(source, args)
+QBCore.Commands.Add('migrateskins', 'Migrate skins to fivem-appearance', {{name='type', help='fivem-appearance / norskpixel-clothing'}}, false, function(source, args)
     local type = tostring(args[1])
     if type == "fivem-appearance" then
         MigrateFivemAppearance(source)
-    elseif type == "qb-clothing" then
+    elseif type == "norskpixel-clothing" then
         CreateThread(function()
             MigrateQBClothing(source)
         end)

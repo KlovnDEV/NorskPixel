@@ -1,5 +1,5 @@
-# norskpixel-garbagejob
-Garbage Job For QB-Core
+# norskpixel-fitbit
+FitBit For norskpixel-Core
 
 # License
 

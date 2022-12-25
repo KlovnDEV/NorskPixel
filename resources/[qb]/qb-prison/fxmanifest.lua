@@ -2,7 +2,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-Prison'
+description 'norskpixel-Prison'
 version '1.0.0'
 
 shared_script 'config.lua'

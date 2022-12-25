@@ -1,5 +1,5 @@
 # norskpixel-vehicleshop
-Vehicle Shop for QB-Core Framework :car:
+Vehicle Shop for norskpixel-Core Framework :car:
 
 # License
 

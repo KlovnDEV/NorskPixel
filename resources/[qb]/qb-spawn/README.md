@@ -1,5 +1,5 @@
 # norskpixel-spawn
-Spawn Selector for QB-Core Framework :eagle:
+Spawn Selector for norskpixel-Core Framework :eagle:
 
 # License
 

@@ -1,5 +1,5 @@
 # norskpixel-coke
-Coke Script For QB-Core
+Coke Script For norskpixel-Core
 
 # License
 

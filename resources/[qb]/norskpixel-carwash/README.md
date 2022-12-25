@@ -1,5 +1,5 @@
 # norskpixel-carwash
-Carwash For QB-Core
+Carwash For norskpixel-Core
 
 # License
 

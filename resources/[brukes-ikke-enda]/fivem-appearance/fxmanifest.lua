@@ -42,8 +42,8 @@ files {
 
 ui_page 'web/dist/index.html'
 
-provide 'qb-clothing'
+provide 'norskpixel-clothing'
 
 dependencies {
-  'qb-core',
+  'norskpixel-core',
 }

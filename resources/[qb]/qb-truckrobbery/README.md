@@ -1,5 +1,5 @@
 # norskpixel-truckrobbery
-Armored Truck Robbery For QB-Core
+Armored Truck Robbery For norskpixel-Core
 
 # License
 

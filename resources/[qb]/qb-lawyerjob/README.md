@@ -1,5 +1,5 @@
 # norskpixel-lawyerjob
-Lawyer Job For QB-Core
+Lawyer Job For norskpixel-Core
 
 # License
 

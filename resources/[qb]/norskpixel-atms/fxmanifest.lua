@@ -2,7 +2,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-ATM'
+description 'norskpixel-ATM'
 version '1.0.0'
 
 shared_script 'config/main.lua'

@@ -1,5 +1,5 @@
 # norskpixel-bankrobbery
-Bank Robbery For QB-Core
+Bank Robbery For norskpixel-Core
 
 # License
 

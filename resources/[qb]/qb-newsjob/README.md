@@ -1,5 +1,5 @@
 # norskpixel-newsjob
-News Job For QB-Core
+News Job For norskpixel-Core
 
 # License
 

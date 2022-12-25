@@ -1,5 +1,3 @@
-
-
 QBClothing = {}
 
 var selectedTab = ".characterTab"
@@ -354,7 +352,7 @@ QBClothing.Open = function(data) {
         if (menu.selected) {
             $(".clothing-menu-header").append('<div class="clothing-menu-header-btn '+menu.menu+'Tab selected" data-category="'+menu.menu+'"><p>'+menu.label+'</p></div>')
             $(".clothing-menu-"+menu.menu+"-container").css({"display":"block"});
-
+            
             if (menu.label == "Clothing") {
                 $("#faceoption").css("display", "none");
             } else {

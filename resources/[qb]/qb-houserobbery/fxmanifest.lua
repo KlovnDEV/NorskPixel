@@ -2,7 +2,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-HouseRobbery'
+description 'norskpixel-HouseRobbery'
 version '1.0.0'
 
 shared_script 'config.lua'

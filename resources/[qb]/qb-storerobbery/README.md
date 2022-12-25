@@ -1,5 +1,5 @@
 # norskpixel-storerobbery
-Store Robberies For QB-Core
+Store Robberies For norskpixel-Core
 
 # License
 

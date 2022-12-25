@@ -2,7 +2,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-LapRaces'
+description 'norskpixel-LapRaces'
 version '1.0.0'
 
 ui_page 'html/index.html'

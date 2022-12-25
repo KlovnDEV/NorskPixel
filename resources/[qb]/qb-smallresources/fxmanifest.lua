@@ -2,7 +2,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-SmallResources'
+description 'norskpixel-SmallResources'
 version '1.0.0'
 
 shared_script 'config.lua'

@@ -78,7 +78,7 @@ Languages can be selected and / or added in the config.lua.
 
 - Shared Particle Effects 💨
 
-- QB-Core Framework & SQL Keybinding Support ⚙️
+- norskpixel-Core Framework & SQL Keybinding Support ⚙️
 
 - Further support for shared and couple poses / animations 👫
 
@@ -163,7 +163,7 @@ Alternatively, you can also hide animal emotes.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# QB-Core ⚙️
+# norskpixel-Core ⚙️
 
 **QBCore integration to match their fork of dpemotes**
 
@@ -209,7 +209,7 @@ Framework = false,
 
 * Set the desired language and settings in the config.lua
 
-* Qb-Core server owners, set `Framework = 'norskpixel-core'` in the config file, otherwise leave it as false.
+* norskpixel-Core server owners, set `Framework = 'norskpixel-core'` in the config file, otherwise leave it as false.
 
 * To use the SQL features, install the [oxmysql](https://github.com/overextended/oxmysql) resource then open `keybinds.lua` in RPEmotes. If you do not want to use the SQL features, comment out the `oxmysql` region in fxmanifest.lua.
 

@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-Banking'
+description 'norskpixel-Banking'
 version '1.0.0'
 
 shared_script 'config/config.lua'

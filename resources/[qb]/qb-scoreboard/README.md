@@ -1,5 +1,5 @@
 # norskpixel-scoreboard
-Scoreboard for QB-Core
+Scoreboard for norskpixel-Core
 
 # License
 

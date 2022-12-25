@@ -1,5 +1,5 @@
 # norskpixel-crafting
-Crafting Script For QB-Core
+Crafting Script For norskpixel-Core
 
 # License
 

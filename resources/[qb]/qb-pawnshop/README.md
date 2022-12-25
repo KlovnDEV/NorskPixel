@@ -1,5 +1,5 @@
 # norskpixel-pawnshop
-Pawn Shop For QB-Core
+Pawn Shop For norskpixel-Core
 
 # License
 

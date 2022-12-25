@@ -1,5 +1,5 @@
 # norskpixel-cityhall
-City Services for QB-Core Framework :us:
+City Services for norskpixel-Core Framework :us:
 
 # License
 

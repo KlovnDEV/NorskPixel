@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local resourceName = GetCurrentResourceName()
 
@@ -50,7 +50,7 @@ local function RemoveTargets()
         RemoveTargetPeds(TargetPeds.Store)
     else
         for k, v in pairs(Config.Stores) do
-            exports['qb-target']:RemoveZone(v.shopType .. k)
+            exports['norskpixel-target']:RemoveZone(v.shopType .. k)
         end
     end
 
@@ -58,7 +58,7 @@ local function RemoveTargets()
         RemoveTargetPeds(TargetPeds.ClothingRoom)
     else
         for k, v in pairs(Config.ClothingRooms) do
-            exports['qb-target']:RemoveZone('clothing_' .. (v.job or v.gang) .. k)
+            exports['norskpixel-target']:RemoveZone('clothing_' .. (v.job or v.gang) .. k)
         end
     end
 
@@ -66,7 +66,7 @@ local function RemoveTargets()
         RemoveTargetPeds(TargetPeds.PlayerOutfitRoom)
     else
         for k in pairs(Config.PlayerOutfitRooms) do
-            exports['qb-target']:RemoveZone('playeroutfitroom_' .. k)
+            exports['norskpixel-target']:RemoveZone('playeroutfitroom_' .. k)
         end
     end
 end
@@ -118,7 +118,7 @@ local function LoadPlayerUniform()
             uniform.jobName = uniformData.jobName
             uniform.gender = uniformData.gender
 
-            TriggerEvent("qb-clothing:client:loadOutfit", uniform)
+            TriggerEvent("norskpixel-clothing:client:loadOutfit", uniform)
         end
     end)
 end
@@ -131,10 +131,10 @@ end
 
 local function RemoveManagementMenuItems()
     if ManagementItemIDs.Boss then
-        exports["qb-management"]:RemoveBossMenuItem(ManagementItemIDs.Boss)
+        exports["norskpixel-management"]:RemoveBossMenuItem(ManagementItemIDs.Boss)
     end
     if ManagementItemIDs.Gang then
-        exports["qb-management"]:RemoveGangMenuItem(ManagementItemIDs.Gang)
+        exports["norskpixel-management"]:RemoveGangMenuItem(ManagementItemIDs.Gang)
     end
 end
 
@@ -152,16 +152,16 @@ local function AddManagementMenuItems()
     }
     menuItem.txt = "Manage outfits for Job"
     menuItem.params.args.type = "Job"
-    ManagementItemIDs.Boss = exports["qb-management"]:AddBossMenuItem(menuItem)
+    ManagementItemIDs.Boss = exports["norskpixel-management"]:AddBossMenuItem(menuItem)
 
     menuItem.txt = "Manage outfits for Gang"
     menuItem.params.args.type = "Gang"
-    ManagementItemIDs.Gang = exports["qb-management"]:AddGangMenuItem(menuItem)
+    ManagementItemIDs.Gang = exports["norskpixel-management"]:AddGangMenuItem(menuItem)
 end
 
 local function RemoveRadialMenuOption()
     if MenuItemId then
-        exports['qb-radialmenu']:RemoveOption(MenuItemId)
+        exports['norskpixel-radialmenu']:RemoveOption(MenuItemId)
         MenuItemId = nil
     end
 end
@@ -188,7 +188,7 @@ local function InitAppearance()
             Wait(5000)
             if GetEntityModel(PlayerPedId()) == `player_zero` then
                 print('Player detected as "player_zero", Starting CreateFirstCharacter event')
-                TriggerEvent('qb-clothes:client:CreateFirstCharacter')
+                TriggerEvent('norskpixel-clothes:client:CreateFirstCharacter')
             end
         end
     end)
@@ -206,13 +206,13 @@ end)
 
 AddEventHandler('onResourceStop', function(resource)
     if resource == GetCurrentResourceName() then
-        if Config.UseTarget and GetResourceState("qb-target") == "started" then
+        if Config.UseTarget and GetResourceState("norskpixel-target") == "started" then
             RemoveTargets()
         end
-        if Config.UseRadialMenu and GetResourceState("qb-radialmenu") == "started" then
+        if Config.UseRadialMenu and GetResourceState("norskpixel-radialmenu") == "started" then
             RemoveRadialMenuOption()
         end
-        if Config.BossManagedOutfits and GetResourceState("qb-management") == "started" then
+        if Config.BossManagedOutfits and GetResourceState("norskpixel-management") == "started" then
             RemoveManagementMenuItems()
         end
     end
@@ -295,7 +295,7 @@ local function getNewCharacterConfig()
     return config
 end
 
-RegisterNetEvent('qb-clothes:client:CreateFirstCharacter', function()
+RegisterNetEvent('norskpixel-clothes:client:CreateFirstCharacter', function()
     QBCore.Functions.GetPlayerData(function(pd)
         local gender = "Male"
         local skin = 'mp_m_freemode_01'
@@ -378,7 +378,7 @@ end
 RegisterNetEvent('fivem-appearance:client:openClothingShop', OpenClothingShop)
 
 RegisterNetEvent('fivem-appearance:client:saveOutfit', function()
-    local keyboard = exports['qb-input']:ShowInput({
+    local keyboard = exports['norskpixel-input']:ShowInput({
         header = "Name your outfit",
         submitText = "Save Outfit",
         inputs = {{
@@ -416,9 +416,9 @@ RegisterNetEvent('fivem-appearance:client:saveOutfit', function()
 end)
 
 RegisterNetEvent("fivem-appearance:client:OutfitManagementMenu", function(args)
-    local bossMenuEvent = "qb-bossmenu:client:OpenMenu"
+    local bossMenuEvent = "norskpixel-bossmenu:client:OpenMenu"
     if args.type == "Gang" then
-        bossMenuEvent = "qb-gangmenu:client:OpenMenu"
+        bossMenuEvent = "norskpixel-gangmenu:client:OpenMenu"
     end
     local menuItems = {
         {
@@ -464,7 +464,7 @@ RegisterNetEvent("fivem-appearance:client:OutfitManagementMenu", function(args)
         }
     }
 
-    exports["qb-menu"]:openMenu(menuItems)
+    exports["norskpixel-menu"]:openMenu(menuItems)
 
 end)
 
@@ -499,7 +499,7 @@ RegisterNetEvent("fivem-appearance:client:SaveManagementOutfit", function(mType)
         rankValues = getRankInputValues(QBCore.Shared.Gangs[PlayerGang.name].grades)
     end
 
-    local saveDialog = exports['qb-input']:ShowInput({
+    local saveDialog = exports['norskpixel-input']:ShowInput({
         header = "Management Outfit Details",
         submitText = "Save Outfit",
         inputs = {
@@ -569,7 +569,7 @@ RegisterNetEvent("fivem-appearance:client:DeleteManagementOutfitMenu", function(
                 }
             }
         }
-        exports['qb-menu']:openMenu(outfitMenu)
+        exports['norskpixel-menu']:openMenu(outfitMenu)
     end, args.type)
 end)
 
@@ -604,7 +604,7 @@ RegisterNetEvent("fivem-appearance:client:ChangeManagementOutfitMenu", function(
                 }
             }
         }
-        exports['qb-menu']:openMenu(outfitMenu)
+        exports['norskpixel-menu']:openMenu(outfitMenu)
     end, args.type, getGender())
 end)
 
@@ -690,7 +690,7 @@ function OpenMenu(isPedMenu, backEvent, menuType, menuData)
             }
         }
     end
-    exports['qb-menu']:openMenu(menuItems)
+    exports['norskpixel-menu']:openMenu(menuItems)
 end
 
 RegisterNetEvent("fivem-appearance:client:openJobOutfitsListMenu", function(data)
@@ -701,7 +701,7 @@ RegisterNetEvent("fivem-appearance:client:openJobOutfitsListMenu", function(data
             args = data.menuData
         }
     }}
-    local event = "qb-clothing:client:loadOutfit"
+    local event = "norskpixel-clothing:client:loadOutfit"
     if Config.BossManagedOutfits then
         event = "fivem-appearance:client:changeOutfit"
     end
@@ -716,7 +716,7 @@ RegisterNetEvent("fivem-appearance:client:openJobOutfitsListMenu", function(data
             }
         end
     end
-    exports['qb-menu']:openMenu(menu)
+    exports['norskpixel-menu']:openMenu(menu)
 end)
 
 RegisterNetEvent("fivem-appearance:client:openClothingShopMenu", function(isPedMenu)
@@ -762,7 +762,7 @@ RegisterNetEvent("fivem-appearance:client:changeOutfitMenu", function(data)
                 }
             }
         end
-        exports['qb-menu']:openMenu(outfitMenu)
+        exports['norskpixel-menu']:openMenu(outfitMenu)
     end)
 end)
 
@@ -827,7 +827,7 @@ RegisterNetEvent("fivem-appearance:client:deleteOutfitMenu", function(data)
                 }
             }
         end
-        exports['qb-menu']:openMenu(outfitMenu)
+        exports['norskpixel-menu']:openMenu(outfitMenu)
     end)
 end)
 
@@ -882,7 +882,7 @@ RegisterNetEvent('fivem-appearance:client:reloadSkin', function()
     end)
 end)
 
-RegisterNetEvent("qb-radialmenu:client:onRadialmenuOpen", function()
+RegisterNetEvent("norskpixel-radialmenu:client:onRadialmenuOpen", function()
     if not inZone or not zoneName then
         RemoveRadialMenuOption()
         return
@@ -908,7 +908,7 @@ RegisterNetEvent("qb-radialmenu:client:onRadialmenuOpen", function()
         title = "Surgeon Shop"
     end
 
-    MenuItemId = exports["qb-radialmenu"]:AddOption({
+    MenuItemId = exports["norskpixel-radialmenu"]:AddOption({
         id = "open_clothing_menu",
         title = title,
         icon = "shirt",
@@ -932,7 +932,7 @@ end
 local function OpenOutfitRoom(outfitRoom)
     local isAllowed = isPlayerAllowedForOutfitRoom(outfitRoom)
     if isAllowed then
-        TriggerEvent('qb-clothing:client:openOutfitMenu')
+        TriggerEvent('norskpixel-clothing:client:openOutfitMenu')
     end
 end
 
@@ -1024,18 +1024,18 @@ local function SetupStoreZones()
                 inZone = true
                 local prefix = Config.UseRadialMenu and '' or '[E] '
                 if zoneName == 'clothing' then
-                    exports['qb-core']:DrawText(prefix .. 'Clothing Store')
+                    exports['norskpixel-core']:DrawText(prefix .. 'Clothing Store')
                 elseif zoneName == 'barber' then
-                    exports['qb-core']:DrawText(prefix .. 'Barber')
+                    exports['norskpixel-core']:DrawText(prefix .. 'Barber')
                 elseif zoneName == 'tattoo' then
-                    exports['qb-core']:DrawText(prefix .. 'Tattoo Shop')
+                    exports['norskpixel-core']:DrawText(prefix .. 'Tattoo Shop')
                 elseif zoneName == 'surgeon' then
-                    exports['qb-core']:DrawText(prefix .. 'Plastic Surgeon')
+                    exports['norskpixel-core']:DrawText(prefix .. 'Plastic Surgeon')
                 end
             end
         else
             inZone = false
-            exports['qb-core']:HideText()
+            exports['norskpixel-core']:HideText()
         end
     end)
 end
@@ -1072,12 +1072,12 @@ local function SetupClothingRoomZones()
                 if CheckDuty() then
                     inZone = true
                     local prefix = Config.UseRadialMenu and '' or '[E] '
-                    exports['qb-core']:DrawText(prefix .. 'Clothing Room')
+                    exports['norskpixel-core']:DrawText(prefix .. 'Clothing Room')
                 end
             end
         else
             inZone = false
-            exports['qb-core']:HideText()
+            exports['norskpixel-core']:HideText()
         end
     end)
 end
@@ -1112,11 +1112,11 @@ local function SetupPlayerOutfitRoomZones()
             if isAllowed then
                 inZone = true
                 local prefix = Config.UseRadialMenu and '' or '[E] '
-                exports['qb-core']:DrawText(prefix .. 'Outfits')
+                exports['norskpixel-core']:DrawText(prefix .. 'Outfits')
             end
         else
             inZone = false
-            exports['qb-core']:HideText()
+            exports['norskpixel-core']:HideText()
         end
     end)
 end
@@ -1176,9 +1176,9 @@ local function SetupStoreTargets()
 
         if Config.EnablePedsForShops then
             TargetPeds.Store[k] = CreatePedAtCoords(targetConfig.model, v.coords, targetConfig.scenario)
-            exports['qb-target']:AddTargetEntity(TargetPeds.Store[k], parameters)
+            exports['norskpixel-target']:AddTargetEntity(TargetPeds.Store[k], parameters)
         else
-            exports['qb-target']:AddBoxZone(v.shopType .. k, v.coords, v.length, v.width, {
+            exports['norskpixel-target']:AddBoxZone(v.shopType .. k, v.coords, v.length, v.width, {
                 name = v.shopType .. k,
                 debugPoly = Config.Debug,
                 minZ = v.coords.z - 1,
@@ -1212,10 +1212,10 @@ local function SetupClothingRoomTargets()
 
         if Config.EnablePedsForClothingRooms then
             TargetPeds.ClothingRoom[k] = CreatePedAtCoords(targetConfig.model, v.coords, targetConfig.scenario)
-            exports['qb-target']:AddTargetEntity(TargetPeds.ClothingRoom[k], parameters)
+            exports['norskpixel-target']:AddTargetEntity(TargetPeds.ClothingRoom[k], parameters)
         else
             local key = 'clothing_' .. (v.job or v.gang) .. k
-            exports['qb-target']:AddBoxZone(key, v.coords, v.length, v.width, {
+            exports['norskpixel-target']:AddBoxZone(key, v.coords, v.length, v.width, {
                 name = key,
                 debugPoly = Config.Debug,
                 minZ = v.coords.z - 2,
@@ -1247,9 +1247,9 @@ local function SetupPlayerOutfitRoomTargets()
 
         if Config.EnablePedsForPlayerOutfitRooms then
             TargetPeds.PlayerOutfitRoom[k] = CreatePedAtCoords(targetConfig.model, v.coords, targetConfig.scenario)
-            exports['qb-target']:AddTargetEntity(TargetPeds.ClothingRoom[k], parameters)
+            exports['norskpixel-target']:AddTargetEntity(TargetPeds.ClothingRoom[k], parameters)
         else
-            exports['qb-target']:AddBoxZone('playeroutfitroom_' .. k, v.coords, v.length, v.width, {
+            exports['norskpixel-target']:AddBoxZone('playeroutfitroom_' .. k, v.coords, v.length, v.width, {
                 name = 'playeroutfitroom_' .. k,
                 debugPoly = Config.Debug,
                 minZ = v.coords.z - 2,

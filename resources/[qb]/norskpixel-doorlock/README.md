@@ -1,5 +1,5 @@
 # norskpixel-doorlock
-Doorlock Script For QB-Core
+Doorlock Script For norskpixel-Core
 
 # License
 

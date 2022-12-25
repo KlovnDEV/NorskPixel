@@ -2,7 +2,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-Methlab'
+description 'norskpixel-Methlab'
 version '1.1.0'
 
 ui_page 'html/index.html'

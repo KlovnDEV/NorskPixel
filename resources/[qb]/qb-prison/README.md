@@ -1,5 +1,5 @@
 # norskpixel-prison
-Prison/Jailing Script for QB-Policejob
+Prison/Jailing Script for norskpixel-Policejob
 
 # License
 

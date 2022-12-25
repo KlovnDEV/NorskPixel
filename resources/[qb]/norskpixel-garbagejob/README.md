@@ -1,5 +1,5 @@
-# norskpixel-hotdogjob
-Hot Dog Job For QB-Core
+# norskpixel-garbagejob
+Garbage Job For norskpixel-Core
 
 # License
 

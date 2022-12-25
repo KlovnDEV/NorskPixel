@@ -86,8 +86,8 @@ CreateThread(function()	-- Invisibility --
             if not IsDecorating then
                 if not IsEntityVisible(ped) then
                     SetEntityVisible(ped, 1, 0)
-                    TriggerEvent('QBCore:Notify', "QB-ANTICHEAT: Du var usynlig men er blevet synlig igen!")
-                    TriggerServerEvent("norskpixel-log:server:CreateLog", "anticheat", "Made player visible", "green", "** @everyone " ..GetPlayerName(player).. "** was invisible and has been made visible again by QB-Anticheat")
+                    TriggerEvent('QBCore:Notify', "norskpixel-ANTICHEAT: Du var usynlig men er blevet synlig igen!")
+                    TriggerServerEvent("norskpixel-log:server:CreateLog", "anticheat", "Made player visible", "green", "** @everyone " ..GetPlayerName(player).. "** was invisible and has been made visible again by norskpixel-Anticheat")
                 end
             end
         end

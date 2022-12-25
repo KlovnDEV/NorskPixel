@@ -1,5 +1,5 @@
 # norskpixel-diving
-Diving Script For QB-Core
+Diving Script For norskpixel-Core
 
 # License
 

@@ -1,5 +1,5 @@
 # norskpixel-vineyard
-Vineyard Job For QB-Core
+Vineyard Job For norskpixel-Core
 
 # License
 

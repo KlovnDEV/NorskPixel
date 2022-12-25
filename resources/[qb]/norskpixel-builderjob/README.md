@@ -1,5 +1,5 @@
 # norskpixel-builderjob
-Builder Job For QB-Core
+Builder Job For norskpixel-Core
 
 # License
 

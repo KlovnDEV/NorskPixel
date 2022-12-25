@@ -1,5 +1,5 @@
 # norskpixel-drugs
-Drugs Script For QB-Core
+Drugs Script For norskpixel-Core
 
 # License
 

@@ -1,5 +1,5 @@
 # norskpixel-commandbinding
-Command Binds For QB-Core
+Command Binds For norskpixel-Core
 
 # License
 

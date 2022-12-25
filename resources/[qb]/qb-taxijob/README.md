@@ -1,5 +1,5 @@
 # norskpixel-taxijob
-Taxi Job For QB-Core
+Taxi Job For norskpixel-Core
 
 # License
 

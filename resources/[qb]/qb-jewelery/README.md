@@ -1,5 +1,5 @@
 # norskpixel-jewelery
-Jewelry Robbery For QB-Core
+Jewelry Robbery For norskpixel-Core
 
 # License
 

@@ -1,5 +1,5 @@
 # norskpixel-vehiclefailure
-Vehicle Failure For QB-Core
+Vehicle Failure For norskpixel-Core
 
 # License
 

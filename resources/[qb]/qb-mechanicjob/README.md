@@ -1,5 +1,5 @@
 # norskpixel-mechanicjob
-Mechanic Job for QB-Core Framework :mechanic:
+Mechanic Job for norskpixel-Core Framework :mechanic:
 
 # License
 

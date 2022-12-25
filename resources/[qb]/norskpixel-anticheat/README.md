@@ -1,5 +1,5 @@
 # norskpixel-anticheat
-Anticheat System For QB-Core
+Anticheat System For norskpixel-Core
 
 # License
 

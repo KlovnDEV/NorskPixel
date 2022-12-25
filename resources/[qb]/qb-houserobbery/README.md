@@ -1,5 +1,5 @@
 # norskpixel-houserobbery
-House Robberies For QB-Core
+House Robberies For norskpixel-Core
 
 # License
 

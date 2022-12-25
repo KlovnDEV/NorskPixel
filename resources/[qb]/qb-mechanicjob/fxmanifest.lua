@@ -2,7 +2,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-MechanicJob'
+description 'norskpixel-MechanicJob'
 version '1.0.0'
 
 shared_script 'config.lua'

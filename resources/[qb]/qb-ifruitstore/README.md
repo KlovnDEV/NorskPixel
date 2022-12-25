@@ -1,5 +1,5 @@
 # norskpixel-ifruitstore
-iFruit Robbery For QB-Core
+iFruit Robbery For norskpixel-Core
 
 # License
 

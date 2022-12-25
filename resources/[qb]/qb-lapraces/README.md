@@ -1,5 +1,5 @@
 # norskpixel-lapraces
-Race Track Creation For QB-Core
+Race Track Creation For norskpixel-Core
 
 # License
 

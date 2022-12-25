@@ -1,5 +1,5 @@
 # norskpixel-vehiclesales
-Used Car Sale for QB-Core Framework :blue_car:
+Used Car Sale for norskpixel-Core Framework :blue_car:
 
 # License
 

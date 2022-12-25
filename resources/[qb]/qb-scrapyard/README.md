@@ -1,5 +1,5 @@
 # norskpixel-scrapyard
-Scrapyard For QB-Core
+Scrapyard For norskpixel-Core
 
 # License
 

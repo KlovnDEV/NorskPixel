@@ -2,7 +2,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-VehicleKeys'
+description 'norskpixel-VehicleKeys'
 version '1.0.0'
 
 shared_script 'config.lua'

@@ -1,5 +1,5 @@
 # norskpixel-apartments
-Apartments System for QB-Core Framework :office:
+Apartments System for norskpixel-Core Framework :office:
 
 # License
 

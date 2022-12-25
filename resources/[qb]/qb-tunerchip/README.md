@@ -1,5 +1,5 @@
 # norskpixel-tunerchip
-Vehicle Tuning System for QB-Core Framework ::
+Vehicle Tuning System for norskpixel-Core Framework ::
 
 # License
 

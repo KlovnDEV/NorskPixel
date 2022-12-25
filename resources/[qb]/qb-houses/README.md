@@ -1,5 +1,5 @@
 # norskpixel-houses
-Real Estate for QB-Core Framework :house_with_garden:
+Real Estate for norskpixel-Core Framework :house_with_garden:
 
 # License
 

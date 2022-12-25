@@ -1,5 +1,5 @@
 # norskpixel-shops
-Shops For QB-Core
+Shops For norskpixel-Core
 
 # License
 

@@ -1,5 +1,5 @@
 # norskpixel-logs
-Discord Logging System For QB-Core
+Discord Logging System For norskpixel-Core
 
 # License
 

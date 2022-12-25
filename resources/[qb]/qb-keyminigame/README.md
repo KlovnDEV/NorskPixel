@@ -1,5 +1,5 @@
 # norskpixel-keyminigame
-Keys Mini-Game For QB-Core
+Keys Mini-Game For norskpixel-Core
 
 # License
 

@@ -652,7 +652,7 @@ function QBCore.Player.CreateWalletId()
 	local UniqueFound = false
 	local WalletId = nil
 	while not UniqueFound do
-		WalletId = 'QB-'..math.random(11111111, 99999999)
+		WalletId = 'norskpixel-'..math.random(11111111, 99999999)
 		local query = '%'..WalletId..'%'
 		local result = exports.oxmysql:executeSync('SELECT COUNT(*) as count FROM players WHERE metadata LIKE ?', { query })
 		if result[1].count == 0 then

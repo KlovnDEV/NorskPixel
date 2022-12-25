@@ -1,5 +1,5 @@
-# norskpixel-fitbit
-FitBit For QB-Core
+# norskpixel-hotdogjob
+Hot Dog Job For norskpixel-Core
 
 # License
 

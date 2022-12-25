@@ -1,5 +1,5 @@
 # norskpixel-ambulancejob
-EMS Job and Death/Wound Logic for QB-Core Framework :ambulance:
+EMS Job and Death/Wound Logic for norskpixel-Core Framework :ambulance:
 
 # License
 

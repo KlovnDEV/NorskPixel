@@ -1,5 +1,5 @@
 # norskpixel-streetraces
-Street Racing For QB-Core
+Street Racing For norskpixel-Core
 
 # License
 

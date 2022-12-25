@@ -1,5 +1,5 @@
 # norskpixel-smallresources
-Base scripts for QB-Core Framework :building_construction:
+Base scripts for norskpixel-Core Framework :building_construction:
 
 # License
 

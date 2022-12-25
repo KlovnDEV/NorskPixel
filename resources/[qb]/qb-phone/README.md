@@ -1,5 +1,5 @@
 # norskpixel-phone
-Advanced Phone for QB-Core Framework :iphone:
+Advanced Phone for norskpixel-Core Framework :iphone:
 
 # License
 

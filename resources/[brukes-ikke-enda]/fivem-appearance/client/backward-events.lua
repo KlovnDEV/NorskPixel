@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local resourceName = GetCurrentResourceName()
 
@@ -17,7 +17,7 @@ end
 
 -- Backwards Compatible Events
 
-RegisterNetEvent('qb-clothing:client:openMenu', function()
+RegisterNetEvent('norskpixel-clothing:client:openMenu', function()
     local config = getDefaultConfig()
     config.ped = true
     config.headBlend = true
@@ -29,11 +29,11 @@ RegisterNetEvent('qb-clothing:client:openMenu', function()
     OpenShop(config, true, 'all')
 end)
 
-RegisterNetEvent('qb-clothing:client:openOutfitMenu', function()
-    OpenMenu(nil, "qb-clothing:client:openOutfitMenu", "outfit")
+RegisterNetEvent('norskpixel-clothing:client:openOutfitMenu', function()
+    OpenMenu(nil, "norskpixel-clothing:client:openOutfitMenu", "outfit")
 end)
 
-RegisterNetEvent('qb-clothing:client:loadOutfit', function(oData)
+RegisterNetEvent('norskpixel-clothing:client:loadOutfit', function(oData)
     local ped = PlayerPedId()
 
     local data = oData.outfitData
@@ -148,7 +148,7 @@ RegisterNetEvent('qb-clothing:client:loadOutfit', function(oData)
     end
 end)
 
-RegisterNetEvent("qb-multicharacter:client:chooseChar", function()
+RegisterNetEvent("norskpixel-multicharacter:client:chooseChar", function()
     local ped = PlayerPedId()
     exports[resourceName]:setPedTattoos(ped, {})
     ClearPedDecorations(ped)
