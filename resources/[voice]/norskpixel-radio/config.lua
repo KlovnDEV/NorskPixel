@@ -27,5 +27,5 @@ Config.messages = {
   ['volume_radio'] = 'Ny lydstyrke ',
   ['decrease_radio_volume'] = 'Radio lydstyrken er allerede satt på maks',
   ['increase_radio_volume'] = 'Radio lydstyrken kan ikke være lavere',
-  ['increase_decrease_radio_channel'] = 'Ny kanal ',
+  ['increase_decrease_radio_channel'] = 'Ny kanal: ',
 }
