@@ -1,26 +1,30 @@
-
 fx_version 'cerulean'
+name 'norskpixel-hud'
+description 'norskpixel-hud for fivem, uses library from loading.io'
+ui_page 'html/ui.html'
+author 'CosmoKramer'
 game 'gta5'
 
-description 'norskpixel-hud'
-version '2.1.0'
-
-shared_scripts {
-    --'@norskpixel-core/shared/locale.lua',
-    --'locales/en.lua',
-    'config.lua'
+files {
+    'html/ui.html',
+    'html/script.js',
+    'html/style.css',
+    'html/loading-bar.js',
+    'html/nitrous.png',
+    'html/buckle.ogg',
+    'html/unbuckle.ogg'
 }
 
-client_script 'client.lua'
-server_script 'server.lua'
-lua54 'yes'
 
-ui_page 'html/index.html'
+client_scripts {
+    'config.lua',
+    'client/client.lua',
+    'client/stress.lua',
+    'client/cruisecontrol.lua',
+    'client/seatbelt.lua'
+}
 
-files {
-	'html/*',
-	'html/index.html',
-	'html/styles.css',
-	'html/responsive.css',
-	'html/app.js',
+server_scripts {
+    'config.lua',
+    'server/server.lua'
 }

@@ -1,62 +1,17 @@
-
 Config = {}
-Config.OpenMenu = 'I' -- https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/keyboard/
-Config.StressChance = 0.1 -- Default: 10% -- Percentage Stress Chance When Shooting (0-1)
-Config.UseMPH = false -- If true speed math will be done as MPH, if false KPH will be used (YOU HAVE TO CHANGE CONTENT IN STYLES.CSS TO DISPLAY THE CORRECT TEXT)
-Config.MinimumStress = 50 -- Minimum Stress Level For Screen Shaking
-Config.MinimumSpeedUnbuckled = 80 -- Going Over This Speed Will Cause Stress
-Config.MinimumSpeed = 130 -- Going Over This Speed Will Cause Stress
 
--- Stress
+Config.AlwaysShowRadar = false -- set to true if you always want the radar to show
+Config.ShowStress = true -- set to true if you want a stress indicator
+Config.ShowSpeedo = true -- set to true if you want speedometer enabled
+Config.ShowVoice = true -- set to false if you want to hide mic indicator
+Config.UnitOfSpeed = "mph"  -- "kmh" or "mph"
+Config.UseRadio = true -- Shows headset icon instead of microphone if radio is on - REQUIRES "rp-radio"
+Config.ShowFuel = true -- Show fuel indicator
+Config.ShowNitrous = true -- Show nitrous level
+Config.MinimumStress = 50 -- Change minimum stress amount to shake screen
+Config.MinimumSpeed = 250 -- Change minimum speed that causes stress
 
-Config.WhitelistedWeaponArmed = { -- weapons specifically whitelisted to not show armed mode
-    -- miscellaneous
-    'weapon_petrolcan',
-    'weapon_hazardcan',
-    'weapon_fireextinguisher',
-    -- melee
-    'weapon_dagger',
-    'weapon_bat',
-    'weapon_bottle',
-    'weapon_crowbar',
-    'weapon_flashlight',
-    'weapon_golfclub',
-    'weapon_hammer',
-    'weapon_hatchet',
-    'weapon_knuckle',
-    'weapon_knife',
-    'weapon_machete',
-    'weapon_switchblade',
-    'weapon_nightstick',
-    'weapon_wrench',
-    'weapon_battleaxe',
-    'weapon_poolcue',
-    'weapon_briefcase',
-    'weapon_briefcase_02',
-    'weapon_garbagebag',
-    'weapon_handcuffs',
-    'weapon_bread',
-    'weapon_stone_hatchet',
-    -- throwables
-    'weapon_grenade',
-    'weapon_bzgas',
-    'weapon_molotov',
-    'weapon_stickybomb',
-    'weapon_proxmine',
-    'weapon_snowball',
-    'weapon_pipebomb',
-    'weapon_ball',
-    'weapon_smokegrenade',
-    'weapon_flare'
-}
-
-Config.WhitelistedWeaponStress = {
-    'weapon_petrolcan',
-    'weapon_hazardcan',
-    'weapon_fireextinguisher'
-}
-
-Config.Intensity = {
+Config.Intensity = { -- Change Screen Shake Intensity Relative To Stress Amount
     ["shake"] = {
         [1] = {
             min = 50,
@@ -86,7 +41,7 @@ Config.Intensity = {
     }
 }
 
-Config.EffectInterval = {
+Config.EffectInterval = { -- Change How Often Screen Shake Happens
     [1] = {
         min = 50,
         max = 60,
@@ -114,27 +69,36 @@ Config.EffectInterval = {
     }
 }
 
-Config.Menu = {
-    isOutMapChecked = false, -- isOutMapChecked
-    isOpenMenuSoundsChecked = true, -- isOpenMenuSoundsChecked
-    isResetSoundsChecked = true, -- isResetSoundsChecked
-    isListSoundsChecked = true, -- isListSoundsChecked
-    isMapNotifChecked = true, -- isMapNotifChecked
-    isLowFuelChecked = true, -- isLowFuelChecked
-    isCinematicNotifChecked = true, -- isCinematicNotifChecked
-    isDynamicHealthChecked = true, -- isDynamicHealthChecked
-    isDynamicArmorChecked= true, -- isDynamicArmorChecked
-    isDynamicHungerChecked = true, -- isDynamicHungerChecked
-    isDynamicThirstChecked = true, -- isDynamicThirstChecked
-    isDynamicStressChecked = true, -- isDynamicStressChecked
-    isDynamicOxygenChecked = true, -- isDynamicOxygenChecked
-    isChangeFPSChecked = true, -- isChangeFPSChecked
-    isHideMapChecked = false, -- isHideMapChecked
-    isToggleMapBordersChecked = true, -- isToggleMapBordersChecked
-    isDynamicEngineChecked = true, -- isDynamicEngineChecked
-    isDynamicNitroChecked = true, -- isDynamicNitroChecked
-    isHideCompassChecked = false, -- isHideCompassChecked
-    isHideStreetsChecked = false, -- isHideStreetsChecked
-    isCineamticModeChecked = false, -- isCineamticModeChecked
-    isToggleMapShapeChecked = 'square', -- isToggleMapShapeChecked
-}
+-- Seatbelt
+
+-- ejectVelocity - The gta velocity at which ejection from the car should happen when not wearing seatbelt
+--      This is NOT MPH or KPH but instead GTA Velocity. to convert:
+--      MPH -> Vel = (MPH / 2.236936)
+--      KPH -> Vel = (KPH / 3.6)
+--  Default: (60 / 2.236936)
+Config.ejectVelocity = (60 / 2.236936)
+
+-- unknownEjectVelocity - This value should be equal or greater than the value of ejectVelocity
+--      The purpose of this variable is confusing https://docs.fivem.net/natives/?_0x4D3118ED
+--  Default: (70 / 2.236936)
+Config.unknownEjectVelocity = (70 / 2.236936)
+
+-- unknownModifier - Don't know the purpose of this value, probably best to leave as is
+Config.unknownModifier = 17.0 --  Default: 17.0
+
+-- minDamage - Minimum damage given when ejected from car?
+Config.minDamage = 2000 -- 0-2000?
+
+-- playSound - Should a buckle/unbuckle sound be played
+Config.playSound = true
+
+-- volume - sets how loud the buckle/unbuckle sound plays
+Config.volume = 0.25 -- 0.0 - 1.0
+
+-- volume - sets how loud the buckle/unbuckle sound plays for passenger if playSoundForPassengers = true
+Config.passengerVolume = 0.20 -- 0.0 - 1.0
+
+--  playSoundForPassengers
+--      true = Play for everyone in the car
+--      false = Play only for the person who triggers it
+Config.playSoundForPassengers = true

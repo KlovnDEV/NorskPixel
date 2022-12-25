@@ -1,24 +1,22 @@
-# norskpixel-hud
-Player HUD System written in vue.js
+# QBCore Cosmo HUD
 
-![image](https://user-images.githubusercontent.com/57848836/130697551-a4d84a65-a2a1-47d3-b014-5d915e22e294.png)
+Simple status HUD for FiveM and ESX inspired by NoPixel 3.0.
 
-Color Palette: https://quasar.dev/style/color-palette
+## Installation
 
-# License
+Put this in your server.cfg: setr game_enableFlyThroughWindscreen true
 
-    QBCore Framework
-    Copyright (C) 2021 Joshua Eger
+Put 'norskpixel-hud' into your 'resources' folder.
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+Edit config.lua to your liking.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+Do not change the name or it will not work.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>
+
+## Thanks to
+https://forum.cfx.re/u/Antoine for the colored map.
+https://loading.io/progress/ for the loading-Bar library.
+https://github.com/zfbx/zSeatbelt for the seatbelt code
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
