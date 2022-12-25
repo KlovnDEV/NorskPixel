@@ -1,4 +1,4 @@
-# qb-inventory
+# norskpixel-inventory
 
 # License
 
@@ -19,12 +19,12 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>
 
 ## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
-- [qb-logs](https://github.com/qbcore-framework/qb-logs) - For logging transfer and other history
-- [qb-traphouse](https://github.com/qbcore-framework/qb-traphouse) - Trap house system for qbcore
+- [norskpixel-core](https://github.com/qbcore-framework/norskpixel-core)
+- [norskpixel-logs](https://github.com/qbcore-framework/norskpixel-logs) - For logging transfer and other history
+- [norskpixel-traphouse](https://github.com/qbcore-framework/norskpixel-traphouse) - Trap house system for qbcore
 - [rp-radio](https://github.com/qbcore-framework/rp-radio) - Radio system for communication
-- [qb-drugs](https://github.com/qbcore-framework/qb-drugs) -  Drugs and weeds system
-- [qb-shops](https://github.com/qbcore-framework/qb-shops) - Needed in order to add shops
+- [norskpixel-drugs](https://github.com/qbcore-framework/norskpixel-drugs) -  Drugs and weeds system
+- [norskpixel-shops](https://github.com/qbcore-framework/norskpixel-shops) - Needed in order to add shops
 
 ## Screenshots
 ![General](https://i.imgur.com/GR0MDFN.png)
@@ -47,16 +47,16 @@
 ## Installation
 ### Manual
 - Download the script and put it in the `[qb]` directory.
-- Import `qb-inventory.sql` in your database
+- Import `norskpixel-inventory.sql` in your database
 - Add the following code to your server.cfg/resouces.cfg
 ```
-ensure qb-core
-ensure qb-logs
-ensure qb-inventory
-ensure qb-traphouse
-ensure qb-radio
-ensure qb-drugs
-ensure qb-shops
+ensure norskpixel-core
+ensure norskpixel-logs
+ensure norskpixel-inventory
+ensure norskpixel-traphouse
+ensure norskpixel-radio
+ensure norskpixel-drugs
+ensure norskpixel-shops
 ```
 
 ## Configuration

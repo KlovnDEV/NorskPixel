@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local housePlants = {}
 local insideHouse = false
 local currentHouse = nil
@@ -19,8 +19,8 @@ DrawText3Ds = function(x, y, z, text)
     ClearDrawOrigin()
 end
 
-RegisterNetEvent('qb-weed:client:getHousePlants', function(house)
-    QBCore.Functions.TriggerCallback('qb-weed:server:getBuildingPlants', function(plants)
+RegisterNetEvent('norskpixel-weed:client:getHousePlants', function(house)
+    QBCore.Functions.TriggerCallback('norskpixel-weed:server:getBuildingPlants', function(plants)
         currentHouse = house
         housePlants[currentHouse] = plants
         insideHouse = true
@@ -126,7 +126,7 @@ CreateThread(function()
                                         else
                                             amount = math.random(1, 6)
                                         end
-                                        TriggerServerEvent('qb-weed:server:harvestPlant', currentHouse, amount, plantData["plantSort"]["name"], plantData["plantStats"]["plantId"])
+                                        TriggerServerEvent('norskpixel-weed:server:harvestPlant', currentHouse, amount, plantData["plantSort"]["name"], plantData["plantStats"]["plantId"])
                                     end, function() -- Cancel
                                         ClearPedTasks(ped)
                                         QBCore.Functions.Notify("Handlingen afbrudt", "error")
@@ -147,7 +147,7 @@ CreateThread(function()
                                     flags = 16,
                                 }, {}, {}, function() -- Done
                                     ClearPedTasks(ped)
-                                    TriggerServerEvent('qb-weed:server:removeDeathPlant', currentHouse, plantData["plantStats"]["plantId"])
+                                    TriggerServerEvent('norskpixel-weed:server:removeDeathPlant', currentHouse, plantData["plantStats"]["plantId"])
                                 end, function() -- Cancel
                                     ClearPedTasks(ped)
                                     QBCore.Functions.Notify("Handlingen afbrudt", "error")
@@ -164,7 +164,7 @@ CreateThread(function()
     end
 end)
 
-RegisterNetEvent('qb-weed:client:leaveHouse', function()
+RegisterNetEvent('norskpixel-weed:client:leaveHouse', function()
     despawnHousePlants()
     SetTimeout(1000, function()
         if currentHouse ~= nil then
@@ -175,11 +175,11 @@ RegisterNetEvent('qb-weed:client:leaveHouse', function()
     end)
 end)
 
-RegisterNetEvent('qb-weed:client:refreshHousePlants', function(house)
+RegisterNetEvent('norskpixel-weed:client:refreshHousePlants', function(house)
     if currentHouse ~= nil and currentHouse == house then
         despawnHousePlants()
         SetTimeout(500, function()
-            QBCore.Functions.TriggerCallback('qb-weed:server:getBuildingPlants', function(plants)
+            QBCore.Functions.TriggerCallback('norskpixel-weed:server:getBuildingPlants', function(plants)
                 currentHouse = house
                 housePlants[currentHouse] = plants
                 spawnHousePlants()
@@ -188,11 +188,11 @@ RegisterNetEvent('qb-weed:client:refreshHousePlants', function(house)
     end
 end)
 
-RegisterNetEvent('qb-weed:client:refreshPlantStats', function()
+RegisterNetEvent('norskpixel-weed:client:refreshPlantStats', function()
     if insideHouse then
         despawnHousePlants()
         SetTimeout(500, function()
-            QBCore.Functions.TriggerCallback('qb-weed:server:getBuildingPlants', function(plants)
+            QBCore.Functions.TriggerCallback('norskpixel-weed:server:getBuildingPlants', function(plants)
                 housePlants[currentHouse] = plants
                 spawnHousePlants()
             end, currentHouse)
@@ -207,7 +207,7 @@ function loadAnimDict(dict)
     end
 end
 
-RegisterNetEvent('qb-weed:client:placePlant', function(type, item)
+RegisterNetEvent('norskpixel-weed:client:placePlant', function(type, item)
     local ped = PlayerPedId()
     local plyCoords = GetOffsetFromEntityInWorldCoords(ped, 0, 0.75, 0)
     local plantData = {
@@ -234,8 +234,8 @@ RegisterNetEvent('qb-weed:client:placePlant', function(type, item)
                 flags = 16,
             }, {}, {}, function() -- Done
                 ClearPedTasks(ped)            
-                TriggerServerEvent('qb-weed:server:placePlant', json.encode(plantData["plantCoords"]), type, currentHouse)
-                TriggerServerEvent('qb-weed:server:removeSeed', item.slot, type)
+                TriggerServerEvent('norskpixel-weed:server:placePlant', json.encode(plantData["plantCoords"]), type, currentHouse)
+                TriggerServerEvent('norskpixel-weed:server:removeSeed', item.slot, type)
             end, function() -- Cancel
                 ClearPedTasks(ped)
                 QBCore.Functions.Notify("Handlingen afbrudt", "error")
@@ -248,7 +248,7 @@ RegisterNetEvent('qb-weed:client:placePlant', function(type, item)
     end
 end)
 
-RegisterNetEvent('qb-weed:client:foodPlant', function(item)
+RegisterNetEvent('norskpixel-weed:client:foodPlant', function(item)
     local plantData = {}
     if currentHouse ~= nil then
         if ClosestTarget ~= 0 then
@@ -292,7 +292,7 @@ RegisterNetEvent('qb-weed:client:foodPlant', function(item)
                     }, {}, {}, function() -- Done
                         ClearPedTasks(ped)
                         local newFood = math.random(40, 60)
-                        TriggerServerEvent('qb-weed:server:foodPlant', currentHouse, newFood, plantData["plantSort"]["name"], plantData["plantStats"]["plantId"])
+                        TriggerServerEvent('norskpixel-weed:server:foodPlant', currentHouse, newFood, plantData["plantSort"]["name"], plantData["plantStats"]["plantId"])
                     end, function() -- Cancel
                         ClearPedTasks(ped)
                         QBCore.Functions.Notify("Handlingen afbrudt", "error")

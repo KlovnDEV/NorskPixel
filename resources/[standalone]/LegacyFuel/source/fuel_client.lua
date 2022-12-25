@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local isNearPump = false
 local isFueling = false
 local currentFuel = 0.0

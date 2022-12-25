@@ -1,9 +1,9 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 --TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
 
-QBCore.Functions.CreateCallback('qb-fishing:GetItemData', function(source, cb, itemName)
+QBCore.Functions.CreateCallback('norskpixel-fishing:GetItemData', function(source, cb, itemName)
 	local retval = false
 	local Player = QBCore.Functions.GetPlayer(source)
 	if Player ~= nil then
@@ -16,11 +16,11 @@ end)
 
 QBCore.Functions.CreateUseableItem("fishingrod", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
-    TriggerClientEvent('qb-fishing:tryToFish', source)
+    TriggerClientEvent('norskpixel-fishing:tryToFish', source)
 end)
 
-RegisterServerEvent('qb-fishing:receiveFish')
-AddEventHandler('qb-fishing:receiveFish', function(cabin, house)
+RegisterServerEvent('norskpixel-fishing:receiveFish')
+AddEventHandler('norskpixel-fishing:receiveFish', function(cabin, house)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local luck = math.random(1, 100)
@@ -92,8 +92,8 @@ AddEventHandler('qb-fishing:receiveFish', function(cabin, house)
     end
 end)
 
-RegisterServerEvent("qb-fishing:sellFish")
-AddEventHandler("qb-fishing:sellFish", function()
+RegisterServerEvent("norskpixel-fishing:sellFish")
+AddEventHandler("norskpixel-fishing:sellFish", function()
     local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
 	local price = 0

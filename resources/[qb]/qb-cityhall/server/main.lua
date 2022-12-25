@@ -1,11 +1,11 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local DrivingSchools = {
 }
 
-RegisterServerEvent('qb-cityhall:server:requestId')
-AddEventHandler('qb-cityhall:server:requestId', function(identityData)
+RegisterServerEvent('norskpixel-cityhall:server:requestId')
+AddEventHandler('norskpixel-cityhall:server:requestId', function(identityData)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local info = {}
@@ -33,21 +33,21 @@ AddEventHandler('qb-cityhall:server:requestId', function(identityData)
 end)
 
 
-RegisterServerEvent('qb-cityhall:server:getIDs')
-AddEventHandler('qb-cityhall:server:getIDs', function()
+RegisterServerEvent('norskpixel-cityhall:server:getIDs')
+AddEventHandler('norskpixel-cityhall:server:getIDs', function()
     local src = source
     GiveStarterItems(src)
 end)
 
 
-RegisterServerEvent('qb-cityhall:server:sendDriverTest')
-AddEventHandler('qb-cityhall:server:sendDriverTest', function()
+RegisterServerEvent('norskpixel-cityhall:server:sendDriverTest')
+AddEventHandler('norskpixel-cityhall:server:sendDriverTest', function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     for k, v in pairs(DrivingSchools) do
         local SchoolPlayer = QBCore.Functions.GetPlayerByCitizenId(v)
         if SchoolPlayer ~= nil then
-            TriggerClientEvent("qb-cityhall:client:sendDriverEmail", SchoolPlayer.PlayerData.source, Player.PlayerData.charinfo)
+            TriggerClientEvent("norskpixel-cityhall:client:sendDriverEmail", SchoolPlayer.PlayerData.source, Player.PlayerData.charinfo)
         else
             local mailData = {
                 sender = "DinKørerskole",
@@ -55,7 +55,7 @@ AddEventHandler('qb-cityhall:server:sendDriverTest', function()
                 message = "Goddag,<br /><br />Vi har modtaget en besked, der er en der gerne vil have førerret.<br />Hvis du er villig til at lærer, så kontakt os på:<br />Naam: <strong>".. Player.PlayerData.charinfo.firstname .. " " .. Player.PlayerData.charinfo.lastname .. "<br />Telefon number: <strong>"..Player.PlayerData.charinfo.phone.."</strong><br/><br/>Med venlig hilsen,<br />City of Los Santos",
                 button = {}
             }
-            TriggerEvent("qb-phone:server:sendNewEventMail", v, mailData)
+            TriggerEvent("norskpixel-phone:server:sendNewEventMail", v, mailData)
         end
     end
     TriggerClientEvent('QBCore:Notify', src, 'En email er blevet sendt ud til kørerskolerne, og vil blive kontaktet automatisk', "success", 5000)
@@ -79,8 +79,8 @@ function IsAvailableJob(job)
     return retval
 end
 
-RegisterServerEvent('qb-cityhall:server:ApplyJob')
-AddEventHandler('qb-cityhall:server:ApplyJob', function(job)
+RegisterServerEvent('norskpixel-cityhall:server:ApplyJob')
+AddEventHandler('norskpixel-cityhall:server:ApplyJob', function(job)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local Ped = GetPlayerPed(src)
@@ -148,8 +148,8 @@ function IsWhitelistedSchool(citizenid)
     return retval
 end
 
-RegisterServerEvent('qb-cityhall:server:banPlayer')
-AddEventHandler('qb-cityhall:server:banPlayer', function()
+RegisterServerEvent('norskpixel-cityhall:server:banPlayer')
+AddEventHandler('norskpixel-cityhall:server:banPlayer', function()
     local src = source
     TriggerClientEvent('chatMessage', -1, "QB Anti-Cheat", "error", GetPlayerName(src).." er blevet banned for at sende POST Request's ")
     exports.oxmysql:insert('INSERT INTO bans (name, license, discord, ip, reason, expire, bannedby) VALUES (?, ?, ?, ?, ?, ?, ?)', {

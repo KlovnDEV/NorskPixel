@@ -1,6 +1,6 @@
 
 -- Variables
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local PlayerData = QBCore.Functions.GetPlayerData() -- Just for resource restart (same as event handler)
 local inPDM = false
 local inLuxury = false
@@ -14,8 +14,8 @@ AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
     PlayerData = QBCore.Functions.GetPlayerData()
     local citizenid = PlayerData.citizenid
     local gameTime = GetGameTimer()
-    TriggerServerEvent('qb-vehicleshop:server:addPlayer', citizenid, gameTime)
-    TriggerServerEvent('qb-vehicleshop:server:checkFinance')
+    TriggerServerEvent('norskpixel-vehicleshop:server:addPlayer', citizenid, gameTime)
+    TriggerServerEvent('norskpixel-vehicleshop:server:checkFinance')
 end)
 
 RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
@@ -24,7 +24,7 @@ end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     local citizenid = PlayerData.citizenid
-    TriggerServerEvent('qb-vehicleshop:server:removePlayer', citizenid)
+    TriggerServerEvent('norskpixel-vehicleshop:server:removePlayer', citizenid)
     PlayerData = {}
 end)
 
@@ -35,7 +35,7 @@ local vehHeaderMenu = {
         header = 'Køretøjs muligheder',
         txt = 'Åbn menuen for at se mere',
         params = {
-            event = 'qb-vehicleshop:client:showVehOptions'
+            event = 'norskpixel-vehicleshop:client:showVehOptions'
         }
     }
 }
@@ -45,7 +45,7 @@ local financeMenu = {
         header = 'Finanseret køretøjer',
         txt = 'Kig din samling igennem',
         params = {
-            event = 'qb-vehicleshop:client:getVehicles'
+            event = 'norskpixel-vehicleshop:client:getVehicles'
         }
     }
 }
@@ -54,7 +54,7 @@ local returnTestDrive = {
     {
         header = 'Færdiggør prøvekørsel',
         params = {
-            event = 'qb-vehicleshop:client:TestDriveReturn'
+            event = 'norskpixel-vehicleshop:client:TestDriveReturn'
         }
     }
 }
@@ -128,9 +128,9 @@ local function createTestDriveReturn()
     testDriveZone:onPlayerInOut(function(isPointInside)
         if isPointInside and IsPedInAnyVehicle(PlayerPedId()) then
                 SetVehicleForwardSpeed(GetVehiclePedIsIn(PlayerPedId(), false), 0)
-            exports['qb-menu']:openMenu(returnTestDrive)
+            exports['norskpixel-menu']:openMenu(returnTestDrive)
         else
-            exports['qb-menu']:closeMenu()
+            exports['norskpixel-menu']:closeMenu()
         end
     end)
 end
@@ -165,18 +165,18 @@ local function createVehZones(ClosestShop) -- This will create an entity zone if
         combo:onPlayerInOut(function(isPointInside)
             if isPointInside then
                 if PlayerData.job.name == Config.Shops[ClosestShop]['Job'] or Config.Shops[ClosestShop]['Job'] == 'none' then
-                    exports['qb-menu']:showHeader(vehHeaderMenu)
+                    exports['norskpixel-menu']:showHeader(vehHeaderMenu)
                 end
             else
-                exports['qb-menu']:closeMenu()
+                exports['norskpixel-menu']:closeMenu()
             end
         end)
     else
-        exports['qb-target']:AddGlobalVehicle({
+        exports['norskpixel-target']:AddGlobalVehicle({
             options = {
                 {
                     type = "client",
-                    event = "qb-vehicleshop:client:showVehOptions",
+                    event = "norskpixel-vehicleshop:client:showVehOptions",
                     icon = "fas fa-car",
                     label = "Køretøjs muligheder",
                     canInteract = function(entity)
@@ -225,7 +225,7 @@ pdm:onPlayerInOut(function(isPointInside)
                         header = 'Prøvetur',
                         txt = 'Tag en prøvetur med det valgte køretøj',
                         params = {
-                            event = 'qb-vehicleshop:client:TestDrive',
+                            event = 'norskpixel-vehicleshop:client:TestDrive',
                         }
                     },
                     {
@@ -233,7 +233,7 @@ pdm:onPlayerInOut(function(isPointInside)
                         txt = 'Køb det valgte køretøj',
                         params = {
                             isServer = true,
-                            event = 'qb-vehicleshop:server:buyShowroomVehicle',
+                            event = 'norskpixel-vehicleshop:server:buyShowroomVehicle',
                             args = {
                                 buyVehicle = Config.Shops[ClosestShop]["ShowroomVehicles"][ClosestVehicle].chosenVehicle
                             }
@@ -243,7 +243,7 @@ pdm:onPlayerInOut(function(isPointInside)
                         header = 'Finansier køretøj',
                         txt = 'Finansier det valgte køretøj',
                         params = {
-                            event = 'qb-vehicleshop:client:openFinance',
+                            event = 'norskpixel-vehicleshop:client:openFinance',
                             args = {
                                 price = getVehPrice(),
                                 buyVehicle = Config.Shops[ClosestShop]["ShowroomVehicles"][ClosestVehicle].chosenVehicle
@@ -254,7 +254,7 @@ pdm:onPlayerInOut(function(isPointInside)
                         header = 'Skift køretøj',
                         txt = 'Skift det valgte køretøj',
                         params = {
-                            event = 'qb-vehicleshop:client:vehCategories',
+                            event = 'norskpixel-vehicleshop:client:vehCategories',
                         }
                     },
                 }
@@ -299,7 +299,7 @@ luxury:onPlayerInOut(function(isPointInside)
                         txt = 'Send den nærmeste spiller på en prøvetur',
                         params = {
                             isServer = true,
-                            event = 'qb-vehicleshop:server:customTestDrive',
+                            event = 'norskpixel-vehicleshop:server:customTestDrive',
                             args = {
                                 testVehicle = Config.Shops[ClosestShop]["ShowroomVehicles"][ClosestVehicle].chosenVehicle
                             }
@@ -310,7 +310,7 @@ luxury:onPlayerInOut(function(isPointInside)
                         txt = 'Sælg køretøj til nærmeste spiller',
                         params = {
                             isServer = true,
-                            event = 'qb-vehicleshop:server:sellShowroomVehicle',
+                            event = 'norskpixel-vehicleshop:server:sellShowroomVehicle',
                             args = {
                                 buyVehicle = Config.Shops[ClosestShop]["ShowroomVehicles"][ClosestVehicle].chosenVehicle
                             }
@@ -320,7 +320,7 @@ luxury:onPlayerInOut(function(isPointInside)
                         header = 'Finansier køretøj',
                         txt = 'Finansier nærmeste køretøj',
                         params = {
-                            event = 'qb-vehicleshop:client:openCustomFinance',
+                            event = 'norskpixel-vehicleshop:client:openCustomFinance',
                             args = {
                                 price = getVehPrice(),
                                 buyVehicle = Config.Shops[ClosestShop]["ShowroomVehicles"][ClosestVehicle].chosenVehicle
@@ -331,7 +331,7 @@ luxury:onPlayerInOut(function(isPointInside)
                         header = 'Skift køretøj',
                         txt = 'Skift det valgte køretøj',
                         params = {
-                            event = 'qb-vehicleshop:client:vehCategories',
+                            event = 'norskpixel-vehicleshop:client:vehCategories',
                         }
                     },
                 }
@@ -346,15 +346,15 @@ end)
 
 -- Events
 
-RegisterNetEvent('qb-vehicleshop:client:homeMenu', function()
-    exports['qb-menu']:openMenu(vehicleMenu)
+RegisterNetEvent('norskpixel-vehicleshop:client:homeMenu', function()
+    exports['norskpixel-menu']:openMenu(vehicleMenu)
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:showVehOptions', function()
-    exports['qb-menu']:openMenu(vehicleMenu)
+RegisterNetEvent('norskpixel-vehicleshop:client:showVehOptions', function()
+    exports['norskpixel-menu']:openMenu(vehicleMenu)
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:TestDrive', function()
+RegisterNetEvent('norskpixel-vehicleshop:client:TestDrive', function()
     if not inTestDrive and ClosestVehicle ~= 0 then
         inTestDrive = true
         local prevCoords = GetEntityCoords(PlayerPedId())
@@ -365,7 +365,7 @@ RegisterNetEvent('qb-vehicleshop:client:TestDrive', function()
             SetEntityAsMissionEntity(veh, true, true)
             SetEntityHeading(veh, Config.Shops[ClosestShop]["VehicleSpawn"].w)
             TriggerEvent('vehiclekeys:client:SetOwner', QBCore.Functions.GetPlate(veh))
-            TriggerServerEvent('qb-vehicletuning:server:SaveVehicleProps', QBCore.Functions.GetVehicleProperties(veh))
+            TriggerServerEvent('norskpixel-vehicletuning:server:SaveVehicleProps', QBCore.Functions.GetVehicleProperties(veh))
             testDriveVeh = veh
             QBCore.Functions.Notify('Du har '..Config.Shops[ClosestShop]["TestDriveTimeLimit"]..' minutter tilbage')
             SetTimeout(Config.Shops[ClosestShop]["TestDriveTimeLimit"] * 60000, function()
@@ -385,7 +385,7 @@ RegisterNetEvent('qb-vehicleshop:client:TestDrive', function()
     end
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:customTestDrive', function(data)
+RegisterNetEvent('norskpixel-vehicleshop:client:customTestDrive', function(data)
     if not inTestDrive then
         inTestDrive = true
         local vehicle = data.testVehicle
@@ -396,7 +396,7 @@ RegisterNetEvent('qb-vehicleshop:client:customTestDrive', function(data)
             SetEntityAsMissionEntity(veh, true, true)
             SetEntityHeading(veh, Config.Shops[ClosestShop]["VehicleSpawn"].w)
             TriggerEvent('vehiclekeys:client:SetOwner', QBCore.Functions.GetPlate(veh))
-            TriggerServerEvent('qb-vehicletuning:server:SaveVehicleProps', QBCore.Functions.GetVehicleProperties(veh))
+            TriggerServerEvent('norskpixel-vehicletuning:server:SaveVehicleProps', QBCore.Functions.GetVehicleProperties(veh))
             testDriveVeh = veh
             QBCore.Functions.Notify('Du har '..Config.Shops[ClosestShop]["TestDriveTimeLimit"]..' minutter tilbage')
             SetTimeout(Config.Shops[ClosestShop]["TestDriveTimeLimit"] * 60000, function()
@@ -416,26 +416,26 @@ RegisterNetEvent('qb-vehicleshop:client:customTestDrive', function(data)
     end
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:TestDriveReturn', function()
+RegisterNetEvent('norskpixel-vehicleshop:client:TestDriveReturn', function()
     local ped = PlayerPedId()
     local veh = GetVehiclePedIsIn(ped)
     if veh == testDriveVeh then
         testDriveVeh = 0
         inTestDrive = false
         QBCore.Functions.DeleteVehicle(veh)
-        exports['qb-menu']:closeMenu()
+        exports['norskpixel-menu']:closeMenu()
         testDriveZone:destroy()
     else
         QBCore.Functions.Notify('Dette er ikke dit prøve køretøj', 'error')
     end
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:vehCategories', function()
+RegisterNetEvent('norskpixel-vehicleshop:client:vehCategories', function()
     local categoryMenu = {
         {
             header = '< Tilbage',
             params = {
-                event = 'qb-vehicleshop:client:homeMenu'
+                event = 'norskpixel-vehicleshop:client:homeMenu'
             }
         }
     }
@@ -443,22 +443,22 @@ RegisterNetEvent('qb-vehicleshop:client:vehCategories', function()
         categoryMenu[#categoryMenu + 1] = {
             header = v,
             params = {
-                event = 'qb-vehicleshop:client:openVehCats',
+                event = 'norskpixel-vehicleshop:client:openVehCats',
                 args = {
                     catName = k
                 }
             }
         }
     end
-    exports['qb-menu']:openMenu(categoryMenu)
+    exports['norskpixel-menu']:openMenu(categoryMenu)
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:openVehCats', function(data)
+RegisterNetEvent('norskpixel-vehicleshop:client:openVehCats', function(data)
     local vehicleMenu = {
         {
             header = '< Tilbage',
             params = {
-                event = 'qb-vehicleshop:client:vehCategories'
+                event = 'norskpixel-vehicleshop:client:vehCategories'
             }
         }
     }
@@ -469,7 +469,7 @@ RegisterNetEvent('qb-vehicleshop:client:openVehCats', function(data)
                 txt = 'Pris: DKK'..v.price,
                 params = {
                     isServer = true,
-                    event = 'qb-vehicleshop:server:swapVehicle',
+                    event = 'norskpixel-vehicleshop:server:swapVehicle',
                     args = {
                         toVehicle = v.model,
                         ClosestVehicle = ClosestVehicle,
@@ -479,11 +479,11 @@ RegisterNetEvent('qb-vehicleshop:client:openVehCats', function(data)
             }
         end
     end
-    exports['qb-menu']:openMenu(vehicleMenu)
+    exports['norskpixel-menu']:openMenu(vehicleMenu)
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:openFinance', function(data)
-    local dialog = exports['qb-input']:ShowInput({
+RegisterNetEvent('norskpixel-vehicleshop:client:openFinance', function(data)
+    local dialog = exports['norskpixel-input']:ShowInput({
         header = getVehBrand():upper().. ' ' ..data.buyVehicle:upper().. ' - DKK' ..data.price,
         submitText = "Indsend",
         inputs = {
@@ -503,13 +503,13 @@ RegisterNetEvent('qb-vehicleshop:client:openFinance', function(data)
     })
     if dialog then
         if not dialog.downPayment or not dialog.paymentAmount then return end
-        TriggerServerEvent('qb-vehicleshop:server:financeVehicle', dialog.downPayment, dialog.paymentAmount, data.buyVehicle)
+        TriggerServerEvent('norskpixel-vehicleshop:server:financeVehicle', dialog.downPayment, dialog.paymentAmount, data.buyVehicle)
     end
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:openCustomFinance', function(data)
+RegisterNetEvent('norskpixel-vehicleshop:client:openCustomFinance', function(data)
     TriggerEvent('animations:client:EmoteCommandStart', {"tablet2"})
-    local dialog = exports['qb-input']:ShowInput({
+    local dialog = exports['norskpixel-input']:ShowInput({
         header = getVehBrand():upper().. ' ' ..data.buyVehicle:upper().. ' - DKK' ..data.price,
         submitText = "Indsend",
         inputs = {
@@ -530,11 +530,11 @@ RegisterNetEvent('qb-vehicleshop:client:openCustomFinance', function(data)
     if dialog then
         if not dialog.downPayment or not dialog.paymentAmount then return end
         TriggerEvent('animations:client:EmoteCommandStart', {"c"})
-        TriggerServerEvent('qb-vehicleshop:server:sellfinanceVehicle', dialog.downPayment, dialog.paymentAmount, data.buyVehicle)
+        TriggerServerEvent('norskpixel-vehicleshop:server:sellfinanceVehicle', dialog.downPayment, dialog.paymentAmount, data.buyVehicle)
     end
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:swapVehicle', function(data)
+RegisterNetEvent('norskpixel-vehicleshop:client:swapVehicle', function(data)
     if Config.Shops[data.ClosestShop]["ShowroomVehicles"][data.ClosestVehicle].chosenVehicle ~= data.toVehicle then
         local closestVehicle, closestDistance = QBCore.Functions.GetClosestVehicle(vector3(Config.Shops[data.ClosestShop]["ShowroomVehicles"][data.ClosestVehicle].coords.x, Config.Shops[data.ClosestShop]["ShowroomVehicles"][data.ClosestVehicle].coords.y, Config.Shops[data.ClosestShop]["ShowroomVehicles"][data.ClosestVehicle].coords.z))
         if closestVehicle == 0 then return end
@@ -557,7 +557,7 @@ RegisterNetEvent('qb-vehicleshop:client:swapVehicle', function(data)
     end
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:buyShowroomVehicle', function(vehicle, plate)
+RegisterNetEvent('norskpixel-vehicleshop:client:buyShowroomVehicle', function(vehicle, plate)
     QBCore.Functions.SpawnVehicle(vehicle, function(veh)
         TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
         exports['LegacyFuel']:SetFuel(veh, 100)
@@ -565,12 +565,12 @@ RegisterNetEvent('qb-vehicleshop:client:buyShowroomVehicle', function(vehicle, p
         SetEntityHeading(veh, Config.Shops[ClosestShop]["VehicleSpawn"].w)
         SetEntityAsMissionEntity(veh, true, true)
         TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
-        TriggerServerEvent("qb-vehicletuning:server:SaveVehicleProps", QBCore.Functions.GetVehicleProperties(veh))
+        TriggerServerEvent("norskpixel-vehicletuning:server:SaveVehicleProps", QBCore.Functions.GetVehicleProperties(veh))
     end, Config.Shops[ClosestShop]["VehicleSpawn"], true)
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:getVehicles', function()
-    QBCore.Functions.TriggerCallback('qb-vehicleshop:server:getVehicles', function(vehicles)
+RegisterNetEvent('norskpixel-vehicleshop:client:getVehicles', function()
+    QBCore.Functions.TriggerCallback('norskpixel-vehicleshop:server:getVehicles', function(vehicles)
         local ownedVehicles = {}
         for k,v in pairs(vehicles) do
             if v.balance then
@@ -580,7 +580,7 @@ RegisterNetEvent('qb-vehicleshop:client:getVehicles', function()
                     header = ''..name..'',
                     txt = 'Reg.Nr.: ' ..plate,
                     params = {
-                        event = 'qb-vehicleshop:client:getVehicleFinance',
+                        event = 'norskpixel-vehicleshop:client:getVehicleFinance',
                         args = {
                             vehiclePlate = plate,
                             balance = v.balance,
@@ -591,16 +591,16 @@ RegisterNetEvent('qb-vehicleshop:client:getVehicles', function()
                 }
             end
         end
-        exports['qb-menu']:openMenu(ownedVehicles)
+        exports['norskpixel-menu']:openMenu(ownedVehicles)
     end)
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:getVehicleFinance', function(data)
+RegisterNetEvent('norskpixel-vehicleshop:client:getVehicleFinance', function(data)
     local vehFinance = {
         {
             header = '< Tilbage',
             params = {
-                event = 'qb-vehicleshop:client:getVehicles'
+                event = 'norskpixel-vehicleshop:client:getVehicles'
             }
         },
         {
@@ -621,7 +621,7 @@ RegisterNetEvent('qb-vehicleshop:client:getVehicleFinance', function(data)
         {
             header = 'Lav en betaling plan',
             params = {
-                event = 'qb-vehicleshop:client:financePayment',
+                event = 'norskpixel-vehicleshop:client:financePayment',
                 args = {
                     vehData = data,
                     paymentsLeft = data.paymentsleft,
@@ -633,7 +633,7 @@ RegisterNetEvent('qb-vehicleshop:client:getVehicleFinance', function(data)
             header = 'Udbetaling',
             params = {
                 isServer = true,
-                event = 'qb-vehicleshop:server:financePaymentFull',
+                event = 'norskpixel-vehicleshop:server:financePaymentFull',
                 args = {
                     vehBalance = data.balance,
                     vehPlate = data.vehiclePlate
@@ -641,11 +641,11 @@ RegisterNetEvent('qb-vehicleshop:client:getVehicleFinance', function(data)
             }
         },
     }
-    exports['qb-menu']:openMenu(vehFinance)
+    exports['norskpixel-menu']:openMenu(vehFinance)
 end)
 
-RegisterNetEvent('qb-vehicleshop:client:financePayment', function(data)
-    local dialog = exports['qb-input']:ShowInput({
+RegisterNetEvent('norskpixel-vehicleshop:client:financePayment', function(data)
+    local dialog = exports['norskpixel-input']:ShowInput({
         header = 'finansiering',
         submitText = "Betaling",
         inputs = {
@@ -659,7 +659,7 @@ RegisterNetEvent('qb-vehicleshop:client:financePayment', function(data)
     })
     if dialog then
         if not dialog.paymentAmount then return end
-        TriggerServerEvent('qb-vehicleshop:server:financePayment', dialog.paymentAmount, data.vehData)
+        TriggerServerEvent('norskpixel-vehicleshop:server:financePayment', dialog.paymentAmount, data.vehData)
     end
 end)
 
@@ -689,9 +689,9 @@ CreateThread(function()
 
     financeZone:onPlayerInOut(function(isPointInside)
         if isPointInside then
-            exports['qb-menu']:showHeader(financeMenu)
+            exports['norskpixel-menu']:showHeader(financeMenu)
         else
-            exports['qb-menu']:closeMenu()
+            exports['norskpixel-menu']:closeMenu()
         end
     end)
 end)

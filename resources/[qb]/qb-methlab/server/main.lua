@@ -1,12 +1,12 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 Citizen.CreateThread(function()
     Config.CurrentLab = math.random(1, #Config.Locations["laboratories"])
     --print('Lab entry has been set to location: '..Config.CurrentLab)
 end)
 
-QBCore.Functions.CreateCallback('qb-methlab:server:GetData', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-methlab:server:GetData', function(source, cb)
     local LabData = {
         CurrentLab = Config.CurrentLab
     }
@@ -17,7 +17,7 @@ QBCore.Functions.CreateUseableItem("labkey", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
     local LabKey = item.info.lab ~= nil and item.info.lab or 1
 
-    TriggerClientEvent('qb-methlab:client:UseLabKey', source, LabKey)
+    TriggerClientEvent('norskpixel-methlab:client:UseLabKey', source, LabKey)
 end)
 
 function GenerateRandomLab()
@@ -25,8 +25,8 @@ function GenerateRandomLab()
     return Lab
 end
 
-RegisterServerEvent('qb-methlab:server:loadIngredients')
-AddEventHandler('qb-methlab:server:loadIngredients', function()
+RegisterServerEvent('norskpixel-methlab:server:loadIngredients')
+AddEventHandler('norskpixel-methlab:server:loadIngredients', function()
 	local Player = QBCore.Functions.GetPlayer(tonumber(source))
     local hydrochloricacid = Player.Functions.GetItemByName('hydrochloricacid')
     local ephedrine = Player.Functions.GetItemByName('ephedrine')
@@ -45,8 +45,8 @@ AddEventHandler('qb-methlab:server:loadIngredients', function()
 	end
 end)
 
-RegisterServerEvent('qb-methlab:server:CheckIngredients')
-AddEventHandler('qb-methlab:server:CheckIngredients', function()
+RegisterServerEvent('norskpixel-methlab:server:CheckIngredients')
+AddEventHandler('norskpixel-methlab:server:CheckIngredients', function()
 	local Player = QBCore.Functions.GetPlayer(tonumber(source))
     local hydrochloricacid = Player.Functions.GetItemByName('hydrochloricacid')
     local ephedrine = Player.Functions.GetItemByName('ephedrine')
@@ -54,7 +54,7 @@ AddEventHandler('qb-methlab:server:CheckIngredients', function()
 	if Player.PlayerData.items ~= nil then 
         if (hydrochloricacid ~= nil and ephedrine ~= nil and acetone ~= nil) then 
             if hydrochloricacid.amount >= Config.HydrochloricAcid and ephedrine.amount >= Config.Ephedrine and acetone.amount >= Config.Acetone then 
-                TriggerClientEvent("qb-methlab:client:loadIngredients", source)
+                TriggerClientEvent("norskpixel-methlab:client:loadIngredients", source)
             else
                 TriggerClientEvent('QBCore:Notify', source, "Du har ikke de korrekte varer", 'error')
             end
@@ -66,15 +66,15 @@ AddEventHandler('qb-methlab:server:CheckIngredients', function()
 	end
 end)
 
-RegisterServerEvent('qb-methlab:server:breakMeth')
-AddEventHandler('qb-methlab:server:breakMeth', function()
+RegisterServerEvent('norskpixel-methlab:server:breakMeth')
+AddEventHandler('norskpixel-methlab:server:breakMeth', function()
 	local Player = QBCore.Functions.GetPlayer(tonumber(source))
     local meth = Player.Functions.GetItemByName('methtray')
     local puremethtray = Player.Functions.GetItemByName('puremethtray')
 
 	if Player.PlayerData.items ~= nil then 
         if (meth ~= nil or puremethtray ~= nil) then 
-                TriggerClientEvent("qb-methlab:client:breakMeth", source)
+                TriggerClientEvent("norskpixel-methlab:client:breakMeth", source)
         else
             TriggerClientEvent('QBCore:Notify', source, "Du har ikke de korrekte varer", 'error')   
         end
@@ -83,8 +83,8 @@ AddEventHandler('qb-methlab:server:breakMeth', function()
 	end
 end)
 
-RegisterServerEvent('qb-methlab:server:getmethtray')
-AddEventHandler('qb-methlab:server:getmethtray', function(amount)
+RegisterServerEvent('norskpixel-methlab:server:getmethtray')
+AddEventHandler('norskpixel-methlab:server:getmethtray', function(amount)
     local Player = QBCore.Functions.GetPlayer(tonumber(source))
     
     local methtray = Player.Functions.GetItemByName('methtray')
@@ -111,8 +111,8 @@ AddEventHandler('qb-methlab:server:getmethtray', function(amount)
     end
 end)
 
-RegisterServerEvent('qb-methlab:server:receivemethtray')
-AddEventHandler('qb-methlab:server:receivemethtray', function()
+RegisterServerEvent('norskpixel-methlab:server:receivemethtray')
+AddEventHandler('norskpixel-methlab:server:receivemethtray', function()
     local chance = math.random(1, 100)
     print(chance)
     if chance >= 90 then

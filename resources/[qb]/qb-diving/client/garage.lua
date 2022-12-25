@@ -8,7 +8,7 @@ local p = nil
 function FetchBoathouse()
     if p then return end
     p = promise.new()
-    QBCore.Functions.TriggerCallback("qb-diving:server:GetMyBoats", function(result)
+    QBCore.Functions.TriggerCallback("norskpixel-diving:server:GetMyBoats", function(result)
         p:resolve(result)
     end, CurrentDock)
     return Citizen.Await(p)
@@ -17,7 +17,7 @@ end
 function FetchDepot()
     if p then return end
     p = promise.new()
-    QBCore.Functions.TriggerCallback("qb-diving:server:GetDepotBoats", function(result)
+    QBCore.Functions.TriggerCallback("norskpixel-diving:server:GetDepotBoats", function(result)
         p:resolve(result)
     end)
     return Citizen.Await(p)
@@ -61,11 +61,11 @@ function MenuBoatDepot()
             header = "⬅ Luk menuen",
             txt = "",
             params = {
-                event = "qb-menu:client:closeMenu"
+                event = "norskpixel-menu:client:closeMenu"
             }
 
         }
-        exports['qb-menu']:openMenu(depotMenu)
+        exports['norskpixel-menu']:openMenu(depotMenu)
     end
 
 end
@@ -109,17 +109,17 @@ function MenuGarage()
             header = "⬅ Luk menuen",
             txt = "",
             params = {
-                event = "qb-menu:client:closeMenu"
+                event = "norskpixel-menu:client:closeMenu"
             }
 
         }
-        exports['qb-menu']:openMenu(boathouseMenu)
+        exports['norskpixel-menu']:openMenu(boathouseMenu)
     end
 
 end
 
 function CloseMenu()
-    exports['qb-menu']:closeMenu()
+    exports['norskpixel-menu']:closeMenu()
 end
 
 local function RemoveVehicle()
@@ -129,7 +129,7 @@ local function RemoveVehicle()
     if Boat then
         local CurVeh = GetVehiclePedIsIn(ped)
         local totalFuel = exports['LegacyFuel']:GetFuel(CurVeh)
-        TriggerServerEvent('qb-diving:server:SetBoatState', QBCore.Functions.GetPlate(CurVeh), 1, ClosestDock, totalFuel)
+        TriggerServerEvent('norskpixel-diving:server:SetBoatState', QBCore.Functions.GetPlate(CurVeh), 1, ClosestDock, totalFuel)
 
         QBCore.Functions.DeleteVehicle(CurVeh)
         SetEntityCoords(ped, QBBoatshop.Docks[ClosestDock].coords.take.x, QBBoatshop.Docks[ClosestDock].coords.take.y, QBBoatshop.Docks[ClosestDock].coords.take.z)
@@ -193,7 +193,7 @@ RegisterNetEvent('diving:client:TakeOutDepot', function(data)
                 TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
                 TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
                 SetVehicleEngineOn(veh, true, true)
-                TriggerServerEvent('qb-diving:server:SetBoatState', QBCore.Functions.GetPlate(veh), 0, CurrentDock, 100)
+                TriggerServerEvent('norskpixel-diving:server:SetBoatState', QBCore.Functions.GetPlate(veh), 0, CurrentDock, 100)
                 CloseMenu()
             end, QBBoatshop.Docks[CurrentDock].coords.put, true)
         else

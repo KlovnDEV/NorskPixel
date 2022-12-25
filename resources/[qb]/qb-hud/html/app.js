@@ -435,75 +435,75 @@ document.onkeyup = function (data) {
 
 function closeMenu() {
   $("#openmenu").fadeOut(550);
-  $.post('https://qb-hud/closeMenu');
+  $.post('https://norskpixel-hud/closeMenu');
 }
 function restartHud() {
   closeMenu()
-  $.post('https://qb-hud/restartHud');
+  $.post('https://norskpixel-hud/restartHud');
 }
 function resetStorage() {
   closeMenu()
-  $.post('https://qb-hud/resetStorage');
+  $.post('https://norskpixel-hud/resetStorage');
 }
 function showOutMap() {
-  $.post('https://qb-hud/showOutMap');
+  $.post('https://norskpixel-hud/showOutMap');
 }
 function showBrand() {
   $.post('https://lj-brand/showBrand');
 }
 function openMenuSounds() {
-  $.post('https://qb-hud/openMenuSounds');
+  $.post('https://norskpixel-hud/openMenuSounds');
 }
 function resetHudSounds() {
-  $.post('https://qb-hud/resetHudSounds');
+  $.post('https://norskpixel-hud/resetHudSounds');
 }
 function checklistSounds() {
-  $.post('https://qb-hud/checklistSounds');
+  $.post('https://norskpixel-hud/checklistSounds');
 }
 function showMapNotif() {
-  $.post('https://qb-hud/showMapNotif');
+  $.post('https://norskpixel-hud/showMapNotif');
 }
 function showFuelAlert() {
-  $.post('https://qb-hud/showFuelAlert');
+  $.post('https://norskpixel-hud/showFuelAlert');
 }
 function showCinematicNotif() {
-  $.post('https://qb-hud/showCinematicNotif');
+  $.post('https://norskpixel-hud/showCinematicNotif');
 }
 function dynamicHealth() {
-  $.post('https://qb-hud/dynamicHealth');
+  $.post('https://norskpixel-hud/dynamicHealth');
 }
 function dynamicArmor() {
-  $.post('https://qb-hud/dynamicArmor');
+  $.post('https://norskpixel-hud/dynamicArmor');
 }
 function dynamicHunger() {
-  $.post('https://qb-hud/dynamicHunger');
+  $.post('https://norskpixel-hud/dynamicHunger');
 }
 function dynamicThirst() {
-  $.post('https://qb-hud/dynamicThirst');
+  $.post('https://norskpixel-hud/dynamicThirst');
 }
 function dynamicStress() {
-  $.post('https://qb-hud/dynamicStress');
+  $.post('https://norskpixel-hud/dynamicStress');
 }
 function dynamicOxygen() {
-  $.post('https://qb-hud/dynamicOxygen');
+  $.post('https://norskpixel-hud/dynamicOxygen');
 }
 function dynamicEngine() {
-  $.post('https://qb-hud/dynamicEngine');
+  $.post('https://norskpixel-hud/dynamicEngine');
 }
 function dynamicNitro() {
-  $.post('https://qb-hud/dynamicNitro');
+  $.post('https://norskpixel-hud/dynamicNitro');
 }
 function ToggleMapShape() {
-  $.post('https://qb-hud/ToggleMapShape');
+  $.post('https://norskpixel-hud/ToggleMapShape');
 }
 function changeFPS() {
-  $.post('https://qb-hud/changeFPS');
+  $.post('https://norskpixel-hud/changeFPS');
 }
 function ToggleMapBorders() {
-  $.post('https://qb-hud/ToggleMapBorders');
+  $.post('https://norskpixel-hud/ToggleMapBorders');
 }
 function HideMap() {
-  $.post('https://qb-hud/HideMap');
+  $.post('https://norskpixel-hud/HideMap');
 }
 function HideCompass() {
   $.post('https://lj-compass/HideCompass');
@@ -512,7 +512,7 @@ function HideStreets() {
   $.post('https://lj-compass/HideStreets');
 }
 function cinematicMode() {
-  $.post('https://qb-hud/cinematicMode');
+  $.post('https://norskpixel-hud/cinematicMode');
 }
 
 $(document).ready(function () {

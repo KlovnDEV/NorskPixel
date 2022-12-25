@@ -1,7 +1,7 @@
 
 local PlayerInjuries = {}
 local PlayerWeaponWounds = {}
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 -- Events
 
 -- Compatibility with txAdmin Menu's heal options.
@@ -25,7 +25,7 @@ RegisterNetEvent('hospital:server:SendToBed', function(bedId, isRevive)
 	TriggerClientEvent('hospital:client:SendToBed', src, bedId, Config.Locations["beds"][bedId], isRevive)
 	TriggerClientEvent('hospital:client:SetBed', -1, bedId, true)
 	Player.Functions.RemoveMoney("bank", Config.BillCost , "respawned-at-hospital")
-	TriggerEvent('qb-bossmenu:server:addAccountMoney', "ambulance", Config.BillCost)
+	TriggerEvent('norskpixel-bossmenu:server:addAccountMoney', "ambulance", Config.BillCost)
 	TriggerClientEvent('hospital:client:SendBillEmail', src, Config.BillCost)
 end)
 
@@ -42,7 +42,7 @@ RegisterNetEvent('hospital:server:RespawnAtHospital', function()
 				TriggerClientEvent('QBCore:Notify', src, 'Alle dine ejendele er blevet frataget dig..', 'error')
 			end
 			Player.Functions.RemoveMoney("bank", Config.BillCost, "respawned-at-hospital")
-			TriggerEvent('qb-bossmenu:server:addAccountMoney', "ambulance", Config.BillCost)
+			TriggerEvent('norskpixel-bossmenu:server:addAccountMoney', "ambulance", Config.BillCost)
 			TriggerClientEvent('hospital:client:SendBillEmail', src, Config.BillCost)
 			return
 		end
@@ -56,7 +56,7 @@ RegisterNetEvent('hospital:server:RespawnAtHospital', function()
 		TriggerClientEvent('QBCore:Notify', src, 'Alle dine ejendele er blevet frataget dig..', 'error')
 	end
 	Player.Functions.RemoveMoney("bank", Config.BillCost, "respawned-at-hospital")
-	TriggerEvent('qb-bossmenu:server:addAccountMoney', "ambulance", Config.BillCost)
+	TriggerEvent('norskpixel-bossmenu:server:addAccountMoney', "ambulance", Config.BillCost)
 	TriggerClientEvent('hospital:client:SendBillEmail', src, Config.BillCost)
 end)
 

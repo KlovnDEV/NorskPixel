@@ -1,5 +1,5 @@
 
-QBCore = exports['qb-core']:GetCoreObject()
+QBCore = exports['norskpixel-core']:GetCoreObject()
 PlayerJob = {}
 local policeThreadRunning = false
 
@@ -86,13 +86,13 @@ end
 -- Events
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-    QBCore.Functions.TriggerCallback('qb-diving:server:GetBusyDocks', function(Docks)
+    QBCore.Functions.TriggerCallback('norskpixel-diving:server:GetBusyDocks', function(Docks)
         QBBoatshop.Locations["berths"] = Docks
     end)
 
-    QBCore.Functions.TriggerCallback('qb-diving:server:GetDivingConfig', function(Config, Area)
+    QBCore.Functions.TriggerCallback('norskpixel-diving:server:GetDivingConfig', function(Config, Area)
         QBDiving.Locations = Config
-        TriggerEvent('qb-diving:client:SetDivingLocation', Area)
+        TriggerEvent('norskpixel-diving:client:SetDivingLocation', Area)
     end)
 
     PlayerJob = QBCore.Functions.GetPlayerData().job
@@ -158,7 +158,7 @@ RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
     end
 end)
 
-RegisterNetEvent('qb-diving:client:UseJerrycan', function()
+RegisterNetEvent('norskpixel-diving:client:UseJerrycan', function()
     local ped = PlayerPedId()
     local boat = IsPedInAnyBoat(ped)
     if boat then
@@ -171,7 +171,7 @@ RegisterNetEvent('qb-diving:client:UseJerrycan', function()
         }, {}, {}, {}, function() -- Done
             exports['LegacyFuel']:SetFuel(curVeh, 100)
             QBCore.Functions.Notify('Båden er blevet fuldt tanket', 'success')
-            TriggerServerEvent('qb-diving:server:RemoveItem', 'jerry_can', 1)
+            TriggerServerEvent('norskpixel-diving:server:RemoveItem', 'jerry_can', 1)
             TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items['jerry_can'], "remove")
         end, function() -- Cancel
             QBCore.Functions.Notify('Handlingen afbrudt!', 'error')

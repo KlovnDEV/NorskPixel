@@ -24,7 +24,7 @@ CreateThread(function()
                             TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_STAND_IMPATIENT", 0, true)
                             QBCore.Functions.Progressbar("sell_coral_items", "Tjekker lommer for koraller...", math.random(2000, 4000), false, true, {}, {}, {}, {}, function() -- Done
                                 ClearPedTasks(PlayerPedId())
-                                TriggerServerEvent('qb-diving:server:SellCoral')
+                                TriggerServerEvent('norskpixel-diving:server:SellCoral')
                                 notInteressted = true
                                 SetTimeout(0, ClearTimeOut)
                                 LocalPlayer.state:set("inv_busy", false, true)

@@ -1,4 +1,4 @@
-# qb-spawn
+# norskpixel-spawn
 Spawn Selector for QB-Core Framework :eagle:
 
 # License
@@ -21,10 +21,10 @@ Spawn Selector for QB-Core Framework :eagle:
 
 
 ## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
-- [qb-houses](https://github.com/qbcore-framework/qb-houses) - Lets player select the house
-- [qb-apartment](https://github.com/qbcore-framework/qb-apartment) - Lets player select the apartment
-- [qb-garages](https://github.com/qbcore-framework/qb-houses) - For house garages
+- [norskpixel-core](https://github.com/qbcore-framework/norskpixel-core)
+- [norskpixel-houses](https://github.com/qbcore-framework/norskpixel-houses) - Lets player select the house
+- [norskpixel-apartment](https://github.com/qbcore-framework/norskpixel-apartment) - Lets player select the apartment
+- [norskpixel-garages](https://github.com/qbcore-framework/norskpixel-houses) - For house garages
 
 ## Screenshots
 ![Spawn selector](https://i.imgur.com/nz0mPGe.png)
@@ -35,13 +35,13 @@ Spawn Selector for QB-Core Framework :eagle:
 ## Installation
 ### Manual
 - Download the script and put it in the `[qb]` directory.
-- Import `qb-spawn.sql` in your database
+- Import `norskpixel-spawn.sql` in your database
 - Add the following code to your server.cfg/resouces.cfg
 ```
-ensure qb-core
-ensure qb-spawn
-ensure qb-apartmen
-ensure qb-garages
+ensure norskpixel-core
+ensure norskpixel-spawn
+ensure norskpixel-apartmen
+ensure norskpixel-garages
 ```
 
 ## Configuration

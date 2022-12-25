@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local houseowneridentifier = {}
 local houseownercid = {}
 local housekeyholders = {}
@@ -33,8 +33,8 @@ CreateThread(function()
             }
         end
     end
-    TriggerClientEvent("qb-garages:client:houseGarageConfig", -1, HouseGarages)
-    TriggerClientEvent("qb-houses:client:setHouseConfig", -1, Config.Houses)
+    TriggerClientEvent("norskpixel-garages:client:houseGarageConfig", -1, HouseGarages)
+    TriggerClientEvent("norskpixel-houses:client:setHouseConfig", -1, Config.Houses)
 end)
 
 CreateThread(function()
@@ -59,7 +59,7 @@ end)
 
 QBCore.Commands.Add("decorate", "Dekorer bolig", {}, false, function(source)
     local src = source
-    TriggerClientEvent("qb-houses:client:decorate", src)
+    TriggerClientEvent("norskpixel-houses:client:decorate", src)
 end)
 
 QBCore.Commands.Add("createhouse", "Opret bolig (Kun ejendomsmæglere)", {{name = "price", help = "Pris på boligen"}, {name = "tier", help = "Navn på ganstanden(ingen beskrivelse)"}}, true, function(source, args)
@@ -68,7 +68,7 @@ QBCore.Commands.Add("createhouse", "Opret bolig (Kun ejendomsmæglere)", {{name 
     local price = tonumber(args[1])
     local tier = tonumber(args[2])
     if Player.PlayerData.job.name == "realestate" then
-        TriggerClientEvent("qb-houses:client:createHouses", src, price, tier)
+        TriggerClientEvent("norskpixel-houses:client:createHouses", src, price, tier)
     else
         TriggerClientEvent('QBCore:Notify', src, "Kun ejendomsmæglere kan brugge denne command", "error")
     end
@@ -78,7 +78,7 @@ QBCore.Commands.Add("addgarage", "Tilføj garage (Kun ejendomsmæglere)", {}, fa
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.PlayerData.job.name == "realestate" then
-        TriggerClientEvent("qb-houses:client:addGarage", src)
+        TriggerClientEvent("norskpixel-houses:client:addGarage", src)
     else
         TriggerClientEvent('QBCore:Notify', src, "Kun ejendomsmæglere kan brugge denne command", "error")
     end
@@ -86,7 +86,7 @@ end)
 
 QBCore.Commands.Add("ring", "Ring på døren", {}, false, function(source)
     local src = source
-    TriggerClientEvent('qb-houses:client:RequestRing', src)
+    TriggerClientEvent('norskpixel-houses:client:RequestRing', src)
 end)
 
 -- Item
@@ -94,7 +94,7 @@ end)
 QBCore.Functions.CreateUseableItem("police_stormram", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
     if (Player.PlayerData.job.name == "police" and Player.PlayerData.job.onduty) then
-        TriggerClientEvent("qb-houses:client:HomeInvasion", source)
+        TriggerClientEvent("norskpixel-houses:client:HomeInvasion", source)
     else
         TriggerClientEvent('QBCore:Notify', source, "Dette er kun muligt til politi og læger!", "error")
     end
@@ -153,19 +153,19 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-houses:server:setHouses', function()
+RegisterNetEvent('norskpixel-houses:server:setHouses', function()
     local src = source
-    TriggerClientEvent("qb-houses:client:setHouseConfig", src, Config.Houses)
+    TriggerClientEvent("norskpixel-houses:client:setHouseConfig", src, Config.Houses)
 end)
 
-RegisterNetEvent('qb-houses:server:createBlip', function()
+RegisterNetEvent('norskpixel-houses:server:createBlip', function()
     local src = source
     local ped = GetPlayerPed(src)
     local coords = GetEntityCoords(ped)
-    TriggerClientEvent("qb-houses:client:createBlip", -1, coords)
+    TriggerClientEvent("norskpixel-houses:client:createBlip", -1, coords)
 end)
 
-RegisterNetEvent('qb-houses:server:addNewHouse', function(street, coords, price, tier)
+RegisterNetEvent('norskpixel-houses:server:addNewHouse', function(street, coords, price, tier)
     local src = source
     local street = street:gsub("%'", "")
     local price = tonumber(price)
@@ -185,23 +185,23 @@ RegisterNetEvent('qb-houses:server:addNewHouse', function(street, coords, price,
         garage = {},
         decorations = {}
     }
-    TriggerClientEvent("qb-houses:client:setHouseConfig", -1, Config.Houses)
+    TriggerClientEvent("norskpixel-houses:client:setHouseConfig", -1, Config.Houses)
     TriggerClientEvent('QBCore:Notify', src, "Du har tilføjet en bolig: " .. label)
-    TriggerEvent('qb-log:server:CreateLog', 'house', 'House Created:', 'green', '**Address**:\n'..label..'\n\n**Listing Price**:\n$'..price..'\n\n**Tier**:\n'..tier..'\n\n**Listing Agent**:\n'..GetPlayerName(src))
+    TriggerEvent('norskpixel-log:server:CreateLog', 'house', 'House Created:', 'green', '**Address**:\n'..label..'\n\n**Listing Price**:\n$'..price..'\n\n**Tier**:\n'..tier..'\n\n**Listing Agent**:\n'..GetPlayerName(src))
 end)
 
-RegisterNetEvent('qb-houses:server:addGarage', function(house, coords)
+RegisterNetEvent('norskpixel-houses:server:addGarage', function(house, coords)
     local src = source
     exports.oxmysql:execute('UPDATE houselocations SET garage = ? WHERE name = ?', {json.encode(coords), house})
     local garageInfo = {
         label = Config.Houses[house].adress,
         takeVehicle = coords
     }
-    TriggerClientEvent("qb-garages:client:addHouseGarage", -1, house, garageInfo)
+    TriggerClientEvent("norskpixel-garages:client:addHouseGarage", -1, house, garageInfo)
     TriggerClientEvent('QBCore:Notify', src, "Du har tilføjet en garage: " .. garageInfo.label)
 end)
 
-RegisterNetEvent('qb-houses:server:viewHouse', function(house)
+RegisterNetEvent('norskpixel-houses:server:viewHouse', function(house)
     local src = source
     local pData = QBCore.Functions.GetPlayer(src)
 
@@ -210,11 +210,11 @@ RegisterNetEvent('qb-houses:server:viewHouse', function(house)
     local bankfee = (houseprice / 100 * 10)
     local taxes = (houseprice / 100 * 6)
 
-    TriggerClientEvent('qb-houses:client:viewHouse', src, houseprice, brokerfee, bankfee, taxes,
+    TriggerClientEvent('norskpixel-houses:client:viewHouse', src, houseprice, brokerfee, bankfee, taxes,
         pData.PlayerData.charinfo.firstname, pData.PlayerData.charinfo.lastname)
 end)
 
-RegisterNetEvent('qb-houses:server:buyHouse', function(house)
+RegisterNetEvent('norskpixel-houses:server:buyHouse', function(house)
     local src = source
     local pData = QBCore.Functions.GetPlayer(src)
     local price = Config.Houses[house].price
@@ -237,32 +237,32 @@ RegisterNetEvent('qb-houses:server:buyHouse', function(house)
         }
         exports.oxmysql:insert('INSERT INTO player_houses (house, identifier, citizenid, keyholders) VALUES (?, ?, ?, ?)',{house, pData.PlayerData.license, pData.PlayerData.citizenid, json.encode(housekeyholders[house])})
         exports.oxmysql:execute('UPDATE houselocations SET owned = ? WHERE name = ?', {1, house})
-        TriggerClientEvent('qb-houses:client:SetClosestHouse', src)
+        TriggerClientEvent('norskpixel-houses:client:SetClosestHouse', src)
         pData.Functions.RemoveMoney('bank', HousePrice, "bought-house") -- 21% Extra house costs
-        TriggerEvent('qb-bossmenu:server:addAccountMoney', "realestate", (HousePrice / 100) * math.random(18, 25))
-        TriggerEvent('qb-log:server:CreateLog', 'house', 'House Purchased:', 'green', '**Address**:\n'..house:upper()..'\n\n**Purchase Price**:\n$'..HousePrice..'\n\n**Purchaser**:\n'..pData.PlayerData.charinfo.firstname..' '..pData.PlayerData.charinfo.lastname)
+        TriggerEvent('norskpixel-bossmenu:server:addAccountMoney', "realestate", (HousePrice / 100) * math.random(18, 25))
+        TriggerEvent('norskpixel-log:server:CreateLog', 'house', 'House Purchased:', 'green', '**Address**:\n'..house:upper()..'\n\n**Purchase Price**:\n$'..HousePrice..'\n\n**Purchaser**:\n'..pData.PlayerData.charinfo.firstname..' '..pData.PlayerData.charinfo.lastname)
     else
         TriggerClientEvent('QBCore:Notify', source, "Du har ikke penge nok..", "error")
     end
 end)
 
-RegisterNetEvent('qb-houses:server:lockHouse', function(bool, house)
-    TriggerClientEvent('qb-houses:client:lockHouse', -1, bool, house)
+RegisterNetEvent('norskpixel-houses:server:lockHouse', function(bool, house)
+    TriggerClientEvent('norskpixel-houses:client:lockHouse', -1, bool, house)
 end)
 
-RegisterNetEvent('qb-houses:server:SetRamState', function(bool, house)
+RegisterNetEvent('norskpixel-houses:server:SetRamState', function(bool, house)
     Config.Houses[house].IsRaming = bool
-    TriggerClientEvent('qb-houses:server:SetRamState', -1, bool, house)
+    TriggerClientEvent('norskpixel-houses:server:SetRamState', -1, bool, house)
 end)
 
-RegisterNetEvent('qb-houses:server:giveKey', function(house, target)
+RegisterNetEvent('norskpixel-houses:server:giveKey', function(house, target)
     local pData = QBCore.Functions.GetPlayer(target)
     housekeyholders[house][#housekeyholders[house]+1] = pData.PlayerData.citizenid
     exports.oxmysql:execute('UPDATE player_houses SET keyholders = ? WHERE house = ?',
         {json.encode(housekeyholders[house]), house})
 end)
 
-RegisterNetEvent('qb-houses:server:removeHouseKey', function(house, citizenData)
+RegisterNetEvent('norskpixel-houses:server:removeHouseKey', function(house, citizenData)
     local src = source
     local newHolders = {}
     if housekeyholders[house] then
@@ -277,34 +277,34 @@ RegisterNetEvent('qb-houses:server:removeHouseKey', function(house, citizenData)
     exports.oxmysql:execute('UPDATE player_houses SET keyholders = ? WHERE house = ?', {json.encode(housekeyholders[house]), house})
 end)
 
-RegisterNetEvent('qb-houses:server:OpenDoor', function(target, house)
+RegisterNetEvent('norskpixel-houses:server:OpenDoor', function(target, house)
     local OtherPlayer = QBCore.Functions.GetPlayer(target)
     if OtherPlayer then
-        TriggerClientEvent('qb-houses:client:SpawnInApartment', OtherPlayer.PlayerData.source, house)
+        TriggerClientEvent('norskpixel-houses:client:SpawnInApartment', OtherPlayer.PlayerData.source, house)
     end
 end)
 
-RegisterNetEvent('qb-houses:server:RingDoor', function(house)
+RegisterNetEvent('norskpixel-houses:server:RingDoor', function(house)
     local src = source
-    TriggerClientEvent('qb-houses:client:RingDoor', -1, src, house)
+    TriggerClientEvent('norskpixel-houses:client:RingDoor', -1, src, house)
 end)
 
-RegisterNetEvent('qb-houses:server:savedecorations', function(house, decorations)
+RegisterNetEvent('norskpixel-houses:server:savedecorations', function(house, decorations)
     exports.oxmysql:execute('UPDATE player_houses SET decorations = ? WHERE house = ?', {json.encode(decorations), house})
-    TriggerClientEvent("qb-houses:server:sethousedecorations", -1, house, decorations)
+    TriggerClientEvent("norskpixel-houses:server:sethousedecorations", -1, house, decorations)
 end)
 
-RegisterNetEvent('qb-houses:server:LogoutLocation', function()
+RegisterNetEvent('norskpixel-houses:server:LogoutLocation', function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local MyItems = Player.PlayerData.items
     exports.oxmysql:execute('UPDATE players SET inventory = ? WHERE citizenid = ?',
         {json.encode(MyItems), Player.PlayerData.citizenid})
     QBCore.Player.Logout(src)
-    TriggerClientEvent('qb-multicharacter:client:chooseChar', src)
+    TriggerClientEvent('norskpixel-multicharacter:client:chooseChar', src)
 end)
 
-RegisterNetEvent('qb-houses:server:giveHouseKey', function(target, house)
+RegisterNetEvent('norskpixel-houses:server:giveHouseKey', function(target, house)
     local src = source
     local tPlayer = QBCore.Functions.GetPlayer(target)
     if tPlayer then
@@ -317,7 +317,7 @@ RegisterNetEvent('qb-houses:server:giveHouseKey', function(target, house)
             end
             housekeyholders[house][#housekeyholders[house]+1] = tPlayer.PlayerData.citizenid
             exports.oxmysql:execute('UPDATE player_houses SET keyholders = ? WHERE house = ?', {json.encode(housekeyholders[house]), house})
-            TriggerClientEvent('qb-houses:client:refreshHouse', tPlayer.PlayerData.source)
+            TriggerClientEvent('norskpixel-houses:client:refreshHouse', tPlayer.PlayerData.source)
             TriggerClientEvent('QBCore:Notify', tPlayer.PlayerData.source,
                 'Du har modtaget nøglerne til ' .. Config.Houses[house].adress .. '!', 'success', 2500)
         else
@@ -327,7 +327,7 @@ RegisterNetEvent('qb-houses:server:giveHouseKey', function(target, house)
             }
             housekeyholders[house][#housekeyholders[house]+1] = tPlayer.PlayerData.citizenid
             exports.oxmysql:execute('UPDATE player_houses SET keyholders = ? WHERE house = ?', {json.encode(housekeyholders[house]), house})
-            TriggerClientEvent('qb-houses:client:refreshHouse', tPlayer.PlayerData.source)
+            TriggerClientEvent('norskpixel-houses:client:refreshHouse', tPlayer.PlayerData.source)
             TriggerClientEvent('QBCore:Notify', tPlayer.PlayerData.source, 'Du har modtaget nøglerne til ' .. Config.Houses[house].adress .. '!', 'success', 2500)
         end
     else
@@ -335,7 +335,7 @@ RegisterNetEvent('qb-houses:server:giveHouseKey', function(target, house)
     end
 end)
 
-RegisterNetEvent('qb-houses:server:setLocation', function(coords, house, type)
+RegisterNetEvent('norskpixel-houses:server:setLocation', function(coords, house, type)
     if type == 1 then
         exports.oxmysql:execute('UPDATE player_houses SET stash = ? WHERE house = ?', {json.encode(coords), house})
     elseif type == 2 then
@@ -343,15 +343,15 @@ RegisterNetEvent('qb-houses:server:setLocation', function(coords, house, type)
     elseif type == 3 then
         exports.oxmysql:execute('UPDATE player_houses SET logout = ? WHERE house = ?', {json.encode(coords), house})
     end
-    TriggerClientEvent('qb-houses:client:refreshLocations', -1, house, json.encode(coords), type)
+    TriggerClientEvent('norskpixel-houses:client:refreshLocations', -1, house, json.encode(coords), type)
 end)
 
-RegisterNetEvent('qb-houses:server:SetHouseRammed', function(bool, house)
+RegisterNetEvent('norskpixel-houses:server:SetHouseRammed', function(bool, house)
     Config.Houses[house].IsRammed = bool
-    TriggerClientEvent('qb-houses:client:SetHouseRammed', -1, bool, house)
+    TriggerClientEvent('norskpixel-houses:client:SetHouseRammed', -1, bool, house)
 end)
 
-RegisterNetEvent('qb-houses:server:SetInsideMeta', function(insideId, bool)
+RegisterNetEvent('norskpixel-houses:server:SetInsideMeta', function(insideId, bool)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local insideMeta = Player.PlayerData.metadata["inside"]
@@ -370,7 +370,7 @@ end)
 
 -- Callbacks
 
-QBCore.Functions.CreateCallback('qb-houses:server:buyFurniture', function(source, cb, price)
+QBCore.Functions.CreateCallback('norskpixel-houses:server:buyFurniture', function(source, cb, price)
     local src = source
     local pData = QBCore.Functions.GetPlayer(src)
     local bankBalance = pData.PlayerData.money["bank"]
@@ -384,7 +384,7 @@ QBCore.Functions.CreateCallback('qb-houses:server:buyFurniture', function(source
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-houses:server:ProximityKO', function(source, cb, house)
+QBCore.Functions.CreateCallback('norskpixel-houses:server:ProximityKO', function(source, cb, house)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local retvalK = false
@@ -411,7 +411,7 @@ QBCore.Functions.CreateCallback('qb-houses:server:ProximityKO', function(source,
     cb(retvalK, retvalO)
 end)
 
-QBCore.Functions.CreateCallback('qb-houses:server:hasKey', function(source, cb, house)
+QBCore.Functions.CreateCallback('norskpixel-houses:server:hasKey', function(source, cb, house)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local retval = false
@@ -430,7 +430,7 @@ QBCore.Functions.CreateCallback('qb-houses:server:hasKey', function(source, cb, 
     cb(retval)
 end)
 
-QBCore.Functions.CreateCallback('qb-houses:server:isOwned', function(source, cb, house)
+QBCore.Functions.CreateCallback('norskpixel-houses:server:isOwned', function(source, cb, house)
     if houseowneridentifier[house] and houseownercid[house] then
         cb(true)
     else
@@ -438,11 +438,11 @@ QBCore.Functions.CreateCallback('qb-houses:server:isOwned', function(source, cb,
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-houses:server:getHouseOwner', function(source, cb, house)
+QBCore.Functions.CreateCallback('norskpixel-houses:server:getHouseOwner', function(source, cb, house)
     cb(houseownercid[house])
 end)
 
-QBCore.Functions.CreateCallback('qb-houses:server:getHouseKeyHolders', function(source, cb, house)
+QBCore.Functions.CreateCallback('norskpixel-houses:server:getHouseKeyHolders', function(source, cb, house)
     local retval = {}
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
@@ -466,7 +466,7 @@ QBCore.Functions.CreateCallback('qb-houses:server:getHouseKeyHolders', function(
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:TransferCid', function(source, cb, NewCid, house)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:TransferCid', function(source, cb, NewCid, house)
     local result = exports.oxmysql:executeSync('SELECT * FROM players WHERE citizenid = ?', {NewCid})
     if result[1] then
         local HouseName = house.name
@@ -483,7 +483,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:TransferCid', function(source, 
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-houses:server:getHouseDecorations', function(source, cb, house)
+QBCore.Functions.CreateCallback('norskpixel-houses:server:getHouseDecorations', function(source, cb, house)
     local retval = nil
     local result = exports.oxmysql:executeSync('SELECT * FROM player_houses WHERE house = ?', {house})
     if result[1] then
@@ -494,7 +494,7 @@ QBCore.Functions.CreateCallback('qb-houses:server:getHouseDecorations', function
     cb(retval)
 end)
 
-QBCore.Functions.CreateCallback('qb-houses:server:getHouseLocations', function(source, cb, house)
+QBCore.Functions.CreateCallback('norskpixel-houses:server:getHouseLocations', function(source, cb, house)
     local retval = nil
     local result = exports.oxmysql:executeSync('SELECT * FROM player_houses WHERE house = ?', {house})
     if result[1] then
@@ -503,13 +503,13 @@ QBCore.Functions.CreateCallback('qb-houses:server:getHouseLocations', function(s
     cb(retval)
 end)
 
-QBCore.Functions.CreateCallback('qb-houses:server:getHouseKeys', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-houses:server:getHouseKeys', function(source, cb)
     local src = source
     local pData = QBCore.Functions.GetPlayer(src)
     local cid = pData.PlayerData.citizenid
 end)
 
-QBCore.Functions.CreateCallback('qb-houses:server:getOwnedHouses', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-houses:server:getOwnedHouses', function(source, cb)
     local src = source
     local pData = QBCore.Functions.GetPlayer(src)
     if pData then
@@ -527,7 +527,7 @@ QBCore.Functions.CreateCallback('qb-houses:server:getOwnedHouses', function(sour
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-houses:server:getSavedOutfits', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-houses:server:getSavedOutfits', function(source, cb)
     local src = source
     local pData = QBCore.Functions.GetPlayer(src)
 
@@ -543,7 +543,7 @@ QBCore.Functions.CreateCallback('qb-houses:server:getSavedOutfits', function(sou
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:GetPlayerHouses', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:GetPlayerHouses', function(source, cb)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local MyHouses = {}
@@ -611,7 +611,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetPlayerHouses', function(sour
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:GetHouseKeys', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:GetHouseKeys', function(source, cb)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local MyKeys = {}
@@ -638,7 +638,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetHouseKeys', function(source,
     cb(MyKeys)
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:MeosGetPlayerHouses', function(source, cb, input)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:MeosGetPlayerHouses', function(source, cb, input)
     if input then
         local search = escape_sqli(input)
         local searchData = {}

@@ -23,9 +23,9 @@ $(document).on('click', '.phone-app-footer-button', function(e){
         $(".phone-"+PressedFooterTab).show();
 
         if (PressedFooterTab == "recent") {
-            $.post('https://qb-phone/ClearRecentAlerts');
+            $.post('https://norskpixel-phone/ClearRecentAlerts');
         } else if (PressedFooterTab == "suggestedcontacts") {
-            $.post('https://qb-phone/ClearRecentAlerts');
+            $.post('https://norskpixel-phone/ClearRecentAlerts');
         }
 
         CurrentFooterTab = PressedFooterTab;
@@ -94,7 +94,7 @@ $(document).on('click', '.phone-recent-call', function(e){
         name: RecentData.name
     }
 
-    $.post('https://qb-phone/CallContact', JSON.stringify({
+    $.post('https://norskpixel-phone/CallContact', JSON.stringify({
         ContactData: cData,
         Anonymous: QB.Phone.Data.AnonymousCall,
     }), function(status){
@@ -146,7 +146,7 @@ $(document).on('click', ".phone-keypad-key-call", function(e){
         name: InputNum,
     }
 
-    $.post('https://qb-phone/CallContact', JSON.stringify({
+    $.post('https://norskpixel-phone/CallContact', JSON.stringify({
         ContactData: cData,
         Anonymous: QB.Phone.Data.AnonymousCall,
     }), function(status){
@@ -229,7 +229,7 @@ $(document).on('click', '#new-chat-phone', function(e){
     var ContactData = $("[data-contactid='"+ContactId+"']").data('contactData');
 
     if (ContactData.number !== QB.Phone.Data.PlayerData.charinfo.phone) {
-        $.post('https://qb-phone/GetWhatsappChats', JSON.stringify({}), function(chats){
+        $.post('https://norskpixel-phone/GetWhatsappChats', JSON.stringify({}), function(chats){
             QB.Phone.Functions.LoadWhatsappChats(chats);
         });
 
@@ -246,7 +246,7 @@ $(document).on('click', '#new-chat-phone', function(e){
             QB.Phone.Functions.ToggleApp("whatsapp", "block");
             QB.Phone.Data.currentApplication = "whatsapp";
 
-            $.post('https://qb-phone/GetWhatsappChat', JSON.stringify({phone: ContactData.number}), function(chat){
+            $.post('https://norskpixel-phone/GetWhatsappChat', JSON.stringify({phone: ContactData.number}), function(chat){
                 QB.Phone.Functions.SetupChatMessages(chat, {
                     name: ContactData.name,
                     number: ContactData.number
@@ -305,7 +305,7 @@ $(document).on('click', '#edit-contact-save', function(e){
     var ContactIban = $(".phone-edit-contact-iban").val();
 
     if (ContactName != "" && ContactNumber != "") {
-        $.post('https://qb-phone/EditContact', JSON.stringify({
+        $.post('https://norskpixel-phone/EditContact', JSON.stringify({
             CurrentContactName: ContactName,
             CurrentContactNumber: ContactNumber,
             CurrentContactIban: ContactIban,
@@ -332,7 +332,7 @@ $(document).on('click', '#edit-contact-delete', function(e){
     var ContactNumber = $(".phone-edit-contact-number").val();
     var ContactIban = $(".phone-edit-contact-iban").val();
 
-    $.post('https://qb-phone/DeleteContact', JSON.stringify({
+    $.post('https://norskpixel-phone/DeleteContact', JSON.stringify({
         CurrentContactName: ContactName,
         CurrentContactNumber: ContactNumber,
         CurrentContactIban: ContactIban,
@@ -436,7 +436,7 @@ $(document).on('click', '#add-contact-save', function(e){
     var ContactIban = $(".phone-add-contact-iban").val();
 
     if (ContactName != "" && ContactNumber != "") {
-        $.post('https://qb-phone/AddNewContact', JSON.stringify({
+        $.post('https://norskpixel-phone/AddNewContact', JSON.stringify({
             ContactName: ContactName,
             ContactNumber: ContactNumber,
             ContactIban: ContactIban,
@@ -450,7 +450,7 @@ $(document).on('click', '#add-contact-save', function(e){
         }, 250)
 
         if (SelectedSuggestion !== null) {
-            $.post('https://qb-phone/RemoveSuggestion', JSON.stringify({
+            $.post('https://norskpixel-phone/RemoveSuggestion', JSON.stringify({
                 data: $(SelectedSuggestion).data('SuggestionData')
             }));
             $(SelectedSuggestion).remove();
@@ -487,7 +487,7 @@ $(document).on('click', '#phone-start-call', function(e){
 
 SetupCall = function(cData) {
     var retval = false;
-    $.post('https://qb-phone/CallContact', JSON.stringify({
+    $.post('https://norskpixel-phone/CallContact', JSON.stringify({
         ContactData: cData,
         Anonymous: QB.Phone.Data.AnonymousCall,
     }), function(status){
@@ -543,19 +543,19 @@ CancelOutgoingCall = function() {
 $(document).on('click', '#outgoing-cancel', function(e){
     e.preventDefault();
 
-    $.post('https://qb-phone/CancelOutgoingCall');
+    $.post('https://norskpixel-phone/CancelOutgoingCall');
 });
 
 $(document).on('click', '#incoming-deny', function(e){
     e.preventDefault();
 
-    $.post('https://qb-phone/DenyIncomingCall');
+    $.post('https://norskpixel-phone/DenyIncomingCall');
 });
 
 $(document).on('click', '#ongoing-cancel', function(e){
     e.preventDefault();
 
-    $.post('https://qb-phone/CancelOngoingCall');
+    $.post('https://norskpixel-phone/CancelOngoingCall');
 });
 
 IncomingCallAlert = function(CallData, Canceled, AnonymousCall) {
@@ -713,7 +713,7 @@ $(document).on('click', '.phone-currentcall-container', function(e){
 $(document).on('click', '#incoming-answer', function(e){
     e.preventDefault();
 
-    $.post('https://qb-phone/AnswerCall');
+    $.post('https://norskpixel-phone/AnswerCall');
 });
 
 QB.Phone.Functions.AnswerCall = function(CallData) {

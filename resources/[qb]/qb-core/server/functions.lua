@@ -189,13 +189,13 @@ function PaycheckLoop()
         local payment = Player.PlayerData.job.payment
         if Player.PlayerData.job and payment > 0 and (QBShared.Jobs[Player.PlayerData.job.name].offDutyPay or Player.PlayerData.job.onduty) then
             if QBCore.Config.Money.PayCheckSociety then
-                local account = exports['qb-bossmenu']:GetAccount(Player.PlayerData.job.name)
+                local account = exports['norskpixel-bossmenu']:GetAccount(Player.PlayerData.job.name)
                 if account ~= 0 then -- Checks if player is employed by a society
                     if account < payment then -- Checks if company has enough money to pay society
                         TriggerClientEvent('QBCore:Notify', Player.PlayerData.source, 'Firmaet du arbejder for, har ingen penge til at udbetale løn', 'error')
                     else
                         Player.Functions.AddMoney('bank', payment)
-                        TriggerEvent('qb-bossmenu:server:removeAccountMoney', Player.PlayerData.job.name, payment)
+                        TriggerEvent('norskpixel-bossmenu:server:removeAccountMoney', Player.PlayerData.job.name, payment)
                         TriggerClientEvent('QBCore:Notify', Player.PlayerData.source, ('Du modtog en lønseddel på DKK%s'):format(payment))
                     end
                 else

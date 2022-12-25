@@ -1,5 +1,5 @@
 
-QBCore = exports['qb-core']:GetCoreObject()
+QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local isLoggedIn = false
 local PlayerJob = {}

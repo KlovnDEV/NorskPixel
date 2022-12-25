@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local inCityhallPage = false
 local qbCityhall = {}
@@ -87,20 +87,20 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterNetEvent('qb-cityhall:client:getIds')
-AddEventHandler('qb-cityhall:client:getIds', function()
-    TriggerServerEvent('qb-cityhall:server:getIDs')
+RegisterNetEvent('norskpixel-cityhall:client:getIds')
+AddEventHandler('norskpixel-cityhall:client:getIds', function()
+    TriggerServerEvent('norskpixel-cityhall:server:getIDs')
 end)
 
-RegisterNetEvent('qb-cityhall:client:sendDriverEmail')
-AddEventHandler('qb-cityhall:client:sendDriverEmail', function(charinfo)
+RegisterNetEvent('norskpixel-cityhall:client:sendDriverEmail')
+AddEventHandler('norskpixel-cityhall:client:sendDriverEmail', function(charinfo)
     SetTimeout(math.random(2500, 4000), function()
         local gender = "Hr"
         if QBCore.Functions.GetPlayerData().charinfo.gender == 1 then
             gender = "Fru"
         end
         local charinfo = QBCore.Functions.GetPlayerData().charinfo
-        TriggerServerEvent('qb-phone:server:sendNewMail', {
+        TriggerServerEvent('norskpixel-phone:server:sendNewMail', {
             sender = "DinKørerskole",
             subject = "Anmodning om førerret",
             message = "Goddag " .. gender .. " " .. charinfo.lastname .. ",<br /><br />Vi har modtaget en besked, der er en der gerne vil have førerret<br />Hvis du er villig til at lærer, så kontakt os på:<br />Naam: <strong>".. charinfo.firstname .. " " .. charinfo.lastname .. "</strong><br />Mobil nummer: <strong>"..charinfo.phone.."</strong><br/><br/>Med venlig hilsen,<br />DinKørerskole Los Santos",
@@ -128,7 +128,7 @@ RegisterNUICallback('requestId', function(data)
     if inRange then
         local idType = data.idType
 
-        TriggerServerEvent('qb-cityhall:server:requestId', idTypes[idType])
+        TriggerServerEvent('norskpixel-cityhall:server:requestId', idTypes[idType])
         QBCore.Functions.Notify('Du har modtaget dit '..idTypes[idType].label..' for 50 DKK', 'success', 3500)
     else
         QBCore.Functions.Notify('Dette vil ikke virke', 'error')
@@ -164,7 +164,7 @@ end)
 
 RegisterNUICallback('applyJob', function(data)
     if inRange then
-        TriggerServerEvent('qb-cityhall:server:ApplyJob', data.job)
+        TriggerServerEvent('norskpixel-cityhall:server:ApplyJob', data.job)
     else
         QBCore.Functions.Notify('Dette viker ikke ...', 'error')
     end

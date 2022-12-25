@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local isLoggedIn = false
 local PlayerData = {}
@@ -30,7 +30,7 @@ Citizen.CreateThread(function()
     if QBCore.Functions.GetPlayerData() ~= nil then
         isLoggedIn = true
         PlayerData = QBCore.Functions.GetPlayerData()
-        QBCore.Functions.TriggerCallback('qb-traphouse:server:GetTraphousesData', function(trappies)
+        QBCore.Functions.TriggerCallback('norskpixel-traphouse:server:GetTraphousesData', function(trappies)
             Config.TrapHouses = trappies
         end)
     end
@@ -40,7 +40,7 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
     isLoggedIn = true
     PlayerData = QBCore.Functions.GetPlayerData()
-    QBCore.Functions.TriggerCallback('qb-traphouse:server:GetTraphousesData', function(trappies)
+    QBCore.Functions.TriggerCallback('norskpixel-traphouse:server:GetTraphousesData', function(trappies)
         Config.TrapHouses = trappies
     end)
 end)
@@ -112,8 +112,8 @@ function DrawText3Ds(x, y, z, text)
     ClearDrawOrigin()
 end
 
-RegisterNetEvent('qb-traphouse:client:EnterTraphouse')
-AddEventHandler('qb-traphouse:client:EnterTraphouse', function(code)
+RegisterNetEvent('norskpixel-traphouse:client:EnterTraphouse')
+AddEventHandler('norskpixel-traphouse:client:EnterTraphouse', function(code)
     if ClosestTraphouse ~= nil then
         if InTraphouseRange then
             local data = Config.TrapHouses[ClosestTraphouse]
@@ -206,7 +206,7 @@ Citizen.CreateThread(function()
                                                 FreezeEntityPosition(targetPed, false)
                                                 ClearPedTasks(targetPed)
                                                 AddShockingEventAtPosition(99, GetEntityCoords(targetPed), 0.5)
-                                                TriggerServerEvent('qb-traphouse:server:RobNpc', ClosestTraphouse)
+                                                TriggerServerEvent('norskpixel-traphouse:server:RobNpc', ClosestTraphouse)
                                                 CanRob = false
                                             end
                                         end
@@ -257,7 +257,7 @@ Citizen.CreateThread(function()
                             DrawText3Ds(data.coords["interaction"].x, data.coords["interaction"].y, data.coords["interaction"].z + 0.2, '~b~H~w~ - Se inventory')
                             DrawText3Ds(data.coords["interaction"].x, data.coords["interaction"].y, data.coords["interaction"].z, '~b~E~w~ - Køb for (~g~5000 DKK~w~)')
                             if IsControlJustPressed(0, 38) then
-                                TriggerServerEvent('qb-traphouse:server:TakeoverHouse', CurrentTraphouse)
+                                TriggerServerEvent('norskpixel-traphouse:server:TakeoverHouse', CurrentTraphouse)
                             end
                             if IsControlJustPressed(0, 74) then
                                 local TraphouseInventory = {}
@@ -284,7 +284,7 @@ Citizen.CreateThread(function()
                                 TriggerServerEvent("inventory:server:OpenInventory", "traphouse", CurrentTraphouse, TraphouseInventory)
                             end
                             if IsControlJustPressed(0, 38) then
-                                TriggerServerEvent("qb-traphouse:server:TakeMoney", CurrentTraphouse)
+                                TriggerServerEvent("norskpixel-traphouse:server:TakeMoney", CurrentTraphouse)
                             end
                         end
                     end
@@ -313,13 +313,13 @@ end)
 function EnterTraphouse(data)
     local coords = { x = data.coords["enter"].x, y = data.coords["enter"].y, z= data.coords["enter"].z - Config.MinZOffset}
     TriggerServerEvent("InteractSound_SV:PlayOnSource", "houses_door_open", 0.25)
-    data = exports['qb-interior']:CreateTrevorsShell(coords) 
+    data = exports['norskpixel-interior']:CreateTrevorsShell(coords) 
     TraphouseObj = data[1]
     POIOffsets = data[2]
     CurrentTraphouse = ClosestTraphouse
     InsideTraphouse = true
     SetRainLevel(0.0)
-    TriggerEvent('qb-weathersync:client:DisableSync')
+    TriggerEvent('norskpixel-weathersync:client:DisableSync')
     print('Entered')
     FreezeEntityPosition(TraphouseObj, true)
     SetWeatherTypePersist('EXTRASUNNY')
@@ -333,8 +333,8 @@ function LeaveTraphouse(data)
     TriggerServerEvent("InteractSound_SV:PlayOnSource", "houses_door_open", 0.25)
     DoScreenFadeOut(250)
     Citizen.Wait(250)
-    exports['qb-interior']:DespawnInterior(TraphouseObj, function()
-        TriggerEvent('qb-weathersync:client:EnableSync')
+    exports['norskpixel-interior']:DespawnInterior(TraphouseObj, function()
+        TriggerEvent('norskpixel-weathersync:client:EnableSync')
         DoScreenFadeIn(250)
         SetEntityCoords(ped, data.coords["enter"].x, data.coords["enter"].y, data.coords["enter"].z + 0.5)
         SetEntityHeading(ped, 107.71)
@@ -345,8 +345,8 @@ function LeaveTraphouse(data)
     end)
 end
 
-RegisterNetEvent('qb-traphouse:client:TakeoverHouse')
-AddEventHandler('qb-traphouse:client:TakeoverHouse', function(TraphouseId)
+RegisterNetEvent('norskpixel-traphouse:client:TakeoverHouse')
+AddEventHandler('norskpixel-traphouse:client:TakeoverHouse', function(TraphouseId)
     local ped = PlayerPedId()
 
     QBCore.Functions.Progressbar("takeover_traphouse", "Overtager", math.random(1000, 3000), false, true, {
@@ -355,7 +355,7 @@ AddEventHandler('qb-traphouse:client:TakeoverHouse', function(TraphouseId)
         disableMouse = false,
         disableCombat = true,
     }, {}, {}, {}, function() -- Done
-        TriggerServerEvent('qb-traphouse:server:AddHouseKeyHolder', PlayerData.citizenid, TraphouseId, true)
+        TriggerServerEvent('norskpixel-traphouse:server:AddHouseKeyHolder', PlayerData.citizenid, TraphouseId, true)
     end, function()
         QBCore.Functions.Notify("Anskaffelser annulleret", "error")
     end)
@@ -397,8 +397,8 @@ function AddKeyHolder(CitizenId, Traphouse)
     IsHouseOwner = IsOwner(CitizenId)
 end
 
-RegisterNetEvent('qb-traphouse:client:SyncData')
-AddEventHandler('qb-traphouse:client:SyncData', function(k, data)
+RegisterNetEvent('norskpixel-traphouse:client:SyncData')
+AddEventHandler('norskpixel-traphouse:client:SyncData', function(k, data)
     Config.TrapHouses[k] = data
     IsKeyHolder = HasKey(PlayerData.citizenid)
     IsHouseOwner = IsOwner(PlayerData.citizenid)

@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local Accounts = {}
 
@@ -18,7 +18,7 @@ CreateThread(function()
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-gangmenu:server:GetAccount', function(source, cb, gangname)
+QBCore.Functions.CreateCallback('norskpixel-gangmenu:server:GetAccount', function(source, cb, gangname)
     local result = GetAccount(gangname)
     cb(result)
 end)
@@ -29,8 +29,8 @@ function GetAccount(account)
 end
 
 -- Withdraw Money
-RegisterServerEvent("qb-gangmenu:server:withdrawMoney")
-AddEventHandler("qb-gangmenu:server:withdrawMoney", function(amount)
+RegisterServerEvent("norskpixel-gangmenu:server:withdrawMoney")
+AddEventHandler("norskpixel-gangmenu:server:withdrawMoney", function(amount)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local gang = Player.PlayerData.gang.name
@@ -47,13 +47,13 @@ AddEventHandler("qb-gangmenu:server:withdrawMoney", function(amount)
         return
     end
     SaveResourceFile(GetCurrentResourceName(), "./accounts.json", json.encode(Accounts), -1)
-    TriggerEvent('qb-log:server:CreateLog', 'bossmenu', 'Withdraw Money',
+    TriggerEvent('norskpixel-log:server:CreateLog', 'bossmenu', 'Withdraw Money',
         "Successfully withdrawn " .. amount .. ' DKK (' .. gang .. ')', src)
 end)
 
 -- Deposit Money
-RegisterServerEvent("qb-gangmenu:server:depositMoney")
-AddEventHandler("qb-gangmenu:server:depositMoney", function(amount)
+RegisterServerEvent("norskpixel-gangmenu:server:depositMoney")
+AddEventHandler("norskpixel-gangmenu:server:depositMoney", function(amount)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local gang = Player.PlayerData.gang.name
@@ -69,23 +69,23 @@ AddEventHandler("qb-gangmenu:server:depositMoney", function(amount)
         return
     end
     SaveResourceFile(GetCurrentResourceName(), "./accounts.json", json.encode(Accounts), -1)
-    TriggerEvent('qb-log:server:CreateLog', 'bossmenu', 'Deposit Money',
+    TriggerEvent('norskpixel-log:server:CreateLog', 'bossmenu', 'Deposit Money',
         "Successfully deposited " .. amount .. ' DKK (' .. gang .. ')', src)
 end)
 
-RegisterServerEvent("qb-gangmenu:server:addAccountMoney")
-AddEventHandler("qb-gangmenu:server:addAccountMoney", function(account, amount)
+RegisterServerEvent("norskpixel-gangmenu:server:addAccountMoney")
+AddEventHandler("norskpixel-gangmenu:server:addAccountMoney", function(account, amount)
     if not Accounts[account] then
         Accounts[account] = 0
     end
 
     Accounts[account] = Accounts[account] + amount
-    TriggerClientEvent('qb-gangmenu:client:refreshSociety', -1, account, Accounts[account])
+    TriggerClientEvent('norskpixel-gangmenu:client:refreshSociety', -1, account, Accounts[account])
     SaveResourceFile(GetCurrentResourceName(), "./accounts.json", json.encode(Accounts), -1)
 end)
 
-RegisterServerEvent("qb-gangmenu:server:removeAccountMoney")
-AddEventHandler("qb-gangmenu:server:removeAccountMoney", function(account, amount)
+RegisterServerEvent("norskpixel-gangmenu:server:removeAccountMoney")
+AddEventHandler("norskpixel-gangmenu:server:removeAccountMoney", function(account, amount)
     if not Accounts[account] then
         Accounts[account] = 0
     end
@@ -94,12 +94,12 @@ AddEventHandler("qb-gangmenu:server:removeAccountMoney", function(account, amoun
         Accounts[account] = Accounts[account] - amount
     end
 
-    TriggerClientEvent('qb-gangmenu:client:refreshSociety', -1, account, Accounts[account])
+    TriggerClientEvent('norskpixel-gangmenu:client:refreshSociety', -1, account, Accounts[account])
     SaveResourceFile(GetCurrentResourceName(), "./accounts.json", json.encode(Accounts), -1)
 end)
 
 -- Get Employees
-QBCore.Functions.CreateCallback('qb-gangmenu:server:GetEmployees', function(source, cb, gangname)
+QBCore.Functions.CreateCallback('norskpixel-gangmenu:server:GetEmployees', function(source, cb, gangname)
     local employees = {}
     if not Accounts[gangname] then
         Accounts[gangname] = 0
@@ -131,8 +131,8 @@ QBCore.Functions.CreateCallback('qb-gangmenu:server:GetEmployees', function(sour
 end)
 
 -- Grade Change
-RegisterServerEvent('qb-gangmenu:server:updateGrade')
-AddEventHandler('qb-gangmenu:server:updateGrade', function(target, grade)
+RegisterServerEvent('norskpixel-gangmenu:server:updateGrade')
+AddEventHandler('norskpixel-gangmenu:server:updateGrade', function(target, grade)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local Employee = QBCore.Functions.GetPlayerByCitizenId(target)
@@ -161,14 +161,14 @@ AddEventHandler('qb-gangmenu:server:updateGrade', function(target, grade)
 end)
 
 -- Fire Employee
-RegisterServerEvent('qb-gangmenu:server:fireEmployee')
-AddEventHandler('qb-gangmenu:server:fireEmployee', function(target)
+RegisterServerEvent('norskpixel-gangmenu:server:fireEmployee')
+AddEventHandler('norskpixel-gangmenu:server:fireEmployee', function(target)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local Employee = QBCore.Functions.GetPlayerByCitizenId(target)
     if Employee then
         if Employee.Functions.SetGang("none", '0') then
-            TriggerEvent('qb-log:server:CreateLog', 'bossmenu', 'Gang Fire', "Fyret blev " ..
+            TriggerEvent('norskpixel-log:server:CreateLog', 'bossmenu', 'Gang Fire', "Fyret blev " ..
                 GetPlayerName(Employee.PlayerData.source) .. ' (' .. Player.PlayerData.gang.name .. ')', src)
             TriggerClientEvent('QBCore:Notify', src, "En fyring blev fortaget!", "success")
             TriggerClientEvent('QBCore:Notify', Employee.PlayerData.source, "Du blev fyret", "error")
@@ -190,7 +190,7 @@ AddEventHandler('qb-gangmenu:server:fireEmployee', function(target)
             gang.grade.level = 0
             exports.oxmysql:execute('UPDATE players SET gang = ? WHERE citizenid = ?', {json.encode(gang), target})
             TriggerClientEvent('QBCore:Notify', src, "En fyring blev fortaget!", "success")
-            TriggerEvent('qb-log:server:CreateLog', 'bossmenu', 'Fire',
+            TriggerEvent('norskpixel-log:server:CreateLog', 'bossmenu', 'Fire',
                 "Successfully fired " .. target.source .. ' (' .. Player.PlayerData.gang.name .. ')', src)
         else
             TriggerClientEvent('QBCore:Notify', src, "Spilleren eksistere ikke", "error")
@@ -199,8 +199,8 @@ AddEventHandler('qb-gangmenu:server:fireEmployee', function(target)
 end)
 
 -- Recruit Player
-RegisterServerEvent('qb-gangmenu:server:giveJob')
-AddEventHandler('qb-gangmenu:server:giveJob', function(recruit)
+RegisterServerEvent('norskpixel-gangmenu:server:giveJob')
+AddEventHandler('norskpixel-gangmenu:server:giveJob', function(recruit)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local Target = QBCore.Functions.GetPlayer(recruit)
@@ -210,7 +210,7 @@ AddEventHandler('qb-gangmenu:server:giveJob', function(recruit)
                 " til " .. Player.PlayerData.gang.label .. "", "success")
         TriggerClientEvent('QBCore:Notify', Target.PlayerData.source,
             "Du blev hyret til " .. Player.PlayerData.gang.label .. "", "success")
-        TriggerEvent('qb-log:server:CreateLog', 'bossmenu', 'Recruit',
+        TriggerEvent('norskpixel-log:server:CreateLog', 'bossmenu', 'Recruit',
             "Successfully recruited " ..
                 (Target.PlayerData.charinfo.firstname .. ' ' .. Target.PlayerData.charinfo.lastname) .. ' (' ..
                 Player.PlayerData.gang.name .. ')', src)

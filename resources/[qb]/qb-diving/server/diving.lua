@@ -1,11 +1,11 @@
 
 local CurrentDivingArea = math.random(1, #QBDiving.Locations)
 
-QBCore.Functions.CreateCallback('qb-diving:server:GetDivingConfig', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-diving:server:GetDivingConfig', function(source, cb)
     cb(QBDiving.Locations, CurrentDivingArea)
 end)
 
-RegisterNetEvent('qb-diving:server:TakeCoral', function(Area, Coral, Bool)
+RegisterNetEvent('norskpixel-diving:server:TakeCoral', function(Area, Coral, Bool)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local CoralType = math.random(1, #QBDiving.CoralTypes)
@@ -36,16 +36,16 @@ RegisterNetEvent('qb-diving:server:TakeCoral', function(Area, Coral, Bool)
         end
         CurrentDivingArea = newLocation
 
-        TriggerClientEvent('qb-diving:client:NewLocations', -1)
+        TriggerClientEvent('norskpixel-diving:client:NewLocations', -1)
     else
         QBDiving.Locations[Area].coords.Coral[Coral].PickedUp = Bool
         QBDiving.Locations[Area].TotalCoral = QBDiving.Locations[Area].TotalCoral - 1
     end
 
-    TriggerClientEvent('qb-diving:server:UpdateCoral', -1, Area, Coral, Bool)
+    TriggerClientEvent('norskpixel-diving:server:UpdateCoral', -1, Area, Coral, Bool)
 end)
 
-RegisterNetEvent('qb-diving:server:RemoveGear', function()
+RegisterNetEvent('norskpixel-diving:server:RemoveGear', function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
@@ -53,7 +53,7 @@ RegisterNetEvent('qb-diving:server:RemoveGear', function()
     TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["diving_gear"], "remove")
 end)
 
-RegisterNetEvent('qb-diving:server:GiveBackGear', function()
+RegisterNetEvent('norskpixel-diving:server:GiveBackGear', function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 

@@ -11,7 +11,7 @@ const OpenMenu = (data) => {
     $(`.main-wrapper`).fadeIn(0);
 
     let form = [
-        "<form id='qb-input-form'>",
+        "<form id='norskpixel-input-form'>",
         `<div class="heading">${
             data.header != null ? data.header : "Form Title"
         }</div>`,
@@ -51,15 +51,15 @@ const OpenMenu = (data) => {
 
     $(".main-wrapper").html(form.join(" "));
 
-    $("#qb-input-form").on("change", function (event) {
+    $("#norskpixel-input-form").on("change", function (event) {
         formInputs[$(event.target).attr("name")] = $(event.target).val();
     });
 
-    $("#qb-input-form").on("submit", async function (event) {
+    $("#norskpixel-input-form").on("submit", async function (event) {
         if (event != null) {
             event.preventDefault();
         }
-        let formData = $("#qb-input-form").serializeArray();
+        let formData = $("#norskpixel-input-form").serializeArray();
 
         formData.forEach((item, index) => {
             formInputs[item.name] = item.value;
@@ -154,7 +154,7 @@ const renderSelectInput = (item) => {
 
 const CloseMenu = () => {
     $(`.main-wrapper`).fadeOut(0);
-    $("#qb-input-form").remove();
+    $("#norskpixel-input-form").remove();
     formInputs = {};
 };
 

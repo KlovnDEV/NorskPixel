@@ -82,8 +82,8 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:UseBankcardA')
-AddEventHandler('qb-bankrobbery:UseBankcardA', function()
+RegisterNetEvent('norskpixel-bankrobbery:UseBankcardA')
+AddEventHandler('norskpixel-bankrobbery:UseBankcardA', function()
     local ped = PlayerPedId()
     local pos = GetEntityCoords(ped)
     local dist = #(pos - Config.BigBanks["paleto"]["coords"])
@@ -91,7 +91,7 @@ AddEventHandler('qb-bankrobbery:UseBankcardA', function()
         TriggerServerEvent("evidence:server:CreateFingerDrop", pos)
     end
     if dist < 1.5 then
-        QBCore.Functions.TriggerCallback('qb-bankrobbery:server:isRobberyActive', function(isBusy)
+        QBCore.Functions.TriggerCallback('norskpixel-bankrobbery:server:isRobberyActive', function(isBusy)
             if not isBusy then
                 if CurrentCops >= Config.MinimumPaletoPolice then
                     if not Config.BigBanks["paleto"]["isOpened"] then 
@@ -107,9 +107,9 @@ AddEventHandler('qb-bankrobbery:UseBankcardA', function()
                             flags = 16,
                         }, {}, {}, function() -- Done
                             StopAnimTask(PlayerPedId(), "anim@gangops@facility@servers@", "hotwire", 1.0)
-                            TriggerServerEvent('qb-bankrobbery:server:setBankState', "paleto", true)
+                            TriggerServerEvent('norskpixel-bankrobbery:server:setBankState', "paleto", true)
                             TriggerServerEvent("QBCore:Server:RemoveItem", "security_card_01", 1)
-                            TriggerServerEvent('qb-doorlock:server:updateState', 4, false)
+                            TriggerServerEvent('norskpixel-doorlock:server:updateState', 4, false)
                             if not copsCalled then
                                 local s1, s2 = Citizen.InvokeNative(0x2EB41072B4C1E4C0, pos.x, pos.y, pos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt())
                                 local street1 = GetStreetNameFromHashKey(s1)
@@ -119,7 +119,7 @@ AddEventHandler('qb-bankrobbery:UseBankcardA', function()
                                     streetLabel = streetLabel .. " " .. street2
                                 end
                                 if Config.BigBanks["paleto"]["alarm"] then
-                                    TriggerServerEvent("qb-bankrobbery:server:callCops", "paleto", 0, streetLabel, pos)
+                                    TriggerServerEvent("norskpixel-bankrobbery:server:callCops", "paleto", 0, streetLabel, pos)
                                     copsCalled = true
                                 end
                             end
@@ -141,7 +141,7 @@ AddEventHandler('qb-bankrobbery:UseBankcardA', function()
 end)
 
 function OpenPaletoDoor()
-    TriggerServerEvent('qb-doorlock:server:updateState', 85, false)
+    TriggerServerEvent('norskpixel-doorlock:server:updateState', 85, false)
     local object = GetClosestObjectOfType(Config.BigBanks["paleto"]["coords"]["x"], Config.BigBanks["paleto"]["coords"]["y"], Config.BigBanks["paleto"]["coords"]["z"], 5.0, Config.BigBanks["paleto"]["object"], false, false, false)
     local timeOut = 10
     local entHeading = Config.BigBanks["paleto"]["heading"].closed

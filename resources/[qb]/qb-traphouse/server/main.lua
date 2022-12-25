@@ -1,23 +1,23 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
-RegisterServerEvent('qb-traphouse:server:TakeoverHouse')
-AddEventHandler('qb-traphouse:server:TakeoverHouse', function(Traphouse)
+RegisterServerEvent('norskpixel-traphouse:server:TakeoverHouse')
+AddEventHandler('norskpixel-traphouse:server:TakeoverHouse', function(Traphouse)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local CitizenId = Player.PlayerData.citizenid
 
     if not HasCitizenIdHasKey(CitizenId, Traphouse) then
         if Player.Functions.RemoveMoney('cash', Config.TakeoverPrice) then
-            TriggerClientEvent('qb-traphouse:client:TakeoverHouse', src, Traphouse)
+            TriggerClientEvent('norskpixel-traphouse:client:TakeoverHouse', src, Traphouse)
         else
             TriggerClientEvent('QBCore:Notify', src, 'Du har ikke nok penge..', 'error')
         end
     end
 end)
 
-RegisterServerEvent('qb-traphouse:server:AddHouseKeyHolder')
-AddEventHandler('qb-traphouse:server:AddHouseKeyHolder', function(CitizenId, TraphouseId, IsOwner)
+RegisterServerEvent('norskpixel-traphouse:server:AddHouseKeyHolder')
+AddEventHandler('norskpixel-traphouse:server:AddHouseKeyHolder', function(CitizenId, TraphouseId, IsOwner)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
@@ -32,7 +32,7 @@ AddEventHandler('qb-traphouse:server:AddHouseKeyHolder', function(CitizenId, Tra
                 citizenid = CitizenId,
                 owner = IsOwner,
             })
-            TriggerClientEvent('qb-traphouse:client:SyncData', -1, TraphouseId, Config.TrapHouses[TraphouseId])
+            TriggerClientEvent('norskpixel-traphouse:client:SyncData', -1, TraphouseId, Config.TrapHouses[TraphouseId])
         else
             if #Config.TrapHouses[TraphouseId].keyholders + 1 <= 6 then
                 if not HasCitizenIdHasKey(CitizenId, TraphouseId) then
@@ -40,7 +40,7 @@ AddEventHandler('qb-traphouse:server:AddHouseKeyHolder', function(CitizenId, Tra
                         citizenid = CitizenId,
                         owner = IsOwner,
                     })
-                    TriggerClientEvent('qb-traphouse:client:SyncData', -1, TraphouseId, Config.TrapHouses[TraphouseId])
+                    TriggerClientEvent('norskpixel-traphouse:client:SyncData', -1, TraphouseId, Config.TrapHouses[TraphouseId])
                 end
             else
                 TriggerClientEvent('QBCore:Notify', src, 'Der er ingen ledige pladser')
@@ -96,7 +96,7 @@ QBCore.Commands.Add("entertraphouse", "Tilgå traphouse", {}, false, function(so
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
  
-    TriggerClientEvent('qb-traphouse:client:EnterTraphouse', src)
+    TriggerClientEvent('norskpixel-traphouse:client:EnterTraphouse', src)
 end)
 
 QBCore.Commands.Add("multikeys", "Giv nøgler til Traphouse", {{name = "id", help = "Spiller id"}}, true, function(source, args)
@@ -121,7 +121,7 @@ QBCore.Commands.Add("multikeys", "Giv nøgler til Traphouse", {{name = "id", hel
                             citizenid = TargetData.PlayerData.citizenid,
                             owner = IsOwner,
                         })
-                        TriggerClientEvent('qb-traphouse:client:SyncData', -1, Traphouse, Config.TrapHouses[Traphouse])
+                        TriggerClientEvent('norskpixel-traphouse:client:SyncData', -1, Traphouse, Config.TrapHouses[Traphouse])
                     else
                         if #Config.TrapHouses[Traphouse].keyholders + 1 <= 6 then
                             if not HasCitizenIdHasKey(TargetData.PlayerData.citizenid, Traphouse) then
@@ -129,7 +129,7 @@ QBCore.Commands.Add("multikeys", "Giv nøgler til Traphouse", {{name = "id", hel
                                     citizenid = TargetData.PlayerData.citizenid,
                                     owner = IsOwner,
                                 })
-                                TriggerClientEvent('qb-traphouse:client:SyncData', -1, Traphouse, Config.TrapHouses[Traphouse])
+                                TriggerClientEvent('norskpixel-traphouse:client:SyncData', -1, Traphouse, Config.TrapHouses[Traphouse])
                             end
                         else
                             TriggerClientEvent('QBCore:Notify', src, 'Ingen ledige pladser')
@@ -149,14 +149,14 @@ QBCore.Commands.Add("multikeys", "Giv nøgler til Traphouse", {{name = "id", hel
     end
 end)
 
-RegisterServerEvent('qb-traphouse:server:TakeMoney')
-AddEventHandler('qb-traphouse:server:TakeMoney', function(TraphouseId)
+RegisterServerEvent('norskpixel-traphouse:server:TakeMoney')
+AddEventHandler('norskpixel-traphouse:server:TakeMoney', function(TraphouseId)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Config.TrapHouses[TraphouseId].money ~= 0 then
         Player.Functions.AddMoney('cash', Config.TrapHouses[TraphouseId].money)
         Config.TrapHouses[TraphouseId].money = 0
-        TriggerClientEvent('qb-traphouse:client:SyncData', -1, TraphouseId, Config.TrapHouses[TraphouseId])
+        TriggerClientEvent('norskpixel-traphouse:client:SyncData', -1, TraphouseId, Config.TrapHouses[TraphouseId])
     else
         TriggerClientEvent('QBCore:Notify', src, 'Der er ingen penge i skabet', 'error')
     end
@@ -169,7 +169,7 @@ function SellTimeout(traphouseId, slot, itemName, amount, info)
                 if Config.TrapHouses[traphouseId].inventory[slot] ~= nil then
                     RemoveHouseItem(traphouseId, slot, itemName, 1)
                     Config.TrapHouses[traphouseId].money = Config.TrapHouses[traphouseId].money + math.ceil(info.worth / 100 * 80)
-                    TriggerClientEvent('qb-traphouse:client:SyncData', -1, traphouseId, Config.TrapHouses[traphouseId])
+                    TriggerClientEvent('norskpixel-traphouse:client:SyncData', -1, traphouseId, Config.TrapHouses[traphouseId])
                 end
             end)
         else
@@ -179,7 +179,7 @@ function SellTimeout(traphouseId, slot, itemName, amount, info)
                     if Config.TrapHouses[traphouseId].inventory[slot] ~= nil then
                         RemoveHouseItem(traphouseId, slot, itemName, 1)
                         Config.TrapHouses[traphouseId].money = Config.TrapHouses[traphouseId].money + SellData.reward
-                        TriggerClientEvent('qb-traphouse:client:SyncData', -1, traphouseId, Config.TrapHouses[traphouseId])
+                        TriggerClientEvent('norskpixel-traphouse:client:SyncData', -1, traphouseId, Config.TrapHouses[traphouseId])
                     end
                 end)
                 if amount > 1 then
@@ -212,7 +212,7 @@ function AddHouseItem(traphouseId, slot, itemName, amount, info, source)
         }
     end
     SellTimeout(traphouseId, slot, itemName, amount, info)
-    TriggerClientEvent('qb-traphouse:client:SyncData', -1, traphouseId, Config.TrapHouses[traphouseId])
+    TriggerClientEvent('norskpixel-traphouse:client:SyncData', -1, traphouseId, Config.TrapHouses[traphouseId])
 end
 
 function RemoveHouseItem(traphouseId, slot, itemName, amount)
@@ -233,7 +233,7 @@ function RemoveHouseItem(traphouseId, slot, itemName, amount)
 			Config.TrapHouses[traphouseId].inventory[slot] = nil
 		end
 	end
-    TriggerClientEvent('qb-traphouse:client:SyncData', -1, traphouseId, Config.TrapHouses[traphouseId])
+    TriggerClientEvent('norskpixel-traphouse:client:SyncData', -1, traphouseId, Config.TrapHouses[traphouseId])
 end
 
 function GetInventoryData(traphouse, slot)
@@ -255,8 +255,8 @@ function CanItemBeSaled(item)
     return retval
 end
 
-RegisterServerEvent('qb-traphouse:server:RobNpc')
-AddEventHandler('qb-traphouse:server:RobNpc', function(Traphouse)
+RegisterServerEvent('norskpixel-traphouse:server:RobNpc')
+AddEventHandler('norskpixel-traphouse:server:RobNpc', function(Traphouse)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local Chance = math.random(1, 10)
@@ -274,6 +274,6 @@ AddEventHandler('qb-traphouse:server:RobNpc', function(Traphouse)
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-traphouse:server:GetTraphousesData', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-traphouse:server:GetTraphousesData', function(source, cb)
     cb(Config.TrapHouses)
 end)

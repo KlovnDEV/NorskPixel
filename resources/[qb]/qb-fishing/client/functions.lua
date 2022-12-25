@@ -1,8 +1,8 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 TryToFish = function()
-    QBCore.Functions.TriggerCallback('qb-fishing:GetItemData', function(count)
+    QBCore.Functions.TriggerCallback('norskpixel-fishing:GetItemData', function(count)
         if IsPedSwimming(cachedData["ped"]) then return QBCore.Functions.Notify("Du kan ikke svømme imens du fisker...", "error") end 
         if IsPedInAnyVehicle(cachedData["ped"]) then return QBCore.Functions.Notify("Du skal forlade dit køretøj før du kan fiske...", "error") end 
         if count ~= nil then
@@ -99,8 +99,8 @@ CastBait = function(rodHandle, castLocation)
     ClearPedTasks(cachedData["ped"])
 
     if caughtFish then
-        TriggerServerEvent("qb-fishing:receiveFish", castLocation, function(received) end)
-        TriggerServerEvent('qb-hud:Server:RelieveStress', 1)
+        TriggerServerEvent("norskpixel-fishing:receiveFish", castLocation, function(received) end)
+        TriggerServerEvent('norskpixel-hud:Server:RelieveStress', 1)
     else
         QBCore.Functions.Notify("Fisken slap sgu væk...!", "error")
     end
@@ -257,11 +257,11 @@ end
 
 
 SellFish = function()
-    QBCore.Functions.TriggerCallback('qb-fishing:GetItemData', function(count)
+    QBCore.Functions.TriggerCallback('norskpixel-fishing:GetItemData', function(count)
         TaskTurnPedToFaceEntity(cachedData["storeOwner"], cachedData["ped"], 1000)
         TaskTurnPedToFaceEntity(cachedData["ped"], cachedData["storeOwner"], 1000)
 
-        TriggerServerEvent("qb-fishing:sellFish", function(sold, fishesSold) end)
+        TriggerServerEvent("norskpixel-fishing:sellFish", function(sold, fishesSold) end)
     end)
 end
 

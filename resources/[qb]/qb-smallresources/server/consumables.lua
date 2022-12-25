@@ -1,4 +1,4 @@
-QBCore = exports['qb-core']:GetCoreObject()
+QBCore = exports['norskpixel-core']:GetCoreObject()
 
 ----------- / alcohol
 
@@ -155,7 +155,7 @@ QBCore.Commands.Add("resetparachute", "Genbrug faldskærm", {}, false, function(
 	TriggerClientEvent("consumables:client:ResetParachute", src)
 end)
 
-RegisterNetEvent('qb-smallpenis:server:AddParachute', function()
+RegisterNetEvent('norskpixel-smallpenis:server:AddParachute', function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     Player.Functions.AddItem("parachute", 1)

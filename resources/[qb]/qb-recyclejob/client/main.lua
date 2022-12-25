@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local carryPackage = nil
 local onDuty = false
@@ -109,7 +109,7 @@ Citizen.CreateThread(function ()
                                 disableCombat = true,
                             }, {}, {}, {}, function() -- Done
                                 StopAnimTask(PlayerPedId(), "mp_car_bomb", "car_bomb_mechanic", 1.0)
-                                TriggerServerEvent('qb-recycle:server:getItem')
+                                TriggerServerEvent('norskpixel-recycle:server:getItem')
                                 GetRandomPackage()
                             end)
                         end

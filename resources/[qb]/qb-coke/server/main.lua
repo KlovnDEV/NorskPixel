@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local ItemList = {
     ["cocaleaf"] = "cocaleaf"
@@ -9,8 +9,8 @@ local DrugList = {
     ["cokebaggy"] = "cokebaggy"
 }
 
-RegisterServerEvent('qb-coke:server:grindleaves')
-AddEventHandler('qb-coke:server:grindleaves', function()
+RegisterServerEvent('norskpixel-coke:server:grindleaves')
+AddEventHandler('norskpixel-coke:server:grindleaves', function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local cocaleaf = Player.Functions.GetItemByName('cocaleaf')
@@ -22,7 +22,7 @@ AddEventHandler('qb-coke:server:grindleaves', function()
                     if Player.PlayerData.items[k].name == "cocaleaf" and Player.PlayerData.items[k].amount >= 2 then 
                         Player.Functions.RemoveItem("cocaleaf", 2)
                         TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items['cocaleaf'], "remove")
-                        TriggerClientEvent("qb-coke:client:grindleavesMinigame", src)
+                        TriggerClientEvent("norskpixel-coke:client:grindleavesMinigame", src)
                     else
                         TriggerClientEvent('QBCore:Notify', src, "Du har ikke nok kokainblade", 'error')
                         break
@@ -36,8 +36,8 @@ AddEventHandler('qb-coke:server:grindleaves', function()
     end
 end)
 
-RegisterServerEvent('qb-coke:server:processCrack')
-AddEventHandler('qb-coke:server:processCrack', function()
+RegisterServerEvent('norskpixel-coke:server:processCrack')
+AddEventHandler('norskpixel-coke:server:processCrack', function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local cokebaggy = Player.Functions.GetItemByName('cokebaggy')
@@ -50,7 +50,7 @@ AddEventHandler('qb-coke:server:processCrack', function()
                     Player.Functions.RemoveItem("cokebaggy", 2, false)
                     TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items['cokebaggy'], "remove")
 
-                    TriggerClientEvent("qb-coke:client:processCrack", src)
+                    TriggerClientEvent("norskpixel-coke:client:processCrack", src)
                 else
                     TriggerClientEvent('QBCore:Notify', src, "Du har ikke de korrekte varer", 'error')
                 end
@@ -65,8 +65,8 @@ AddEventHandler('qb-coke:server:processCrack', function()
     end
 end)
 
-RegisterServerEvent('qb-coke:server:cokesell')
-AddEventHandler('qb-coke:server:cokesell', function()
+RegisterServerEvent('norskpixel-coke:server:cokesell')
+AddEventHandler('norskpixel-coke:server:cokesell', function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local cokebaggy = Player.Functions.GetItemByName('cokebaggy')
@@ -99,22 +99,22 @@ AddEventHandler('qb-coke:server:cokesell', function()
     end
 end)
 
-RegisterServerEvent('qb-coke:server:getleaf')
-AddEventHandler('qb-coke:server:getleaf', function()
+RegisterServerEvent('norskpixel-coke:server:getleaf')
+AddEventHandler('norskpixel-coke:server:getleaf', function()
     local Player = QBCore.Functions.GetPlayer(source)
     Player.Functions.AddItem("cocaleaf", 10)
     TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items['cocaleaf'], "add")
 end)
 
-RegisterServerEvent('qb-coke:server:getcoke')
-AddEventHandler('qb-coke:server:getcoke', function()
+RegisterServerEvent('norskpixel-coke:server:getcoke')
+AddEventHandler('norskpixel-coke:server:getcoke', function()
     local Player = QBCore.Functions.GetPlayer(source)
     Player.Functions.AddItem("cokebaggy", 1)
     TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items['cokebaggy'], "add")
 end)
 
-RegisterServerEvent('qb-coke:server:getcrack')
-AddEventHandler('qb-coke:server:getcrack', function()
+RegisterServerEvent('norskpixel-coke:server:getcrack')
+AddEventHandler('norskpixel-coke:server:getcrack', function()
     local Player = QBCore.Functions.GetPlayer(source)
     Player.Functions.AddItem("crack_baggy", 1)
     TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items['crack_baggy'], "add")

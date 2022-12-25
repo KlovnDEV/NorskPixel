@@ -1,5 +1,5 @@
 
-QBCore = exports['qb-core']:GetCoreObject()
+QBCore = exports['norskpixel-core']:GetCoreObject()
 
 --local ModdedVehicles = {}
 VehicleStatus = {}
@@ -277,14 +277,14 @@ local function OpenMenu()
             header = "Frakobl køretøj",
             txt = "Sæt køretøjet ned",
             params = {
-                event = "qb-mechanicjob:client:UnattachVehicle",
+                event = "norskpixel-mechanicjob:client:UnattachVehicle",
             }
         },
         {
             header = "Check status",
             txt = "Check status på køretøj",
             params = {
-                event = "qb-mechanicjob:client:CheckStatus",
+                event = "norskpixel-mechanicjob:client:CheckStatus",
                 args = {
                     number = 1,
                 }
@@ -294,7 +294,7 @@ local function OpenMenu()
             header = "køretøjs dele",
             txt = "Reperer køretøjs dele",
             params = {
-                event = "qb-mechanicjob:client:PartsMenu",
+                event = "norskpixel-mechanicjob:client:PartsMenu",
                 args = {
                     number = 1,
                 }
@@ -305,13 +305,13 @@ local function OpenMenu()
             header = "⬅ Luk menuen",
             txt = "",
             params = {
-                event = "qb-menu:client:closeMenu",
+                event = "norskpixel-menu:client:closeMenu",
             }
         },
         
     }
 
-    exports['qb-menu']:openMenu(OpenMenu)
+    exports['norskpixel-menu']:openMenu(OpenMenu)
 end
 
 local function PartsMenu()
@@ -333,7 +333,7 @@ local function PartsMenu()
                     header = v,
                     txt = "Status: " .. percentage .. ".0% / 100.0%",
                     params = {
-                        event = "qb-mechanicjob:client:PartMenu",
+                        event = "norskpixel-mechanicjob:client:PartMenu",
                         args = {
                             name = v,
                             parts = k
@@ -349,7 +349,7 @@ local function PartsMenu()
                     header = v,
                     txt = "Status: " .. percentage .. ".0% / 100.0%",
                     params = {
-                        event = "qb-mechanicjob:client:NoDamage",
+                        event = "norskpixel-mechanicjob:client:NoDamage",
                     }
                 }
             end                               
@@ -358,11 +358,11 @@ local function PartsMenu()
             header = "⬅ Luk menuen",
             txt = "",
             params = {
-                event = "qb-menu:client:closeMenu"
+                event = "norskpixel-menu:client:closeMenu"
             }
     
         }
-        exports['qb-menu']:openMenu(vehicleMenu)
+        exports['norskpixel-menu']:openMenu(vehicleMenu)
     end
 
 end
@@ -379,7 +379,7 @@ local function PartMenu(data)
             header = ""..partName.."",
             txt = "Reperer : "..QBCore.Shared.Items[Config.RepairCostAmount[part].item]["label"].." "..Config.RepairCostAmount[part].costs.."x", 
             params = {
-                event = "qb-mechanicjob:client:RepairPart",
+                event = "norskpixel-mechanicjob:client:RepairPart",
                 args = {
                     part = part,
                 }
@@ -389,20 +389,20 @@ local function PartMenu(data)
             header = "⬅ Tilbage",
             txt = "Tilbage til dele",
             params = {
-                event = "qb-mechanicjob:client:PartsMenu",
+                event = "norskpixel-mechanicjob:client:PartsMenu",
             }
         },
         {
             header = "⬅ Luk menuen",
             txt = "",
             params = {
-                event = "qb-menu:client:closeMenu",
+                event = "norskpixel-menu:client:closeMenu",
             }
         },
         
     }
 
-    exports['qb-menu']:openMenu(TestMenu1)
+    exports['norskpixel-menu']:openMenu(TestMenu1)
 end
 
 local function NoDamage()
@@ -415,19 +415,19 @@ local function NoDamage()
             header = "Tilbage",
             txt = "Der er ingen skade på denne del!",
             params = {
-                event = "qb-mechanicjob:client:PartsMenu",
+                event = "norskpixel-mechanicjob:client:PartsMenu",
             }
         },
         {
             header = "⬅ Luk menuen",
             txt = "",
             params = {
-                event = "qb-menu:client:closeMenu",
+                event = "norskpixel-menu:client:closeMenu",
             }
         },
         
     }
-    exports['qb-menu']:openMenu(NoDamage)
+    exports['norskpixel-menu']:openMenu(NoDamage)
 end
 
 local function UnattachVehicle()
@@ -441,7 +441,7 @@ local function UnattachVehicle()
     Wait(500)
     DoScreenFadeIn(250)
     Config.Plates[ClosestPlate].AttachedVehicle = nil
-    TriggerServerEvent('qb-vehicletuning:server:SetAttachedVehicle', false, ClosestPlate)
+    TriggerServerEvent('norskpixel-vehicletuning:server:SetAttachedVehicle', false, ClosestPlate)
 end
 
 local function SpawnListVehicle(model)
@@ -474,7 +474,7 @@ local function VehicleList()
             header = v,
             txt = "Køretøj: "..v.."",
             params = {
-                event = "qb-mechanicjob:client:SpawnListVehicle",
+                event = "norskpixel-mechanicjob:client:SpawnListVehicle",
                 args = {
                     headername = v,
                     spawnName = k
@@ -486,11 +486,11 @@ local function VehicleList()
         header = "⬅ Luk menuen",
         txt = "",
         params = {
-            event = "qb-menu:client:closeMenu"
+            event = "norskpixel-menu:client:closeMenu"
         }
 
     }
-    exports['qb-menu']:openMenu(vehicleMenu)
+    exports['norskpixel-menu']:openMenu(vehicleMenu)
 end
 
 local function CheckStatus()
@@ -503,7 +503,7 @@ local function RepairPart(part)
     local hasitem = false
     local indx = 0
     local countitem = 0
-    QBCore.Functions.TriggerCallback('qb-inventory:server:GetStashItems', function(StashItems)
+    QBCore.Functions.TriggerCallback('norskpixel-inventory:server:GetStashItems', function(StashItems)
         for k,v in pairs(StashItems) do
             if v.name == PartData.item then
                 hasitem = true
@@ -528,8 +528,8 @@ local function RepairPart(part)
                     countitem = (countitem - PartData.costs)
                     StashItems[indx].amount = countitem
                 end
-                TriggerEvent('qb-vehicletuning:client:RepaireeePart', part)
-                TriggerServerEvent('qb-inventory:server:SaveStashItems', "mechanicstash", StashItems)
+                TriggerEvent('norskpixel-vehicletuning:client:RepaireeePart', part)
+                TriggerServerEvent('norskpixel-inventory:server:SaveStashItems', "mechanicstash", StashItems)
                 SetTimeout(250, function()
                     PartsMenu()
                 end)
@@ -545,32 +545,32 @@ end
 
 
 -- Events
-RegisterNetEvent("qb-mechanicjob:client:UnattachVehicle",function(data)
+RegisterNetEvent("norskpixel-mechanicjob:client:UnattachVehicle",function(data)
     UnattachVehicle()
 end)
 
-RegisterNetEvent("qb-mechanicjob:client:PartsMenu",function(data)
+RegisterNetEvent("norskpixel-mechanicjob:client:PartsMenu",function(data)
     PartsMenu()
 end)
 
-RegisterNetEvent("qb-mechanicjob:client:PartMenu",function(data)
+RegisterNetEvent("norskpixel-mechanicjob:client:PartMenu",function(data)
     PartMenu(data)
 end)
 
-RegisterNetEvent("qb-mechanicjob:client:NoDamage",function(data)
+RegisterNetEvent("norskpixel-mechanicjob:client:NoDamage",function(data)
     NoDamage()
 end)
 
-RegisterNetEvent("qb-mechanicjob:client:CheckStatus",function(data)
+RegisterNetEvent("norskpixel-mechanicjob:client:CheckStatus",function(data)
     CheckStatus()
 end)
 
-RegisterNetEvent("qb-mechanicjob:client:SpawnListVehicle",function(data)
+RegisterNetEvent("norskpixel-mechanicjob:client:SpawnListVehicle",function(data)
     local vehicleSpawnName=data.spawnName
     SpawnListVehicle(vehicleSpawnName)
 end)
 
-RegisterNetEvent("qb-mechanicjob:client:RepairPart",function(data)
+RegisterNetEvent("norskpixel-mechanicjob:client:RepairPart",function(data)
     local partData = data.part
     RepairPart(partData)
 end)
@@ -584,13 +584,13 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
             end
         end
     end)
-    QBCore.Functions.TriggerCallback('qb-vehicletuning:server:GetAttachedVehicle', function(plates)
+    QBCore.Functions.TriggerCallback('norskpixel-vehicletuning:server:GetAttachedVehicle', function(plates)
         for k, v in pairs(plates) do
             Config.Plates[k].AttachedVehicle = v.AttachedVehicle
         end
     end)
 
-    QBCore.Functions.TriggerCallback('qb-vehicletuning:server:GetDrivingDistances', function(retval)
+    QBCore.Functions.TriggerCallback('norskpixel-vehicletuning:server:GetDrivingDistances', function(retval)
         DrivingDistance = retval
     end)
 end)
@@ -604,7 +604,7 @@ RegisterNetEvent('QBCore:Client:SetDuty', function(duty)
     onDuty = duty
 end)
 
-RegisterNetEvent('qb-vehicletuning:client:SetAttachedVehicle', function(veh, key)
+RegisterNetEvent('norskpixel-vehicletuning:client:SetAttachedVehicle', function(veh, key)
     if veh ~= false then
         Config.Plates[key].AttachedVehicle = veh
     else
@@ -612,7 +612,7 @@ RegisterNetEvent('qb-vehicletuning:client:SetAttachedVehicle', function(veh, key
     end
 end)
 
-RegisterNetEvent('qb-vehicletuning:client:RepaireeePart', function(part)
+RegisterNetEvent('norskpixel-vehicletuning:client:RepaireeePart', function(part)
     local veh = Config.Plates[ClosestPlate].AttachedVehicle
     local plate = QBCore.Functions.GetPlate(veh)
     if part == "engine" then
@@ -875,7 +875,7 @@ CreateThread(function()
                                                 FreezeEntityPosition(veh, true)
                                                 Wait(500)
                                                 DoScreenFadeIn(250)
-                                                TriggerServerEvent('qb-vehicletuning:server:SetAttachedVehicle', veh, k)
+                                                TriggerServerEvent('norskpixel-vehicletuning:server:SetAttachedVehicle', veh, k)
                                             end
                                         else
                                             QBCore.Functions.Notify("Du kan ikke stille motorcykler på platformen!", "error")

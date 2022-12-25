@@ -1,4 +1,4 @@
-# qb-vehicleshop
+# norskpixel-vehicleshop
 Vehicle Shop for QB-Core Framework :car:
 
 # License

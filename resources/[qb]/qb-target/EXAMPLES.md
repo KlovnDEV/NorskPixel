@@ -11,7 +11,7 @@ Then, in the actual options themselves, we define 'police' as our required job.
 This is an example using **exports**
 
 ```lua
-exports['qb-target']:AddBoxZone("MissionRowDutyClipboard", vector3(441.7989, -982.0529, 30.67834), 0.45, 0.35, {
+exports['norskpixel-target']:AddBoxZone("MissionRowDutyClipboard", vector3(441.7989, -982.0529, 30.67834), 0.45, 0.35, {
 	name = "MissionRowDutyClipboard",
 	heading = 11.0,
 	debugPoly = false,
@@ -30,7 +30,7 @@ exports['qb-target']:AddBoxZone("MissionRowDutyClipboard", vector3(441.7989, -98
 		distance = 2.5
 })
 
--- This event is only for the QBCore resource qb-policejob, goes inside @qb-policejob/client/job.lua
+-- This event is only for the QBCore resource norskpixel-policejob, goes inside @norskpixel-policejob/client/job.lua
 RegisterNetEvent('Toggle:Duty', function()
     onDuty = not onDuty
     TriggerServerEvent("police:server:UpdateCurrentCops")
@@ -65,7 +65,7 @@ Config.BoxZones = {
     },
 }
 
--- This event is only for the QBCore resource qb-policejob, goes inside @qb-policejob/client/job.lua
+-- This event is only for the QBCore resource norskpixel-policejob, goes inside @norskpixel-policejob/client/job.lua
 RegisterNetEvent('Toggle:Duty', function()
     onDuty = not onDuty
     TriggerServerEvent("police:server:UpdateCurrentCops")
@@ -110,7 +110,7 @@ Config.Peds = {
     "g_m_importexport_0",
     "g_m_m_armboss_01"
 }
-exports['qb-target']:AddTargetModel(Config.Peds, {
+exports['norskpixel-target']:AddTargetModel(Config.Peds, {
 	options = {
 		{
 			event = "request:CuffPed",
@@ -175,7 +175,7 @@ This is an example from a postop resource. Players can rent delivery vehicles in
 This is an example using **exports**
 
 ```lua
-exports['qb-target']:AddTargetEntity('mule2', {
+exports['norskpixel-target']:AddTargetEntity('mule2', {
     options = {
         {
             type = "client",
@@ -210,13 +210,13 @@ Config.TargetEntities = {
 ```
 
 ## Passing Item Data
-In this example, we define the model of the coffee machines you see around the map, and allow players to purchase a coffee. You'll have to provide your own logic for the purchase, but this is how you would handle it with qb-target, and how you would pass data through to an event for future use. 
+In this example, we define the model of the coffee machines you see around the map, and allow players to purchase a coffee. You'll have to provide your own logic for the purchase, but this is how you would handle it with norskpixel-target, and how you would pass data through to an event for future use. 
 
 This is an example using **exports**
 This example is **not** advised to use with the provided config
 
 ```lua
-exports['qb-target']:AddTargetModel(690372739, {
+exports['norskpixel-target']:AddTargetModel(690372739, {
     options = {
         {
             type = "client",
@@ -257,7 +257,7 @@ AddEventHandler('plantpotato',function()
 
 	-- Logic to handle growth, create a thread and loop, or do something else. Up to you.
 
-	exports['qb-target']:AddEntityZone("potato-growing-"..plant, plant, {
+	exports['norskpixel-target']:AddEntityZone("potato-growing-"..plant, plant, {
 		name = "potato-growing-"..plant,
 		heading = GetEntityHeading(plant),
 		debugPoly = false,

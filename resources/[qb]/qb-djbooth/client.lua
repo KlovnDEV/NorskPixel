@@ -1,6 +1,6 @@
 -- Variables
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local currentZone = nil
 local PlayerData = {}
 
@@ -29,7 +29,7 @@ local musicHeader = {
     {
         header = 'Afspil noget musik!',
         params = {
-            event = 'qb-djbooth:client:playMusic'
+            event = 'norskpixel-djbooth:client:playMusic'
         }
     }
 }
@@ -46,7 +46,7 @@ function createMusicMenu()
             header = '🎶 | Afspil en sang',
             txt = 'Indtast et YouTube link',
             params = {
-                event = 'qb-djbooth:client:musicMenu',
+                event = 'norskpixel-djbooth:client:musicMenu',
                 args = {
                     zoneName = currentZone
                 }
@@ -57,7 +57,7 @@ function createMusicMenu()
             txt = 'Pause den nuværende sang',
             params = {
                 isServer = true,
-                event = 'qb-djbooth:server:pauseMusic',
+                event = 'norskpixel-djbooth:server:pauseMusic',
                 args = {
                     zoneName = currentZone
                 }
@@ -68,7 +68,7 @@ function createMusicMenu()
             txt = 'Genoptag sangen som blev sidst blev afspillet',
             params = {
                 isServer = true,
-                event = 'qb-djbooth:server:resumeMusic',
+                event = 'norskpixel-djbooth:server:resumeMusic',
                 args = {
                     zoneName = currentZone
                 }
@@ -78,7 +78,7 @@ function createMusicMenu()
             header = '🔈 | Ændre lydstyrke',
             txt = 'Ændre lydstyrken på sangen/musikken',
             params = {
-                event = 'qb-djbooth:client:changeVolume',
+                event = 'norskpixel-djbooth:client:changeVolume',
                 args = {
                     zoneName = currentZone
                 }
@@ -89,7 +89,7 @@ function createMusicMenu()
             txt = 'Stop/sluk musikken, og afspil en anden',
             params = {
                 isServer = true,
-                event = 'qb-djbooth:server:stopMusic',
+                event = 'norskpixel-djbooth:server:stopMusic',
                 args = {
                     zoneName = currentZone
                 }
@@ -108,22 +108,22 @@ local vanilla = BoxZone:Create(Config.Locations['vanilla'].coords, 1, 1, {
 vanilla:onPlayerInOut(function(isPointInside)
     if isPointInside and PlayerData.job.name == Config.Locations['vanilla'].job then
         currentZone = 'vanilla'
-        exports['qb-menu']:showHeader(musicHeader)
+        exports['norskpixel-menu']:showHeader(musicHeader)
     else
         currentZone = nil
-        exports['qb-menu']:closeMenu()
+        exports['norskpixel-menu']:closeMenu()
     end
 end)
 
 -- Events
 
-RegisterNetEvent('qb-djbooth:client:playMusic', function()
+RegisterNetEvent('norskpixel-djbooth:client:playMusic', function()
     createMusicMenu()
-    exports['qb-menu']:openMenu(musicMenu)
+    exports['norskpixel-menu']:openMenu(musicMenu)
 end)
 
-RegisterNetEvent('qb-djbooth:client:musicMenu', function()
-    local dialog = exports['qb-input']:ShowInput({
+RegisterNetEvent('norskpixel-djbooth:client:musicMenu', function()
+    local dialog = exports['norskpixel-input']:ShowInput({
         header = 'Sangvalg',
         submitText = "Indsend",
         inputs = {
@@ -137,12 +137,12 @@ RegisterNetEvent('qb-djbooth:client:musicMenu', function()
     })
     if dialog then
         if not dialog.song then return end
-        TriggerServerEvent('qb-djbooth:server:playMusic', dialog.song, currentZone)
+        TriggerServerEvent('norskpixel-djbooth:server:playMusic', dialog.song, currentZone)
     end
 end)
 
-RegisterNetEvent('qb-djbooth:client:changeVolume', function()
-    local dialog = exports['qb-input']:ShowInput({
+RegisterNetEvent('norskpixel-djbooth:client:changeVolume', function()
+    local dialog = exports['norskpixel-input']:ShowInput({
         header = 'Musik lydstryke',
         submitText = "Indsend",
         inputs = {
@@ -156,6 +156,6 @@ RegisterNetEvent('qb-djbooth:client:changeVolume', function()
     })
     if dialog then
         if not dialog.volume then return end
-        TriggerServerEvent('qb-djbooth:server:changeVolume', dialog.volume, currentZone)
+        TriggerServerEvent('norskpixel-djbooth:server:changeVolume', dialog.volume, currentZone)
     end
 end)

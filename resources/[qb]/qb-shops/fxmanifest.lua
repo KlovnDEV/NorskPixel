@@ -11,7 +11,7 @@ client_script 'client/main.lua'
 server_script 'server/main.lua'
 
 dependencies {
-	'qb-inventory'
+	'norskpixel-inventory'
 }
 
 lua54 'yes'

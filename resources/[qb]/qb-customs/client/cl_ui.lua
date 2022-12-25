@@ -241,7 +241,7 @@ function InitiateMenus(isMotorcycle, vehicleHealth)
     if vehicleHealth < 1000.0 then
         local repairCost = math.ceil(1000 - vehicleHealth)
 
-        TriggerServerEvent("qb-customs:updateRepairCost", repairCost)
+        TriggerServerEvent("norskpixel-customs:updateRepairCost", repairCost)
         createMenu("repairMenu", "Velkommen til Benny's Original Motorworks", "Reparer Køretøj")
         populateMenu("repairMenu", -1, "Reparer", repairCost.." DKK")
         populateMenu("repairMenu", -2, "Annuller", "")

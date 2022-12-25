@@ -1,4 +1,4 @@
-# qb-weapons
+# norskpixel-weapons
 Weapon Logic Script For QB-Core
 
 # License

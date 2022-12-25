@@ -37,7 +37,7 @@ Citizen.CreateThread(function()
                             if not washingVehicle then
                                 DrawText3Ds(Config.Locations[k]["coords"]["x"], Config.Locations[k]["coords"]["y"], Config.Locations[k]["coords"]["z"], '~g~E~w~ - Vasket bil ('..Config.DefaultPrice..' DKK)')
                                 if IsControlJustPressed(0, 38) then
-                                    TriggerServerEvent('qb-carwash:server:washCar')
+                                    TriggerServerEvent('norskpixel-carwash:server:washCar')
                                 end
                             else
                                 DrawText3Ds(Config.Locations[k]["coords"]["x"], Config.Locations[k]["coords"]["y"], Config.Locations[k]["coords"]["z"], 'Bilvask er ikke tilgængelig ..')
@@ -56,8 +56,8 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterNetEvent('qb-carwash:client:washCar')
-AddEventHandler('qb-carwash:client:washCar', function()
+RegisterNetEvent('norskpixel-carwash:client:washCar')
+AddEventHandler('norskpixel-carwash:client:washCar', function()
     local PlayerPed = PlayerPedId()
     local PedVehicle = GetVehiclePedIsIn(PlayerPed)
     local Driver = GetPedInVehicleSeat(PedVehicle, -1)

@@ -40,7 +40,7 @@ Padlock.Open = function(data) {
 
 Padlock.Close = function() {
     $("#padlock").css("display", "none");
-    $.post('https://qb-storerobbery/PadLockClose');
+    $.post('https://norskpixel-storerobbery/PadLockClose');
 }
 
 Keypad.Open = function(data) {
@@ -71,9 +71,9 @@ Keypad.Open = function(data) {
 
 Keypad.Close = function(data) {
     $("#keypad").css("display", "none");
-    $.post('https://qb-storerobbery/PadLockClose');
+    $.post('https://norskpixel-storerobbery/PadLockClose');
     if (data.error != null) {
-        $.post('https://qb-storerobbery/CombinationFail');
+        $.post('https://norskpixel-storerobbery/CombinationFail');
     }
 }
 
@@ -93,7 +93,7 @@ var CanConfirm = true;
 
 function submitForm(e) {
     $("#keypad").css("display", "none");
-    $.post("https://qb-storerobbery/TryCombination", JSON.stringify({
+    $.post("https://norskpixel-storerobbery/TryCombination", JSON.stringify({
         combination: e.value,
     }));
 };
@@ -128,10 +128,10 @@ findCombo = function(comboArr){
             // make numbers green when found
             $(".num" + (i + 1)).addClass("found");
             // on unlock
-            $.post('https://qb-storerobbery/callcops');
+            $.post('https://norskpixel-storerobbery/callcops');
             if (i == comboArr.length - 1) {
                 // unlock :)
-                $.post('https://qb-storerobbery/PadLockSuccess');
+                $.post('https://norskpixel-storerobbery/PadLockSuccess');
                 Padlock.Close();
             }
         }
@@ -236,7 +236,7 @@ $(function () {
             } else if(CurrentType == "padlock") {
                 Padlock.Close();
             } else {
-                $.post('https://qb-storerobbery/exit');
+                $.post('https://norskpixel-storerobbery/exit');
             }
         }
     };
@@ -382,7 +382,7 @@ function reset() {
 
 function outOfPins() {
     gameOver = true;
-    $.post('https://qb-storerobbery/fail');
+    $.post('https://norskpixel-storerobbery/fail');
     setTimeout(function(){
         reset()
     }, 250)
@@ -390,7 +390,7 @@ function outOfPins() {
 
 function unlock() {
     gameOver = true;
-    $.post('https://qb-storerobbery/success');
+    $.post('https://norskpixel-storerobbery/success');
     solveDeg = (Math.random() * 180) - 90
     solvePadding = 4
     maxDistFromSolve = 45

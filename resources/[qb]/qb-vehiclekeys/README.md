@@ -1,4 +1,4 @@
-# qb-vehiclekeys
+# norskpixel-vehiclekeys
 Vehicle Keys System For QB-Core
 
 # License

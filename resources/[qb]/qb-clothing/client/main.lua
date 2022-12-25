@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local creatingCharacter = false
 local cam = -1
@@ -286,7 +286,7 @@ local skinData = {
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
-    TriggerServerEvent("qb-clothes:loadPlayerSkin")
+    TriggerServerEvent("norskpixel-clothes:loadPlayerSkin")
     PlayerData = QBCore.Functions.GetPlayerData()
     isLoggedIn = true
 end)
@@ -435,7 +435,7 @@ Citizen.CreateThread(function()
                                     customCamLocation = Config.ClothingRooms[k].cameraLocation
                                     gender = "male"
                                     if QBCore.Functions.GetPlayerData().charinfo.gender == 1 then gender = "female" end
-                                    QBCore.Functions.TriggerCallback('qb-clothing:server:getOutfits', function(result)
+                                    QBCore.Functions.TriggerCallback('norskpixel-clothing:server:getOutfits', function(result)
                                         openMenu({
                                             {menu = "roomOutfits", label = "Indstillinger", selected = true, outfits = Config.Outfits[PlayerData.job.name][gender][PlayerData.job.grade.level]},
                                             {menu = "myOutfits", label = "Mine outfits", selected = false, outfits = result},
@@ -451,7 +451,7 @@ Citizen.CreateThread(function()
                                         customCamLocation = Config.ClothingRooms[k].cameraLocation
                                         gender = "male"
                                         if QBCore.Functions.GetPlayerData().charinfo.gender == 1 then gender = "female" end
-                                        QBCore.Functions.TriggerCallback('qb-clothing:server:getOutfits', function(result)
+                                        QBCore.Functions.TriggerCallback('norskpixel-clothing:server:getOutfits', function(result)
                                             openMenu({
                                                 {menu = "roomOutfits", label = "Indstillinger", selected = true, outfits = Config.Outfits[PlayerData.gang.name][gender][PlayerData.gang.grade.level]},
                                                 {menu = "myOutfits", label = "Mine outfits", selected = false, outfits = result},
@@ -475,9 +475,9 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterNetEvent('qb-clothing:client:openOutfitMenu')
-AddEventHandler('qb-clothing:client:openOutfitMenu', function()
-    QBCore.Functions.TriggerCallback('qb-clothing:server:getOutfits', function(result)
+RegisterNetEvent('norskpixel-clothing:client:openOutfitMenu')
+AddEventHandler('norskpixel-clothing:client:openOutfitMenu', function()
+    QBCore.Functions.TriggerCallback('norskpixel-clothing:server:getOutfits', function(result)
         openMenu({
             {menu = "myOutfits", label = "Mine Outfits", selected = true, outfits = result},
         })
@@ -486,7 +486,7 @@ end)
 
 RegisterNUICallback('selectOutfit', function(data)
 
-    TriggerEvent('qb-clothing:client:loadOutfit', data)
+    TriggerEvent('norskpixel-clothing:client:loadOutfit', data)
 end)
 
 RegisterNUICallback('rotateRight', function()
@@ -567,8 +567,8 @@ local clothingCategorys = {
     ["neck_thikness"]   = {type = "cheek",  id = 5},
 }
 
-RegisterNetEvent('qb-clothing:client:openMenu')
-AddEventHandler('qb-clothing:client:openMenu', function()
+RegisterNetEvent('norskpixel-clothing:client:openMenu')
+AddEventHandler('norskpixel-clothing:client:openMenu', function()
     customCamLocation = nil
     openMenu({
         {menu = "character", label = "Karakter", selected = true},
@@ -726,11 +726,11 @@ RegisterNUICallback('saveOutfit', function(data, cb)
     local ped = PlayerPedId()
     local model = GetEntityModel(ped)
 
-    TriggerServerEvent('qb-clothes:saveOutfit', data.outfitName, model, skinData)
+    TriggerServerEvent('norskpixel-clothes:saveOutfit', data.outfitName, model, skinData)
 end)
 
-RegisterNetEvent('qb-clothing:client:reloadOutfits')
-AddEventHandler('qb-clothing:client:reloadOutfits', function(myOutfits)
+RegisterNetEvent('norskpixel-clothing:client:reloadOutfits')
+AddEventHandler('norskpixel-clothing:client:reloadOutfits', function(myOutfits)
     SendNUIMessage({
         action = "reloadMyOutfits",
         outfits = myOutfits
@@ -976,7 +976,7 @@ RegisterNUICallback('updateSkinOnInput', function(data)
 end)
 
 RegisterNUICallback('removeOutfit', function(data, cb)
-    TriggerServerEvent('qb-clothing:server:removeOutfit', data.outfitName, data.outfitId)
+    TriggerServerEvent('norskpixel-clothing:server:removeOutfit', data.outfitName, data.outfitId)
     QBCore.Functions.Notify("Du har slettet"..data.outfitName.." outfit!")
 end)
 
@@ -1588,11 +1588,11 @@ end)
 function SaveSkin()
 	local model = GetEntityModel(PlayerPedId())
     clothing = json.encode(skinData)
-	TriggerServerEvent("qb-clothing:saveSkin", model, clothing)
+	TriggerServerEvent("norskpixel-clothing:saveSkin", model, clothing)
 end
 
-RegisterNetEvent('qb-clothes:client:CreateFirstCharacter')
-AddEventHandler('qb-clothes:client:CreateFirstCharacter', function()
+RegisterNetEvent('norskpixel-clothes:client:CreateFirstCharacter')
+AddEventHandler('norskpixel-clothes:client:CreateFirstCharacter', function()
     QBCore.Functions.GetPlayerData(function(PlayerData)
         local skin = "mp_m_freemode_01"
         openMenu({
@@ -1612,8 +1612,8 @@ AddEventHandler('qb-clothes:client:CreateFirstCharacter', function()
     end)
 end)
 
-RegisterNetEvent("qb-clothes:loadSkin")
-AddEventHandler("qb-clothes:loadSkin", function(new, model, data)
+RegisterNetEvent("norskpixel-clothes:loadSkin")
+AddEventHandler("norskpixel-clothes:loadSkin", function(new, model, data)
     model = model ~= nil and tonumber(model) or false
     Citizen.CreateThread(function()
         RequestModel(model)
@@ -1624,12 +1624,12 @@ AddEventHandler("qb-clothes:loadSkin", function(new, model, data)
         SetPlayerModel(PlayerId(), model)
         SetPedComponentVariation(PlayerPedId(), 0, 0, 0, 2)
         data = json.decode(data)
-        TriggerEvent('qb-clothing:client:loadPlayerClothing', data, PlayerPedId())
+        TriggerEvent('norskpixel-clothing:client:loadPlayerClothing', data, PlayerPedId())
     end)
 end)
 
-RegisterNetEvent('qb-clothing:client:loadPlayerClothing')
-AddEventHandler('qb-clothing:client:loadPlayerClothing', function(data, ped)
+RegisterNetEvent('norskpixel-clothing:client:loadPlayerClothing')
+AddEventHandler('norskpixel-clothing:client:loadPlayerClothing', function(data, ped)
     if ped == nil then ped = PlayerPedId() end
 
     for i = 0, 11 do
@@ -1794,8 +1794,8 @@ function typeof(var)
     end
 end
 
-RegisterNetEvent('qb-clothing:client:loadOutfit')
-AddEventHandler('qb-clothing:client:loadOutfit', function(oData)
+RegisterNetEvent('norskpixel-clothing:client:loadOutfit')
+AddEventHandler('norskpixel-clothing:client:loadOutfit', function(oData)
     local ped = PlayerPedId()
 
     data = oData.outfitData
@@ -1920,8 +1920,8 @@ function loadAnimDict( dict )
     end
 end 
 
-RegisterNetEvent("qb-clothing:client:adjustfacewear")
-AddEventHandler("qb-clothing:client:adjustfacewear",function(type)
+RegisterNetEvent("norskpixel-clothing:client:adjustfacewear")
+AddEventHandler("norskpixel-clothing:client:adjustfacewear",function(type)
     if QBCore.Functions.GetPlayerData().metadata["ishandcuffed"] then return end
 	removeWear = not removeWear
 	local AnimSet = "none"
@@ -2072,8 +2072,8 @@ function reloadSkin(health)
     SetModelAsNoLongerNeeded(model)
     Citizen.Wait(1000) -- Safety Delay
 
-    TriggerServerEvent("qb-clothes:loadPlayerSkin") -- LOADING PLAYER'S CLOTHES
-    TriggerServerEvent("qb-clothing:loadPlayerSkin") -- LOADING PLAYER'S CLOTHES - Event 2
+    TriggerServerEvent("norskpixel-clothes:loadPlayerSkin") -- LOADING PLAYER'S CLOTHES
+    TriggerServerEvent("norskpixel-clothing:loadPlayerSkin") -- LOADING PLAYER'S CLOTHES - Event 2
 
     SetPedMaxHealth(PlayerId(), maxhealth)
     Citizen.Wait(1000) -- Safety Delay

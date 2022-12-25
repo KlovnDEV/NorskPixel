@@ -1,5 +1,5 @@
 
-QBCore = exports['qb-core']:GetCoreObject()
+QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local closestBank = nil
 local inRange
@@ -32,7 +32,7 @@ end)
 RegisterNetEvent("QBCore:Client:OnPlayerLoaded")
 AddEventHandler("QBCore:Client:OnPlayerLoaded", function()
     PlayerJob = QBCore.Functions.GetPlayerData().job
-    QBCore.Functions.TriggerCallback('qb-bankrobbery:server:GetConfig', function(config)
+    QBCore.Functions.TriggerCallback('norskpixel-bankrobbery:server:GetConfig', function(config)
         Config = config
     end)
     onDuty = true
@@ -162,7 +162,7 @@ AddEventHandler('electronickit:UseElectronickit', function()
         TriggerServerEvent("evidence:server:CreateFingerDrop", pos)
     end
     if closestBank ~= nil then
-        QBCore.Functions.TriggerCallback('qb-bankrobbery:server:isRobberyActive', function(isBusy)
+        QBCore.Functions.TriggerCallback('norskpixel-bankrobbery:server:isRobberyActive', function(isBusy)
             if not isBusy then
                 if closestBank ~= nil then
                     local dist = #(pos - Config.SmallBanks[closestBank]["coords"])
@@ -200,7 +200,7 @@ AddEventHandler('electronickit:UseElectronickit', function()
                                                     streetLabel = streetLabel .. " " .. street2
                                                 end
                                                 if Config.SmallBanks[closestBank]["alarm"] then
-                                                    TriggerServerEvent("qb-bankrobbery:server:callCops", "small", closestBank, streetLabel, pos)
+                                                    TriggerServerEvent("norskpixel-bankrobbery:server:callCops", "small", closestBank, streetLabel, pos)
                                                     copsCalled = true
                                                 end
                                             end
@@ -227,8 +227,8 @@ AddEventHandler('electronickit:UseElectronickit', function()
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:setBankState')
-AddEventHandler('qb-bankrobbery:client:setBankState', function(bankId, state)
+RegisterNetEvent('norskpixel-bankrobbery:client:setBankState')
+AddEventHandler('norskpixel-bankrobbery:client:setBankState', function(bankId, state)
     if bankId == "paleto" then
         Config.BigBanks["paleto"]["isOpened"] = state
         if state then
@@ -247,22 +247,22 @@ AddEventHandler('qb-bankrobbery:client:setBankState', function(bankId, state)
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:enableAllBankSecurity')
-AddEventHandler('qb-bankrobbery:client:enableAllBankSecurity', function()
+RegisterNetEvent('norskpixel-bankrobbery:client:enableAllBankSecurity')
+AddEventHandler('norskpixel-bankrobbery:client:enableAllBankSecurity', function()
     for k, v in pairs(Config.SmallBanks) do
         Config.SmallBanks[k]["alarm"] = true
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:disableAllBankSecurity')
-AddEventHandler('qb-bankrobbery:client:disableAllBankSecurity', function()
+RegisterNetEvent('norskpixel-bankrobbery:client:disableAllBankSecurity')
+AddEventHandler('norskpixel-bankrobbery:client:disableAllBankSecurity', function()
     for k, v in pairs(Config.SmallBanks) do
         Config.SmallBanks[k]["alarm"] = false
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:BankSecurity')
-AddEventHandler('qb-bankrobbery:client:BankSecurity', function(key, status)
+RegisterNetEvent('norskpixel-bankrobbery:client:BankSecurity')
+AddEventHandler('norskpixel-bankrobbery:client:BankSecurity', function(key, status)
     Config.SmallBanks[key]["alarm"] = status
 end)
 
@@ -338,7 +338,7 @@ function openLocker(bankId, lockerId)
     if math.random(1, 100) <= 65 and not IsWearingHandshoes() then
         TriggerServerEvent("evidence:server:CreateFingerDrop", pos)
     end
-    TriggerServerEvent('qb-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', true)
+    TriggerServerEvent('norskpixel-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', true)
     if bankId == "paleto" then
         QBCore.Functions.TriggerCallback('QBCore:HasItem', function(hasItem)
             if hasItem then
@@ -357,14 +357,14 @@ function openLocker(bankId, lockerId)
                     StopAnimTask(PlayerPedId(), "anim@heists@fleeca_bank@drilling", "drill_straight_idle", 1.0)
                     DetachEntity(DrillObject, true, true)
                     DeleteObject(DrillObject)
-                    TriggerServerEvent('qb-bankrobbery:server:setLockerState', bankId, lockerId, 'isOpened', true)
-                    TriggerServerEvent('qb-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', false)
-                    TriggerServerEvent('qb-bankrobbery:server:recieveItem', 'paleto')
+                    TriggerServerEvent('norskpixel-bankrobbery:server:setLockerState', bankId, lockerId, 'isOpened', true)
+                    TriggerServerEvent('norskpixel-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', false)
+                    TriggerServerEvent('norskpixel-bankrobbery:server:recieveItem', 'paleto')
                     QBCore.Functions.Notify("Succes!", "success")
                     IsDrilling = false
                 end, function() -- Cancel
                     StopAnimTask(PlayerPedId(), "anim@heists@fleeca_bank@drilling", "drill_straight_idle", 1.0)
-                    TriggerServerEvent('qb-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', false)
+                    TriggerServerEvent('norskpixel-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', false)
                     DetachEntity(DrillObject, true, true)
                     DeleteObject(DrillObject)
                     QBCore.Functions.Notify("Afbrudt..", "error")
@@ -378,7 +378,7 @@ function openLocker(bankId, lockerId)
                 end)
             else
                 QBCore.Functions.Notify("Ser ud til at safelåsen er for kraftig...", "error")
-                TriggerServerEvent('qb-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', false)
+                TriggerServerEvent('norskpixel-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', false)
             end
         end, "drill")
     elseif bankId == "pacific" then
@@ -400,14 +400,14 @@ function openLocker(bankId, lockerId)
                     DetachEntity(DrillObject, true, true)
                     DeleteObject(DrillObject)
                     
-                    TriggerServerEvent('qb-bankrobbery:server:setLockerState', bankId, lockerId, 'isOpened', true)
-                    TriggerServerEvent('qb-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', false)
-                    TriggerServerEvent('qb-bankrobbery:server:recieveItem', 'pacific')
+                    TriggerServerEvent('norskpixel-bankrobbery:server:setLockerState', bankId, lockerId, 'isOpened', true)
+                    TriggerServerEvent('norskpixel-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', false)
+                    TriggerServerEvent('norskpixel-bankrobbery:server:recieveItem', 'pacific')
                     QBCore.Functions.Notify("Succes!", "success")
                     IsDrilling = false
                 end, function() -- Cancel
                     StopAnimTask(PlayerPedId(), "anim@heists@fleeca_bank@drilling", "drill_straight_idle", 1.0)
-                    TriggerServerEvent('qb-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', false)
+                    TriggerServerEvent('norskpixel-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', false)
                     DetachEntity(DrillObject, true, true)
                     DeleteObject(DrillObject)
                     QBCore.Functions.Notify("Afbrudt..", "error")
@@ -421,7 +421,7 @@ function openLocker(bankId, lockerId)
                 end)
             else
                 QBCore.Functions.Notify("Ser ud til at safelåsen er for kraftig...", "error")
-                TriggerServerEvent('qb-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', false)
+                TriggerServerEvent('norskpixel-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', false)
             end
         end, "drill")
     else
@@ -437,14 +437,14 @@ function openLocker(bankId, lockerId)
             flags = 16,
         }, {}, {}, function() -- Done
             StopAnimTask(PlayerPedId(), "anim@gangops@facility@servers@", "hotwire", 1.0)
-            TriggerServerEvent('qb-bankrobbery:server:setLockerState', bankId, lockerId, 'isOpened', true)
-            TriggerServerEvent('qb-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', false)
-            TriggerServerEvent('qb-bankrobbery:server:recieveItem', 'small')
+            TriggerServerEvent('norskpixel-bankrobbery:server:setLockerState', bankId, lockerId, 'isOpened', true)
+            TriggerServerEvent('norskpixel-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', false)
+            TriggerServerEvent('norskpixel-bankrobbery:server:recieveItem', 'small')
             QBCore.Functions.Notify("Successful!", "success")
             IsDrilling = false
         end, function() -- Cancel
             StopAnimTask(PlayerPedId(), "anim@gangops@facility@servers@", "hotwire", 1.0)
-            TriggerServerEvent('qb-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', false)
+            TriggerServerEvent('norskpixel-bankrobbery:server:setLockerState', bankId, lockerId, 'isBusy', false)
             QBCore.Functions.Notify("Afbrudt..", "error")
             IsDrilling = false
         end)
@@ -457,8 +457,8 @@ function openLocker(bankId, lockerId)
     end
 end
 
-RegisterNetEvent('qb-bankrobbery:client:setLockerState')
-AddEventHandler('qb-bankrobbery:client:setLockerState', function(bankId, lockerId, state, bool)
+RegisterNetEvent('norskpixel-bankrobbery:client:setLockerState')
+AddEventHandler('norskpixel-bankrobbery:client:setLockerState', function(bankId, lockerId, state, bool)
     if bankId == "paleto" then
         Config.BigBanks["paleto"]["lockers"][lockerId][state] = bool
     elseif bankId == "pacific" then
@@ -468,8 +468,8 @@ AddEventHandler('qb-bankrobbery:client:setLockerState', function(bankId, lockerI
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:ResetFleecaLockers')
-AddEventHandler('qb-bankrobbery:client:ResetFleecaLockers', function(BankId)
+RegisterNetEvent('norskpixel-bankrobbery:client:ResetFleecaLockers')
+AddEventHandler('norskpixel-bankrobbery:client:ResetFleecaLockers', function(BankId)
     Config.SmallBanks[BankId]["isOpened"] = false
     for k,_ in pairs(Config.SmallBanks[BankId]["lockers"]) do
         Config.SmallBanks[BankId]["lockers"][k]["isOpened"] = false
@@ -477,8 +477,8 @@ AddEventHandler('qb-bankrobbery:client:ResetFleecaLockers', function(BankId)
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:robberyCall')
-AddEventHandler('qb-bankrobbery:client:robberyCall', function(type, key, streetLabel, coords)
+RegisterNetEvent('norskpixel-bankrobbery:client:robberyCall')
+AddEventHandler('norskpixel-bankrobbery:client:robberyCall', function(type, key, streetLabel, coords)
     if PlayerJob.name == "police" and onDuty then 
         local cameraId = 4
         local bank = "Fleeca"
@@ -486,7 +486,7 @@ AddEventHandler('qb-bankrobbery:client:robberyCall', function(type, key, streetL
             cameraId = Config.SmallBanks[key]["camId"]
             bank = "Fleeca"
             PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
-            TriggerEvent('qb-policealerts:client:AddPoliceAlert', {
+            TriggerEvent('norskpixel-policealerts:client:AddPoliceAlert', {
                 timeOut = 10000,
                 alertTitle = "Fleeca bank røveri startet",
                 coords = {
@@ -520,7 +520,7 @@ AddEventHandler('qb-bankrobbery:client:robberyCall', function(type, key, streetL
             PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
             Citizen.Wait(100)
             PlaySoundFrontend( -1, "Beep_Red", "DLC_HEIST_HACKING_SNAKE_SOUNDS", 1 )
-            TriggerEvent('qb-policealerts:client:AddPoliceAlert', {
+            TriggerEvent('norskpixel-policealerts:client:AddPoliceAlert', {
                 timeOut = 10000,
                 alertTitle = "Blain County Savings bank røveri startet",
                 coords = {
@@ -549,7 +549,7 @@ AddEventHandler('qb-bankrobbery:client:robberyCall', function(type, key, streetL
             PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
             Citizen.Wait(100)
             PlaySoundFrontend( -1, "Beep_Red", "DLC_HEIST_HACKING_SNAKE_SOUNDS", 1 )
-            TriggerEvent('qb-policealerts:client:AddPoliceAlert', {
+            TriggerEvent('norskpixel-policealerts:client:AddPoliceAlert', {
                 timeOut = 10000,
                 alertTitle = "Pacific Standard bank røveri startet",
                 coords = {
@@ -601,7 +601,7 @@ end)
 function OnHackDone(success, timeremaining)
     if success then
         TriggerEvent('mhacking:hide')
-        TriggerServerEvent('qb-bankrobbery:server:setBankState', closestBank, true)
+        TriggerServerEvent('norskpixel-bankrobbery:server:setBankState', closestBank, true)
     else
 		TriggerEvent('mhacking:hide')
 	end

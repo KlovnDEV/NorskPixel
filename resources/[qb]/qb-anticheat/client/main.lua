@@ -1,15 +1,15 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local group = Config.Group
 local IsDecorating = false
 local flags = 0
 
-RegisterNetEvent('qb-anticheat:client:ToggleDecorate', function(bool)
+RegisterNetEvent('norskpixel-anticheat:client:ToggleDecorate', function(bool)
   IsDecorating = bool
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-    QBCore.Functions.TriggerCallback('qb-anticheat:server:GetPermissions', function(UserGroup)
+    QBCore.Functions.TriggerCallback('norskpixel-anticheat:server:GetPermissions', function(UserGroup)
         group = UserGroup
     end)
 end)
@@ -39,7 +39,7 @@ CreateThread(function() -- Superjump --
 
                 if (lengthBetweenCoords > Config.SuperJumpLength) then
                     flags = flags + 1
-                    TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Cheat detected!", "orange", "** @everyone " ..GetPlayerName(player).. "** is flagged from anticheat! **(Flag "..flags.." /"..Config.FlagsForBan.." | Superjump)**")
+                    TriggerServerEvent("norskpixel-log:server:CreateLog", "anticheat", "Cheat detected!", "orange", "** @everyone " ..GetPlayerName(player).. "** is flagged from anticheat! **(Flag "..flags.." /"..Config.FlagsForBan.." | Superjump)**")
                 end
             end
         end
@@ -65,7 +65,7 @@ CreateThread(function() -- Speedhack --
                         if not jumping then
                             if speed > Config.MaxSpeed then
                                 flags = flags + 1
-                                TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Cheat detected!", "orange", "** @everyone " ..GetPlayerName(player).. "** is flagged from anticheat! **(Flag "..flags.." /"..Config.FlagsForBan.." | Speedhack)**")
+                                TriggerServerEvent("norskpixel-log:server:CreateLog", "anticheat", "Cheat detected!", "orange", "** @everyone " ..GetPlayerName(player).. "** is flagged from anticheat! **(Flag "..flags.." /"..Config.FlagsForBan.." | Speedhack)**")
                             end
                         end
                     end
@@ -87,7 +87,7 @@ CreateThread(function()	-- Invisibility --
                 if not IsEntityVisible(ped) then
                     SetEntityVisible(ped, 1, 0)
                     TriggerEvent('QBCore:Notify', "QB-ANTICHEAT: Du var usynlig men er blevet synlig igen!")
-                    TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Made player visible", "green", "** @everyone " ..GetPlayerName(player).. "** was invisible and has been made visible again by QB-Anticheat")
+                    TriggerServerEvent("norskpixel-log:server:CreateLog", "anticheat", "Made player visible", "green", "** @everyone " ..GetPlayerName(player).. "** was invisible and has been made visible again by QB-Anticheat")
                 end
             end
         end
@@ -105,7 +105,7 @@ CreateThread(function() -- Nightvision --
             if GetUsingnightvision(true) then
                 if not IsPedInAnyHeli(ped) then
                     flags = flags + 1
-                    TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Cheat detected!", "orange", "** @everyone " ..GetPlayerName(player).. "** is flagged from anticheat! **(Flag "..flags.." /"..Config.FlagsForBan.." | Nightvision)**")
+                    TriggerServerEvent("norskpixel-log:server:CreateLog", "anticheat", "Cheat detected!", "orange", "** @everyone " ..GetPlayerName(player).. "** is flagged from anticheat! **(Flag "..flags.." /"..Config.FlagsForBan.." | Nightvision)**")
                 end
             end
         end
@@ -122,7 +122,7 @@ CreateThread(function() -- Thermalvision --
             if GetUsingseethrough(true) then
                 if not IsPedInAnyHeli(ped) then
                     flags = flags + 1
-                    TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Cheat detected!", "orange", "** @everyone " ..GetPlayerName(player).. "** is flagged from anticheat! **(Flag "..flags.." /"..Config.FlagsForBan.." | Thermalvision)**")
+                    TriggerServerEvent("norskpixel-log:server:CreateLog", "anticheat", "Cheat detected!", "orange", "** @everyone " ..GetPlayerName(player).. "** is flagged from anticheat! **(Flag "..flags.." /"..Config.FlagsForBan.." | Thermalvision)**")
                 end
             end
         end
@@ -149,8 +149,8 @@ CreateThread(function() 	-- Spawned car --
                         if plate == BlockedPlate then
                             if DriverSeat == ped then
                                 DeleteVehicle(veh)
-                                TriggerServerEvent("qb-anticheat:server:banPlayer", "Cheating")
-                                TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Cheat detected!", "red", "** @everyone " ..GetPlayerName(player).. "** has been banned for cheating (Sat as driver in spawned vehicle with license plate **"..BlockedPlate..")**")
+                                TriggerServerEvent("norskpixel-anticheat:server:banPlayer", "Cheating")
+                                TriggerServerEvent("norskpixel-log:server:CreateLog", "anticheat", "Cheat detected!", "red", "** @everyone " ..GetPlayerName(player).. "** has been banned for cheating (Sat as driver in spawned vehicle with license plate **"..BlockedPlate..")**")
                             end
                         end
                     end
@@ -172,10 +172,10 @@ CreateThread(function()	-- Check if ped has weapon in inventory --
             local WeaponInformation = QBCore.Shared.Weapons[CurrentWeapon]
 
             if WeaponInformation["name"] ~= "weapon_unarmed" then
-                QBCore.Functions.TriggerCallback('qb-anticheat:server:HasWeaponInInventory', function(HasWeapon)
+                QBCore.Functions.TriggerCallback('norskpixel-anticheat:server:HasWeaponInInventory', function(HasWeapon)
                     if not HasWeapon then
                         RemoveAllPedWeapons(PlayerPed, false)
-                        TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Weapon removed!", "orange", "** @everyone " ..GetPlayerName(player).. "** had a weapon on them that they did not have in his inventory. QB Anticheat has removed the weapon.")
+                        TriggerServerEvent("norskpixel-log:server:CreateLog", "anticheat", "Weapon removed!", "orange", "** @everyone " ..GetPlayerName(player).. "** had a weapon on them that they did not have in his inventory. QB Anticheat has removed the weapon.")
                     end
                 end, WeaponInformation)
             end
@@ -188,18 +188,18 @@ CreateThread(function() -- Max flags reached = ban, log, explosion & break --
         Wait(500)
         local player = PlayerId()
         if flags >= Config.FlagsForBan then
-            -- TriggerServerEvent("qb-anticheat:server:banPlayer", "Cheating")
+            -- TriggerServerEvent("norskpixel-anticheat:server:banPlayer", "Cheating")
             -- AddExplosion(coords, EXPLOSION_GRENADE, 1000.0, true, false, false, true)
-            TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Player banned! (Not really of course, this is a test duuuhhhh)", "red", "** @everyone " ..GetPlayerName(player).. "** Too often has been flagged by the anti-cheat and preemptively banned from the server")
+            TriggerServerEvent("norskpixel-log:server:CreateLog", "anticheat", "Player banned! (Not really of course, this is a test duuuhhhh)", "red", "** @everyone " ..GetPlayerName(player).. "** Too often has been flagged by the anti-cheat and preemptively banned from the server")
             flags = 0
         end
     end
 end)
 
-RegisterNetEvent('qb-anticheat:client:NonRegisteredEventCalled', function(reason, CalledEvent)
+RegisterNetEvent('norskpixel-anticheat:client:NonRegisteredEventCalled', function(reason, CalledEvent)
     local player = PlayerId()
-    TriggerServerEvent('qb-anticheat:server:banPlayer', reason)
-    TriggerServerEvent("qb-log:server:CreateLog", "anticheat", "Player banned! (Not really of course, this is a test duuuhhhh)", "red", "** @everyone " ..GetPlayerName(player).. "** has event **"..CalledEvent.."tried to trigger (LUA injector!)")
+    TriggerServerEvent('norskpixel-anticheat:server:banPlayer', reason)
+    TriggerServerEvent("norskpixel-log:server:CreateLog", "anticheat", "Player banned! (Not really of course, this is a test duuuhhhh)", "red", "** @everyone " ..GetPlayerName(player).. "** has event **"..CalledEvent.."tried to trigger (LUA injector!)")
 end)
 
 if Config.Antiresourcestop then

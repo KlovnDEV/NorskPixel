@@ -4,7 +4,7 @@ local timeOffset = Config.TimeOffset
 local freezeTime = Config.FreezeTime
 local blackout = Config.Blackout
 local newWeatherTimer = Config.NewWeatherTimer
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local function isAllowedToChange(player)
     if QBCore.Functions.HasPermission(player, "admin") or IsPlayerAceAllowed(player, 'command') then
@@ -50,22 +50,22 @@ local function NextWeatherStage()
     elseif CurrentWeather == "SMOG" or CurrentWeather == "FOGGY" then
         CurrentWeather = "CLEAR"
     end
-    TriggerEvent("qb-weathersync:server:RequestStateSync")
+    TriggerEvent("norskpixel-weathersync:server:RequestStateSync")
 end
 
-RegisterNetEvent('qb-weathersync:server:RequestStateSync', function()
-    TriggerClientEvent('qb-weathersync:client:SyncWeather', -1, CurrentWeather, blackout)
-    TriggerClientEvent('qb-weathersync:client:SyncTime', -1, baseTime, timeOffset, freezeTime)
+RegisterNetEvent('norskpixel-weathersync:server:RequestStateSync', function()
+    TriggerClientEvent('norskpixel-weathersync:client:SyncWeather', -1, CurrentWeather, blackout)
+    TriggerClientEvent('norskpixel-weathersync:client:SyncTime', -1, baseTime, timeOffset, freezeTime)
 end)
 
-RegisterNetEvent('qb-weathersync:server:RequestCommands', function()
+RegisterNetEvent('norskpixel-weathersync:server:RequestCommands', function()
     local src = source
     if isAllowedToChange(src) then
-        TriggerClientEvent('qb-weathersync:client:RequestCommands', src, true)
+        TriggerClientEvent('norskpixel-weathersync:client:RequestCommands', src, true)
     end
 end)
 
-RegisterNetEvent('qb-weathersync:server:setWeather', function(weather)
+RegisterNetEvent('norskpixel-weathersync:server:setWeather', function(weather)
     local validWeatherType = false
     for i,wtype in ipairs(Config.AvailableWeatherTypes) do
         if wtype == string.upper(weather) then
@@ -76,13 +76,13 @@ RegisterNetEvent('qb-weathersync:server:setWeather', function(weather)
         print(_U('weather_updated'))
         CurrentWeather = string.upper(weather)
         newWeatherTimer = Config.NewWeatherTimer
-        TriggerEvent('qb-weathersync:server:RequestStateSync')
+        TriggerEvent('norskpixel-weathersync:server:RequestStateSync')
     else
         print(_U('weather_invalid'))
     end
 end)
 
-RegisterNetEvent('qb-weathersync:server:setTime', function(hour, minute)
+RegisterNetEvent('norskpixel-weathersync:server:setTime', function(hour, minute)
     if hour and minute then
         local argh = tonumber(hour)
         local argm = tonumber(minute)
@@ -97,15 +97,15 @@ RegisterNetEvent('qb-weathersync:server:setTime', function(hour, minute)
             ShiftToMinute(0)
         end
         print(_U('time_change', argh, argm))
-        TriggerEvent('qb-weathersync:server:RequestStateSync')
+        TriggerEvent('norskpixel-weathersync:server:RequestStateSync')
     else
         print(_U('time_invalid'))
     end
 end)
 
-RegisterNetEvent('qb-weathersync:server:toggleBlackout', function()
+RegisterNetEvent('norskpixel-weathersync:server:toggleBlackout', function()
     blackout = not blackout
-    TriggerEvent('qb-weathersync:server:RequestStateSync')
+    TriggerEvent('norskpixel-weathersync:server:RequestStateSync')
 end)
 
 RegisterCommand('freezetime', function(source)
@@ -168,7 +168,7 @@ RegisterCommand('weather', function(source, args)
                 print(_U('weather_updated'))
                 CurrentWeather = string.upper(args[1])
                 newWeatherTimer = Config.NewWeatherTimer
-                TriggerEvent('qb-weathersync:server:RequestStateSync')
+                TriggerEvent('norskpixel-weathersync:server:RequestStateSync')
             else
                 print(_U('weather_invalid'))
             end
@@ -188,7 +188,7 @@ RegisterCommand('weather', function(source, args)
                     TriggerClientEvent('QBCore:Notify', source, _U('weather_willchangeto', string.lower(args[1])))
                     CurrentWeather = string.upper(args[1])
                     newWeatherTimer = Config.NewWeatherTimer
-                    TriggerEvent('qb-weathersync:server:RequestStateSync')
+                    TriggerEvent('norskpixel-weathersync:server:RequestStateSync')
                 else
                     TriggerClientEvent('QBCore:Notify', source, _U('weather_invalidc'), 'error')
                 end
@@ -216,7 +216,7 @@ RegisterCommand('blackout', function(source)
             else
                 TriggerClientEvent('QBCore:Notify', source, _U('blackout_disabledc'))
             end
-            TriggerEvent('qb-weathersync:server:RequestStateSync')
+            TriggerEvent('norskpixel-weathersync:server:RequestStateSync')
         end
     end
 end)
@@ -230,7 +230,7 @@ RegisterCommand('morning', function(source)
         ShiftToMinute(0)
         ShiftToHour(9)
         TriggerClientEvent('QBCore:Notify', source, _U('time_morning'))
-        TriggerEvent('qb-weathersync:server:RequestStateSync')
+        TriggerEvent('norskpixel-weathersync:server:RequestStateSync')
     end
 end)
 
@@ -243,7 +243,7 @@ RegisterCommand('noon', function(source)
         ShiftToMinute(0)
         ShiftToHour(12)
         TriggerClientEvent('QBCore:Notify', source, _U('time_noon'))
-        TriggerEvent('qb-weathersync:server:RequestStateSync')
+        TriggerEvent('norskpixel-weathersync:server:RequestStateSync')
     end
 end)
 
@@ -256,7 +256,7 @@ RegisterCommand('evening', function(source)
         ShiftToMinute(0)
         ShiftToHour(18)
         TriggerClientEvent('QBCore:Notify', source, _U('time_evening'))
-        TriggerEvent('qb-weathersync:server:RequestStateSync')
+        TriggerEvent('norskpixel-weathersync:server:RequestStateSync')
     end
 end)
 
@@ -269,7 +269,7 @@ RegisterCommand('night', function(source)
         ShiftToMinute(0)
         ShiftToHour(23)
         TriggerClientEvent('QBCore:Notify', source, _U('time_night'))
-        TriggerEvent('qb-weathersync:server:RequestStateSync')
+        TriggerEvent('norskpixel-weathersync:server:RequestStateSync')
     end
 end)
 
@@ -289,7 +289,7 @@ RegisterCommand('time', function(source, args)
                 ShiftToMinute(0)
             end
             print(_U('time_change', argh, argm))
-            TriggerEvent('qb-weathersync:server:RequestStateSync')
+            TriggerEvent('norskpixel-weathersync:server:RequestStateSync')
         else
             print(_U('time_invalid'))
         end
@@ -316,7 +316,7 @@ RegisterCommand('time', function(source, args)
                     newtime = newtime .. minute
                 end
                 TriggerClientEvent('QBCore:Notify', source, _U('time_changec', newtime))
-                TriggerEvent('qb-weathersync:server:RequestStateSync')
+                TriggerEvent('norskpixel-weathersync:server:RequestStateSync')
             else
                 TriggerClientEvent('QBCore:Notify', source, _U('time_invalid'), 'error')
             end
@@ -345,14 +345,14 @@ end)
 CreateThread(function()
     while true do
         Wait(2000)                                          --Change to send every minute in game sync
-        TriggerClientEvent('qb-weathersync:client:SyncTime', -1, baseTime, timeOffset, freezeTime)
+        TriggerClientEvent('norskpixel-weathersync:client:SyncTime', -1, baseTime, timeOffset, freezeTime)
     end
 end)
 
 CreateThread(function()
     while true do
         Wait(300000)
-        TriggerClientEvent('qb-weathersync:client:SyncWeather', -1, CurrentWeather, blackout)
+        TriggerClientEvent('norskpixel-weathersync:client:SyncWeather', -1, CurrentWeather, blackout)
     end
 end)
 

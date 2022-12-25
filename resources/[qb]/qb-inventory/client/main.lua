@@ -1,6 +1,6 @@
 
 -- Variables
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local inInventory = false
 local currentWeapon = nil
 local CurrentWeaponData = {}
@@ -546,7 +546,7 @@ for i=1, 6 do
     RegisterKeyMapping('slot' .. i, 'Bruger genstanden ' .. i, 'keyboard', i)
 end
 
-RegisterNetEvent('qb-inventory:client:giveAnim', function()
+RegisterNetEvent('norskpixel-inventory:client:giveAnim', function()
     LoadAnimDict('mp_common')
 	TaskPlayAnim(PlayerPedId(), 'mp_common', 'givetake1_b', 8.0, 1.0, -1, 16, 0, 0, 0, 0)
 end)

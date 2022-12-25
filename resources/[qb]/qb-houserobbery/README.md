@@ -1,4 +1,4 @@
-# qb-houserobbery
+# norskpixel-houserobbery
 House Robberies For QB-Core
 
 # License

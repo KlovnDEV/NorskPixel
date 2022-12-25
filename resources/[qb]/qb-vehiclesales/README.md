@@ -1,4 +1,4 @@
-# qb-vehiclesales
+# norskpixel-vehiclesales
 Used Car Sale for QB-Core Framework :blue_car:
 
 # License
@@ -21,10 +21,10 @@ Used Car Sale for QB-Core Framework :blue_car:
 
 
 ## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
-- [qb-garages](https://github.com/qbcore-framework/qb-garages) - Vehicle ownership
-- [qb-phone](https://github.com/qbcore-framework/qb-phone) - For the e-mail
-- [qb-logs](https://github.com/qbcore-framework/qb-logs) - Keep event logs
+- [norskpixel-core](https://github.com/qbcore-framework/norskpixel-core)
+- [norskpixel-garages](https://github.com/qbcore-framework/norskpixel-garages) - Vehicle ownership
+- [norskpixel-phone](https://github.com/qbcore-framework/norskpixel-phone) - For the e-mail
+- [norskpixel-logs](https://github.com/qbcore-framework/norskpixel-logs) - Keep event logs
 
 ## Screenshots
 ![Put Vehicle On Sale](https://imgur.com/bzE9e3o.png)
@@ -42,18 +42,18 @@ Used Car Sale for QB-Core Framework :blue_car:
 ## Installation
 ### Manual
 - Download the script and put it in the `[qb]` directory.
-- Import `qb-vehiclesales.sql` in your database
+- Import `norskpixel-vehiclesales.sql` in your database
 - Add the following code to your server.cfg/resouces.cfg
 ```
-ensure qb-core
-ensure qb-garages
-ensure qb-phone
-ensure qb-logs
-ensure qb-vehiclesales
+ensure norskpixel-core
+ensure norskpixel-garages
+ensure norskpixel-phone
+ensure norskpixel-logs
+ensure norskpixel-vehiclesales
 ```
 
 ## Configuration
-- To adjust tax, go to qb-vehiclesales\server\main.lua row 85 and change "77" to your liking
+- To adjust tax, go to norskpixel-vehiclesales\server\main.lua row 85 and change "77" to your liking
 ```
 Config = Config or {}
 

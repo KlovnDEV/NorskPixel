@@ -108,7 +108,7 @@ $(document).ready(function() {
         if (distance < HitDistance) {
             // if (unghi > MainAngle - 25 && unghi < MainAngle + 25) {
             MainDigits--;
-            $.post("https://qb-bankrobbery/thermiteclick");
+            $.post("https://norskpixel-bankrobbery/thermiteclick");
             // If game over, hide the game, display end of game options
             if (!MainDigits) {
                 $("#circle").addClass("hidden");
@@ -198,18 +198,18 @@ Thermite.Open = function(data) {
 }
 
 Thermite.Failed = function() {
-    if (active) $.post("https://qb-bankrobbery/thermitefailed");
+    if (active) $.post("https://norskpixel-bankrobbery/thermitefailed");
     active = false;
     Thermite.Close();
 }
 
 Thermite.Success = function() {
-    if (active) $.post("https://qb-bankrobbery/thermitesuccess");
+    if (active) $.post("https://norskpixel-bankrobbery/thermitesuccess");
     active = false;
     Thermite.Close();
 }
 
 Thermite.Close = function() {
     $('.thermite-container').css("display", "none");
-    $.post('https://qb-bankrobbery/closethermite');
+    $.post('https://norskpixel-bankrobbery/closethermite');
 }

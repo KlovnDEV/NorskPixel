@@ -1,7 +1,7 @@
 Config                              = Config or {}
 
 -- Framework
-Config.Framework					= 'qbcore'		-- Choose which framework your server is using so qb-lapdance can work with it [esx, qbcore, standalone]
+Config.Framework					= 'qbcore'		-- Choose which framework your server is using so norskpixel-lapdance can work with it [esx, qbcore, standalone]
 -- Since there is too many esx version, only this one is supported (https://github.com/esx-framework/es_extended/tree/v1-final). Maybe I will test other version, but not a priority
 
 -- Lap dance 
@@ -25,7 +25,7 @@ Config.BlipCoord = {
 
 -- Locale
 Config.Language						= 'da'		-- Currently Available: fr, en
--- Locales can be easily created or modified in `qb-lapdance/locales`
+-- Locales can be easily created or modified in `norskpixel-lapdance/locales`
 
 -- Misc
 Config.Debug        				= true   	-- If you think something is not working, you can set 'Config.Debug' to true. It will then print a lot of debug information in your console

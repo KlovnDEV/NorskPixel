@@ -139,8 +139,8 @@ AddEventHandler('thermite:UseThermite', function()
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:SetStationStatus')
-AddEventHandler('qb-bankrobbery:client:SetStationStatus', function(key, isHit)
+RegisterNetEvent('norskpixel-bankrobbery:client:SetStationStatus')
+AddEventHandler('norskpixel-bankrobbery:client:SetStationStatus', function(key, isHit)
     Config.PowerStations[key].hit = isHit
 end)
 
@@ -171,10 +171,10 @@ RegisterNUICallback('thermitesuccess', function()
     CreateFire(coords, randTime)
     if currentStation ~= 0 then
         QBCore.Functions.Notify("Sikringerne er gået i stykker", "success")
-        TriggerServerEvent("qb-bankrobbery:server:SetStationStatus", currentStation, true)
+        TriggerServerEvent("norskpixel-bankrobbery:server:SetStationStatus", currentStation, true)
     elseif currentGate ~= 0 then
         QBCore.Functions.Notify("Døren er åben", "success")
-        TriggerServerEvent('qb-doorlock:server:updateState', currentGate, false)
+        TriggerServerEvent('norskpixel-doorlock:server:updateState', currentGate, false)
         currentGate = 0
     end
 end)

@@ -1,4 +1,4 @@
-# qb-commandbinding
+# norskpixel-commandbinding
 Command Binds For QB-Core
 
 # License

@@ -1,7 +1,7 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
--- qb-hud
+-- norskpixel-hud
 local PlayerData = QBCore.Functions.GetPlayerData()
 local config = Config
 local speedMultiplier = config.UseMPH and 2.23694 or 3.6
@@ -28,7 +28,7 @@ local showMenu = false
 local showCircleB = false
 local showSquareB = false
 
--- qb-menu
+-- norskpixel-menu
 local Menu = config.Menu
 local CinematicHeight = 0.2
 local w = 0
@@ -449,7 +449,7 @@ RegisterNetEvent('hud:client:ToggleAirHud', function()
     showAltitude = not showAltitude
 end)
 
-RegisterNetEvent('hud:client:UpdateNeeds', function(newHunger, newThirst) -- Triggered in qb-core
+RegisterNetEvent('hud:client:UpdateNeeds', function(newHunger, newThirst) -- Triggered in norskpixel-core
     hunger = newHunger
     thirst = newThirst
 end)
@@ -479,7 +479,7 @@ RegisterNetEvent('hud:client:UpdateHarness', function(harnessHp)
     hp = harnessHp
 end)
 
-RegisterNetEvent("qb-admin:client:ToggleDevmode", function()
+RegisterNetEvent("norskpixel-admin:client:ToggleDevmode", function()
     dev = not dev
 end)
 

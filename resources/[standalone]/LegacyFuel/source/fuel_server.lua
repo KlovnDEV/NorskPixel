@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 RegisterServerEvent('fuel:pay')
 AddEventHandler('fuel:pay', function(price, source)

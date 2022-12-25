@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local isLoggedIn = false
 local PlayerData = {}
@@ -24,7 +24,7 @@ Citizen.CreateThread(function()
 end)
 
 function GetCurrentProject()
-    QBCore.Functions.TriggerCallback('qb-builderjob:server:GetCurrentProject', function(BuilderConfig)
+    QBCore.Functions.TriggerCallback('norskpixel-builderjob:server:GetCurrentProject', function(BuilderConfig)
         Config = BuilderConfig
     end)
 end
@@ -93,7 +93,7 @@ Citizen.CreateThread(function()
                         if TaskData.completed == TaskData.total then
                             DrawText3Ds(data.coords.x, data.coords.y, data.coords.z - 0.2, '[G] Afslut projektet')
                             if IsControlJustPressed(0, 47) then
-                                TriggerServerEvent('qb-builderjob:server:FinishProject')
+                                TriggerServerEvent('norskpixel-builderjob:server:FinishProject')
                             end
                         end
 
@@ -135,24 +135,24 @@ function DoTask()
     local pos = GetEntityCoords(ped)
     local TaskData = Config.Projects[Config.CurrentProject].ProjectLocations["tasks"][BuilderData.CurrentTask]
     local CountDown = 5
-    TriggerServerEvent('qb-builderjob:server:SetTaskState', BuilderData.CurrentTask, true, false)
+    TriggerServerEvent('norskpixel-builderjob:server:SetTaskState', BuilderData.CurrentTask, true, false)
 
     if TaskData.type == "hammer" then
         while CountDown ~= 0 do
             CountDown = CountDown - 1
             Citizen.Wait(1000)
         end
-        TriggerServerEvent('qb-builderjob:server:SetTaskState', BuilderData.CurrentTask, true, true)
+        TriggerServerEvent('norskpixel-builderjob:server:SetTaskState', BuilderData.CurrentTask, true, true)
     end
 end
 
-RegisterNetEvent('qb-builderjob:client:SetTaskState')
-AddEventHandler('qb-builderjob:client:SetTaskState', function(Task, IsBusy, IsCompleted)
+RegisterNetEvent('norskpixel-builderjob:client:SetTaskState')
+AddEventHandler('norskpixel-builderjob:client:SetTaskState', function(Task, IsBusy, IsCompleted)
     Config.Projects[Config.CurrentProject].ProjectLocations["tasks"][Task].IsBusy = IsBusy
     Config.Projects[Config.CurrentProject].ProjectLocations["tasks"][Task].completed = IsCompleted
 end)
 
-RegisterNetEvent('qb-builderjob:client:FinishProject')
-AddEventHandler('qb-builderjob:client:FinishProject', function(BuilderConfig)
+RegisterNetEvent('norskpixel-builderjob:client:FinishProject')
+AddEventHandler('norskpixel-builderjob:client:FinishProject', function(BuilderConfig)
     Config = BuilderConfig
 end)

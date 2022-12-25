@@ -152,7 +152,7 @@ $(document).on('click', '.lawyer-list-call', function(e){
         name: LawyerData.name
     }
 
-    $.post('https://qb-phone/CallContact', JSON.stringify({
+    $.post('https://norskpixel-phone/CallContact', JSON.stringify({
         ContactData: cData,
         Anonymous: QB.Phone.Data.AnonymousCall,
     }), function(status){

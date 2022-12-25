@@ -1,4 +1,4 @@
-# qb-fitbit
+# norskpixel-fitbit
 FitBit For QB-Core
 
 # License

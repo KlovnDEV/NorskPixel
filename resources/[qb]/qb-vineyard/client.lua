@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local PlayerJob = {}
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
@@ -96,11 +96,11 @@ CreateThread(function()
 			if tasking then
 				Wait(5000)
 			else
-				TriggerEvent("qb-vineyard:client:startVineyard")
+				TriggerEvent("norskpixel-vineyard:client:startVineyard")
 				pickedGrapes = pickedGrapes + 1
 				print(pickedGrapes)
 				if pickedGrapes == Config.PickAmount then
-					TriggerEvent("qb-vineyard:client:startVineyard")
+					TriggerEvent("norskpixel-vineyard:client:startVineyard")
 					Wait(20000)
 					startVineyard = false
 					pickedGrapes = 0
@@ -111,7 +111,7 @@ CreateThread(function()
 	end
 end)
 
-RegisterNetEvent('qb-vineyard:client:startVineyard', function()
+RegisterNetEvent('norskpixel-vineyard:client:startVineyard', function()
 	if tasking then
 		return
 	end
@@ -140,7 +140,7 @@ end)
 function pickgrapes()
 	local success = true
 	if success then
-		TriggerServerEvent("qb-vineyard:server:getGrapes")
+		TriggerServerEvent("norskpixel-vineyard:server:getGrapes")
 		tasking = false
 		DeleteBlip()
 	end
@@ -202,7 +202,7 @@ CreateThread(function()
 									DrawText3Ds(Config.Vineyard["wine"].coords.x, Config.Vineyard["wine"].coords.y,  Config.Vineyard["wine"].coords.z + 0.2, '[E] Klargør med ingredienser')
 									if IsControlJustPressed(0, 38) then
 										if PlayerJob.name == "vineyard" then
-											TriggerServerEvent("qb-vineyard:server:loadIngredients")
+											TriggerServerEvent("norskpixel-vineyard:server:loadIngredients")
 										else
 											QBCore.Functions.Notify("Jeg tror ikke jeg arbejder her...", "error")
 										end
@@ -225,7 +225,7 @@ CreateThread(function()
 										DrawText3Ds(Config.Vineyard["wine"].coords.x, Config.Vineyard["wine"].coords.y, Config.Vineyard["wine"].coords.z + 0.2, '[E] Tag vin')
 										if IsControlJustPressed(0, 38) then
 											if PlayerJob.name == "vineyard" then
-												TriggerServerEvent("qb-vineyard:server:receiveWine")
+												TriggerServerEvent("norskpixel-vineyard:server:receiveWine")
 												finishedWine = false
 												loadIngredients = false
 												wineStarted = false
@@ -261,7 +261,7 @@ CreateThread(function()
 						DrawText3Ds(Config.Vineyard["grapejuice"].coords.x, Config.Vineyard["grapejuice"].coords.y,  Config.Vineyard["grapejuice"].coords.z + 0.2, '[E] Lav drue saft')
 						if IsControlJustPressed(0, 38) then
 							if PlayerJob.name == "vineyard" then
-								TriggerServerEvent("qb-vineyard:server:grapeJuice")
+								TriggerServerEvent("norskpixel-vineyard:server:grapeJuice")
 							else
 								QBCore.Functions.Notify("Jeg tror ikke jeg arbejder her...", "error")
 							end
@@ -276,12 +276,12 @@ CreateThread(function()
     end
 end)
 
-RegisterNetEvent('qb-vineyard:client:grapeJuice', function()
+RegisterNetEvent('norskpixel-vineyard:client:grapeJuice', function()
 	PrepareAnim()
 	grapeJuiceProcess()
 end)
 
-RegisterNetEvent('qb-vineyard:client:loadIngredients', function()
+RegisterNetEvent('norskpixel-vineyard:client:loadIngredients', function()
 	loadIngredients = true
 end)
 
@@ -305,7 +305,7 @@ function grapeJuiceProcess()
         disableMouse = false,
         disableCombat = true,
     }, {}, {}, {}, function() -- Done
-        TriggerServerEvent("qb-vineyard:server:receiveGrapeJuice")
+        TriggerServerEvent("norskpixel-vineyard:server:receiveGrapeJuice")
         ClearPedTasks(PlayerPedId())
     end, function() -- Cancel
         ClearPedTasks(PlayerPedId())

@@ -1,6 +1,6 @@
 
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 ---======================---
 ------
 ---======================---
@@ -156,8 +156,8 @@ AddEventHandler('AttackTransport:InfoForLspd', function(x, y, z)
 	end
 end)
 
-RegisterNetEvent('qb-armoredtruckheist:client:911alert')
-AddEventHandler('qb-armoredtruckheist:client:911alert', function()
+RegisterNetEvent('norskpixel-armoredtruckheist:client:911alert')
+AddEventHandler('norskpixel-armoredtruckheist:client:911alert', function()
 	if PoliceAlert == 0 then
 		local transCoords = GetEntityCoords(transport)
 		local s1, s2 = Citizen.InvokeNative(0x2EB41072B4C1E4C0, transCoords.x, transCoords.y, transCoords.z, Citizen.PointerValueInt(), Citizen.PointerValueInt())
@@ -167,19 +167,19 @@ AddEventHandler('qb-armoredtruckheist:client:911alert', function()
 		if street2 ~= nil then 
 			streetLabel = streetLabel .. " " .. street2
 		end
-			TriggerServerEvent("qb-armoredtruckheist:server:callCops", streetLabel, transCoords)
+			TriggerServerEvent("norskpixel-armoredtruckheist:server:callCops", streetLabel, transCoords)
 		PlaySoundFrontend(-1, "Mission_Pass_Notify", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS", 0)
 		PoliceAlert = 1
 	end
 end)
 
-RegisterNetEvent('qb-armoredtruckheist:client:robberyCall')
-AddEventHandler('qb-armoredtruckheist:client:robberyCall', function(streetLabel, coords)
+RegisterNetEvent('norskpixel-armoredtruckheist:client:robberyCall')
+AddEventHandler('norskpixel-armoredtruckheist:client:robberyCall', function(streetLabel, coords)
     if PlayerJob.name == "police" then 
         local store = "Pengetransporter"
 
             PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
-            TriggerEvent('qb-policealerts:client:AddPoliceAlert', {
+            TriggerEvent('norskpixel-policealerts:client:AddPoliceAlert', {
                 timeOut = 10000,
                 alertTitle = "Røveri på Pengetransport",
                 coords = {
@@ -225,7 +225,7 @@ end)
 
 function MissionNotification()
 	Citizen.Wait(2000)
-	TriggerServerEvent('qb-phone:server:sendNewMail', {
+	TriggerServerEvent('norskpixel-phone:server:sendNewMail', {
 	sender = "Chefen",
 	subject = "Ny opgave",
 	message = "Nåå, så du er interesseret i at lave penge? alright... skaf dig et våben og udfør opgaven... jeg sender dig lokationen nu.",
@@ -325,7 +325,7 @@ Citizen.CreateThread(function()
 				end
 				if IsControlPressed(0, 47) and GuardsDead == 1 then 
 					CheckVehicleInformation()
-					TriggerEvent("qb-armoredtruckheist:client:911alert")
+					TriggerEvent("norskpixel-armoredtruckheist:client:911alert")
 					Citizen.Wait(500)
 				end
 			end

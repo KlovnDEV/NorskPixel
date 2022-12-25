@@ -1,5 +1,5 @@
 
-AddEventHandler('qb-lockpick:client:openLockpick', function(callback)
+AddEventHandler('norskpixel-lockpick:client:openLockpick', function(callback)
     lockpickCallback = callback
     openLockpick(true)
 end)

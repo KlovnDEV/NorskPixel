@@ -1,4 +1,4 @@
-# qb-lockpick
+# norskpixel-lockpick
 Lockpick Mini-Game For QB-Core
 
 # License

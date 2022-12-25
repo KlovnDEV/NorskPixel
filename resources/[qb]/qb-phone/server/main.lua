@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local QBPhone = {}
 local Tweets = {}
 local AppAlerts = {}
@@ -214,7 +214,7 @@ end
 
 -- Callbacks
 
-QBCore.Functions.CreateCallback('qb-phone:server:GetCallState', function(source, cb, ContactData)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:GetCallState', function(source, cb, ContactData)
     local Target = QBCore.Functions.GetPlayerByPhone(ContactData.number)
     if Target ~= nil then
         if Calls[Target.PlayerData.citizenid] ~= nil then
@@ -231,7 +231,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetCallState', function(source,
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:GetPhoneData', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:GetPhoneData', function(source, cb)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Player ~= nil then
@@ -346,7 +346,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetPhoneData', function(source,
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:PayInvoice', function(source, cb, society, amount, invoiceId, sendercitizenid)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:PayInvoice', function(source, cb, society, amount, invoiceId, sendercitizenid)
     local Invoices = {}
     local Ply = QBCore.Functions.GetPlayer(source)
     local SenderPly = QBCore.Functions.GetPlayerByCitizenId(sendercitizenid)
@@ -367,8 +367,8 @@ QBCore.Functions.CreateCallback('qb-phone:server:PayInvoice', function(source, c
         }
     end
     Ply.Functions.RemoveMoney('bank', amount, "paid-invoice")
-    TriggerEvent('qb-phone:server:sendNewMailToOffline', sendercitizenid, invoiceMailData)
-    TriggerEvent("qb-bossmenu:server:addAccountMoney", society, amount)
+    TriggerEvent('norskpixel-phone:server:sendNewMailToOffline', sendercitizenid, invoiceMailData)
+    TriggerEvent("norskpixel-bossmenu:server:addAccountMoney", society, amount)
     exports.oxmysql:execute('DELETE FROM phone_invoices WHERE id = ?', {invoiceId})
     local invoices = exports.oxmysql:executeSync('SELECT * FROM phone_invoices WHERE citizenid = ?', {Ply.PlayerData.citizenid})
     if invoices[1] ~= nil then
@@ -377,7 +377,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:PayInvoice', function(source, c
     cb(true, Invoices)
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:DeclineInvoice', function(source, cb, sender, amount, invoiceId)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:DeclineInvoice', function(source, cb, sender, amount, invoiceId)
     local Invoices = {}
     local Ply = QBCore.Functions.GetPlayer(source)
     exports.oxmysql:execute('DELETE FROM phone_invoices WHERE id = ?', {invoiceId})
@@ -388,7 +388,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:DeclineInvoice', function(sourc
     cb(true, Invoices)
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:GetContactPictures', function(source, cb, Chats)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:GetContactPictures', function(source, cb, Chats)
     for k, v in pairs(Chats) do
         local Player = QBCore.Functions.GetPlayerByPhone(v.number)
 
@@ -409,7 +409,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetContactPictures', function(s
     end)
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:GetContactPicture', function(source, cb, Chat)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:GetContactPicture', function(source, cb, Chat)
     local query = '%' .. Chat.number .. '%'
     local result = exports.oxmysql:executeSync('SELECT * FROM players WHERE charinfo LIKE ?', {query})
     local MetaData = json.decode(result[1].metadata)
@@ -423,7 +423,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetContactPicture', function(so
     end)
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:GetPicture', function(source, cb, number)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:GetPicture', function(source, cb, number)
     local Picture = nil
     local query = '%' .. number .. '%'
     local result = exports.oxmysql:executeSync('SELECT * FROM players WHERE charinfo LIKE ?', {query})
@@ -440,7 +440,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetPicture', function(source, c
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:FetchResult', function(source, cb, search)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:FetchResult', function(source, cb, search)
     local search = escape_sqli(search)
     local searchData = {}
     local ApaData = {}
@@ -488,7 +488,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:FetchResult', function(source, 
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:GetVehicleSearchResults', function(source, cb, search)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:GetVehicleSearchResults', function(source, cb, search)
     local search = escape_sqli(search)
     local searchData = {}
     local query = '%' .. search .. '%'
@@ -548,7 +548,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetVehicleSearchResults', funct
     cb(searchData)
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:ScanPlate', function(source, cb, plate)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:ScanPlate', function(source, cb, plate)
     local src = source
     local vehicleData = {}
     if plate ~= nil then
@@ -586,7 +586,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:ScanPlate', function(source, cb
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:GetGarageVehicles', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:GetGarageVehicles', function(source, cb)
     local Player = QBCore.Functions.GetPlayer(source)
     local Vehicles = {}
 
@@ -649,7 +649,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetGarageVehicles', function(so
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:HasPhone', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:HasPhone', function(source, cb)
     local Player = QBCore.Functions.GetPlayer(source)
     if Player ~= nil then
         local HasPhone = Player.Functions.GetItemByName("phone")
@@ -661,7 +661,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:HasPhone', function(source, cb)
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:CanTransferMoney', function(source, cb, amount, iban)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:CanTransferMoney', function(source, cb, amount, iban)
     -- strip bad characters from bank transfers
     local newAmount = tostring(amount)
     local newiban = tostring(iban)
@@ -692,7 +692,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:CanTransferMoney', function(sou
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-phone:server:GetCurrentLawyers', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-phone:server:GetCurrentLawyers', function(source, cb)
     local Lawyers = {}
     for k, v in pairs(QBCore.Functions.GetPlayers()) do
         local Player = QBCore.Functions.GetPlayer(v)
@@ -712,7 +712,7 @@ QBCore.Functions.CreateCallback('qb-phone:server:GetCurrentLawyers', function(so
     cb(Lawyers)
 end)
 
-QBCore.Functions.CreateCallback("qb-phone:server:GetWebhook",function(source,cb)
+QBCore.Functions.CreateCallback("norskpixel-phone:server:GetWebhook",function(source,cb)
 	if WebHook ~= "" then
 		cb(WebHook)
 	else
@@ -723,7 +723,7 @@ QBCore.Functions.CreateCallback("qb-phone:server:GetWebhook",function(source,cb)
 end)
 
 -- Events
-RegisterNetEvent('qb-phone:server:AddAdvert', function(msg, url)
+RegisterNetEvent('norskpixel-phone:server:AddAdvert', function(msg, url)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local CitizenId = Player.PlayerData.citizenid
@@ -740,17 +740,17 @@ RegisterNetEvent('qb-phone:server:AddAdvert', function(msg, url)
             url = url
         }
     end
-    TriggerClientEvent('qb-phone:client:UpdateAdverts', -1, Adverts, "@" .. Player.PlayerData.charinfo.firstname .. "" .. Player.PlayerData.charinfo.lastname)
+    TriggerClientEvent('norskpixel-phone:client:UpdateAdverts', -1, Adverts, "@" .. Player.PlayerData.charinfo.firstname .. "" .. Player.PlayerData.charinfo.lastname)
 end)
 
-RegisterNetEvent('qb-phone:server:DeleteAdvert', function()
+RegisterNetEvent('norskpixel-phone:server:DeleteAdvert', function()
     local Player = QBCore.Functions.GetPlayer(source)
     local citizenid = Player.PlayerData.citizenid
     Adverts[citizenid] = nil
-    TriggerClientEvent('qb-phone:client:UpdateAdvertsDel', -1, Adverts)
+    TriggerClientEvent('norskpixel-phone:client:UpdateAdvertsDel', -1, Adverts)
 end)
 
-RegisterNetEvent('qb-phone:server:SetCallState', function(bool)
+RegisterNetEvent('norskpixel-phone:server:SetCallState', function(bool)
     local src = source
     local Ply = QBCore.Functions.GetPlayer(src)
     if Calls[Ply.PlayerData.citizenid] ~= nil then
@@ -761,7 +761,7 @@ RegisterNetEvent('qb-phone:server:SetCallState', function(bool)
     end
 end)
 
-RegisterNetEvent('qb-phone:server:RemoveMail', function(MailId)
+RegisterNetEvent('norskpixel-phone:server:RemoveMail', function(MailId)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     exports.oxmysql:execute('DELETE FROM player_mails WHERE mailid = ? AND citizenid = ?', {MailId, Player.PlayerData.citizenid})
@@ -774,11 +774,11 @@ RegisterNetEvent('qb-phone:server:RemoveMail', function(MailId)
                 end
             end
         end
-        TriggerClientEvent('qb-phone:client:UpdateMails', src, mails)
+        TriggerClientEvent('norskpixel-phone:client:UpdateMails', src, mails)
     end)
 end)
 
-RegisterNetEvent('qb-phone:server:sendNewMail', function(mailData)
+RegisterNetEvent('norskpixel-phone:server:sendNewMail', function(mailData)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if mailData.button == nil then
@@ -786,7 +786,7 @@ RegisterNetEvent('qb-phone:server:sendNewMail', function(mailData)
     else
         exports.oxmysql:insert('INSERT INTO player_mails (`citizenid`, `sender`, `subject`, `message`, `mailid`, `read`, `button`) VALUES (?, ?, ?, ?, ?, ?, ?)', {Player.PlayerData.citizenid, mailData.sender, mailData.subject, mailData.message, GenerateMailId(), 0, json.encode(mailData.button)})
     end
-    TriggerClientEvent('qb-phone:client:NewMailNotify', src, mailData)
+    TriggerClientEvent('norskpixel-phone:client:NewMailNotify', src, mailData)
     SetTimeout(200, function()
         local mails = exports.oxmysql:executeSync('SELECT * FROM player_mails WHERE citizenid = ? ORDER BY `date` DESC',
             {Player.PlayerData.citizenid})
@@ -798,20 +798,20 @@ RegisterNetEvent('qb-phone:server:sendNewMail', function(mailData)
             end
         end
 
-        TriggerClientEvent('qb-phone:client:UpdateMails', src, mails)
+        TriggerClientEvent('norskpixel-phone:client:UpdateMails', src, mails)
     end)
 end)
 
-RegisterNetEvent('qb-phone:server:sendNewMailToOffline', function(citizenid, mailData)
+RegisterNetEvent('norskpixel-phone:server:sendNewMailToOffline', function(citizenid, mailData)
     local Player = QBCore.Functions.GetPlayerByCitizenId(citizenid)
     if Player then
         local src = Player.PlayerData.source
         if mailData.button == nil then
             exports.oxmysql:insert('INSERT INTO player_mails (`citizenid`, `sender`, `subject`, `message`, `mailid`, `read`) VALUES (?, ?, ?, ?, ?, ?)', {Player.PlayerData.citizenid, mailData.sender, mailData.subject, mailData.message, GenerateMailId(), 0})
-            TriggerClientEvent('qb-phone:client:NewMailNotify', src, mailData)
+            TriggerClientEvent('norskpixel-phone:client:NewMailNotify', src, mailData)
         else
             exports.oxmysql:insert('INSERT INTO player_mails (`citizenid`, `sender`, `subject`, `message`, `mailid`, `read`, `button`) VALUES (?, ?, ?, ?, ?, ?, ?)', {Player.PlayerData.citizenid, mailData.sender, mailData.subject, mailData.message, GenerateMailId(), 0, json.encode(mailData.button)})
-            TriggerClientEvent('qb-phone:client:NewMailNotify', src, mailData)
+            TriggerClientEvent('norskpixel-phone:client:NewMailNotify', src, mailData)
         end
         SetTimeout(200, function()
             local mails = exports.oxmysql:executeSync(
@@ -824,7 +824,7 @@ RegisterNetEvent('qb-phone:server:sendNewMailToOffline', function(citizenid, mai
                 end
             end
 
-            TriggerClientEvent('qb-phone:client:UpdateMails', src, mails)
+            TriggerClientEvent('norskpixel-phone:client:UpdateMails', src, mails)
         end)
     else
         if mailData.button == nil then
@@ -835,7 +835,7 @@ RegisterNetEvent('qb-phone:server:sendNewMailToOffline', function(citizenid, mai
     end
 end)
 
-RegisterNetEvent('qb-phone:server:sendNewEventMail', function(citizenid, mailData)
+RegisterNetEvent('norskpixel-phone:server:sendNewEventMail', function(citizenid, mailData)
     local Player = QBCore.Functions.GetPlayerByCitizenId(citizenid)
     if mailData.button == nil then
         exports.oxmysql:insert('INSERT INTO player_mails (`citizenid`, `sender`, `subject`, `message`, `mailid`, `read`) VALUES (?, ?, ?, ?, ?, ?)', {citizenid, mailData.sender, mailData.subject, mailData.message, GenerateMailId(), 0})
@@ -851,11 +851,11 @@ RegisterNetEvent('qb-phone:server:sendNewEventMail', function(citizenid, mailDat
                 end
             end
         end
-        TriggerClientEvent('qb-phone:client:UpdateMails', Player.PlayerData.source, mails)
+        TriggerClientEvent('norskpixel-phone:client:UpdateMails', Player.PlayerData.source, mails)
     end)
 end)
 
-RegisterNetEvent('qb-phone:server:ClearButtonData', function(mailId)
+RegisterNetEvent('norskpixel-phone:server:ClearButtonData', function(mailId)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     exports.oxmysql:execute('UPDATE player_mails SET button = ? WHERE mailid = ? AND citizenid = ?', {'', mailId, Player.PlayerData.citizenid})
@@ -868,18 +868,18 @@ RegisterNetEvent('qb-phone:server:ClearButtonData', function(mailId)
                 end
             end
         end
-        TriggerClientEvent('qb-phone:client:UpdateMails', src, mails)
+        TriggerClientEvent('norskpixel-phone:client:UpdateMails', src, mails)
     end)
 end)
 
-RegisterNetEvent('qb-phone:server:MentionedPlayer', function(firstName, lastName, TweetMessage)
+RegisterNetEvent('norskpixel-phone:server:MentionedPlayer', function(firstName, lastName, TweetMessage)
     for k, v in pairs(QBCore.Functions.GetPlayers()) do
         local Player = QBCore.Functions.GetPlayer(v)
         if Player ~= nil then
             if (Player.PlayerData.charinfo.firstname == firstName and Player.PlayerData.charinfo.lastname == lastName) then
                 QBPhone.SetPhoneAlerts(Player.PlayerData.citizenid, "twitter")
                 QBPhone.AddMentionedTweet(Player.PlayerData.citizenid, TweetMessage)
-                TriggerClientEvent('qb-phone:client:GetMentioned', Player.PlayerData.source, TweetMessage, AppAlerts[Player.PlayerData.citizenid]["twitter"])
+                TriggerClientEvent('norskpixel-phone:client:GetMentioned', Player.PlayerData.source, TweetMessage, AppAlerts[Player.PlayerData.citizenid]["twitter"])
             else
                 local query1 = '%' .. firstName .. '%'
                 local query2 = '%' .. lastName .. '%'
@@ -894,31 +894,31 @@ RegisterNetEvent('qb-phone:server:MentionedPlayer', function(firstName, lastName
     end
 end)
 
-RegisterNetEvent('qb-phone:server:CallContact', function(TargetData, CallId, AnonymousCall)
+RegisterNetEvent('norskpixel-phone:server:CallContact', function(TargetData, CallId, AnonymousCall)
     local src = source
     local Ply = QBCore.Functions.GetPlayer(src)
     local Target = QBCore.Functions.GetPlayerByPhone(TargetData.number)
     if Target ~= nil then
-        TriggerClientEvent('qb-phone:client:GetCalled', Target.PlayerData.source, Ply.PlayerData.charinfo.phone, CallId, AnonymousCall)
+        TriggerClientEvent('norskpixel-phone:client:GetCalled', Target.PlayerData.source, Ply.PlayerData.charinfo.phone, CallId, AnonymousCall)
     end
 end)
 
-RegisterNetEvent('qb-phone:server:BillingEmail', function(data, paid)
+RegisterNetEvent('norskpixel-phone:server:BillingEmail', function(data, paid)
     for k, v in pairs(QBCore.Functions.GetPlayers()) do
         local target = QBCore.Functions.GetPlayer(v)
         if target.PlayerData.job.name == data.society then
             if paid then
                 local name = '' .. QBCore.Functions.GetPlayer(source).PlayerData.charinfo.firstname .. ' ' .. QBCore.Functions.GetPlayer(source).PlayerData.charinfo.lastname .. ''
-                TriggerClientEvent('qb-phone:client:BillingEmail', target.PlayerData.source, data, true, name)
+                TriggerClientEvent('norskpixel-phone:client:BillingEmail', target.PlayerData.source, data, true, name)
             else
                 local name = '' .. QBCore.Functions.GetPlayer(source).PlayerData.charinfo.firstname .. ' ' .. QBCore.Functions.GetPlayer(source).PlayerData.charinfo.lastname .. ''
-                TriggerClientEvent('qb-phone:client:BillingEmail', target.PlayerData.source, data, false, name)
+                TriggerClientEvent('norskpixel-phone:client:BillingEmail', target.PlayerData.source, data, false, name)
             end
         end
     end
 end)
 
-RegisterNetEvent('qb-phone:server:UpdateHashtags', function(Handle, messageData)
+RegisterNetEvent('norskpixel-phone:server:UpdateHashtags', function(Handle, messageData)
     if Hashtags[Handle] ~= nil and next(Hashtags[Handle]) ~= nil then
         Hashtags[Handle].messages[#Hashtags[Handle].messages+1] = messageData
     else
@@ -928,16 +928,16 @@ RegisterNetEvent('qb-phone:server:UpdateHashtags', function(Handle, messageData)
         }
         Hashtags[Handle].messages[#Hashtags[Handle].messages+1] = messageData
     end
-    TriggerClientEvent('qb-phone:client:UpdateHashtags', -1, Handle, messageData)
+    TriggerClientEvent('norskpixel-phone:client:UpdateHashtags', -1, Handle, messageData)
 end)
 
-RegisterNetEvent('qb-phone:server:SetPhoneAlerts', function(app, alerts)
+RegisterNetEvent('norskpixel-phone:server:SetPhoneAlerts', function(app, alerts)
     local src = source
     local CitizenId = QBCore.Functions.GetPlayer(src).citizenid
     QBPhone.SetPhoneAlerts(CitizenId, app, alerts)
 end)
 
-RegisterNetEvent('qb-phone:server:DeleteTweet', function(tweetId)
+RegisterNetEvent('norskpixel-phone:server:DeleteTweet', function(tweetId)
     local Player = QBCore.Functions.GetPlayer(source)
     local delete = false
     local TID = tweetId
@@ -954,11 +954,11 @@ RegisterNetEvent('qb-phone:server:DeleteTweet', function(tweetId)
                 TWData = nil
             end
         end
-        TriggerClientEvent('qb-phone:client:UpdateTweets', -1, TWData)
+        TriggerClientEvent('norskpixel-phone:client:UpdateTweets', -1, TWData)
     end
 end)
 
-RegisterNetEvent('qb-phone:server:UpdateTweets', function(NewTweets, TweetData)
+RegisterNetEvent('norskpixel-phone:server:UpdateTweets', function(NewTweets, TweetData)
     local src = source
     local InsertTweet = exports.oxmysql:insert('INSERT INTO phone_tweets (citizenid, firstName, lastName, message, date, url, picture, tweetid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', {
         TweetData.citizenid,
@@ -970,10 +970,10 @@ RegisterNetEvent('qb-phone:server:UpdateTweets', function(NewTweets, TweetData)
         TweetData.picture,
         TweetData.tweetId
     })
-    TriggerClientEvent('qb-phone:client:UpdateTweets', -1, src, NewTweets, TweetData, false)
+    TriggerClientEvent('norskpixel-phone:client:UpdateTweets', -1, src, NewTweets, TweetData, false)
 end)
 
-RegisterNetEvent('qb-phone:server:TransferMoney', function(iban, amount)
+RegisterNetEvent('norskpixel-phone:server:TransferMoney', function(iban, amount)
     local src = source
     local sender = QBCore.Functions.GetPlayer(src)
 
@@ -988,7 +988,7 @@ RegisterNetEvent('qb-phone:server:TransferMoney', function(iban, amount)
             sender.Functions.RemoveMoney('bank', amount, "phone-transfered-to-" .. reciever.PlayerData.citizenid)
 
             if PhoneItem ~= nil then
-                TriggerClientEvent('qb-phone:client:TransferMoney', reciever.PlayerData.source, amount,
+                TriggerClientEvent('norskpixel-phone:client:TransferMoney', reciever.PlayerData.source, amount,
                     reciever.PlayerData.money.bank)
             end
         else
@@ -1003,7 +1003,7 @@ RegisterNetEvent('qb-phone:server:TransferMoney', function(iban, amount)
     end
 end)
 
-RegisterNetEvent('qb-phone:server:EditContact', function(newName, newNumber, newIban, oldName, oldNumber, oldIban)
+RegisterNetEvent('norskpixel-phone:server:EditContact', function(newName, newNumber, newIban, oldName, oldNumber, oldIban)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     exports.oxmysql:execute(
@@ -1011,20 +1011,20 @@ RegisterNetEvent('qb-phone:server:EditContact', function(newName, newNumber, new
         {newName, newNumber, newIban, Player.PlayerData.citizenid, oldName, oldNumber})
 end)
 
-RegisterNetEvent('qb-phone:server:RemoveContact', function(Name, Number)
+RegisterNetEvent('norskpixel-phone:server:RemoveContact', function(Name, Number)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     exports.oxmysql:execute('DELETE FROM player_contacts WHERE name = ? AND number = ? AND citizenid = ?',
         {Name, Number, Player.PlayerData.citizenid})
 end)
 
-RegisterNetEvent('qb-phone:server:AddNewContact', function(name, number, iban)
+RegisterNetEvent('norskpixel-phone:server:AddNewContact', function(name, number, iban)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     exports.oxmysql:insert('INSERT INTO player_contacts (citizenid, name, number, iban) VALUES (?, ?, ?, ?)', {Player.PlayerData.citizenid, tostring(name), tostring(number), tostring(iban)})
 end)
 
-RegisterNetEvent('qb-phone:server:UpdateMessages', function(ChatMessages, ChatNumber, New)
+RegisterNetEvent('norskpixel-phone:server:UpdateMessages', function(ChatMessages, ChatNumber, New)
     local src = source
     local SenderData = QBCore.Functions.GetPlayer(src)
     local query = '%' .. ChatNumber .. '%'
@@ -1039,14 +1039,14 @@ RegisterNetEvent('qb-phone:server:UpdateMessages', function(ChatMessages, ChatNu
                 -- Update for sender
                 exports.oxmysql:execute('UPDATE phone_messages SET messages = ? WHERE citizenid = ? AND number = ?', {json.encode(ChatMessages), SenderData.PlayerData.citizenid, TargetData.PlayerData.charinfo.phone})
                 -- Send notification & Update messages for target
-                TriggerClientEvent('qb-phone:client:UpdateMessages', TargetData.PlayerData.source, ChatMessages, SenderData.PlayerData.charinfo.phone, false)
+                TriggerClientEvent('norskpixel-phone:client:UpdateMessages', TargetData.PlayerData.source, ChatMessages, SenderData.PlayerData.charinfo.phone, false)
             else
                 -- Insert for target
                 exports.oxmysql:insert('INSERT INTO phone_messages (citizenid, number, messages) VALUES (?, ?, ?)', {TargetData.PlayerData.citizenid, SenderData.PlayerData.charinfo.phone, json.encode(ChatMessages)})
                 -- Insert for sender
                 exports.oxmysql:insert('INSERT INTO phone_messages (citizenid, number, messages) VALUES (?, ?, ?)', {SenderData.PlayerData.citizenid, TargetData.PlayerData.charinfo.phone, json.encode(ChatMessages)})
                 -- Send notification & Update messages for target
-                TriggerClientEvent('qb-phone:client:UpdateMessages', TargetData.PlayerData.source, ChatMessages, SenderData.PlayerData.charinfo.phone, true)
+                TriggerClientEvent('norskpixel-phone:client:UpdateMessages', TargetData.PlayerData.source, ChatMessages, SenderData.PlayerData.charinfo.phone, true)
             end
         else
             local Chat = exports.oxmysql:executeSync('SELECT * FROM phone_messages WHERE citizenid = ? AND number = ?', {SenderData.PlayerData.citizenid, ChatNumber})
@@ -1067,16 +1067,16 @@ RegisterNetEvent('qb-phone:server:UpdateMessages', function(ChatMessages, ChatNu
     end
 end)
 
-RegisterNetEvent('qb-phone:server:AddRecentCall', function(type, data)
+RegisterNetEvent('norskpixel-phone:server:AddRecentCall', function(type, data)
     local src = source
     local Ply = QBCore.Functions.GetPlayer(src)
     local Hour = os.date("%H")
     local Minute = os.date("%M")
     local label = Hour .. ":" .. Minute
-    TriggerClientEvent('qb-phone:client:AddRecentCall', src, data, label, type)
+    TriggerClientEvent('norskpixel-phone:client:AddRecentCall', src, data, label, type)
     local Trgt = QBCore.Functions.GetPlayerByPhone(data.number)
     if Trgt ~= nil then
-        TriggerClientEvent('qb-phone:client:AddRecentCall', Trgt.PlayerData.source, {
+        TriggerClientEvent('norskpixel-phone:client:AddRecentCall', Trgt.PlayerData.source, {
             name = Ply.PlayerData.charinfo.firstname .. " " .. Ply.PlayerData.charinfo.lastname,
             number = Ply.PlayerData.charinfo.phone,
             anonymous = data.anonymous
@@ -1084,21 +1084,21 @@ RegisterNetEvent('qb-phone:server:AddRecentCall', function(type, data)
     end
 end)
 
-RegisterNetEvent('qb-phone:server:CancelCall', function(ContactData)
+RegisterNetEvent('norskpixel-phone:server:CancelCall', function(ContactData)
     local Ply = QBCore.Functions.GetPlayerByPhone(ContactData.TargetData.number)
     if Ply ~= nil then
-        TriggerClientEvent('qb-phone:client:CancelCall', Ply.PlayerData.source)
+        TriggerClientEvent('norskpixel-phone:client:CancelCall', Ply.PlayerData.source)
     end
 end)
 
-RegisterNetEvent('qb-phone:server:AnswerCall', function(CallData)
+RegisterNetEvent('norskpixel-phone:server:AnswerCall', function(CallData)
     local Ply = QBCore.Functions.GetPlayerByPhone(CallData.TargetData.number)
     if Ply ~= nil then
-        TriggerClientEvent('qb-phone:client:AnswerCall', Ply.PlayerData.source)
+        TriggerClientEvent('norskpixel-phone:client:AnswerCall', Ply.PlayerData.source)
     end
 end)
 
-RegisterNetEvent('qb-phone:server:SaveMetaData', function(MData)
+RegisterNetEvent('norskpixel-phone:server:SaveMetaData', function(MData)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local result = exports.oxmysql:executeSync('SELECT * FROM players WHERE citizenid = ?', {Player.PlayerData.citizenid})
@@ -1109,7 +1109,7 @@ RegisterNetEvent('qb-phone:server:SaveMetaData', function(MData)
     Player.Functions.SetMetaData("phone", MData)
 end)
 
-RegisterNetEvent('qb-phone:server:GiveContactDetails', function(PlayerId)
+RegisterNetEvent('norskpixel-phone:server:GiveContactDetails', function(PlayerId)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local SuggestionData = {
@@ -1121,10 +1121,10 @@ RegisterNetEvent('qb-phone:server:GiveContactDetails', function(PlayerId)
         bank = Player.PlayerData.charinfo.account
     }
 
-    TriggerClientEvent('qb-phone:client:AddNewSuggestion', PlayerId, SuggestionData)
+    TriggerClientEvent('norskpixel-phone:client:AddNewSuggestion', PlayerId, SuggestionData)
 end)
 
-RegisterNetEvent('qb-phone:server:AddTransaction', function(data)
+RegisterNetEvent('norskpixel-phone:server:AddTransaction', function(data)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     exports.oxmysql:insert('INSERT INTO crypto_transactions (citizenid, title, message) VALUES (?, ?, ?)', {
@@ -1134,37 +1134,37 @@ RegisterNetEvent('qb-phone:server:AddTransaction', function(data)
     })
 end)
 
-RegisterNetEvent('qb-phone:server:InstallApplication', function(ApplicationData)
+RegisterNetEvent('norskpixel-phone:server:InstallApplication', function(ApplicationData)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     Player.PlayerData.metadata["phonedata"].InstalledApps[ApplicationData.app] = ApplicationData
     Player.Functions.SetMetaData("phonedata", Player.PlayerData.metadata["phonedata"])
 
-    -- TriggerClientEvent('qb-phone:RefreshPhone', src)
+    -- TriggerClientEvent('norskpixel-phone:RefreshPhone', src)
 end)
 
-RegisterNetEvent('qb-phone:server:RemoveInstallation', function(App)
+RegisterNetEvent('norskpixel-phone:server:RemoveInstallation', function(App)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     Player.PlayerData.metadata["phonedata"].InstalledApps[App] = nil
     Player.Functions.SetMetaData("phonedata", Player.PlayerData.metadata["phonedata"])
 
-    -- TriggerClientEvent('qb-phone:RefreshPhone', src)
+    -- TriggerClientEvent('norskpixel-phone:RefreshPhone', src)
 end)
 
-RegisterNetEvent('qb-phone:server:addImageToGallery', function(image)
+RegisterNetEvent('norskpixel-phone:server:addImageToGallery', function(image)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     exports.oxmysql:insert('INSERT INTO phone_gallery (`citizenid`, `image`) VALUES (?, ?)',{Player.PlayerData.citizenid,image})
 end)
-RegisterNetEvent('qb-phone:server:getImageFromGallery', function()
+RegisterNetEvent('norskpixel-phone:server:getImageFromGallery', function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local images = exports.oxmysql:fetchSync('SELECT * FROM phone_gallery WHERE citizenid = ? ORDER BY `date` DESC',{Player.PlayerData.citizenid})
-    TriggerClientEvent('qb-phone:refreshImages', src, images)
+    TriggerClientEvent('norskpixel-phone:refreshImages', src, images)
 end)
 
-RegisterNetEvent('qb-phone:server:RemoveImageFromGallery', function(data)
+RegisterNetEvent('norskpixel-phone:server:RemoveImageFromGallery', function(data)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local image = data.image
@@ -1198,7 +1198,7 @@ QBCore.Commands.Add('bill', 'Send regning', {{name = 'id', help = 'Spiller ID'},
                         'INSERT INTO phone_invoices (citizenid, amount, society, sender, sendercitizenid) VALUES (?, ?, ?, ?, ?)',
                         {billed.PlayerData.citizenid, amount, biller.PlayerData.job.name,
                          biller.PlayerData.charinfo.firstname, biller.PlayerData.citizenid})
-                    TriggerClientEvent('qb-phone:RefreshPhone', billed.PlayerData.source)
+                    TriggerClientEvent('norskpixel-phone:RefreshPhone', billed.PlayerData.source)
                     TriggerClientEvent('QBCore:Notify', source, 'Regning blev sendt!', 'success')
                     TriggerClientEvent('QBCore:Notify', billed.PlayerData.source, 'Ny regning modtaget!')
                 else

@@ -88,11 +88,11 @@ function MenuGarage()
         header = "⬅ Luk menuen",
         txt = "",
         params = {
-            event = "qb-menu:client:closeMenu"
+            event = "norskpixel-menu:client:closeMenu"
         }
 
     }
-    exports['qb-menu']:openMenu(vehicleMenu)
+    exports['norskpixel-menu']:openMenu(vehicleMenu)
 end
 
 -- Events

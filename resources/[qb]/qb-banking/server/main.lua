@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 Citizen.CreateThread(function()
     local accts = exports.oxmysql:executeSync('SELECT * FROM bank_accounts WHERE account_type = ?', { 'Business' })
@@ -67,7 +67,7 @@ exports('gang', function(gid)
     end
 end)
 
-RegisterNetEvent('qb-banking:createNewCard', function()
+RegisterNetEvent('norskpixel-banking:createNewCard', function()
     local src = source
     local xPlayer = QBCore.Functions.GetPlayer(src)
 
@@ -78,10 +78,10 @@ RegisterNetEvent('qb-banking:createNewCard', function()
         end
     end
 
-    TriggerEvent('qb-log:server:CreateLog', 'banking', 'Banking', 'lightgreen', "**"..GetPlayerName(xPlayer.PlayerData.source) .. " (citizenid: "..xPlayer.PlayerData.citizenid.." | id: "..xPlayer.PlayerData.source..")**" .. " created new card")
+    TriggerEvent('norskpixel-log:server:CreateLog', 'banking', 'Banking', 'lightgreen', "**"..GetPlayerName(xPlayer.PlayerData.source) .. " (citizenid: "..xPlayer.PlayerData.citizenid.." | id: "..xPlayer.PlayerData.source..")**" .. " created new card")
 end)
 
---[[ -- Only used by the following "qb-banking:initiateTransfer"
+--[[ -- Only used by the following "norskpixel-banking:initiateTransfer"
 
 local function getCharacterName(cid)
     local src = source
@@ -111,7 +111,7 @@ end
 
 ]]
 
-RegisterNetEvent('qb-banking:initiateTransfer', function(data)
+RegisterNetEvent('norskpixel-banking:initiateTransfer', function(data)
     --[[
     local _src = source
     local _startChar = QBCore.Functions.GetPlayer(_src)
@@ -125,27 +125,27 @@ RegisterNetEvent('qb-banking:initiateTransfer', function(data)
         while receiptName == nil do Wait(0) end
 
         if receiptName ~= false or receiptName ~= nil then
-            local userOnline = exports.qb-base:checkOnline(cid)
+            local userOnline = exports.norskpixel-base:checkOnline(cid)
 
             if userOnline ~= false then
                 -- User is online so we can do a straght transfer
-                local _targetUser = exports.qb-base:Source(userOnline)
+                local _targetUser = exports.norskpixel-base:Source(userOnline)
                 if acType == "Current" then
                     local targetBank = _targetUser:Bank().Add(data.amount, 'Bank Transfer from '.._startChar.GetName())
                     while targetBank == nil do Wait(0) end
                     local bank = _startChar:Bank().Remove(data.amount, 'Bank Transfer to '..receiptName)
                     TriggerClientEvent('pw:notification:SendAlert', _src, {type = "inform", text = "You have sent a bank transfer to "..receiptName..' for the amount of $'..data.amount, length = 5000})
                     TriggerClientEvent('pw:notification:SendAlert', userOnline, {type = "inform", text = "You have received a bank transfer from ".._startChar.GetName()..' for the amount of $'..data.amount, length = 5000})
-                    TriggerClientEvent('qb-banking:openBankScreen', _src)
-                    TriggerClientEvent('qb-banking:successAlert', _src, 'You have sent a bank transfer to '..receiptName..' for the amount of $'..data.amount)
+                    TriggerClientEvent('norskpixel-banking:openBankScreen', _src)
+                    TriggerClientEvent('norskpixel-banking:successAlert', _src, 'You have sent a bank transfer to '..receiptName..' for the amount of $'..data.amount)
                 else
                     local targetBank = savingsAccounts[cid].AddMoney(data.amount, 'Bank Transfer from '.._startChar.GetName())
                     while targetBank == nil do Wait(0) end
                     local bank = _startChar:Bank().Remove(data.amount, 'Bank Transfer to '..receiptName)
                     TriggerClientEvent('pw:notification:SendAlert', _src, {type = "inform", text = "You have sent a bank transfer to "..receiptName..' for the amount of $'..data.amount, length = 5000})
                     TriggerClientEvent('pw:notification:SendAlert', userOnline, {type = "inform", text = "You have received a bank transfer from ".._startChar.GetName()..' for the amount of $'..data.amount, length = 5000})
-                    TriggerClientEvent('qb-banking:openBankScreen', _src)
-                    TriggerClientEvent('qb-banking:successAlert', _src, 'You have sent a bank transfer to '..receiptName..' for the amount of $'..data.amount)
+                    TriggerClientEvent('norskpixel-banking:openBankScreen', _src)
+                    TriggerClientEvent('norskpixel-banking:successAlert', _src, 'You have sent a bank transfer to '..receiptName..' for the amount of $'..data.amount)
                 end
 
             else
@@ -180,8 +180,8 @@ RegisterNetEvent('qb-banking:initiateTransfer', function(data)
                                             if statementUpdated > 0 then
                                                 local bank = _startChar:Bank().Remove(data.amount, 'Bank Transfer to '..receiptName)
                                                 TriggerClientEvent('pw:notification:SendAlert', _src, {type = "inform", text = "You have sent a bank transfer to "..receiptName..' for the amount of $'..data.amount, length = 5000})
-                                                TriggerClientEvent('qb-banking:openBankScreen', _src)
-                                                TriggerClientEvent('qb-banking:successAlert', _src, 'You have sent a bank transfer to '..receiptName..' for the amount of $'..data.amount)
+                                                TriggerClientEvent('norskpixel-banking:openBankScreen', _src)
+                                                TriggerClientEvent('norskpixel-banking:successAlert', _src, 'You have sent a bank transfer to '..receiptName..' for the amount of $'..data.amount)
                                             end
                                         end)
                                     end
@@ -193,7 +193,7 @@ RegisterNetEvent('qb-banking:initiateTransfer', function(data)
         end
     else
         -- Send error to client that account details do no exist.
-        TriggerClientEvent('qb-banking:transferError', _src, 'The account details entered could not be located.')
+        TriggerClientEvent('norskpixel-banking:transferError', _src, 'The account details entered could not be located.')
     end
 ]]
 end)
@@ -204,7 +204,7 @@ local function format_int(number)
     return minus .. int:reverse():gsub("^,", "") .. fraction
 end
 
-QBCore.Functions.CreateCallback('qb-banking:getBankingInformation', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-banking:getBankingInformation', function(source, cb)
     local src = source
     local xPlayer = QBCore.Functions.GetPlayer(src)
     while xPlayer == nil do Wait(0) end
@@ -231,7 +231,7 @@ QBCore.Functions.CreateCallback('qb-banking:getBankingInformation', function(sou
         end
 end)
 
-RegisterNetEvent('qb-banking:createBankCard', function(pin)
+RegisterNetEvent('norskpixel-banking:createBankCard', function(pin)
     local src = source
     local xPlayer = QBCore.Functions.GetPlayer(src)
     local cid = xPlayer.PlayerData.citizenid
@@ -253,13 +253,13 @@ RegisterNetEvent('qb-banking:createBankCard', function(pin)
         xPlayer.Functions.AddItem('mastercard', 1, nil, info)
     end
 
-    TriggerClientEvent('qb-banking:openBankScreen', src)
+    TriggerClientEvent('norskpixel-banking:openBankScreen', src)
     TriggerClientEvent('QBCore:Notify', src, 'Du har bestilt et kreditkort.', 'success')
 
-    TriggerEvent('qb-log:server:CreateLog', 'banking', 'Banking', 'lightgreen', "**"..GetPlayerName(xPlayer.PlayerData.source) .. " (citizenid: "..xPlayer.PlayerData.citizenid.." | id: "..xPlayer.PlayerData.source..")** successfully ordered a debit card")
+    TriggerEvent('norskpixel-log:server:CreateLog', 'banking', 'Banking', 'lightgreen', "**"..GetPlayerName(xPlayer.PlayerData.source) .. " (citizenid: "..xPlayer.PlayerData.citizenid.." | id: "..xPlayer.PlayerData.source..")** successfully ordered a debit card")
 end)
 
-RegisterNetEvent('qb-banking:doQuickDeposit', function(amount)
+RegisterNetEvent('norskpixel-banking:doQuickDeposit', function(amount)
     local src = source
     local xPlayer = QBCore.Functions.GetPlayer(src)
     while xPlayer == nil do Wait(0) end
@@ -269,14 +269,14 @@ RegisterNetEvent('qb-banking:doQuickDeposit', function(amount)
         local cash = xPlayer.Functions.RemoveMoney('cash', tonumber(amount), 'banking-quick-depo')
         local bank = xPlayer.Functions.AddMoney('bank', tonumber(amount), 'banking-quick-depo')
         if bank then
-            TriggerClientEvent('qb-banking:openBankScreen', src)
-            TriggerClientEvent('qb-banking:successAlert', src, 'Du har lavet en indsættelse på '..amount..' DKK.')
-            TriggerEvent('qb-log:server:CreateLog', 'banking', 'Banking', 'lightgreen', "**"..GetPlayerName(xPlayer.PlayerData.source) .. " (citizenid: "..xPlayer.PlayerData.citizenid.." | id: "..xPlayer.PlayerData.source..")** made a cash deposit of $"..amount.." successfully.")
+            TriggerClientEvent('norskpixel-banking:openBankScreen', src)
+            TriggerClientEvent('norskpixel-banking:successAlert', src, 'Du har lavet en indsættelse på '..amount..' DKK.')
+            TriggerEvent('norskpixel-log:server:CreateLog', 'banking', 'Banking', 'lightgreen', "**"..GetPlayerName(xPlayer.PlayerData.source) .. " (citizenid: "..xPlayer.PlayerData.citizenid.." | id: "..xPlayer.PlayerData.source..")** made a cash deposit of $"..amount.." successfully.")
         end
     end
 end)
 
-RegisterNetEvent('qb-banking:toggleCard', function(toggle)
+RegisterNetEvent('norskpixel-banking:toggleCard', function(toggle)
     local src = source
     local xPlayer = QBCore.Functions.GetPlayer(src)
 
@@ -284,7 +284,7 @@ RegisterNetEvent('qb-banking:toggleCard', function(toggle)
         --_char:Bank():ToggleDebitCard(toggle)
 end)
 
-RegisterNetEvent('qb-banking:doQuickWithdraw', function(amount, branch)
+RegisterNetEvent('norskpixel-banking:doQuickWithdraw', function(amount, branch)
     local src = source
     local xPlayer = QBCore.Functions.GetPlayer(src)
     while xPlayer == nil do Wait(0) end
@@ -294,26 +294,26 @@ RegisterNetEvent('qb-banking:doQuickWithdraw', function(amount, branch)
         local cash = xPlayer.Functions.RemoveMoney('bank', tonumber(amount), 'banking-quick-withdraw')
         local bank = xPlayer.Functions.AddMoney('cash', tonumber(amount), 'banking-quick-withdraw')
         if cash then
-            TriggerClientEvent('qb-banking:openBankScreen', src)
-            TriggerClientEvent('qb-banking:successAlert', src, 'Du har lavet en udbetaling på '..amount..' DKK.')
-            TriggerEvent('qb-log:server:CreateLog', 'banking', 'Banking', 'red', "**"..GetPlayerName(xPlayer.PlayerData.source) .. " (citizenid: "..xPlayer.PlayerData.citizenid.." | id: "..xPlayer.PlayerData.source..")** made a cash withdrawal of $"..amount.." successfully.")
+            TriggerClientEvent('norskpixel-banking:openBankScreen', src)
+            TriggerClientEvent('norskpixel-banking:successAlert', src, 'Du har lavet en udbetaling på '..amount..' DKK.')
+            TriggerEvent('norskpixel-log:server:CreateLog', 'banking', 'Banking', 'red', "**"..GetPlayerName(xPlayer.PlayerData.source) .. " (citizenid: "..xPlayer.PlayerData.citizenid.." | id: "..xPlayer.PlayerData.source..")** made a cash withdrawal of $"..amount.." successfully.")
         end
     end
 end)
 
-RegisterNetEvent('qb-banking:updatePin', function(pin)
+RegisterNetEvent('norskpixel-banking:updatePin', function(pin)
     if pin ~= nil then
         local src = source
         local xPlayer = QBCore.Functions.GetPlayer(src)
         while xPlayer == nil do Wait(0) end
 
         --   _char:Bank().UpdateDebitCardPin(pin)
-        TriggerClientEvent('qb-banking:openBankScreen', src)
-        TriggerClientEvent('qb-banking:successAlert', src, 'Du har opdateret din pin kode.')
+        TriggerClientEvent('norskpixel-banking:openBankScreen', src)
+        TriggerClientEvent('norskpixel-banking:successAlert', src, 'Du har opdateret din pin kode.')
     end
 end)
 
-RegisterNetEvent('qb-banking:savingsDeposit', function(amount)
+RegisterNetEvent('norskpixel-banking:savingsDeposit', function(amount)
     local src = source
     local xPlayer = QBCore.Functions.GetPlayer(src)
     while xPlayer == nil do Wait(0) end
@@ -324,13 +324,13 @@ RegisterNetEvent('qb-banking:savingsDeposit', function(amount)
         local savings = savingsAccounts[xPlayer.PlayerData.citizenid].AddMoney(tonumber(amount), 'Nuværende konto til opsparing overførsel')
         while bank == nil do Wait(0) end
         while savings == nil do Wait(0) end
-        TriggerClientEvent('qb-banking:openBankScreen', src)
-        TriggerClientEvent('qb-banking:successAlert', src, 'Du har lavet en indsættelse på din opsparing ('..tostring(amount)..' DKK).')
-        TriggerEvent('qb-log:server:CreateLog', 'banking', 'Banking', 'lightgreen', "**"..GetPlayerName(xPlayer.PlayerData.source) .. " (citizenid: "..xPlayer.PlayerData.citizenid.." | id: "..xPlayer.PlayerData.source..")** made a savings deposit of $"..tostring(amount).." successfully..")
+        TriggerClientEvent('norskpixel-banking:openBankScreen', src)
+        TriggerClientEvent('norskpixel-banking:successAlert', src, 'Du har lavet en indsættelse på din opsparing ('..tostring(amount)..' DKK).')
+        TriggerEvent('norskpixel-log:server:CreateLog', 'banking', 'Banking', 'lightgreen', "**"..GetPlayerName(xPlayer.PlayerData.source) .. " (citizenid: "..xPlayer.PlayerData.citizenid.." | id: "..xPlayer.PlayerData.source..")** made a savings deposit of $"..tostring(amount).." successfully..")
     end
 end)
 
-RegisterNetEvent('qb-banking:savingsWithdraw', function(amount)
+RegisterNetEvent('norskpixel-banking:savingsWithdraw', function(amount)
     local src = source
     local xPlayer = QBCore.Functions.GetPlayer(src)
     while xPlayer == nil do Wait(0) end
@@ -341,21 +341,21 @@ RegisterNetEvent('qb-banking:savingsWithdraw', function(amount)
         local bank = xPlayer.Functions.AddMoney('bank', tonumber(amount), 'banking-quick-withdraw')
         while bank == nil do Wait(0) end
         while savings == nil do Wait(0) end
-        TriggerClientEvent('qb-banking:openBankScreen', src)
-        TriggerClientEvent('qb-banking:successAlert', src, 'Du har lavet en udbatling fra din opsparing ('..tostring(amount)..' DKK).')
-        TriggerEvent('qb-log:server:CreateLog', 'banking', 'Banking', 'red', "**"..GetPlayerName(xPlayer.PlayerData.source) .. " (citizenid: "..xPlayer.PlayerData.citizenid.." | id: "..xPlayer.PlayerData.source..")** made a savings withdrawal of $"..tostring(amount).." successfully.")
+        TriggerClientEvent('norskpixel-banking:openBankScreen', src)
+        TriggerClientEvent('norskpixel-banking:successAlert', src, 'Du har lavet en udbatling fra din opsparing ('..tostring(amount)..' DKK).')
+        TriggerEvent('norskpixel-log:server:CreateLog', 'banking', 'Banking', 'red', "**"..GetPlayerName(xPlayer.PlayerData.source) .. " (citizenid: "..xPlayer.PlayerData.citizenid.." | id: "..xPlayer.PlayerData.source..")** made a savings withdrawal of $"..tostring(amount).." successfully.")
     end
 end)
 
-RegisterNetEvent('qb-banking:createSavingsAccount', function()
+RegisterNetEvent('norskpixel-banking:createSavingsAccount', function()
     local src = source
     local xPlayer = QBCore.Functions.GetPlayer(src)
     local success = createSavingsAccount(xPlayer.PlayerData.citizenid)
 
     repeat Wait(0) until success ~= nil
-    TriggerClientEvent('qb-banking:openBankScreen', src)
-    TriggerClientEvent('qb-banking:successAlert', src, 'Du har oprettet en opsparingskonto.')
-    TriggerEvent('qb-log:server:CreateLog', 'banking', 'Banking', "lightgreen", "**"..GetPlayerName(xPlayer.PlayerData.source) .. " (citizenid: "..xPlayer.PlayerData.citizenid.." | id: "..xPlayer.PlayerData.source..")** opened a savings account")
+    TriggerClientEvent('norskpixel-banking:openBankScreen', src)
+    TriggerClientEvent('norskpixel-banking:successAlert', src, 'Du har oprettet en opsparingskonto.')
+    TriggerEvent('norskpixel-log:server:CreateLog', 'banking', 'Banking', "lightgreen", "**"..GetPlayerName(xPlayer.PlayerData.source) .. " (citizenid: "..xPlayer.PlayerData.citizenid.." | id: "..xPlayer.PlayerData.source..")** opened a savings account")
 end)
 
 

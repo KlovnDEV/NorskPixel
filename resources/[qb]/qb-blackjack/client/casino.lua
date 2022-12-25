@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local isLoggedIn = false 
 
@@ -8,29 +8,29 @@ AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
     isLoggedIn = true
 end)
 
-RegisterNetEvent('qb-casino:client:RedSell')
-AddEventHandler('qb-casino:client:RedSell', function()
-    TriggerServerEvent('qb-casino:server:RedSell')
+RegisterNetEvent('norskpixel-casino:client:RedSell')
+AddEventHandler('norskpixel-casino:client:RedSell', function()
+    TriggerServerEvent('norskpixel-casino:server:RedSell')
 end)
 
-RegisterNetEvent('qb-casino:client:WhiteSell')
-AddEventHandler('qb-casino:client:WhiteSell', function()
-    TriggerServerEvent('qb-casino:server:WhiteSell')
+RegisterNetEvent('norskpixel-casino:client:WhiteSell')
+AddEventHandler('norskpixel-casino:client:WhiteSell', function()
+    TriggerServerEvent('norskpixel-casino:server:WhiteSell')
 end)
 
-RegisterNetEvent('qb-casino:client:BlueSell')
-AddEventHandler('qb-casino:client:BlueSell', function()
-    TriggerServerEvent('qb-casino:server:BlueSell')
+RegisterNetEvent('norskpixel-casino:client:BlueSell')
+AddEventHandler('norskpixel-casino:client:BlueSell', function()
+    TriggerServerEvent('norskpixel-casino:server:BlueSell')
 end)
 
-RegisterNetEvent('qb-casino:client:BlackSell')
-AddEventHandler('qb-casino:client:BlackSell', function()
-    TriggerServerEvent('qb-casino:server:BlackSell')
+RegisterNetEvent('norskpixel-casino:client:BlackSell')
+AddEventHandler('norskpixel-casino:client:BlackSell', function()
+    TriggerServerEvent('norskpixel-casino:server:BlackSell')
 end)
 
-RegisterNetEvent('qb-casino:client:GoldSell')
-AddEventHandler('qb-casino:client:GoldSell', function()
-    TriggerServerEvent('qb-casino:server:GoldSell')
+RegisterNetEvent('norskpixel-casino:client:GoldSell')
+AddEventHandler('norskpixel-casino:client:GoldSell', function()
+    TriggerServerEvent('norskpixel-casino:server:GoldSell')
 end)
 
 Citizen.CreateThread(function()

@@ -1,4 +1,4 @@
-# qb-crafting
+# norskpixel-crafting
 Crafting Script For QB-Core
 
 # License

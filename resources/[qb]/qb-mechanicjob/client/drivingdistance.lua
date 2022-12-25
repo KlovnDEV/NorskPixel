@@ -36,7 +36,7 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-vehicletuning:client:UpdateDrivingDistance', function(amount, plate)
+RegisterNetEvent('norskpixel-vehicletuning:client:UpdateDrivingDistance', function(amount, plate)
     DrivingDistance[plate] = amount
 end)
 
@@ -57,7 +57,7 @@ CreateThread(function()
                     if not CheckDone then
                         if vehiclemeters == -1 then
                             CheckDone = true
-                            QBCore.Functions.TriggerCallback('qb-vehicletuning:server:IsVehicleOwned', function(IsOwned)
+                            QBCore.Functions.TriggerCallback('norskpixel-vehicletuning:server:IsVehicleOwned', function(IsOwned)
                                 if IsOwned then
                                     if DrivingDistance[plate] ~= nil then
                                         vehiclemeters = DrivingDistance[plate]
@@ -107,7 +107,7 @@ CreateThread(function()
                                         else
                                             newDamage = 0
                                         end
-                                        TriggerServerEvent('qb-vehicletuning:server:SetPartLevel', plate, k, newDamage)
+                                        TriggerServerEvent('norskpixel-vehicletuning:server:SetPartLevel', plate, k, newDamage)
                                     end
                                 end
                             end
@@ -115,7 +115,7 @@ CreateThread(function()
                             local amount = round(DrivingDistance[plate] / 1000, -2)
 
                             TriggerEvent('hud:client:UpdateDrivingMeters', true, amount)
-                            TriggerServerEvent('qb-vehicletuning:server:UpdateDrivingDistance', DrivingDistance[plate], plate)
+                            TriggerServerEvent('norskpixel-vehicletuning:server:UpdateDrivingDistance', DrivingDistance[plate], plate)
                         end
                     else
                         if invehicle then

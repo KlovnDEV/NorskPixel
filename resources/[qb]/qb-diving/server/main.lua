@@ -1,5 +1,5 @@
 
-QBCore = exports['qb-core']:GetCoreObject()
+QBCore = exports['norskpixel-core']:GetCoreObject()
 local AvailableCoral = {}
 
 -- Functions
@@ -35,17 +35,17 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-diving:server:SetBerthVehicle', function(BerthId, vehicleModel)
-    TriggerClientEvent('qb-diving:client:SetBerthVehicle', -1, BerthId, vehicleModel)
+RegisterNetEvent('norskpixel-diving:server:SetBerthVehicle', function(BerthId, vehicleModel)
+    TriggerClientEvent('norskpixel-diving:client:SetBerthVehicle', -1, BerthId, vehicleModel)
     QBBoatshop.Locations["berths"][BerthId]["boatModel"] = boatModel
 end)
 
-RegisterNetEvent('qb-diving:server:SetDockInUse', function(BerthId, InUse)
+RegisterNetEvent('norskpixel-diving:server:SetDockInUse', function(BerthId, InUse)
     QBBoatshop.Locations["berths"][BerthId]["inUse"] = InUse
-    TriggerClientEvent('qb-diving:client:SetDockInUse', -1, BerthId, InUse)
+    TriggerClientEvent('norskpixel-diving:client:SetDockInUse', -1, BerthId, InUse)
 end)
 
-RegisterNetEvent('qb-diving:server:BuyBoat', function(boatModel, BerthId)
+RegisterNetEvent('norskpixel-diving:server:BuyBoat', function(boatModel, BerthId)
     local BoatPrice = QBBoatshop.ShopBoats[boatModel]["price"]
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
@@ -58,11 +58,11 @@ RegisterNetEvent('qb-diving:server:BuyBoat', function(boatModel, BerthId)
 
     if PlayerMoney.cash >= BoatPrice then
         Player.Functions.RemoveMoney('cash', BoatPrice, "bought-boat")
-        TriggerClientEvent('qb-diving:client:BuyBoat', src, boatModel, plate)
+        TriggerClientEvent('norskpixel-diving:client:BuyBoat', src, boatModel, plate)
         InsertBoat(boatModel, Player, plate)
     elseif PlayerMoney.bank >= BoatPrice then
         Player.Functions.RemoveMoney('bank', BoatPrice, "bought-boat")
-        TriggerClientEvent('qb-diving:client:BuyBoat', src, boatModel, plate)
+        TriggerClientEvent('norskpixel-diving:client:BuyBoat', src, boatModel, plate)
         InsertBoat(boatModel, Player, plate)
     else
         if PlayerMoney.bank > PlayerMoney.cash then
@@ -74,13 +74,13 @@ RegisterNetEvent('qb-diving:server:BuyBoat', function(boatModel, BerthId)
     end
 end)
 
-RegisterNetEvent('qb-diving:server:RemoveItem', function(item, amount)
+RegisterNetEvent('norskpixel-diving:server:RemoveItem', function(item, amount)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     Player.Functions.RemoveItem(item, amount)
 end)
 
-RegisterNetEvent('qb-diving:server:SetBoatState', function(plate, state, boathouse, fuel)
+RegisterNetEvent('norskpixel-diving:server:SetBoatState', function(plate, state, boathouse, fuel)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local result = exports.oxmysql:scalarSync('SELECT 1 FROM player_boats WHERE plate = ?', {plate})
@@ -91,14 +91,14 @@ RegisterNetEvent('qb-diving:server:SetBoatState', function(plate, state, boathou
     end
 end)
 
-RegisterNetEvent('qb-diving:server:CallCops', function(Coords)
+RegisterNetEvent('norskpixel-diving:server:CallCops', function(Coords)
     local src = source
     for k, v in pairs(QBCore.Functions.GetPlayers()) do
         local Player = QBCore.Functions.GetPlayer(v)
         if Player ~= nil then
             if (Player.PlayerData.job.name == "police" and Player.PlayerData.job.onduty) then
                 local msg = "Denne koral er måske stjålet"
-                TriggerClientEvent('qb-diving:client:CallCops', Player.PlayerData.source, Coords, msg)
+                TriggerClientEvent('norskpixel-diving:client:CallCops', Player.PlayerData.source, Coords, msg)
                 local alertData = {
                     title = "Illegal diving",
                     coords = {
@@ -108,13 +108,13 @@ RegisterNetEvent('qb-diving:server:CallCops', function(Coords)
                     },
                     description = msg
                 }
-                TriggerClientEvent("qb-phone:client:addPoliceAlert", -1, alertData)
+                TriggerClientEvent("norskpixel-phone:client:addPoliceAlert", -1, alertData)
             end
         end
     end
 end)
 
-RegisterNetEvent('qb-diving:server:SellCoral', function()
+RegisterNetEvent('norskpixel-diving:server:SellCoral', function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if HasCoral(src) then
@@ -142,11 +142,11 @@ end)
 
 -- Callbacks
 
-QBCore.Functions.CreateCallback('qb-diving:server:GetBusyDocks', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-diving:server:GetBusyDocks', function(source, cb)
     cb(QBBoatshop.Locations["berths"])
 end)
 
-QBCore.Functions.CreateCallback('qb-diving:server:GetMyBoats', function(source, cb, dock)
+QBCore.Functions.CreateCallback('norskpixel-diving:server:GetMyBoats', function(source, cb, dock)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local result = exports.oxmysql:executeSync('SELECT * FROM player_boats WHERE citizenid = ? AND boathouse = ?', {Player.PlayerData.citizenid, dock})
@@ -157,7 +157,7 @@ QBCore.Functions.CreateCallback('qb-diving:server:GetMyBoats', function(source, 
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-diving:server:GetDepotBoats', function(source, cb, dock)
+QBCore.Functions.CreateCallback('norskpixel-diving:server:GetDepotBoats', function(source, cb, dock)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local result = exports.oxmysql:executeSync('SELECT * FROM player_boats WHERE citizenid = ? AND state = ?', {Player.PlayerData.citizenid, 0})
@@ -171,16 +171,16 @@ end)
 -- Items
 
 QBCore.Functions.CreateUseableItem("jerry_can", function(source, item)
-    TriggerClientEvent("qb-diving:client:UseJerrycan", source)
+    TriggerClientEvent("norskpixel-diving:client:UseJerrycan", source)
 end)
 
 QBCore.Functions.CreateUseableItem("diving_gear", function(source, item)
-    TriggerClientEvent("qb-diving:client:UseGear", source, true)
+    TriggerClientEvent("norskpixel-diving:client:UseGear", source, true)
 end)
 
 -- Commands
 
 QBCore.Commands.Add("divingsuit", "Tag din dykkerdragt af", {}, false, function(source, args)
     local Player = QBCore.Functions.GetPlayer(source)
-    TriggerClientEvent("qb-diving:client:UseGear", source, false)
+    TriggerClientEvent("norskpixel-diving:client:UseGear", source, false)
 end)

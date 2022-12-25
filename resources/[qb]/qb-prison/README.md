@@ -1,4 +1,4 @@
-# qb-prison
+# norskpixel-prison
 Prison/Jailing Script for QB-Policejob
 
 # License

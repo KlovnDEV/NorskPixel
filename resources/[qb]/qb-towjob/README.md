@@ -1,4 +1,4 @@
-# qb-towjob
+# norskpixel-towjob
 Towing Job For QB-Core
 
 # License

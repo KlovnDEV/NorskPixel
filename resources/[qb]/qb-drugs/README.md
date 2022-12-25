@@ -1,4 +1,4 @@
-# qb-drugs
+# norskpixel-drugs
 Drugs Script For QB-Core
 
 # License

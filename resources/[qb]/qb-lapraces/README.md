@@ -1,4 +1,4 @@
-# qb-lapraces
+# norskpixel-lapraces
 Race Track Creation For QB-Core
 
 # License

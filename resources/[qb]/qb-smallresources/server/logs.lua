@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local Webhooks = {
     ['default'] = '',
@@ -53,7 +53,7 @@ local Colors = { -- https://www.spycolor.com/
     ["lightgreen"] = 65309,
 }
 
-RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message, tagEveryone)        
+RegisterNetEvent('norskpixel-log:server:CreateLog', function(name, title, color, message, tagEveryone)        
     local tag = tagEveryone or false
     local webHook = Webhooks[name] or Webhooks['default']
     local embedData = {
@@ -78,5 +78,5 @@ RegisterNetEvent('qb-log:server:CreateLog', function(name, title, color, message
 end)
 
 QBCore.Commands.Add('testwebhook', 'Test dine webhooks med Discord (kun god)', {}, false, function(source, args)
-    TriggerEvent('qb-log:server:CreateLog', 'testwebhook', 'Test Webhook', 'default', 'Webhook setup successfully')
+    TriggerEvent('norskpixel-log:server:CreateLog', 'testwebhook', 'Test Webhook', 'default', 'Webhook setup successfully')
 end, 'god')

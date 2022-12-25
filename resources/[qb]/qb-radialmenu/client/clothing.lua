@@ -796,8 +796,8 @@ function ResetClothing(anim)
 	LastEquipped = {}
 end
 
-RegisterNetEvent('qb-radialmenu:ResetClothing')
-AddEventHandler('qb-radialmenu:ResetClothing', ResetClothing)
+RegisterNetEvent('norskpixel-radialmenu:ResetClothing')
+AddEventHandler('norskpixel-radialmenu:ResetClothing', ResetClothing)
 
 function ToggleClothing(whic, extra)
 	local which = whic
@@ -882,8 +882,8 @@ function ToggleClothing(whic, extra)
 	Notify("Du har det allerede på dig.") return false
 end
 
-RegisterNetEvent('qb-radialmenu:ToggleClothing')
-AddEventHandler('qb-radialmenu:ToggleClothing', ToggleClothing)
+RegisterNetEvent('norskpixel-radialmenu:ToggleClothing')
+AddEventHandler('norskpixel-radialmenu:ToggleClothing', ToggleClothing)
 
 function ToggleProps(whic)
 	local which = whic
@@ -927,8 +927,8 @@ function ToggleProps(whic)
 	end
 end
 
-RegisterNetEvent('qb-radialmenu:ToggleProps')
-AddEventHandler('qb-radialmenu:ToggleProps', ToggleProps)
+RegisterNetEvent('norskpixel-radialmenu:ToggleProps')
+AddEventHandler('norskpixel-radialmenu:ToggleProps', ToggleProps)
 
 for k,v in pairs(Config.Commands) do
 	RegisterCommand(k, v.Func)

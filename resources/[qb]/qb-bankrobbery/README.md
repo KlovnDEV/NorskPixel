@@ -1,4 +1,4 @@
-# qb-bankrobbery
+# norskpixel-bankrobbery
 Bank Robbery For QB-Core
 
 # License

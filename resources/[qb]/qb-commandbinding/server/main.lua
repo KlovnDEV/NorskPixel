@@ -1,12 +1,12 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 QBCore.Commands.Add("binds", "Open commandbinding menu", {}, false, function(source, args)
   local Player = QBCore.Functions.GetPlayer(source)
-	  TriggerClientEvent("qb-commandbinding:client:openUI", source)
+	  TriggerClientEvent("norskpixel-commandbinding:client:openUI", source)
 end)
 
-RegisterServerEvent('qb-commandbinding:server:setKeyMeta', function(keyMeta)
+RegisterServerEvent('norskpixel-commandbinding:server:setKeyMeta', function(keyMeta)
     local src = source
     local ply = QBCore.Functions.GetPlayer(src)
 

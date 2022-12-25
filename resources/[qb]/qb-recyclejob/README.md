@@ -1,4 +1,4 @@
-# qb-recyclejob
+# norskpixel-recyclejob
 Recycling Job For QB-Core
 
 # License

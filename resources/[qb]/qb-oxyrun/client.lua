@@ -1,4 +1,4 @@
-local QBCore = exports["qb-core"]:GetCoreObject()
+local QBCore = exports["norskpixel-core"]:GetCoreObject()
 
 local tasking = false
 local drugStorePed = 0

@@ -1,12 +1,12 @@
 
 local charPed = nil
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 		if NetworkIsSessionStarted() then
-			TriggerEvent('qb-multicharacter:client:chooseChar')
+			TriggerEvent('norskpixel-multicharacter:client:chooseChar')
 			return
 		end
 	end
@@ -40,27 +40,27 @@ end)
 RegisterNUICallback('disconnectButton', function()
     SetEntityAsMissionEntity(charPed, true, true)
     DeleteEntity(charPed)
-    TriggerServerEvent('qb-multicharacter:server:disconnect')
+    TriggerServerEvent('norskpixel-multicharacter:server:disconnect')
 end)
 
 RegisterNUICallback('selectCharacter', function(data)
     local cData = data.cData
     DoScreenFadeOut(10)
-    TriggerServerEvent('qb-multicharacter:server:loadUserData', cData)
+    TriggerServerEvent('norskpixel-multicharacter:server:loadUserData', cData)
     openCharMenu(false)
     SetEntityAsMissionEntity(charPed, true, true)
     DeleteEntity(charPed)
 end)
 
-RegisterNetEvent('qb-multicharacter:client:closeNUI')
-AddEventHandler('qb-multicharacter:client:closeNUI', function()
+RegisterNetEvent('norskpixel-multicharacter:client:closeNUI')
+AddEventHandler('norskpixel-multicharacter:client:closeNUI', function()
     SetNuiFocus(false, false)
 end)
 
 local Countdown = 1
 
-RegisterNetEvent('qb-multicharacter:client:chooseChar')
-AddEventHandler('qb-multicharacter:client:chooseChar', function()
+RegisterNetEvent('norskpixel-multicharacter:client:chooseChar')
+AddEventHandler('norskpixel-multicharacter:client:chooseChar', function()
     SetNuiFocus(false, false)
     DoScreenFadeOut(10)
     Citizen.Wait(1000)
@@ -87,7 +87,7 @@ RegisterNUICallback('cDataPed', function(data)
     DeleteEntity(charPed)
 
     if cData ~= nil then
-        QBCore.Functions.TriggerCallback('qb-multicharacter:server:getSkin', function(model, data)
+        QBCore.Functions.TriggerCallback('norskpixel-multicharacter:server:getSkin', function(model, data)
             model = model ~= nil and tonumber(model) or false
             if model ~= nil then
                 Citizen.CreateThread(function()
@@ -102,7 +102,7 @@ RegisterNUICallback('cDataPed', function(data)
                     PlaceObjectOnGroundProperly(charPed)
                     SetBlockingOfNonTemporaryEvents(charPed, true)
                     data = json.decode(data)
-                    TriggerEvent('qb-clothing:client:loadPlayerClothing', data, charPed)
+                    TriggerEvent('norskpixel-clothing:client:loadPlayerClothing', data, charPed)
                 end)
             else
                 Citizen.CreateThread(function()
@@ -146,7 +146,7 @@ RegisterNUICallback('cDataPed', function(data)
 end)
 
 RegisterNUICallback('setupCharacters', function()
-    QBCore.Functions.TriggerCallback("qb-multicharacter:server:setupCharacters", function(result)
+    QBCore.Functions.TriggerCallback("norskpixel-multicharacter:server:setupCharacters", function(result)
         SendNUIMessage({
             action = "setupCharacters",
             characters = result
@@ -167,18 +167,18 @@ RegisterNUICallback('createNewCharacter', function(data)
         cData.gender = 1
     end
 
-    TriggerServerEvent('qb-multicharacter:server:createCharacter', cData)
+    TriggerServerEvent('norskpixel-multicharacter:server:createCharacter', cData)
     Citizen.Wait(500)
 end)
 
 RegisterNUICallback('removeCharacter', function(data)
-    TriggerServerEvent('qb-multicharacter:server:deleteCharacter', data.citizenid)
-    TriggerEvent('qb-multicharacter:client:chooseChar')
+    TriggerServerEvent('norskpixel-multicharacter:server:deleteCharacter', data.citizenid)
+    TriggerEvent('norskpixel-multicharacter:client:chooseChar')
 end)
 
 function skyCam(bool)
     SetRainLevel(0.0)
-    TriggerEvent('qb-weathersync:client:DisableSync')
+    TriggerEvent('norskpixel-weathersync:client:DisableSync')
     SetWeatherTypePersist('EXTRASUNNY')
     SetWeatherTypeNow('EXTRASUNNY')
     SetWeatherTypeNowPersist('EXTRASUNNY')

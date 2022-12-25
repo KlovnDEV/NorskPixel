@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local closestScrapyard = 0
 local emailSend = false
@@ -7,7 +7,7 @@ local isBusy = false
 
 RegisterNetEvent("QBCore:Client:OnPlayerLoaded")
 AddEventHandler("QBCore:Client:OnPlayerLoaded", function()
-    TriggerServerEvent("qb-scrapyard:server:LoadVehicleList")
+    TriggerServerEvent("norskpixel-scrapyard:server:LoadVehicleList")
 end)
 
 Citizen.CreateThread(function()
@@ -68,8 +68,8 @@ Citizen.CreateThread(function()
 	end
 end)
 
-RegisterNetEvent('qb-scapyard:client:setNewVehicles')
-AddEventHandler('qb-scapyard:client:setNewVehicles', function(vehicleList)
+RegisterNetEvent('norskpixel-scapyard:client:setNewVehicles')
+AddEventHandler('norskpixel-scapyard:client:setNewVehicles', function(vehicleList)
 	Config.CurrentVehicles = vehicleList
 end)
 
@@ -87,7 +87,7 @@ function CreateListEmail()
 		end
 		SetTimeout(math.random(15000, 20000), function()
 			emailSend = false
-			TriggerServerEvent('qb-phone:server:sendNewMail', {
+			TriggerServerEvent('norskpixel-phone:server:sendNewMail', {
 				sender = "Turner’s Auto skrothandler",
 				subject = "Køretøjslist",
 				message = "Du kan kun skrotte et bestemt antal køretøjer.<br />Du kan beholde alt selv, du står selv for det, så længe du ikke genere mig.<br /><br /><strong>Køretøjslisten:</strong><br />".. vehicleList,
@@ -110,7 +110,7 @@ function ScrapVehicle(vehicle)
 		disableCombat = true,
 	}, {}, {}, {}, function() -- Done
 		StopAnimTask(PlayerPedId(), "mp_car_bomb", "car_bomb_mechanic", 1.0)
-		TriggerServerEvent("qb-scrapyard:server:ScrapVehicle", GetVehicleKey(GetEntityModel(vehicle)))
+		TriggerServerEvent("norskpixel-scrapyard:server:ScrapVehicle", GetVehicleKey(GetEntityModel(vehicle)))
 		SetEntityAsMissionEntity(vehicle, true, true)
 		DeleteVehicle(vehicle)
 		isBusy = false

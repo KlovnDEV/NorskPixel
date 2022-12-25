@@ -1,9 +1,9 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local Races = {}
-RegisterServerEvent('qb-streetraces:NewRace')
-AddEventHandler('qb-streetraces:NewRace', function(RaceTable)
+RegisterServerEvent('norskpixel-streetraces:NewRace')
+AddEventHandler('norskpixel-streetraces:NewRace', function(RaceTable)
     local src = source
     local RaceId = math.random(1000, 9999)
     local xPlayer = QBCore.Functions.GetPlayer(src)
@@ -11,24 +11,24 @@ AddEventHandler('qb-streetraces:NewRace', function(RaceTable)
         Races[RaceId] = RaceTable
         Races[RaceId].creator = QBCore.Functions.GetIdentifier(src, 'license')
         table.insert(Races[RaceId].joined, QBCore.Functions.GetIdentifier(src, 'license'))
-        TriggerClientEvent('qb-streetraces:SetRace', -1, Races)
-        TriggerClientEvent('qb-streetraces:SetRaceId', src, RaceId)
+        TriggerClientEvent('norskpixel-streetraces:SetRace', -1, Races)
+        TriggerClientEvent('norskpixel-streetraces:SetRaceId', src, RaceId)
         TriggerClientEvent('QBCore:Notify', src, "Du tilmeldte dig for "..Races[RaceId].amount..",- DKK", 'success')
     end
 end)
 
-RegisterServerEvent('qb-streetraces:RaceWon')
-AddEventHandler('qb-streetraces:RaceWon', function(RaceId)
+RegisterServerEvent('norskpixel-streetraces:RaceWon')
+AddEventHandler('norskpixel-streetraces:RaceWon', function(RaceId)
     local src = source
     local xPlayer = QBCore.Functions.GetPlayer(src)
     xPlayer.Functions.AddMoney('cash', Races[RaceId].pot, "race-won")
     TriggerClientEvent('QBCore:Notify', src, "Du vandt racet og modtog "..Races[RaceId].pot..",- DKK", 'success')
-    TriggerClientEvent('qb-streetraces:SetRace', -1, Races)
-    TriggerClientEvent('qb-streetraces:RaceDone', -1, RaceId, GetPlayerName(src))
+    TriggerClientEvent('norskpixel-streetraces:SetRace', -1, Races)
+    TriggerClientEvent('norskpixel-streetraces:RaceDone', -1, RaceId, GetPlayerName(src))
 end)
 
-RegisterServerEvent('qb-streetraces:JoinRace')
-AddEventHandler('qb-streetraces:JoinRace', function(RaceId)
+RegisterServerEvent('norskpixel-streetraces:JoinRace')
+AddEventHandler('norskpixel-streetraces:JoinRace', function(RaceId)
     local src = source
     local xPlayer = QBCore.Functions.GetPlayer(src)
     local zPlayer = QBCore.Functions.GetPlayer(Races[RaceId].creator)
@@ -37,8 +37,8 @@ AddEventHandler('qb-streetraces:JoinRace', function(RaceId)
             Races[RaceId].pot = Races[RaceId].pot + Races[RaceId].amount
             table.insert(Races[RaceId].joined, QBCore.Functions.GetIdentifier(src, 'license'))
             if xPlayer.Functions.RemoveMoney('cash', Races[RaceId].amount, "streetrace-joined") then
-                TriggerClientEvent('qb-streetraces:SetRace', -1, Races)
-                TriggerClientEvent('qb-streetraces:SetRaceId', src, RaceId)
+                TriggerClientEvent('norskpixel-streetraces:SetRace', -1, Races)
+                TriggerClientEvent('norskpixel-streetraces:SetRaceId', src, RaceId)
                 TriggerClientEvent('QBCore:Notify', zPlayer.PlayerData.source, GetPlayerName(src).." Tilmeldte sig", 'primary')
             end
         else
@@ -56,7 +56,7 @@ QBCore.Commands.Add("createrace", "Start et Street Race", {{name="amount", help=
     local Player = QBCore.Functions.GetPlayer(src)
 
     if GetJoinedRace(QBCore.Functions.GetIdentifier(src, 'license')) == 0 then
-        TriggerClientEvent('qb-streetraces:CreateRace', src, amount)
+        TriggerClientEvent('norskpixel-streetraces:CreateRace', src, amount)
     else
         TriggerClientEvent('QBCore:Notify', src, "Du er allerede tilmeldt dig et race", 'error')    
     end
@@ -92,8 +92,8 @@ QBCore.Commands.Add("startrace", "Start Race", {}, false, function(source, args)
     if RaceId ~= 0 then
       
         Races[RaceId].started = true
-        TriggerClientEvent('qb-streetraces:SetRace', -1, Races)
-        TriggerClientEvent("qb-streetraces:StartRace", -1, RaceId)
+        TriggerClientEvent('norskpixel-streetraces:SetRace', -1, Races)
+        TriggerClientEvent("norskpixel-streetraces:StartRace", -1, RaceId)
     else
         TriggerClientEvent('QBCore:Notify', src, "Du har ikke startet et race", 'error')
         
@@ -112,7 +112,7 @@ function CancelRace(source)
                         local xdPlayer = QBCore.Functions.GetPlayer(iden)
                             xdPlayer.Functions.AddMoney('cash', Races[key].amount, "race-cancelled")
                             TriggerClientEvent('QBCore:Notify', xdPlayer.PlayerData.source, "Race er blevet stoppet, du fik "..Races[key].amount.." DKK tilbage", 'error')
-                            TriggerClientEvent('qb-streetraces:StopRace', xdPlayer.PlayerData.source)
+                            TriggerClientEvent('norskpixel-streetraces:StopRace', xdPlayer.PlayerData.source)
                             RemoveFromRace(iden)
                     end
                 else
@@ -122,7 +122,7 @@ function CancelRace(source)
                 Races[key] = nil
             end
         end
-        TriggerClientEvent('qb-streetraces:SetRace', -1, Races)
+        TriggerClientEvent('norskpixel-streetraces:SetRace', -1, Races)
     else
         TriggerClientEvent('QBCore:Notify', source, "Du har ikke startet et race!", 'error')
     end

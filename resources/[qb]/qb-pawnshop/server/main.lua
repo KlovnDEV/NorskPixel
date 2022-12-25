@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local ItemList = {
     ["goldchain"] = math.random(60, 110),
@@ -22,8 +22,8 @@ local MeltItems = {
 
 local GoldBarsAmount = 0
 
-RegisterServerEvent("qb-pawnshop:server:sellPawnItems")
-AddEventHandler("qb-pawnshop:server:sellPawnItems", function()
+RegisterServerEvent("norskpixel-pawnshop:server:sellPawnItems")
+AddEventHandler("norskpixel-pawnshop:server:sellPawnItems", function()
     local src = source
     local price = 0
     local Player = QBCore.Functions.GetPlayer(src)
@@ -42,8 +42,8 @@ AddEventHandler("qb-pawnshop:server:sellPawnItems", function()
     end
 end)
 
-RegisterServerEvent("qb-pawnshop:server:sellHardwarePawnItems")
-AddEventHandler("qb-pawnshop:server:sellHardwarePawnItems", function()
+RegisterServerEvent("norskpixel-pawnshop:server:sellHardwarePawnItems")
+AddEventHandler("norskpixel-pawnshop:server:sellHardwarePawnItems", function()
     local src = source
     local price = 0
     local Player = QBCore.Functions.GetPlayer(src)
@@ -63,8 +63,8 @@ AddEventHandler("qb-pawnshop:server:sellHardwarePawnItems", function()
 
 end)
 
-RegisterServerEvent("qb-pawnshop:server:getGoldBars")
-AddEventHandler("qb-pawnshop:server:getGoldBars", function()
+RegisterServerEvent("norskpixel-pawnshop:server:getGoldBars")
+AddEventHandler("norskpixel-pawnshop:server:getGoldBars", function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if GoldBarsAmount > 0 then
@@ -74,15 +74,15 @@ AddEventHandler("qb-pawnshop:server:getGoldBars", function()
             Config.IsMelting = false
             Config.CanTake = false
             Config.MeltTime = 300
-            TriggerClientEvent("qb-pawnshop:client:SetTakeState", -1, false)
+            TriggerClientEvent("norskpixel-pawnshop:client:SetTakeState", -1, false)
         else
             TriggerClientEvent('QBCore:Notify', src, "Du har ingen plads i dit inventory", "error")
         end
     end
 end)
 
-RegisterServerEvent("qb-pawnshop:server:sellGold")
-AddEventHandler("qb-pawnshop:server:sellGold", function()
+RegisterServerEvent("norskpixel-pawnshop:server:sellGold")
+AddEventHandler("norskpixel-pawnshop:server:sellGold", function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local price = 0
@@ -101,8 +101,8 @@ AddEventHandler("qb-pawnshop:server:sellGold", function()
     end
 end)
 
-RegisterServerEvent("qb-pawnshop:server:meltItems")
-AddEventHandler("qb-pawnshop:server:meltItems", function()
+RegisterServerEvent("norskpixel-pawnshop:server:meltItems")
+AddEventHandler("norskpixel-pawnshop:server:meltItems", function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local goldbars = 0
@@ -126,7 +126,7 @@ AddEventHandler("qb-pawnshop:server:meltItems", function()
         end
         if goldbars > 0 then
             GoldBarsAmount = goldbars
-            TriggerClientEvent('qb-pawnshop:client:startMelting', -1)
+            TriggerClientEvent('norskpixel-pawnshop:client:startMelting', -1)
             Config.IsMelting = true
             Config.MeltTime = 300
             Citizen.CreateThread(function()
@@ -136,7 +136,7 @@ AddEventHandler("qb-pawnshop:server:meltItems", function()
                         Config.IsMelting = false
                         Config.CanTake = true
                         Config.MeltTime = 300
-                        TriggerClientEvent('qb-pawnshop:client:SetTakeState', -1, true)
+                        TriggerClientEvent('norskpixel-pawnshop:client:SetTakeState', -1, true)
                     end
                     Citizen.Wait(1000)
                 end
@@ -145,7 +145,7 @@ AddEventHandler("qb-pawnshop:server:meltItems", function()
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-pawnshop:server:getSellPrice', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-pawnshop:server:getSellPrice', function(source, cb)
     local retval = 0
     local Player = QBCore.Functions.GetPlayer(source)
     if Player.PlayerData.items ~= nil and next(Player.PlayerData.items) ~= nil then 
@@ -160,11 +160,11 @@ QBCore.Functions.CreateCallback('qb-pawnshop:server:getSellPrice', function(sour
     cb(retval)
 end)
 
-QBCore.Functions.CreateCallback('qb-pawnshop:melting:server:GetConfig', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-pawnshop:melting:server:GetConfig', function(source, cb)
     cb(Config.IsMelting, Config.MeltTime, Config.CanTake)
 end)
 
-QBCore.Functions.CreateCallback('qb-pawnshop:server:getSellHardwarePrice', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-pawnshop:server:getSellHardwarePrice', function(source, cb)
     local retval = 0
     local Player = QBCore.Functions.GetPlayer(source)
     if Player.PlayerData.items ~= nil and next(Player.PlayerData.items) ~= nil then 
@@ -179,7 +179,7 @@ QBCore.Functions.CreateCallback('qb-pawnshop:server:getSellHardwarePrice', funct
     cb(retval)
 end)
 
-QBCore.Functions.CreateCallback('qb-pawnshop:server:hasGold', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-pawnshop:server:hasGold', function(source, cb)
 	local retval = false
     local Player = QBCore.Functions.GetPlayer(source)
     local gold = Player.Functions.GetItemByName('goldbar')

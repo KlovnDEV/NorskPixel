@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local dailyWithdraws = {}
 
 -- Thread
@@ -57,12 +57,12 @@ RegisterCommand('atm', function(source)
             cards[#cards+1] = v.info
         end
     end
-    TriggerClientEvent('qb-atms:client:loadATM', src, cards)
+    TriggerClientEvent('norskpixel-atms:client:loadATM', src, cards)
 end)
 
 -- Event
-RegisterServerEvent('qb-atms:server:doAccountWithdraw')
-AddEventHandler('qb-atms:server:doAccountWithdraw', function(data)
+RegisterServerEvent('norskpixel-atms:server:doAccountWithdraw')
+AddEventHandler('norskpixel-atms:server:doAccountWithdraw', function(data)
     if data ~= nil then 
         local src = source
         local xPlayer = QBCore.Functions.GetPlayer(src)
@@ -114,7 +114,7 @@ AddEventHandler('qb-atms:server:doAccountWithdraw', function(data)
                 banking['accountinfo'] = xCH.charinfo.account
                 banking['cash'] = xPlayer.Functions.GetMoney('cash')
             end
-            TriggerClientEvent('qb-atms:client:updateBankInformation', src, banking)
+            TriggerClientEvent('norskpixel-atms:client:updateBankInformation', src, banking)
         else
             TriggerClientEvent('QBCore:Notify', src, "Du har nået dit daglige loft.", "error")
         end
@@ -122,7 +122,7 @@ AddEventHandler('qb-atms:server:doAccountWithdraw', function(data)
 end)
 
 -- Callbacks
-QBCore.Functions.CreateCallback('qb-debitcard:server:requestCards', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-debitcard:server:requestCards', function(source, cb)
     local src = source
     local xPlayer = QBCore.Functions.GetPlayer(src)
     local visas = xPlayer.Functions.GetItemsByName('visa')
@@ -140,7 +140,7 @@ QBCore.Functions.CreateCallback('qb-debitcard:server:requestCards', function(sou
     return cards
 end)
 
-QBCore.Functions.CreateCallback('qb-debitcard:server:deleteCard', function(source, cb, data)
+QBCore.Functions.CreateCallback('norskpixel-debitcard:server:deleteCard', function(source, cb, data)
     local cn = data.cardNumber
     local ct = data.cardType
     local src = source
@@ -154,7 +154,7 @@ QBCore.Functions.CreateCallback('qb-debitcard:server:deleteCard', function(sourc
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-atms:server:loadBankAccount', function(source, cb, cid, cardnumber)
+QBCore.Functions.CreateCallback('norskpixel-atms:server:loadBankAccount', function(source, cb, cid, cardnumber)
     local src = source
     local xPlayer = QBCore.Functions.GetPlayer(src)
     local cardHolder = cid

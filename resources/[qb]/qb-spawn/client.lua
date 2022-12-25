@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local camZPlus1 = 1500
 local camZPlus2 = 50
 local pointCamCoords = 75
@@ -21,7 +21,7 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-spawn:client:openUI', function(value)
+RegisterNetEvent('norskpixel-spawn:client:openUI', function(value)
     SetEntityVisible(PlayerPedId(), false)
     DoScreenFadeOut(250)
     Wait(1000)
@@ -35,13 +35,13 @@ RegisterNetEvent('qb-spawn:client:openUI', function(value)
     SetDisplay(value)
 end)
 
-RegisterNetEvent('qb-houses:client:setHouseConfig', function(houseConfig)
+RegisterNetEvent('norskpixel-houses:client:setHouseConfig', function(houseConfig)
     Config.Houses = houseConfig
 end)
 
-RegisterNetEvent('qb-spawn:client:setupSpawns', function(cData, new, apps)
+RegisterNetEvent('norskpixel-spawn:client:setupSpawns', function(cData, new, apps)
     if not new then
-        QBCore.Functions.TriggerCallback('qb-spawn:server:getOwnedHouses', function(houses)
+        QBCore.Functions.TriggerCallback('norskpixel-spawn:server:getOwnedHouses', function(houses)
             local myHouses = {}
             if houses ~= nil then
                 for i = 1, (#houses), 1 do
@@ -177,22 +177,22 @@ RegisterNUICallback('spawnplayer', function(data)
 
         if insideMeta.house ~= nil then
             local houseId = insideMeta.house
-            TriggerEvent('qb-houses:client:LastLocationHouse', houseId)
+            TriggerEvent('norskpixel-houses:client:LastLocationHouse', houseId)
         elseif insideMeta.apartment.apartmentType ~= nil or insideMeta.apartment.apartmentId ~= nil then
             local apartmentType = insideMeta.apartment.apartmentType
             local apartmentId = insideMeta.apartment.apartmentId
-            TriggerEvent('qb-apartments:client:LastLocationHouse', apartmentType, apartmentId)
+            TriggerEvent('norskpixel-apartments:client:LastLocationHouse', apartmentType, apartmentId)
         end
         TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
         TriggerEvent('QBCore:Client:OnPlayerLoaded')
         PostSpawnPlayer()
     elseif type == "house" then
         PreSpawnPlayer()
-        TriggerEvent('qb-houses:client:enterOwnedHouse', location)
+        TriggerEvent('norskpixel-houses:client:enterOwnedHouse', location)
         TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
         TriggerEvent('QBCore:Client:OnPlayerLoaded')
-        TriggerServerEvent('qb-houses:server:SetInsideMeta', 0, false)
-        TriggerServerEvent('qb-apartments:server:SetInsideMeta', 0, 0, false)
+        TriggerServerEvent('norskpixel-houses:server:SetInsideMeta', 0, false)
+        TriggerServerEvent('norskpixel-apartments:server:SetInsideMeta', 0, 0, false)
         PostSpawnPlayer()
     elseif type == "normal" then
         local pos = QB.Spawns[location].coords
@@ -200,8 +200,8 @@ RegisterNUICallback('spawnplayer', function(data)
         SetEntityCoords(ped, pos.x, pos.y, pos.z)
         TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
         TriggerEvent('QBCore:Client:OnPlayerLoaded')
-        TriggerServerEvent('qb-houses:server:SetInsideMeta', 0, false)
-        TriggerServerEvent('qb-apartments:server:SetInsideMeta', 0, 0, false)
+        TriggerServerEvent('norskpixel-houses:server:SetInsideMeta', 0, false)
+        TriggerServerEvent('norskpixel-apartments:server:SetInsideMeta', 0, 0, false)
         Wait(500)
         SetEntityCoords(ped, pos.x, pos.y, pos.z)
         SetEntityHeading(ped, pos.w)

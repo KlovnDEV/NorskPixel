@@ -1,4 +1,4 @@
-QBCore = exports['qb-core']:GetCoreObject()
+QBCore = exports['norskpixel-core']:GetCoreObject()
 isLoggedIn = true
 isHandcuffed = false
 cuffType = 1
@@ -62,7 +62,7 @@ AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
                 }
             }
         }
-        TriggerEvent('qb-clothing:client:loadOutfit', trackerClothingData)
+        TriggerEvent('norskpixel-clothing:client:loadOutfit', trackerClothingData)
     else
         local trackerClothingData = {
             outfitData = {
@@ -72,7 +72,7 @@ AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
                 }
             }
         }
-        TriggerEvent('qb-clothing:client:loadOutfit', trackerClothingData)
+        TriggerEvent('norskpixel-clothing:client:loadOutfit', trackerClothingData)
     end
 
     if (PlayerJob ~= nil) and PlayerJob.name ~= "police" then
@@ -93,7 +93,7 @@ AddEventHandler('police:client:sendBillingMail', function(amount)
             gender = "Fru."
         end
         local charinfo = QBCore.Functions.GetPlayerData().charinfo
-        TriggerServerEvent('qb-phone:server:sendNewMail', {
+        TriggerServerEvent('norskpixel-phone:server:sendNewMail', {
             sender = "Gældstyrrelsen",
             subject = "Indsamling af udestånde gæld",
             message = "Kære " .. gender .. " " .. charinfo.lastname ..
@@ -246,7 +246,7 @@ AddEventHandler('police:client:SendPoliceEmergencyAlert', function()
     QBCore.Functions.Notify('NØDKNAP: Kollega i nød, se MDT for mere information!', 'error')
     TriggerServerEvent("police:server:SendPoliceEmergencyAlert", streetLabel, pos,
         QBCore.Functions.GetPlayerData().metadata["callsign"])
-    TriggerServerEvent('qb-policealerts:server:AddPoliceAlert', {
+    TriggerServerEvent('norskpixel-policealerts:server:AddPoliceAlert', {
         timeOut = 10000,
         alertTitle = alertTitle,
         coords = {
@@ -334,7 +334,7 @@ AddEventHandler('police:client:GunShotAlert', function(streetLabel, isAutomatic,
             }
         end
 
-        TriggerEvent('qb-policealerts:client:AddPoliceAlert', {
+        TriggerEvent('norskpixel-policealerts:client:AddPoliceAlert', {
             timeOut = 4000,
             alertTitle = blipText,
             coords = {
@@ -374,7 +374,7 @@ end)
 RegisterNetEvent('police:client:VehicleCall')
 AddEventHandler('police:client:VehicleCall', function(pos, alertTitle, streetLabel, modelPlate, modelName)
     if PlayerJob.name == 'police' and onDuty then
-        TriggerEvent('qb-policealerts:client:AddPoliceAlert', {
+        TriggerEvent('norskpixel-policealerts:client:AddPoliceAlert', {
             timeOut = 4000,
             alertTitle = alertTitle,
             coords = {
@@ -426,7 +426,7 @@ end)
 RegisterNetEvent('police:client:HouseRobberyCall')
 AddEventHandler('police:client:HouseRobberyCall', function(coords, msg, gender, streetLabel)
     if PlayerJob.name == 'police' and onDuty then
-        TriggerEvent('qb-policealerts:client:AddPoliceAlert', {
+        TriggerEvent('norskpixel-policealerts:client:AddPoliceAlert', {
             timeOut = 5000,
             alertTitle = "Indbrudsforsøg",
             coords = {
@@ -476,7 +476,7 @@ RegisterNetEvent('112:client:SendPoliceAlert')
 AddEventHandler('112:client:SendPoliceAlert', function(notifyType, data, blipSettings)
     if PlayerJob.name == 'police' and onDuty then
         if notifyType == "flagged" then
-            TriggerEvent('qb-policealerts:client:AddPoliceAlert', {
+            TriggerEvent('norskpixel-policealerts:client:AddPoliceAlert', {
                 timeOut = 5000,
                 alertTitle = "Forsøgt indbrud i bolig",
                 details = {
@@ -527,7 +527,7 @@ end)
 RegisterNetEvent('police:client:PoliceAlertMessage')
 AddEventHandler('police:client:PoliceAlertMessage', function(title, streetLabel, coords)
     if PlayerJob.name == 'police' and onDuty then
-        TriggerEvent('qb-policealerts:client:AddPoliceAlert', {
+        TriggerEvent('norskpixel-policealerts:client:AddPoliceAlert', {
             timeOut = 5000,
             alertTitle = title,
             details = {

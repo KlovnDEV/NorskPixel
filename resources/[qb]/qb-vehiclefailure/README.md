@@ -1,4 +1,4 @@
-# qb-vehiclefailure
+# norskpixel-vehiclefailure
 Vehicle Failure For QB-Core
 
 # License

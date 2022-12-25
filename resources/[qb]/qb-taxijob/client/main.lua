@@ -1,7 +1,7 @@
 
 -- Variables
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local isLoggedIn = false
 local PlayerData = {}
@@ -45,8 +45,8 @@ function TimeoutNpc()
     end)
 end
 
-RegisterNetEvent('qb-taxi:client:DoTaxiNpc')
-AddEventHandler('qb-taxi:client:DoTaxiNpc', function()
+RegisterNetEvent('norskpixel-taxi:client:DoTaxiNpc')
+AddEventHandler('norskpixel-taxi:client:DoTaxiNpc', function()
     if whitelistedVehicle() then
        -- if NpcData.CountDown == 180 then
             if not NpcData.Active then
@@ -179,7 +179,7 @@ function GetDeliveryLocation()
                         SendNUIMessage({
                             action = "toggleMeter"
                         })
-                        TriggerServerEvent('qb-taxi:server:NpcPay', meterData.currentFare)
+                        TriggerServerEvent('norskpixel-taxi:server:NpcPay', meterData.currentFare)
                         meterActive = false
                         SendNUIMessage({
                             action = "resetMeter"
@@ -303,8 +303,8 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterNetEvent('qb-taxi:client:toggleMeter')
-AddEventHandler('qb-taxi:client:toggleMeter', function()
+RegisterNetEvent('norskpixel-taxi:client:toggleMeter')
+AddEventHandler('norskpixel-taxi:client:toggleMeter', function()
     local ped = PlayerPedId()
     if IsPedInAnyVehicle(ped, false) then
         if whitelistedVehicle() then 
@@ -330,8 +330,8 @@ AddEventHandler('qb-taxi:client:toggleMeter', function()
     end
 end)
 
-RegisterNetEvent('qb-taxi:client:enableMeter')
-AddEventHandler('qb-taxi:client:enableMeter', function()
+RegisterNetEvent('norskpixel-taxi:client:enableMeter')
+AddEventHandler('norskpixel-taxi:client:enableMeter', function()
     local ped = PlayerPedId()
 
     if meterIsOpen then
@@ -354,8 +354,8 @@ RegisterNUICallback('enableMeter', function(data)
     lastLocation = GetEntityCoords(PlayerPedId())
 end)
 
-RegisterNetEvent('qb-taxi:client:toggleMuis')
-AddEventHandler('qb-taxi:client:toggleMuis', function()
+RegisterNetEvent('norskpixel-taxi:client:toggleMuis')
+AddEventHandler('norskpixel-taxi:client:toggleMuis', function()
     Citizen.Wait(400)
     if meterIsOpen then
         if not mouseActive then

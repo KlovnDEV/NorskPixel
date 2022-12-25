@@ -103,7 +103,7 @@ function enterCasino()
   TriggerEvent("chCasinoWall:enteredCasino") 
 
   if Config.SendWelcomeMail then
-    TriggerServerEvent('qb-phone:server:sendNewMail', {
+    TriggerServerEvent('norskpixel-phone:server:sendNewMail', {
       sender = Config.WelcomeMailsender,
       subject = Config.WelcomeMailsubject,
       message = Config.WelcomeMailmessage,
@@ -245,7 +245,7 @@ end)
 --=============================================== added
 --[[
 -- Lucky wheel
-exports['qb-target']:AddCircleZone("LuckyWheel", vector3(949.391, 44.72, 71.638), 2.0, {
+exports['norskpixel-target']:AddCircleZone("LuckyWheel", vector3(949.391, 44.72, 71.638), 2.0, {
     name="LuckyWheel",
     heading=160,
     debugPoly=false,
@@ -263,7 +263,7 @@ exports['qb-target']:AddCircleZone("LuckyWheel", vector3(949.391, 44.72, 71.638)
 
 --[[
 -- Horse Bets
-exports['qb-target']:AddCircleZone("Betting", vector3(956.121,70.185,70.433), 1.0, {
+exports['norskpixel-target']:AddCircleZone("Betting", vector3(956.121,70.185,70.433), 1.0, {
     name="Betting",
     heading=160,
     debugPoly=false,
@@ -281,20 +281,20 @@ exports['qb-target']:AddCircleZone("Betting", vector3(956.121,70.185,70.433), 1.
 
 
 -- Casino Shop
-exports['qb-target']:AddTargetModel(`U_F_M_CasinoCash_01`, {
+exports['norskpixel-target']:AddTargetModel(`U_F_M_CasinoCash_01`, {
 	options = {
         {
-            event = "qb-casino:context:casinoChipMenu",
+            event = "norskpixel-casino:context:casinoChipMenu",
             icon = "fas fa-exchange-alt",
             label = "Sælg dine jetoner",
         },
         {
-            event = "qb-casino:client:openCasinoChips",
+            event = "norskpixel-casino:client:openCasinoChips",
             icon = "fas fa-coins",
             label = "Køb casino jetoner",
         },
         {
-            event = "qb-casino:client:openCasinoMembersips",
+            event = "norskpixel-casino:client:openCasinoMembersips",
             icon = "fas fa-id-card",
             label = "Køb casino medlemskab",
         },
@@ -303,10 +303,10 @@ exports['qb-target']:AddTargetModel(`U_F_M_CasinoCash_01`, {
 })
 
 -- Casino Bar
-exports['qb-target']:AddTargetModel(`u_m_o_finguru_01`, {
+exports['norskpixel-target']:AddTargetModel(`u_m_o_finguru_01`, {
 	options = {
         {
-            event = "qb-casino:client:openCasinoBar",
+            event = "norskpixel-casino:client:openCasinoBar",
             icon = "fas fa-glass-cheers",
             label = "Køb drinks",
         },
@@ -316,7 +316,7 @@ exports['qb-target']:AddTargetModel(`u_m_o_finguru_01`, {
 
 --[[
 -- Roulette
-exports['qb-target']:AddCircleZone("Roulette", vector3(991.09, 53.22, 69.51), 1.0, {
+exports['norskpixel-target']:AddCircleZone("Roulette", vector3(991.09, 53.22, 69.51), 1.0, {
   name="Roulette",
   heading=160,
   debugPoly=false,
@@ -333,8 +333,8 @@ exports['qb-target']:AddCircleZone("Roulette", vector3(991.09, 53.22, 69.51), 1.
 })--]]
 
 
-RegisterNetEvent('qb-casino:client:openCasinoMembersips')
-AddEventHandler('qb-casino:client:openCasinoMembersips', function()
+RegisterNetEvent('norskpixel-casino:client:openCasinoMembersips')
+AddEventHandler('norskpixel-casino:client:openCasinoMembersips', function()
     local ShopItems = {}
     ShopItems.label = "Diamond Casino medlemskaber"
     ShopItems.items = Config.CasinoMemberships
@@ -342,8 +342,8 @@ AddEventHandler('qb-casino:client:openCasinoMembersips', function()
     TriggerServerEvent("inventory:server:OpenInventory", "shop", "Vendingshop_", ShopItems)
 end)
 
-RegisterNetEvent('qb-casino:client:openCasinoChips')
-AddEventHandler('qb-casino:client:openCasinoChips', function()
+RegisterNetEvent('norskpixel-casino:client:openCasinoChips')
+AddEventHandler('norskpixel-casino:client:openCasinoChips', function()
     local ShopItems = {}
     ShopItems.label = "Diamond Casino jetoner"
     ShopItems.items = Config.CasinoChips
@@ -351,8 +351,8 @@ AddEventHandler('qb-casino:client:openCasinoChips', function()
     TriggerServerEvent("inventory:server:OpenInventory", "shop", "Vendingshop_", ShopItems)
 end)
 
-RegisterNetEvent('qb-casino:client:openCasinoBar')
-AddEventHandler('qb-casino:client:openCasinoBar', function()
+RegisterNetEvent('norskpixel-casino:client:openCasinoBar')
+AddEventHandler('norskpixel-casino:client:openCasinoBar', function()
     local ShopItems = {}
     ShopItems.label = "Diamond Casino bar"
     ShopItems.items = Config.CasinoBar

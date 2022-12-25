@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local robberyBusy = false
 local timeOut = false
@@ -15,9 +15,9 @@ Citizen.CreateThread(function()
     while true do
         Citizen.Wait(1000 * 60 * 10)
         if blackoutActive then
-            TriggerEvent("qb-weathersync:server:toggleBlackout")
+            TriggerEvent("norskpixel-weathersync:server:toggleBlackout")
             TriggerClientEvent("police:client:EnableAllCameras", -1)
-            TriggerClientEvent("qb-bankrobbery:client:enableAllBankSecurity", -1)
+            TriggerClientEvent("norskpixel-bankrobbery:client:enableAllBankSecurity", -1)
             blackoutActive = false
         end
     end
@@ -26,41 +26,41 @@ end)
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(1000 * 60 * 30)
-        TriggerClientEvent("qb-bankrobbery:client:enableAllBankSecurity", -1)
+        TriggerClientEvent("norskpixel-bankrobbery:client:enableAllBankSecurity", -1)
         TriggerClientEvent("police:client:EnableAllCameras", -1)
     end
 end)
 
-RegisterServerEvent('qb-bankrobbery:server:setBankState')
-AddEventHandler('qb-bankrobbery:server:setBankState', function(bankId, state)
+RegisterServerEvent('norskpixel-bankrobbery:server:setBankState')
+AddEventHandler('norskpixel-bankrobbery:server:setBankState', function(bankId, state)
     if bankId == "paleto" then
         if not robberyBusy then
             Config.BigBanks["paleto"]["isOpened"] = state
-            TriggerClientEvent('qb-bankrobbery:client:setBankState', -1, bankId, state)
-            TriggerEvent('qb-scoreboard:server:SetActivityBusy', "paleto", true)
-            TriggerEvent('qb-bankrobbery:server:setTimeout')
+            TriggerClientEvent('norskpixel-bankrobbery:client:setBankState', -1, bankId, state)
+            TriggerEvent('norskpixel-scoreboard:server:SetActivityBusy', "paleto", true)
+            TriggerEvent('norskpixel-bankrobbery:server:setTimeout')
         end
     elseif bankId == "pacific" then
         if not robberyBusy then
             Config.BigBanks["pacific"]["isOpened"] = state
-            TriggerClientEvent('qb-bankrobbery:client:setBankState', -1, bankId, state)
-            TriggerEvent('qb-scoreboard:server:SetActivityBusy', "pacific", true)
-            TriggerEvent('qb-bankrobbery:server:setTimeout')
+            TriggerClientEvent('norskpixel-bankrobbery:client:setBankState', -1, bankId, state)
+            TriggerEvent('norskpixel-scoreboard:server:SetActivityBusy', "pacific", true)
+            TriggerEvent('norskpixel-bankrobbery:server:setTimeout')
         end
     else
         if not robberyBusy then
             Config.SmallBanks[bankId]["isOpened"] = state
-            TriggerClientEvent('qb-bankrobbery:client:setBankState', -1, bankId, state)
-            TriggerEvent('qb-banking:server:SetBankClosed', bankId, true)
-            TriggerEvent('qb-scoreboard:server:SetActivityBusy', "bankrobbery", true)
-            TriggerEvent('qb-bankrobbery:server:SetSmallbankTimeout', bankId)
+            TriggerClientEvent('norskpixel-bankrobbery:client:setBankState', -1, bankId, state)
+            TriggerEvent('norskpixel-banking:server:SetBankClosed', bankId, true)
+            TriggerEvent('norskpixel-scoreboard:server:SetActivityBusy', "bankrobbery", true)
+            TriggerEvent('norskpixel-bankrobbery:server:SetSmallbankTimeout', bankId)
         end
     end
     robberyBusy = true
 end)
 
-RegisterServerEvent('qb-bankrobbery:server:setLockerState')
-AddEventHandler('qb-bankrobbery:server:setLockerState', function(bankId, lockerId, state, bool)
+RegisterServerEvent('norskpixel-bankrobbery:server:setLockerState')
+AddEventHandler('norskpixel-bankrobbery:server:setLockerState', function(bankId, lockerId, state, bool)
     if bankId == "paleto" then
         Config.BigBanks["paleto"]["lockers"][lockerId][state] = bool
     elseif bankId == "pacific" then
@@ -69,11 +69,11 @@ AddEventHandler('qb-bankrobbery:server:setLockerState', function(bankId, lockerI
         Config.SmallBanks[bankId]["lockers"][lockerId][state] = bool
     end
 
-    TriggerClientEvent('qb-bankrobbery:client:setLockerState', -1, bankId, lockerId, state, bool)
+    TriggerClientEvent('norskpixel-bankrobbery:client:setLockerState', -1, bankId, lockerId, state, bool)
 end)
 
-RegisterServerEvent('qb-bankrobbery:server:recieveItem')
-AddEventHandler('qb-bankrobbery:server:recieveItem', function(type)
+RegisterServerEvent('norskpixel-bankrobbery:server:recieveItem')
+AddEventHandler('norskpixel-bankrobbery:server:recieveItem', function(type)
     local src = source
     local ply = QBCore.Functions.GetPlayer(src)
 
@@ -190,16 +190,16 @@ AddEventHandler('qb-bankrobbery:server:recieveItem', function(type)
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-bankrobbery:server:isRobberyActive', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-bankrobbery:server:isRobberyActive', function(source, cb)
     cb(robberyBusy)
 end)
 
-QBCore.Functions.CreateCallback('qb-bankrobbery:server:GetConfig', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-bankrobbery:server:GetConfig', function(source, cb)
     cb(Config)
 end)
 
-RegisterServerEvent('qb-bankrobbery:server:setTimeout')
-AddEventHandler('qb-bankrobbery:server:setTimeout', function()
+RegisterServerEvent('norskpixel-bankrobbery:server:setTimeout')
+AddEventHandler('norskpixel-bankrobbery:server:setTimeout', function()
     if not robberyBusy then
         if not timeOut then
             timeOut = true
@@ -207,8 +207,8 @@ AddEventHandler('qb-bankrobbery:server:setTimeout', function()
                 Citizen.Wait(90 * (60 * 1000))
                 timeOut = false
                 robberyBusy = false
-                TriggerEvent('qb-scoreboard:server:SetActivityBusy', "bankrobbery", false)
-                TriggerEvent('qb-scoreboard:server:SetActivityBusy', "pacific", false)
+                TriggerEvent('norskpixel-scoreboard:server:SetActivityBusy', "bankrobbery", false)
+                TriggerEvent('norskpixel-scoreboard:server:SetActivityBusy', "pacific", false)
 
                 for k, v in pairs(Config.BigBanks["pacific"]["lockers"]) do
                     Config.BigBanks["pacific"]["lockers"][k]["isBusy"] = false
@@ -220,7 +220,7 @@ AddEventHandler('qb-bankrobbery:server:setTimeout', function()
                     Config.BigBanks["paleto"]["lockers"][k]["isOpened"] = false
                 end
 
-                TriggerClientEvent('qb-bankrobbery:client:ClearTimeoutDoors', -1)
+                TriggerClientEvent('norskpixel-bankrobbery:client:ClearTimeoutDoors', -1)
                 Config.BigBanks["paleto"]["isOpened"] = false
                 Config.BigBanks["pacific"]["isOpened"] = false
             end)
@@ -228,8 +228,8 @@ AddEventHandler('qb-bankrobbery:server:setTimeout', function()
     end
 end)
 
-RegisterServerEvent('qb-bankrobbery:server:SetSmallbankTimeout')
-AddEventHandler('qb-bankrobbery:server:SetSmallbankTimeout', function(BankId)
+RegisterServerEvent('norskpixel-bankrobbery:server:SetSmallbankTimeout')
+AddEventHandler('norskpixel-bankrobbery:server:SetSmallbankTimeout', function(BankId)
     if not robberyBusy then
         if not timeOut then
             timeOut = true
@@ -245,15 +245,15 @@ AddEventHandler('qb-bankrobbery:server:SetSmallbankTimeout', function(BankId)
 
                 timeOut = false
                 robberyBusy = false
-            	TriggerClientEvent('qb-bankrobbery:client:ResetFleecaLockers', -1, BankId)
-            	TriggerEvent('qb-banking:server:SetBankClosed', BankId, false)
+            	TriggerClientEvent('norskpixel-bankrobbery:client:ResetFleecaLockers', -1, BankId)
+            	TriggerEvent('norskpixel-banking:server:SetBankClosed', BankId, false)
             end)
 	end
     end
 end)
 
-RegisterServerEvent('qb-bankrobbery:server:callCops')
-AddEventHandler('qb-bankrobbery:server:callCops', function(type, bank, streetLabel, coords)
+RegisterServerEvent('norskpixel-bankrobbery:server:callCops')
+AddEventHandler('norskpixel-bankrobbery:server:callCops', function(type, bank, streetLabel, coords)
     local cameraId = 4
     local bankLabel = "Fleeca"
     local msg = ""
@@ -274,18 +274,18 @@ AddEventHandler('qb-bankrobbery:server:callCops', function(type, bank, streetLab
         coords = {x = coords.x, y = coords.y, z = coords.z},
         description = msg,
     }
-    TriggerClientEvent("qb-bankrobbery:client:robberyCall", -1, type, bank, streetLabel, coords)
-    TriggerClientEvent("qb-phone:client:addPoliceAlert", -1, alertData)
+    TriggerClientEvent("norskpixel-bankrobbery:client:robberyCall", -1, type, bank, streetLabel, coords)
+    TriggerClientEvent("norskpixel-phone:client:addPoliceAlert", -1, alertData)
 end)
 
-RegisterServerEvent('qb-bankrobbery:server:SetStationStatus')
-AddEventHandler('qb-bankrobbery:server:SetStationStatus', function(key, isHit)
+RegisterServerEvent('norskpixel-bankrobbery:server:SetStationStatus')
+AddEventHandler('norskpixel-bankrobbery:server:SetStationStatus', function(key, isHit)
     Config.PowerStations[key].hit = isHit
-    TriggerClientEvent("qb-bankrobbery:client:SetStationStatus", -1, key, isHit)
+    TriggerClientEvent("norskpixel-bankrobbery:client:SetStationStatus", -1, key, isHit)
     if AllStationsHit() then
-        TriggerEvent("qb-weathersync:server:toggleBlackout")
+        TriggerEvent("norskpixel-weathersync:server:toggleBlackout")
         TriggerClientEvent("police:client:DisableAllCameras", -1)
-        TriggerClientEvent("qb-bankrobbery:client:disableAllBankSecurity", -1)
+        TriggerClientEvent("norskpixel-bankrobbery:client:disableAllBankSecurity", -1)
         blackoutActive = true
     else
         CheckStationHits()
@@ -344,19 +344,19 @@ function CheckStationHits()
     end
     if Config.PowerStations[11].hit and Config.PowerStations[1].hit and Config.PowerStations[2].hit then
         TriggerClientEvent("police:client:SetCamera", -1, 21, false)
-        TriggerClientEvent("qb-bankrobbery:client:BankSecurity", 1, false)
+        TriggerClientEvent("norskpixel-bankrobbery:client:BankSecurity", 1, false)
         TriggerClientEvent("police:client:SetCamera", -1, 22, false)
-        TriggerClientEvent("qb-bankrobbery:client:BankSecurity", 2, false)
+        TriggerClientEvent("norskpixel-bankrobbery:client:BankSecurity", 2, false)
     end
     if Config.PowerStations[8].hit and Config.PowerStations[4].hit and Config.PowerStations[5].hit and Config.PowerStations[6].hit then
         TriggerClientEvent("police:client:SetCamera", -1, 23, false)
-        TriggerClientEvent("qb-bankrobbery:client:BankSecurity", 3, false)
+        TriggerClientEvent("norskpixel-bankrobbery:client:BankSecurity", 3, false)
     end
     if Config.PowerStations[12].hit and Config.PowerStations[13].hit then
         TriggerClientEvent("police:client:SetCamera", -1, 24, false)
-        TriggerClientEvent("qb-bankrobbery:client:BankSecurity", 4, false)
+        TriggerClientEvent("norskpixel-bankrobbery:client:BankSecurity", 4, false)
         TriggerClientEvent("police:client:SetCamera", -1, 25, false)
-        TriggerClientEvent("qb-bankrobbery:client:BankSecurity", 5, false)
+        TriggerClientEvent("norskpixel-bankrobbery:client:BankSecurity", 5, false)
     end
 end
 
@@ -382,14 +382,14 @@ end)
 QBCore.Functions.CreateUseableItem("security_card_01", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
 	if Player.Functions.GetItemByName('security_card_01') ~= nil then
-        TriggerClientEvent("qb-bankrobbery:UseBankcardA", source)
+        TriggerClientEvent("norskpixel-bankrobbery:UseBankcardA", source)
     end
 end)
 
 QBCore.Functions.CreateUseableItem("security_card_02", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
 	if Player.Functions.GetItemByName('security_card_02') ~= nil then
-        TriggerClientEvent("qb-bankrobbery:UseBankcardB", source)
+        TriggerClientEvent("norskpixel-bankrobbery:UseBankcardB", source)
     end
 end)
 

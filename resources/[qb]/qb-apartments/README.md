@@ -1,4 +1,4 @@
-# qb-apartments
+# norskpixel-apartments
 Apartments System for QB-Core Framework :office:
 
 # License
@@ -21,12 +21,12 @@ Apartments System for QB-Core Framework :office:
 
 
 ## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
-- [qb-clothing](https://github.com/qbcore-framework/qb-clothing) - To save outfits
-- [qb-houses](https://github.com/qbcore-framework/qb-houses) - House logic
-- [qb-interior](https://github.com/qbcore-framework/qb-interior) - Interior logic
-- [qb-weathersync](https://github.com/qbcore-framework/qb-weathersync) - To desync weather while inside
-- [qb-spawn](https://github.com/qbcore-framework/qb-spawn) - To spawn the player at apartment if last location was in apartment
+- [norskpixel-core](https://github.com/qbcore-framework/norskpixel-core)
+- [norskpixel-clothing](https://github.com/qbcore-framework/norskpixel-clothing) - To save outfits
+- [norskpixel-houses](https://github.com/qbcore-framework/norskpixel-houses) - House logic
+- [norskpixel-interior](https://github.com/qbcore-framework/norskpixel-interior) - Interior logic
+- [norskpixel-weathersync](https://github.com/qbcore-framework/norskpixel-weathersync) - To desync weather while inside
+- [norskpixel-spawn](https://github.com/qbcore-framework/norskpixel-spawn) - To spawn the player at apartment if last location was in apartment
 
 ## Screenshots
 ![Inside Apartment](https://imgur.com/uTu8yUL.png)
@@ -44,16 +44,16 @@ Apartments System for QB-Core Framework :office:
 ## Installation
 ### Manual
 - Download the script and put it in the `[qb]` directory.
-- Import `qb-apartments.sql` in your database
+- Import `norskpixel-apartments.sql` in your database
 - Add the following code to your server.cfg/resouces.cfg
 ```
-ensure qb-core
-ensure qb-interior
-ensure qb-weathersync
-ensure qb-clothing
-ensure qb-houses
-ensure qb-spawn
-ensure qb-apartments
+ensure norskpixel-core
+ensure norskpixel-interior
+ensure norskpixel-weathersync
+ensure norskpixel-clothing
+ensure norskpixel-houses
+ensure norskpixel-spawn
+ensure norskpixel-apartments
 ```
 
 ## Configuration

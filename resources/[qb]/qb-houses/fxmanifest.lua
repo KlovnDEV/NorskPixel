@@ -25,10 +25,10 @@ files {
 }
 
 dependencies {
-	'qb-core',
-	'qb-interior',
-	'qb-clothing',
-	'qb-weathersync'
+	'norskpixel-core',
+	'norskpixel-interior',
+	'norskpixel-clothing',
+	'norskpixel-weathersync'
 }
 
 lua54 'yes'

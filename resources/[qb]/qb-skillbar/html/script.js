@@ -22,7 +22,7 @@ $(document).ready(function(){
                     $(".bar-container").fadeOut('fast', function() {
                         $(".bar-total").css("width", 0);
                         $(".bar-check").css({"background-color": "rgba(65, 65, 65, 0.897)"});
-                        $.post('https://qb-skillbar/Check', JSON.stringify({
+                        $.post('https://norskpixel-skillbar/Check', JSON.stringify({
                             success: false
                         }));
                     });
@@ -48,14 +48,14 @@ $(document).ready(function(){
             $(".bar-check").css({
                 "background-color": "#9fff78"
             });
-            $.post('https://qb-skillbar/Check', JSON.stringify({
+            $.post('https://norskpixel-skillbar/Check', JSON.stringify({
                 success: true
             }));
         } else {
             $(".bar-check").css({
                 "background-color": "rgba(231, 76, 60, 0.897)"
             });
-            $.post('https://qb-skillbar/Check', JSON.stringify({
+            $.post('https://norskpixel-skillbar/Check', JSON.stringify({
                 success: false
             }));
         }

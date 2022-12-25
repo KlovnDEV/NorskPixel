@@ -1,4 +1,4 @@
-# qb-shops
+# norskpixel-shops
 Shops For QB-Core
 
 # License

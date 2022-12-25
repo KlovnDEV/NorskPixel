@@ -1,4 +1,4 @@
-# qb-newsjob
+# norskpixel-newsjob
 News Job For QB-Core
 
 # License

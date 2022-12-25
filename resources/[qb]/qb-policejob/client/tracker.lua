@@ -23,9 +23,9 @@ AddEventHandler('police:client:SetTracker', function(bool)
             ["accessory"] = { item = 13, texture = 0}
         }
 
-        TriggerEvent('qb-clothing:client:loadOutfit', trackerClothingData)
+        TriggerEvent('norskpixel-clothing:client:loadOutfit', trackerClothingData)
     else
-        TriggerEvent('qb-clothing:client:loadOutfit', trackerClothingData)
+        TriggerEvent('norskpixel-clothing:client:loadOutfit', trackerClothingData)
     end
 end)
 

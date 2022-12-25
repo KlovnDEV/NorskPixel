@@ -15,7 +15,7 @@ qbCityhall.Close = function() {
     $(".container").fadeOut(150, function(){
         qbCityhall.ResetPages();
     });
-    $.post('https://qb-cityhall/close');
+    $.post('https://norskpixel-cityhall/close');
 
     $(selectedJob).removeClass("job-selected");
     $(selectedIdentity).removeClass("job-selected");
@@ -61,7 +61,7 @@ $('.cityhall-option-block').click(function(e){
         $(".identity-page-blocks").html("");
         $(".identity-page-blocks").html('<div class="identity-page-block" data-type="id_card"><p>ID Kort</p></div>');
 
-        $.post('https://qb-cityhall/requestLicenses', JSON.stringify({}), function(licenses){
+        $.post('https://norskpixel-cityhall/requestLicenses', JSON.stringify({}), function(licenses){
             $.each(licenses, function(i, license){
                 var elem = '<div class="identity-page-block" data-type="'+license.idType+'"><p>'+license.label+'</p></div>';
                 $(".identity-page-blocks").append(elem);
@@ -112,7 +112,7 @@ $(document).on("click", ".identity-page-block", function(e){
 $(".request-identity-button").click(function(e){
     e.preventDefault();
 
-    $.post('https://qb-cityhall/requestId', JSON.stringify({
+    $.post('https://norskpixel-cityhall/requestId', JSON.stringify({
         idType: selectedIdentityType
     }))
 
@@ -144,7 +144,7 @@ $(document).on("click", ".job-page-block", function(e){
 $(document).on('click', '.apply-job-button', function(e){
     e.preventDefault();
 
-    $.post('https://qb-cityhall/applyJob', JSON.stringify({
+    $.post('https://norskpixel-cityhall/applyJob', JSON.stringify({
         job: selectedJobId
     }))
 

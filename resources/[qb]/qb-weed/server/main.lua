@@ -1,7 +1,7 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
-QBCore.Functions.CreateCallback('qb-weed:server:getBuildingPlants', function(source, cb, building)
+QBCore.Functions.CreateCallback('norskpixel-weed:server:getBuildingPlants', function(source, cb, building)
     local buildingPlants = {}
 
     exports.oxmysql:fetch('SELECT * FROM house_plants WHERE building = ?', {building}, function(plants)
@@ -17,7 +17,7 @@ QBCore.Functions.CreateCallback('qb-weed:server:getBuildingPlants', function(sou
     end)
 end)
 
-RegisterServerEvent('qb-weed:server:placePlant', function(coords, sort, currentHouse)
+RegisterServerEvent('norskpixel-weed:server:placePlant', function(coords, sort, currentHouse)
     local random = math.random(1, 2)
     local gender
     if random == 1 then
@@ -27,12 +27,12 @@ RegisterServerEvent('qb-weed:server:placePlant', function(coords, sort, currentH
     end
     exports.oxmysql:insert('INSERT INTO house_plants (building, coords, gender, sort, plantid) VALUES (?, ?, ?, ?, ?)',
         {currentHouse, coords, gender, sort, math.random(111111, 999999)})
-    TriggerClientEvent('qb-weed:client:refreshHousePlants', -1, currentHouse)
+    TriggerClientEvent('norskpixel-weed:client:refreshHousePlants', -1, currentHouse)
 end)
 
-RegisterServerEvent('qb-weed:server:removeDeathPlant', function(building, plantId)
+RegisterServerEvent('norskpixel-weed:server:removeDeathPlant', function(building, plantId)
     exports.oxmysql:execute('DELETE FROM house_plants WHERE plantid = ? AND building = ?', {plantId, building})
-    TriggerClientEvent('qb-weed:client:refreshHousePlants', -1, building)
+    TriggerClientEvent('norskpixel-weed:client:refreshHousePlants', -1, building)
 end)
 
 CreateThread(function()
@@ -59,7 +59,7 @@ CreateThread(function()
                 end
             end
         end
-        TriggerClientEvent('qb-weed:client:refreshPlantStats', -1)
+        TriggerClientEvent('norskpixel-weed:client:refreshPlantStats', -1)
         Wait((60 * 1000) * 19.2)
     end
 end)
@@ -100,53 +100,53 @@ CreateThread(function()
                 end
             end
         end
-        TriggerClientEvent('qb-weed:client:refreshPlantStats', -1)
+        TriggerClientEvent('norskpixel-weed:client:refreshPlantStats', -1)
         Wait((60 * 1000) * 9.6)
     end
 end)
 
 QBCore.Functions.CreateUseableItem("weed_white-widow_seed", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
-    TriggerClientEvent('qb-weed:client:placePlant', source, 'white-widow', item)
+    TriggerClientEvent('norskpixel-weed:client:placePlant', source, 'white-widow', item)
 end)
 
 QBCore.Functions.CreateUseableItem("weed_skunk_seed", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
-    TriggerClientEvent('qb-weed:client:placePlant', source, 'skunk', item)
+    TriggerClientEvent('norskpixel-weed:client:placePlant', source, 'skunk', item)
 end)
 
 QBCore.Functions.CreateUseableItem("weed_purple-haze_seed", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
-    TriggerClientEvent('qb-weed:client:placePlant', source, 'purple-haze', item)
+    TriggerClientEvent('norskpixel-weed:client:placePlant', source, 'purple-haze', item)
 end)
 
 QBCore.Functions.CreateUseableItem("weed_og-kush_seed", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
-    TriggerClientEvent('qb-weed:client:placePlant', source, 'og-kush', item)
+    TriggerClientEvent('norskpixel-weed:client:placePlant', source, 'og-kush', item)
 end)
 
 QBCore.Functions.CreateUseableItem("weed_amnesia_seed", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
-    TriggerClientEvent('qb-weed:client:placePlant', source, 'amnesia', item)
+    TriggerClientEvent('norskpixel-weed:client:placePlant', source, 'amnesia', item)
 end)
 
 QBCore.Functions.CreateUseableItem("weed_ak47_seed", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
-    TriggerClientEvent('qb-weed:client:placePlant', source, 'ak47', item)
+    TriggerClientEvent('norskpixel-weed:client:placePlant', source, 'ak47', item)
 end)
 
 QBCore.Functions.CreateUseableItem("weed_nutrition", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
-    TriggerClientEvent('qb-weed:client:foodPlant', source, item)
+    TriggerClientEvent('norskpixel-weed:client:foodPlant', source, item)
 end)
 
-RegisterServerEvent('qb-weed:server:removeSeed')
-AddEventHandler('qb-weed:server:removeSeed', function(itemslot, seed)
+RegisterServerEvent('norskpixel-weed:server:removeSeed')
+AddEventHandler('norskpixel-weed:server:removeSeed', function(itemslot, seed)
     local Player = QBCore.Functions.GetPlayer(source)
     Player.Functions.RemoveItem(seed, 1, itemslot)
 end)
 
-RegisterServerEvent('qb-weed:server:harvestPlant', function(house, amount, plantName, plantId)
+RegisterServerEvent('norskpixel-weed:server:harvestPlant', function(house, amount, plantName, plantId)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local weedBag = Player.Functions.GetItemByName('empty_weed_bag')
@@ -164,7 +164,7 @@ RegisterServerEvent('qb-weed:server:harvestPlant', function(house, amount, plant
                     exports.oxmysql:execute('DELETE FROM house_plants WHERE plantid = ? AND building = ?',
                         {plantId, house})
                     TriggerClientEvent('QBCore:Notify', src, 'Planten er blevet høstet', 'success', 3500)
-                    TriggerClientEvent('qb-weed:client:refreshHousePlants', -1, house)
+                    TriggerClientEvent('norskpixel-weed:client:refreshHousePlants', -1, house)
                 else
                     TriggerClientEvent('QBCore:Notify', src, 'Denne plante findes ikke?', 'error', 3500)
                 end
@@ -179,7 +179,7 @@ RegisterServerEvent('qb-weed:server:harvestPlant', function(house, amount, plant
     end
 end)
 
-RegisterServerEvent('qb-weed:server:foodPlant', function(house, amount, plantName, plantId)
+RegisterServerEvent('norskpixel-weed:server:foodPlant', function(house, amount, plantName, plantId)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local plantStats = exports.oxmysql:executeSync(
@@ -196,5 +196,5 @@ RegisterServerEvent('qb-weed:server:foodPlant', function(house, amount, plantNam
             {(plantStats[1].food + amount), house, plantId})
     end
     Player.Functions.RemoveItem('weed_nutrition', 1)
-    TriggerClientEvent('qb-weed:client:refreshHousePlants', -1, house)
+    TriggerClientEvent('norskpixel-weed:client:refreshHousePlants', -1, house)
 end)

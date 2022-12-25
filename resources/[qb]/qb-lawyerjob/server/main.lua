@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 QBCore.Commands.Add("setlawyer", "Register nogen som advokat", {{name="id", help="Id af spilleren"}}, true, function(source, args)
     local Player = QBCore.Functions.GetPlayer(source)
@@ -46,6 +46,6 @@ end)
 QBCore.Functions.CreateUseableItem("lawyerpass", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
 	if Player.Functions.GetItemBySlot(item.slot) ~= nil then
-        TriggerClientEvent("qb-justice:client:showLawyerLicense", -1, source, item.info)
+        TriggerClientEvent("norskpixel-justice:client:showLawyerLicense", -1, source, item.info)
     end
 end)

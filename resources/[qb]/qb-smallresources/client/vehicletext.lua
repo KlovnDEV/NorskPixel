@@ -1,6 +1,6 @@
 
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 CreateThread(function()
 	for i, v in pairs(QBCore.Shared.Vehicles) do

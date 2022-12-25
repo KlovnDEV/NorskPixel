@@ -1,7 +1,7 @@
 
 -- Variables
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local PlayerData = {}
 local HasKey = false
 local IsRobbing = false
@@ -78,7 +78,7 @@ function LockpickDoor(isAdvanced)
             local vehLockStatus = GetVehicleDoorLockStatus(vehicle)
             if (vehLockStatus > 0) then
                 usingAdvanced = isAdvanced
-                TriggerEvent('qb-lockpick:client:openLockpick', lockpickFinish)
+                TriggerEvent('norskpixel-lockpick:client:openLockpick', lockpickFinish)
             end
         end
     end

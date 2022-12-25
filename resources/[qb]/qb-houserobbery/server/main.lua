@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 -- Functions
 
@@ -11,34 +11,34 @@ local function ResetHouseStateTimer(house)
         for k, v in pairs(Config.Houses[house]["furniture"]) do
             v["searched"] = false
         end
-        TriggerClientEvent('qb-houserobbery:client:ResetHouseState', -1, house)
+        TriggerClientEvent('norskpixel-houserobbery:client:ResetHouseState', -1, house)
     end)
 end
 
 -- Callbacks
 
-QBCore.Functions.CreateCallback('qb-houserobbery:server:GetHouseConfig', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-houserobbery:server:GetHouseConfig', function(source, cb)
     cb(Config.Houses)
 end)
 
 -- Events
 
-RegisterNetEvent('qb-houserobbery:server:SetBusyState', function(cabin, house, bool)
+RegisterNetEvent('norskpixel-houserobbery:server:SetBusyState', function(cabin, house, bool)
     Config.Houses[house]["furniture"][cabin]["isBusy"] = bool
-    TriggerClientEvent('qb-houserobbery:client:SetBusyState', -1, cabin, house, bool)
+    TriggerClientEvent('norskpixel-houserobbery:client:SetBusyState', -1, cabin, house, bool)
 end)
 
-RegisterNetEvent('qb-houserobbery:server:enterHouse', function(house)
+RegisterNetEvent('norskpixel-houserobbery:server:enterHouse', function(house)
     local src = source
     if not Config.Houses[house]["opened"] then
         ResetHouseStateTimer(house)
-        TriggerClientEvent('qb-houserobbery:client:setHouseState', -1, house, true)
+        TriggerClientEvent('norskpixel-houserobbery:client:setHouseState', -1, house, true)
     end
-    TriggerClientEvent('qb-houserobbery:client:enterHouse', src, house)
+    TriggerClientEvent('norskpixel-houserobbery:client:enterHouse', src, house)
     Config.Houses[house]["opened"] = true
 end)
 
-RegisterNetEvent('qb-houserobbery:server:searchCabin', function(cabin, house)
+RegisterNetEvent('norskpixel-houserobbery:server:searchCabin', function(cabin, house)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local luck = math.random(1, 10)
@@ -103,5 +103,5 @@ RegisterNetEvent('qb-houserobbery:server:searchCabin', function(cabin, house)
     end
 
     Config.Houses[house]["furniture"][cabin]["searched"] = true
-    TriggerClientEvent('qb-houserobbery:client:setCabinState', -1, house, cabin, true)
+    TriggerClientEvent('norskpixel-houserobbery:client:setCabinState', -1, house, cabin, true)
 end)

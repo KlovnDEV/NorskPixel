@@ -24,7 +24,7 @@ end
 
 local function TakeCoral(coral)
     QBDiving.Locations[CurrentDivingLocation.Area].coords.Coral[coral].PickedUp = true
-    TriggerServerEvent('qb-diving:server:TakeCoral', CurrentDivingLocation.Area, coral, true)
+    TriggerServerEvent('norskpixel-diving:server:TakeCoral', CurrentDivingLocation.Area, coral, true)
 end
 
 local function CallCops()
@@ -33,7 +33,7 @@ local function CallCops()
     local Ped = PlayerPedId()
     local Coords = GetEntityCoords(Ped)
     if Call == Chance then
-        TriggerServerEvent('qb-diving:server:CallCops', Coords)
+        TriggerServerEvent('norskpixel-diving:server:CallCops', Coords)
     end
 end
 
@@ -58,14 +58,14 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-diving:client:NewLocations', function()
-    QBCore.Functions.TriggerCallback('qb-diving:server:GetDivingConfig', function(Config, Area)
+RegisterNetEvent('norskpixel-diving:client:NewLocations', function()
+    QBCore.Functions.TriggerCallback('norskpixel-diving:server:GetDivingConfig', function(Config, Area)
         QBDiving.Locations = Config
-        TriggerEvent('qb-diving:client:SetDivingLocation', Area)
+        TriggerEvent('norskpixel-diving:client:SetDivingLocation', Area)
     end)
 end)
 
-RegisterNetEvent('qb-diving:client:SetDivingLocation', function(DivingLocation)
+RegisterNetEvent('norskpixel-diving:client:SetDivingLocation', function(DivingLocation)
     CurrentDivingLocation.Area = DivingLocation
 
     for _,Blip in pairs(CurrentDivingLocation.Blip) do
@@ -98,11 +98,11 @@ RegisterNetEvent('qb-diving:client:SetDivingLocation', function(DivingLocation)
     end)
 end)
 
-RegisterNetEvent('qb-diving:client:UpdateCoral', function(Area, Coral, Bool)
+RegisterNetEvent('norskpixel-diving:client:UpdateCoral', function(Area, Coral, Bool)
     QBDiving.Locations[Area].coords.Coral[Coral].PickedUp = Bool
 end)
 
-RegisterNetEvent('qb-diving:server:CallCops', function(Coords, msg)
+RegisterNetEvent('norskpixel-diving:server:CallCops', function(Coords, msg)
     PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
     TriggerEvent("chatMessage", "911 MESSAGE", "error", msg)
     local transG = 100
@@ -126,7 +126,7 @@ RegisterNetEvent('qb-diving:server:CallCops', function(Coords, msg)
     end
 end)
 
-RegisterNetEvent('qb-diving:client:UseGear', function(bool)
+RegisterNetEvent('norskpixel-diving:client:UseGear', function(bool)
     if bool then
         GearAnim()
         QBCore.Functions.Progressbar("equip_gear", "Tager dykkerdragt på...", 5000, false, true, {}, {}, {}, {}, function() -- Done
@@ -156,7 +156,7 @@ RegisterNetEvent('qb-diving:client:UseGear', function(bool)
             SetEnableScuba(PlayerPedId(), true)
             SetPedMaxTimeUnderwater(PlayerPedId(), 2000.00)
             currentGear.enabled = true
-            TriggerServerEvent('qb-diving:server:RemoveGear')
+            TriggerServerEvent('norskpixel-diving:server:RemoveGear')
             ClearPedTasks(PlayerPedId())
             TriggerEvent('chatMessage', "SYSTEM", "error", "/divingsuit for at tage din dykkerdragt af")
         end)
@@ -169,7 +169,7 @@ RegisterNetEvent('qb-diving:client:UseGear', function(bool)
                 SetEnableScuba(PlayerPedId(), false)
                 SetPedMaxTimeUnderwater(PlayerPedId(), 1.00)
                 currentGear.enabled = false
-                TriggerServerEvent('qb-diving:server:GiveBackGear')
+                TriggerServerEvent('norskpixel-diving:server:GiveBackGear')
                 ClearPedTasks(PlayerPedId())
                 QBCore.Functions.Notify('Du tog din dykkerdragt af')
             end)
@@ -179,8 +179,8 @@ RegisterNetEvent('qb-diving:client:UseGear', function(bool)
     end
 end)
 
-RegisterNetEvent('qb-diving:client:RemoveGear', function()	--Add event to call externally
-    TriggerEvent('qb-diving:client:UseGear', false)
+RegisterNetEvent('norskpixel-diving:client:RemoveGear', function()	--Add event to call externally
+    TriggerEvent('norskpixel-diving:client:UseGear', false)
 end)
 
 -- Threads

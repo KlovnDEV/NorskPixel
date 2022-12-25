@@ -1,11 +1,11 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local ItemList = {
     ["redchip"] = 1,
 }
-RegisterServerEvent("qb-casino:server:RedSell")
-AddEventHandler("qb-casino:server:RedSell", function()
+RegisterServerEvent("norskpixel-casino:server:RedSell")
+AddEventHandler("norskpixel-casino:server:RedSell", function()
     local src = source
     local price = 5
     local Player = QBCore.Functions.GetPlayer(src)
@@ -20,7 +20,7 @@ AddEventHandler("qb-casino:server:RedSell", function()
                     TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items['redchip'], "remove")
 
                     TriggerClientEvent('QBCore:Notify', src, "Du solgte alle dine røde chips for "..price.." DKK")
-                    TriggerEvent("qb-log:server:CreateLog", "casino", "Chips", "blue", "**"..GetPlayerName(src) .. "** got $"..price.." for selling the Chips")
+                    TriggerEvent("norskpixel-log:server:CreateLog", "casino", "Chips", "blue", "**"..GetPlayerName(src) .. "** got $"..price.." for selling the Chips")
                 end
             end
         end
@@ -32,8 +32,8 @@ end)
 local ItemList = {
     ["whitechip"] = 1,
 }
-RegisterServerEvent("qb-casino:server:WhiteSell")
-AddEventHandler("qb-casino:server:WhiteSell", function()
+RegisterServerEvent("norskpixel-casino:server:WhiteSell")
+AddEventHandler("norskpixel-casino:server:WhiteSell", function()
     local src = source
     local price = 1
     local Player = QBCore.Functions.GetPlayer(src)
@@ -48,7 +48,7 @@ AddEventHandler("qb-casino:server:WhiteSell", function()
                     TriggerClientEvent('QBCore:Notify', src, "Du solgte alle dine hvide chips for "..price.." DKK")
                     TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items['whitechip'], "remove")
 
-                    TriggerEvent("qb-log:server:CreateLog", "casino", "Chips", "blue", "**"..GetPlayerName(src) .. "** got $"..price.." for selling the Chips")
+                    TriggerEvent("norskpixel-log:server:CreateLog", "casino", "Chips", "blue", "**"..GetPlayerName(src) .. "** got $"..price.." for selling the Chips")
                 end
             end
         end
@@ -60,8 +60,8 @@ end)
 local ItemList = {
     ["bluechip"] = 1,
 }
-RegisterServerEvent("qb-casino:server:BlueSell")
-AddEventHandler("qb-casino:server:BlueSell", function()
+RegisterServerEvent("norskpixel-casino:server:BlueSell")
+AddEventHandler("norskpixel-casino:server:BlueSell", function()
     local src = source
     local price = 10
     local Player = QBCore.Functions.GetPlayer(src)
@@ -76,7 +76,7 @@ AddEventHandler("qb-casino:server:BlueSell", function()
                     TriggerClientEvent('QBCore:Notify', src, "Du solgte alle dine blå chips for "..price.." DKK")
                     TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items['bluechip'], "remove")
 
-                    TriggerEvent("qb-log:server:CreateLog", "casino", "Chips", "blue", "**"..GetPlayerName(src) .. "** got $"..price.." for selling the Chips")
+                    TriggerEvent("norskpixel-log:server:CreateLog", "casino", "Chips", "blue", "**"..GetPlayerName(src) .. "** got $"..price.." for selling the Chips")
                 end
             end
         end
@@ -88,8 +88,8 @@ end)
 local ItemList = {
     ["blackchip"] = 1,
 }
-RegisterServerEvent("qb-casino:server:BlackSell")
-AddEventHandler("qb-casino:server:BlackSell", function()
+RegisterServerEvent("norskpixel-casino:server:BlackSell")
+AddEventHandler("norskpixel-casino:server:BlackSell", function()
     local src = source
     local price = 50
     local Player = QBCore.Functions.GetPlayer(src)
@@ -104,7 +104,7 @@ AddEventHandler("qb-casino:server:BlackSell", function()
                     TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items['blackchip'], "remove")
 
                     TriggerClientEvent('QBCore:Notify', src, "Du solgte alle dine sorte chips for "..price.." DKK")
-                    TriggerEvent("qb-log:server:CreateLog", "casino", "Chips", "blue", "**"..GetPlayerName(src) .. "** got $"..price.." for selling the Chips")
+                    TriggerEvent("norskpixel-log:server:CreateLog", "casino", "Chips", "blue", "**"..GetPlayerName(src) .. "** got $"..price.." for selling the Chips")
                 end
             end
         end
@@ -116,8 +116,8 @@ end)
 local ItemList = {
     ["goldchip"] = 1,
 }
-RegisterServerEvent("qb-casino:server:GoldSell")
-AddEventHandler("qb-casino:server:GoldSell", function()
+RegisterServerEvent("norskpixel-casino:server:GoldSell")
+AddEventHandler("norskpixel-casino:server:GoldSell", function()
     local src = source
     local price = 100
     local Player = QBCore.Functions.GetPlayer(src)
@@ -133,7 +133,7 @@ AddEventHandler("qb-casino:server:GoldSell", function()
                     TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items['goldchip'], "remove")
 
                     TriggerClientEvent('QBCore:Notify', src, "Du solgte alle dine guld chips for "..price.." DKK")
-                    TriggerEvent("qb-log:server:CreateLog", "casino", "Chips", "blue", "**"..GetPlayerName(src) .. "** got $"..price.." for selling the Chips")
+                    TriggerEvent("norskpixel-log:server:CreateLog", "casino", "Chips", "blue", "**"..GetPlayerName(src) .. "** got $"..price.." for selling the Chips")
                 end
             end
         end

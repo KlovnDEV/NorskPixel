@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local InsideMethlab = false
 local ClosestMethlab = 0
 local loadIngredients = false
@@ -31,7 +31,7 @@ end)
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
     isLoggedIn = true
-    TriggerServerEvent("qb-methlab:server:LoadLocationList")
+    TriggerServerEvent("norskpixel-methlab:server:LoadLocationList")
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload')
@@ -59,7 +59,7 @@ end
 
 Citizen.CreateThread(function()
     Wait(500)
-    QBCore.Functions.TriggerCallback('qb-methlab:server:GetData', function(data)
+    QBCore.Functions.TriggerCallback('norskpixel-methlab:server:GetData', function(data)
         Config.CurrentLab = data.CurrentLab
     end)
     while true do
@@ -94,7 +94,7 @@ Citizen.CreateThread(function()
                 if #(pos - vector3(Config.Locations["break"].coords.x, Config.Locations["break"].coords.y, Config.Locations["break"].coords.z)) < 1 then
                     DrawText3Ds(Config.Locations["break"].coords.x - 0.06, Config.Locations["break"].coords.y + 0.90, Config.Locations["break"].coords.z, '~g~G~w~ - Knæk meth ')
                     if IsControlJustPressed(0, 47) then
-                        TriggerServerEvent("qb-methlab:server:breakMeth")
+                        TriggerServerEvent("norskpixel-methlab:server:breakMeth")
                     end
                 end
             end
@@ -110,7 +110,7 @@ Citizen.CreateThread(function()
                         if #(pos - vector3(Config.Tasks["Furnace"].coords.x, Config.Tasks["Furnace"].coords.y, Config.Tasks["Furnace"].coords.z)) < 1 then
                             DrawText3Ds(Config.Tasks["Furnace"].coords.x, Config.Tasks["Furnace"].coords.y,  Config.Tasks["Furnace"].coords.z + 0.2, '[G] Tilføj ingredienser')
                             if IsControlJustPressed(0, 47) then
-                                TriggerServerEvent("qb-methlab:server:CheckIngredients")
+                                TriggerServerEvent("norskpixel-methlab:server:CheckIngredients")
                             end
                         end
                     else
@@ -125,7 +125,7 @@ Citizen.CreateThread(function()
                             if #(pos - vector3(Config.Tasks["Furnace"].coords.x, Config.Tasks["Furnace"].coords.y, Config.Tasks["Furnace"].coords.z)) < 1 then
                                 DrawText3Ds(Config.Tasks["Furnace"].coords.x, Config.Tasks["Furnace"].coords.y,  Config.Tasks["Furnace"].coords.z + 0.2, '[E] Tag meth')
                                 if IsControlJustPressed(0, 38) then
-                                    TriggerServerEvent("qb-methlab:server:receivemethtray")
+                                    TriggerServerEvent("norskpixel-methlab:server:receivemethtray")
                                     finishedMachine = false
                                     loadIngredients = false
                                     machineStarted = false
@@ -142,19 +142,19 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterNetEvent('qb-methlab:client:breakMeth')
-AddEventHandler('qb-methlab:client:breakMeth', function()
+RegisterNetEvent('norskpixel-methlab:client:breakMeth')
+AddEventHandler('norskpixel-methlab:client:breakMeth', function()
     PrepareAnim()
     BreakMinigame()
 end)
 
-RegisterNetEvent('qb-methlab:client:loadIngredients')
-AddEventHandler('qb-methlab:client:loadIngredients', function()
+RegisterNetEvent('norskpixel-methlab:client:loadIngredients')
+AddEventHandler('norskpixel-methlab:client:loadIngredients', function()
     ProcessMinigame()
 end)
 
 function BreakMinigame()
-    local Skillbar = exports['qb-skillbar']:GetSkillbarObject()
+    local Skillbar = exports['norskpixel-skillbar']:GetSkillbarObject()
     if NeededAttempts == 0 then
         NeededAttempts = math.random(3, 5)
         -- NeededAttempts = 1
@@ -199,7 +199,7 @@ function breakingMeth(amount)
         disableMouse = false,
         disableCombat = true,
     }, {}, {}, {}, function() -- Done
-        TriggerServerEvent("qb-methlab:server:getmethtray", amount)
+        TriggerServerEvent("norskpixel-methlab:server:getmethtray", amount)
         ClearPedTasks(PlayerPedId())
     end, function() -- Cancel
     end)
@@ -219,7 +219,7 @@ function LoadAnim(dict)
 end
 
 function ProcessMinigame()
-    local Skillbar = exports['qb-skillbar']:GetSkillbarObject()
+    local Skillbar = exports['norskpixel-skillbar']:GetSkillbarObject()
     if NeededAttempts == 0 then
         NeededAttempts = math.random(3, 4)
         -- NeededAttempts = 1
@@ -232,7 +232,7 @@ function ProcessMinigame()
         width = math.random(8, 12),
     }, function()
         if SucceededAttempts + 1 >= NeededAttempts then
-            TriggerServerEvent('qb-methlab:server:loadIngredients')
+            TriggerServerEvent('norskpixel-methlab:server:loadIngredients')
             QBCore.Functions.Notify("Du tilføjede ingredienserne!", "success")
             FailedAttemps = 0
             SucceededAttempts = 0
@@ -264,8 +264,8 @@ function StartMachine()
     end)
 end
 
-RegisterNetEvent('qb-methlab:client:UseLabKey')
-AddEventHandler('qb-methlab:client:UseLabKey', function(labkey)
+RegisterNetEvent('norskpixel-methlab:client:UseLabKey')
+AddEventHandler('norskpixel-methlab:client:UseLabKey', function(labkey)
     if ClosestMethlab == Config.CurrentLab then
         local ped = PlayerPedId()
         local pos = GetEntityCoords(ped)

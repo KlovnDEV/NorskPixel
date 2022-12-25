@@ -29,7 +29,7 @@ $(document).on('keydown', function() {
 });
 
 $(document).on('click', '#save', function(){
-    $.post('https://qb-tunerchip/save', JSON.stringify({
+    $.post('https://norskpixel-tunerchip/save', JSON.stringify({
         boost: $("#boost-slider").val(),
         acceleration: $("#acceleration-slider").val(),
         gearchange: $("#gear-slider").val(),
@@ -39,7 +39,7 @@ $(document).on('click', '#save', function(){
 });
 
 $(document).on('click', '#reset', function(){
-    $.post('https://qb-tunerchip/reset');
+    $.post('https://norskpixel-tunerchip/reset');
 });
 
 $(document).on('click', '#cancel', function(){
@@ -76,7 +76,7 @@ $(document).on('click', "#stancer", function(){
 
 $(document).on('click', "#save-neon", function(){
     if (RainbowNeon) {
-        $.post('https://qb-tunerchip/saveNeon', JSON.stringify({
+        $.post('https://norskpixel-tunerchip/saveNeon', JSON.stringify({
             neonEnabled: $("#neon-slider").val(),
             r: $("#color-r").val(),
             g: $("#color-g").val(),
@@ -84,7 +84,7 @@ $(document).on('click', "#save-neon", function(){
             rainbowEnabled: true,
         }));
     } else {
-        $.post('https://qb-tunerchip/saveNeon', JSON.stringify({
+        $.post('https://norskpixel-tunerchip/saveNeon', JSON.stringify({
             neonEnabled: $("#neon-slider").val(),
             r: $("#color-r").val(),
             g: $("#color-g").val(),
@@ -95,7 +95,7 @@ $(document).on('click', "#save-neon", function(){
 })
 
 $(document).on('click', '#save-headlights', function(){
-    $.post('https://qb-tunerchip/saveHeadlights', JSON.stringify({
+    $.post('https://norskpixel-tunerchip/saveHeadlights', JSON.stringify({
         value: headlightVal,
         rainbowEnabled: RainbowHeadlight,
     }))
@@ -107,7 +107,7 @@ $(document).on('click', '#save-stancer', function(){
     var rear_offset = $("#rear-offset").val();
     var rear_rotation = $("#rear-rotation").val();
 
-    $.post('https://qb-tunerchip/SetStancer', JSON.stringify({
+    $.post('https://norskpixel-tunerchip/SetStancer', JSON.stringify({
         fOffset: front_offset,
         fRotation: front_rotation,
         rOffset: rear_offset,
@@ -146,7 +146,7 @@ $(document).on('click', ".neon-software-color-pallete-color", function(){
 });
 
 QBTuner.Open = function() {
-    $.post('https://qb-tunerchip/checkItem', JSON.stringify({item: "tunerlaptop"}), function(hasItem){
+    $.post('https://norskpixel-tunerchip/checkItem', JSON.stringify({item: "tunerlaptop"}), function(hasItem){
         if (hasItem) {
             $('.container').fadeIn(250);
         }
@@ -155,5 +155,5 @@ QBTuner.Open = function() {
 
 QBTuner.Close = function() {
     $('.container').fadeOut(250);
-    $.post('https://qb-tunerchip/exit');
+    $.post('https://norskpixel-tunerchip/exit');
 }

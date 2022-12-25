@@ -186,7 +186,7 @@ QBCore.Commands.Add('ooc', 'OOC Chat besked', {}, false, function(source, args)
                     multiline = true,
                     args = {'OOC | '.. GetPlayerName(src), message}
                 })
-                TriggerEvent('qb-log:server:CreateLog', 'ooc', 'OOC', 'white', '**' .. GetPlayerName(src) .. '** (CitizenID: ' .. Player.PlayerData.citizenid .. ' | ID: ' .. src .. ') **Besked:** ' .. message, false)
+                TriggerEvent('norskpixel-log:server:CreateLog', 'ooc', 'OOC', 'white', '**' .. GetPlayerName(src) .. '** (CitizenID: ' .. Player.PlayerData.citizenid .. ' | ID: ' .. src .. ') **Besked:** ' .. message, false)
             end
         end
     end

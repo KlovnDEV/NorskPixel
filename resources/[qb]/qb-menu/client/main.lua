@@ -27,11 +27,11 @@ local function showHeader(data)
     })
 end
 
-RegisterNetEvent('qb-menu:client:openMenu', function(data)
+RegisterNetEvent('norskpixel-menu:client:openMenu', function(data)
     openMenu(data)
 end)
 
-RegisterNetEvent('qb-menu:client:closeMenu', function()
+RegisterNetEvent('norskpixel-menu:client:closeMenu', function()
     closeMenu()
 end)
 

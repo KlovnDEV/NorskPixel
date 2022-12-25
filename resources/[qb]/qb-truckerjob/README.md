@@ -1,4 +1,4 @@
-# qb-truckerjob
+# norskpixel-truckerjob
 Trucker Job For QB-Core
 
 # License

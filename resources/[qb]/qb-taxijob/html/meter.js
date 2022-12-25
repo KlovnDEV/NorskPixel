@@ -6,7 +6,7 @@ var meterPlate = null;
 $(document).on('keydown', function() {
     switch(event.keyCode) {
         case 27:
-            $.post('https://qb-taxijob/hideMouse');
+            $.post('https://norskpixel-taxijob/hideMouse');
             break;
     }
 });
@@ -54,13 +54,13 @@ function resetMeter() {
 
 function meterToggle() {
     if (!meterStarted) {
-        $.post('https://qb-taxijob/enableMeter', JSON.stringify({
+        $.post('https://norskpixel-taxijob/enableMeter', JSON.stringify({
             enabled: true,
         }));
         toggleMeter(true)
         meterStarted = true;
     } else {
-        $.post('https://qb-taxijob/enableMeter', JSON.stringify({
+        $.post('https://norskpixel-taxijob/enableMeter', JSON.stringify({
             enabled: false,
         }));
         toggleMeter(false)

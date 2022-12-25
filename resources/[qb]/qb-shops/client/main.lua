@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 function DrawText3Ds(x, y, z, text)
 	SetTextScale(0.35, 0.35)
@@ -35,7 +35,7 @@ Citizen.CreateThread(function()
                         if IsControlJustPressed(0, 38) then -- E
                             local ShopItems = {}
                             ShopItems.items = {}
-                            QBCore.Functions.TriggerCallback('qb-shops:server:getLicenseStatus', function(result)
+                            QBCore.Functions.TriggerCallback('norskpixel-shops:server:getLicenseStatus', function(result)
                                 ShopItems.label = Config.Locations[shop]["label"]
                                 if Config.Locations[shop].type == "weapon" then
                                     if result then
@@ -97,18 +97,18 @@ function SetupItems(shop)
     return items
 end
 
-RegisterNetEvent('qb-shops:client:UpdateShop')
-AddEventHandler('qb-shops:client:UpdateShop', function(shop, itemData, amount)
-    TriggerServerEvent('qb-shops:server:UpdateShopItems', shop, itemData, amount)
+RegisterNetEvent('norskpixel-shops:client:UpdateShop')
+AddEventHandler('norskpixel-shops:client:UpdateShop', function(shop, itemData, amount)
+    TriggerServerEvent('norskpixel-shops:server:UpdateShopItems', shop, itemData, amount)
 end)
 
-RegisterNetEvent('qb-shops:client:SetShopItems')
-AddEventHandler('qb-shops:client:SetShopItems', function(shop, shopProducts)
+RegisterNetEvent('norskpixel-shops:client:SetShopItems')
+AddEventHandler('norskpixel-shops:client:SetShopItems', function(shop, shopProducts)
     Config.Locations[shop]["products"] = shopProducts
 end)
 
-RegisterNetEvent('qb-shops:client:RestockShopItems')
-AddEventHandler('qb-shops:client:RestockShopItems', function(shop, amount)
+RegisterNetEvent('norskpixel-shops:client:RestockShopItems')
+AddEventHandler('norskpixel-shops:client:RestockShopItems', function(shop, amount)
     if Config.Locations[shop]["products"] ~= nil then 
         for k, v in pairs(Config.Locations[shop]["products"]) do 
             Config.Locations[shop]["products"][k].amount = Config.Locations[shop]["products"][k].amount + amount

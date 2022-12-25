@@ -1,9 +1,9 @@
 
-RegisterNetEvent('qb-doorlock:server:setupDoors', function()
-	TriggerClientEvent("qb-doorlock:client:setDoors", QB.Doors)
+RegisterNetEvent('norskpixel-doorlock:server:setupDoors', function()
+	TriggerClientEvent("norskpixel-doorlock:client:setDoors", QB.Doors)
 end)
 
-RegisterNetEvent('qb-doorlock:server:updateState', function(doorID, state)
+RegisterNetEvent('norskpixel-doorlock:server:updateState', function(doorID, state)
 	QB.Doors[doorID].locked = state
-	TriggerClientEvent('qb-doorlock:client:setState', -1, doorID, state)
+	TriggerClientEvent('norskpixel-doorlock:client:setState', -1, doorID, state)
 end)

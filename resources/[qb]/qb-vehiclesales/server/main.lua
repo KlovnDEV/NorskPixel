@@ -1,7 +1,7 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
-QBCore.Functions.CreateCallback('qb-occasions:server:getVehicles', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-occasions:server:getVehicles', function(source, cb)
     local result = exports.oxmysql:executeSync('SELECT * FROM occasion_vehicles', {})
     if result[1] ~= nil then
         cb(result)
@@ -10,7 +10,7 @@ QBCore.Functions.CreateCallback('qb-occasions:server:getVehicles', function(sour
     end
 end)
 
-QBCore.Functions.CreateCallback("qb-occasions:server:getSellerInformation", function(source, cb, citizenid)
+QBCore.Functions.CreateCallback("norskpixel-occasions:server:getSellerInformation", function(source, cb, citizenid)
     local src = source
 
     exports.oxmysql:fetch('SELECT * FROM players WHERE citizenid = ?', {citizenid}, function(result)
@@ -22,8 +22,8 @@ QBCore.Functions.CreateCallback("qb-occasions:server:getSellerInformation", func
     end)
 end)
 
-RegisterServerEvent('qb-occasions:server:ReturnVehicle')
-AddEventHandler('qb-occasions:server:ReturnVehicle', function(vehicleData)
+RegisterServerEvent('norskpixel-occasions:server:ReturnVehicle')
+AddEventHandler('norskpixel-occasions:server:ReturnVehicle', function(vehicleData)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local result = exports.oxmysql:executeSync('SELECT * FROM occasion_vehicles WHERE plate = ? AND occasionid = ?',
@@ -36,8 +36,8 @@ AddEventHandler('qb-occasions:server:ReturnVehicle', function(vehicleData)
                  GetHashKey(vehicleData["model"]), vehicleData["mods"], vehicleData["plate"], 0})
             exports.oxmysql:execute('DELETE FROM occasion_vehicles WHERE occasionid = ? AND plate = ?',
                 {vehicleData["oid"], vehicleData['plate']})
-            TriggerClientEvent("qb-occasions:client:ReturnOwnedVehicle", src, result[1])
-            TriggerClientEvent('qb-occasion:client:refreshVehicles', -1)
+            TriggerClientEvent("norskpixel-occasions:client:ReturnOwnedVehicle", src, result[1])
+            TriggerClientEvent('norskpixel-occasion:client:refreshVehicles', -1)
         else
             TriggerClientEvent('QBCore:Notify', src, 'Dette er ikke dit køretøj', 'error', 3500)
         end
@@ -46,8 +46,8 @@ AddEventHandler('qb-occasions:server:ReturnVehicle', function(vehicleData)
     end
 end)
 
-RegisterServerEvent('qb-occasions:server:sellVehicle')
-AddEventHandler('qb-occasions:server:sellVehicle', function(vehiclePrice, vehicleData)
+RegisterServerEvent('norskpixel-occasions:server:sellVehicle')
+AddEventHandler('norskpixel-occasions:server:sellVehicle', function(vehiclePrice, vehicleData)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     exports.oxmysql:execute('DELETE FROM player_vehicles WHERE plate = ? AND vehicle = ?',
@@ -56,18 +56,18 @@ AddEventHandler('qb-occasions:server:sellVehicle', function(vehiclePrice, vehicl
         'INSERT INTO occasion_vehicles (seller, price, description, plate, model, mods, occasionid) VALUES (?, ?, ?, ?, ?, ?, ?)',
         {Player.PlayerData.citizenid, vehiclePrice, escapeSqli(vehicleData.desc), vehicleData.plate, vehicleData.model,
          json.encode(vehicleData.mods), generateOID()})
-    TriggerEvent("qb-log:server:sendLog", Player.PlayerData.citizenid, "vehiclesold", {
+    TriggerEvent("norskpixel-log:server:sendLog", Player.PlayerData.citizenid, "vehiclesold", {
         model = vehicleData.model,
         vehiclePrice = vehiclePrice
     })
-    TriggerEvent("qb-log:server:CreateLog", "vehicleshop", "Vehicle for Sale", "red",
+    TriggerEvent("norskpixel-log:server:CreateLog", "vehicleshop", "Vehicle for Sale", "red",
         "**" .. GetPlayerName(src) .. "** has a " .. vehicleData.model .. " priced at " .. vehiclePrice)
 
-    TriggerClientEvent('qb-occasion:client:refreshVehicles', -1)
+    TriggerClientEvent('norskpixel-occasion:client:refreshVehicles', -1)
 end)
 
-RegisterServerEvent('qb-occasions:server:sellVehicleBack')
-AddEventHandler('qb-occasions:server:sellVehicleBack', function(vData)
+RegisterServerEvent('norskpixel-occasions:server:sellVehicleBack')
+AddEventHandler('norskpixel-occasions:server:sellVehicleBack', function(vData)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local cid = Player.PlayerData.citizenid
@@ -79,8 +79,8 @@ AddEventHandler('qb-occasions:server:sellVehicleBack', function(vData)
     exports.oxmysql:execute('DELETE FROM player_vehicles WHERE plate = ?', {plate})
 end)
 
-RegisterServerEvent('qb-occasions:server:buyVehicle')
-AddEventHandler('qb-occasions:server:buyVehicle', function(vehicleData)
+RegisterServerEvent('norskpixel-occasions:server:buyVehicle')
+AddEventHandler('norskpixel-occasions:server:buyVehicle', function(vehicleData)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local result = exports.oxmysql:executeSync('SELECT * FROM occasion_vehicles WHERE plate = ? AND occasionid = ?',
@@ -116,14 +116,14 @@ AddEventHandler('qb-occasions:server:buyVehicle', function(vehicleData)
                     exports.oxmysql:execute('UPDATE players SET money = ? WHERE citizenid = ?', {json.encode(BuyerMoney), SellerCitizenId})
                 end
             end
-            TriggerEvent("qb-log:server:CreateLog", "vehicleshop", "bought", "green", "**" .. GetPlayerName(src) .. "** has bought for " .. result[1].price .. " (" .. result[1].plate ..") from **" .. SellerCitizenId .. "**")
-            TriggerClientEvent("qb-occasions:client:BuyFinished", src, result[1])
-            TriggerClientEvent('qb-occasion:client:refreshVehicles', -1)
+            TriggerEvent("norskpixel-log:server:CreateLog", "vehicleshop", "bought", "green", "**" .. GetPlayerName(src) .. "** has bought for " .. result[1].price .. " (" .. result[1].plate ..") from **" .. SellerCitizenId .. "**")
+            TriggerClientEvent("norskpixel-occasions:client:BuyFinished", src, result[1])
+            TriggerClientEvent('norskpixel-occasion:client:refreshVehicles', -1)
             -- Delete vehicle from Occasion
             exports.oxmysql:execute('DELETE FROM occasion_vehicles WHERE plate = ? AND occasionid = ?',
                 {result[1].plate, result[1].occasionid})
             -- Send selling mail to seller
-            TriggerEvent('qb-phone:server:sendNewMailToOffline', SellerCitizenId, {
+            TriggerEvent('norskpixel-phone:server:sendNewMailToOffline', SellerCitizenId, {
                 sender = 'Larrys RV Salg',
                 subject = "Du har solgt et køretøj!",
                 message = 'Du tjente '..NewPrice..' DKK fra dit salg af '..QBCore.Shared.Vehicles[result[1].model].name..''
@@ -134,7 +134,7 @@ AddEventHandler('qb-occasions:server:buyVehicle', function(vehicleData)
     end
 end)
 
-QBCore.Functions.CreateCallback("qb-vehiclesales:server:CheckModelName", function(source, cb, plate)
+QBCore.Functions.CreateCallback("norskpixel-vehiclesales:server:CheckModelName", function(source, cb, plate)
     if plate then
         local ReturnData = exports.oxmysql:scalarSync("SELECT vehicle FROM player_vehicles WHERE plate = ?", {plate})
         cb(ReturnData)

@@ -1,4 +1,4 @@
-# qb-coke
+# norskpixel-coke
 Coke Script For QB-Core
 
 # License

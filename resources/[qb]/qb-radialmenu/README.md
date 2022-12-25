@@ -1,4 +1,4 @@
-# qb-radialmenu
+# norskpixel-radialmenu
 Radial Menu Used With QB-Core :arrows_counterclockwise:
 
 **Now using FontAwesome Icons!**

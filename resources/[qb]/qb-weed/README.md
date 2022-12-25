@@ -1,4 +1,4 @@
-# qb-weed
+# norskpixel-weed
 Weed Growing For QB-Core
 
 # License

@@ -1,4 +1,4 @@
-# qb-cityhall
+# norskpixel-cityhall
 City Services for QB-Core Framework :us:
 
 # License
@@ -21,9 +21,9 @@ City Services for QB-Core Framework :us:
 
 
 ## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
-- [qb-phone](https://github.com/qbcore-framework/qb-phone) - For E-Mail
-- [qb-logs](https://github.com/qbcore-framework/qb-logs) - Log System
+- [norskpixel-core](https://github.com/qbcore-framework/norskpixel-core)
+- [norskpixel-phone](https://github.com/qbcore-framework/norskpixel-phone) - For E-Mail
+- [norskpixel-logs](https://github.com/qbcore-framework/norskpixel-logs) - Log System
 
 ## Screenshots
 ![City Services](https://i.imgur.com/KAFkAVO.png)
@@ -41,10 +41,10 @@ City Services for QB-Core Framework :us:
 - Download the script and put it in the `[qb]` directory.
 - Add the following code to your server.cfg/resouces.cfg
 ```
-ensure qb-core
-ensure qb-phone
-ensure qb-logs
-ensure qb-cityhall
+ensure norskpixel-core
+ensure norskpixel-phone
+ensure norskpixel-logs
+ensure norskpixel-cityhall
 ```
 
 ## Configuration

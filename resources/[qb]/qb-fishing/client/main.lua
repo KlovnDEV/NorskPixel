@@ -31,13 +31,13 @@ end
 -- function SellFish()
 
 
-RegisterNetEvent("qb-fishing:tryToFish")
-AddEventHandler("qb-fishing:tryToFish", function()
+RegisterNetEvent("norskpixel-fishing:tryToFish")
+AddEventHandler("norskpixel-fishing:tryToFish", function()
 	TryToFish() 
 end)
 
-RegisterNetEvent("qb-fishing:calculatedistances")
-AddEventHandler("qb-fishing:calculatedistances", pos, function()
+RegisterNetEvent("norskpixel-fishing:calculatedistances")
+AddEventHandler("norskpixel-fishing:calculatedistances", pos, function()
 
 end)
 

@@ -1,4 +1,4 @@
-# qb-builderjob
+# norskpixel-builderjob
 Builder Job For QB-Core
 
 # License

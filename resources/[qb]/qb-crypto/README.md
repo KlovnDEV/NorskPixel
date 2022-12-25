@@ -1,4 +1,4 @@
-# qb-crypto
+# norskpixel-crypto
 Crypto Currency For QB-Core
 
 # Dependency

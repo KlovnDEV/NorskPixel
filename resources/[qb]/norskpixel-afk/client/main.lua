@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 -- AFK Kick Time Limit (in seconds)
 
@@ -9,7 +9,7 @@ local isLoggedIn = LocalPlayer.state['isLoggedIn']
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
-    QBCore.Functions.TriggerCallback('qb-afkkick:server:GetPermissions', function(UserGroup)
+    QBCore.Functions.TriggerCallback('norskpixel-afkkick:server:GetPermissions', function(UserGroup)
         group = UserGroup
     end)
 end)

@@ -51,7 +51,7 @@ local function SetClosestBerthBoat()
 end
 
 -- Events
-RegisterNetEvent('qb-diving:client:BuyBoat', function(boatModel, plate)
+RegisterNetEvent('norskpixel-diving:client:BuyBoat', function(boatModel, plate)
     DoScreenFadeOut(250)
     Wait(250)
     QBCore.Functions.SpawnVehicle(boatModel, function(veh)
@@ -119,7 +119,7 @@ CreateThread(function()
                 else
                     DrawText3D(BuyLocation.x, BuyLocation.y, BuyLocation.z + 0.3, 'Er du sikker ~g~7~w~ Ja / ~r~8~w~ Nej ~b~(DKK'..QBBoatshop.ShopBoats[currentBoat]["price"]..',-)')
                     if IsControlJustPressed(0, 161) or IsDisabledControlJustReleased(0, 161) then
-                        TriggerServerEvent('qb-diving:server:BuyBoat', QBBoatshop.Locations["berths"][ClosestBerth]["boatModel"], ClosestBerth)
+                        TriggerServerEvent('norskpixel-diving:server:BuyBoat', QBBoatshop.Locations["berths"][ClosestBerth]["boatModel"], ClosestBerth)
                         Buying = false
                     elseif IsControlJustPressed(0, 162) or IsDisabledControlJustReleased(0, 162) then
                         Buying = false

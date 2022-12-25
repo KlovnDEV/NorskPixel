@@ -1,4 +1,4 @@
-# qb-phone
+# norskpixel-phone
 Advanced Phone for QB-Core Framework :iphone:
 
 # License
@@ -20,13 +20,13 @@ Advanced Phone for QB-Core Framework :iphone:
     along with this program.  If not, see <https://www.gnu.org/licenses/>
 
 ## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
-- [qb-policejob](https://github.com/qbcore-framework/qb-policejob) - MEOS, handcuff check etc. 
-- [qb-crypto](https://github.com/qbcore-framework/qb-crypto) - Crypto currency trading 
-- [qb-lapraces](https://github.com/qbcore-framework/qb-lapraces) - Creating routes and racing 
-- [qb-houses](https://github.com/qbcore-framework/qb-houses) - House and Key Management App
-- [qb-garages](https://github.com/qbcore-framework/qb-garages) - For Garage App
-- [qb-banking](https://github.com/qbcore-framework/qb-banking) - For Banking App
+- [norskpixel-core](https://github.com/qbcore-framework/norskpixel-core)
+- [norskpixel-policejob](https://github.com/qbcore-framework/norskpixel-policejob) - MEOS, handcuff check etc. 
+- [norskpixel-crypto](https://github.com/qbcore-framework/norskpixel-crypto) - Crypto currency trading 
+- [norskpixel-lapraces](https://github.com/qbcore-framework/norskpixel-lapraces) - Creating routes and racing 
+- [norskpixel-houses](https://github.com/qbcore-framework/norskpixel-houses) - House and Key Management App
+- [norskpixel-garages](https://github.com/qbcore-framework/norskpixel-garages) - For Garage App
+- [norskpixel-banking](https://github.com/qbcore-framework/norskpixel-banking) - For Banking App
 - [screenshot-basic](https://github.com/citizenfx/screenshot-basic) - For Taking Photos
 - A Webhook for hosting photos (Discord or Imgur can provide this)
 
@@ -61,18 +61,18 @@ Advanced Phone for QB-Core Framework :iphone:
 ## Installation
 ### Manual
 - Download the script and put it in the `[qb]` directory.
-- Import `qb-phone.sql` in your database
+- Import `norskpixel-phone.sql` in your database
 - Add the following code to your server.cfg/resouces.cfg
 ```
-ensure qb-core
+ensure norskpixel-core
 ensure screenshot-basic
-ensure qb-phone
-ensure qb-policejob
-ensure qb-crypto
-ensure qb-lapraces
-ensure qb-houses
-ensure qb-garages
-ensure qb-banking
+ensure norskpixel-phone
+ensure norskpixel-policejob
+ensure norskpixel-crypto
+ensure norskpixel-lapraces
+ensure norskpixel-houses
+ensure norskpixel-garages
+ensure norskpixel-banking
 ```
 
 ## Configuration

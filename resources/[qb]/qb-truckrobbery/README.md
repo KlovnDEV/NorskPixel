@@ -1,4 +1,4 @@
-# qb-truckrobbery
+# norskpixel-truckrobbery
 Armored Truck Robbery For QB-Core
 
 # License

@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local closestDoorKey, closestDoorValue = nil, nil
 local maxDistance = 1.25
 local PlayerData = QBCore.Functions.GetPlayerData()
@@ -42,7 +42,7 @@ local function setDoorLocking(doorId, key)
 	SetTimeout(400, function()
 		doorId.locking = false
 		doorId.locked = not doorId.locked
-		TriggerServerEvent('qb-doorlock:server:updateState', key, doorId.locked)
+		TriggerServerEvent('norskpixel-doorlock:server:updateState', key, doorId.locked)
 	end)
 end
 
@@ -101,7 +101,7 @@ end
 -- Events
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-	TriggerServerEvent("qb-doorlock:server:setupDoors")
+	TriggerServerEvent("norskpixel-doorlock:server:setupDoors")
 	PlayerData = QBCore.Functions.GetPlayerData()
 end)
 
@@ -109,7 +109,7 @@ RegisterNetEvent('QBCore:Player:SetPlayerData', function(val)
 	PlayerData = val
 end)
 
-RegisterNetEvent('qb-doorlock:client:setState', function(doorID, state)
+RegisterNetEvent('norskpixel-doorlock:client:setState', function(doorID, state)
 	QB.Doors[doorID].locked = state
 	local current = QB.Doors[doorID]
 	if current.doors then
@@ -136,7 +136,7 @@ RegisterNetEvent('qb-doorlock:client:setState', function(doorID, state)
 	end
 end)
 
-RegisterNetEvent('qb-doorlock:client:setDoors', function(doorList)
+RegisterNetEvent('norskpixel-doorlock:client:setDoors', function(doorList)
 	QB.Doors = doorList
 end)
 
@@ -150,7 +150,7 @@ RegisterNetEvent('lockpicks:UseLockpick', function()
 					QBCore.Functions.TriggerCallback('QBCore:HasItem', function(hasItem)
 						if hasItem then
 							closestDoorKey, closestDoorValue = k, v
-							TriggerEvent('qb-lockpick:client:openLockpick', lockpickFinish)
+							TriggerEvent('norskpixel-lockpick:client:openLockpick', lockpickFinish)
 						else
 							QBCore.Functions.Notify("Du har ikke et dirkesæt", "error")
 						end

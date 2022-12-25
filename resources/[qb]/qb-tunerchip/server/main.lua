@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local tunedVehicles = {}
 local VehicleNitrous = {}
@@ -7,11 +7,11 @@ local VehicleNitrous = {}
 QBCore.Functions.CreateUseableItem("tunerlaptop", function(source, item)
     local src = source
 
-    TriggerClientEvent('qb-tunerchip:client:openChip', src)
+    TriggerClientEvent('norskpixel-tunerchip:client:openChip', src)
 end)
 
-RegisterServerEvent('qb-tunerchip:server:TuneStatus')
-AddEventHandler('qb-tunerchip:server:TuneStatus', function(plate, bool)
+RegisterServerEvent('norskpixel-tunerchip:server:TuneStatus')
+AddEventHandler('norskpixel-tunerchip:server:TuneStatus', function(plate, bool)
     if bool then
         tunedVehicles[plate] = bool
     else
@@ -19,7 +19,7 @@ AddEventHandler('qb-tunerchip:server:TuneStatus', function(plate, bool)
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-tunerchip:server:HasChip', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-tunerchip:server:HasChip', function(source, cb)
     local src = source
     local Ply = QBCore.Functions.GetPlayer(src)
     local Chip = Ply.Functions.GetItemByName('tunerlaptop')
@@ -32,7 +32,7 @@ QBCore.Functions.CreateCallback('qb-tunerchip:server:HasChip', function(source, 
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-tunerchip:server:GetStatus', function(source, cb, plate)
+QBCore.Functions.CreateCallback('norskpixel-tunerchip:server:GetStatus', function(source, cb, plate)
     cb(tunedVehicles[plate])
 end)
 

@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local CurrentVersion = '1.1' -- Do Not Change This Value
 local NewestVersion = nil 
@@ -19,13 +19,13 @@ NotEnoughMoney = language.NotEnoughMoney
 Citizen.CreateThread(function()
     if Config.UpdateChecker then
 
-        PerformHttpRequest('https://raw.githubusercontent.com/clementinise/qb-lapdance/master/version', function(Error, Version, Header)
+        PerformHttpRequest('https://raw.githubusercontent.com/clementinise/norskpixel-lapdance/master/version', function(Error, Version, Header)
             NewestVersion = Version
         end)
 
         Citizen.Wait(1300)
 
-        PerformHttpRequest('https://raw.githubusercontent.com/clementinise/qb-lapdance/master/changelog', function(Error, ChangeLog, Header)
+        PerformHttpRequest('https://raw.githubusercontent.com/clementinise/norskpixel-lapdance/master/changelog', function(Error, ChangeLog, Header)
             ChangeLogText = ChangeLog
         end)
 
@@ -33,11 +33,11 @@ Citizen.CreateThread(function()
         
         print('')
         if Config.Framework == 'qbcore' then
-            print('^8QBCore ^6Lap Dance resource (qb-lapdance)')
+            print('^8QBCore ^6Lap Dance resource (norskpixel-lapdance)')
         elseif Config.Framework == 'standalone' then
-            print('^9Standalone ^6Lap Dance resource (qb-lapdance)')
+            print('^9Standalone ^6Lap Dance resource (norskpixel-lapdance)')
         elseif Config.Framework == 'esx' then
-            print('^3ESX ^6Lap Dance resource (qb-lapdance)')
+            print('^3ESX ^6Lap Dance resource (norskpixel-lapdance)')
         end
         if CurrentVersion == NewestVersion then
             print('^2Version ' .. CurrentVersion .. ' - Up to date!')
@@ -50,7 +50,7 @@ Citizen.CreateThread(function()
             end
             print('')
             print('^1Please check the GitHub and download the last update')
-            print('^2https://github.com/clementinise/qb-lapdance/releases/latest')
+            print('^2https://github.com/clementinise/norskpixel-lapdance/releases/latest')
         end
         print('')
     end
@@ -60,8 +60,8 @@ if Config.Framework == "esx" then
     TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 end
 
-RegisterServerEvent('qb-lapdance:buy')
-AddEventHandler('qb-lapdance:buy', function()
+RegisterServerEvent('norskpixel-lapdance:buy')
+AddEventHandler('norskpixel-lapdance:buy', function()
 	
     if Config.Framework == "qbcore" then
 
@@ -76,7 +76,7 @@ AddEventHandler('qb-lapdance:buy', function()
             if not LapDanceActive then
                 Player.Functions.RemoveMoney("cash", Cost)
                 TriggerClientEvent('QBCore:Notify', src, BoughtLapdance, "success", 1700)
-                TriggerClientEvent('qb-lapdance:lapdance', src, PlayerMoney, PlayerBirthdate, TodayDate)
+                TriggerClientEvent('norskpixel-lapdance:lapdance', src, PlayerMoney, PlayerBirthdate, TodayDate)
             else
                 TriggerClientEvent('QBCore:Notify', src, StripperActive, "error", 1700)
             end
@@ -95,7 +95,7 @@ AddEventHandler('qb-lapdance:buy', function()
             if not LapDanceActive then
                 Player.removeMoney(Cost)
                 TriggerClientEvent('esx:showNotification', source, BoughtLapdance)
-                TriggerClientEvent('qb-lapdance:lapdance', src, PlayerMoney, PlayerBirthdate, TodayDate)
+                TriggerClientEvent('norskpixel-lapdance:lapdance', src, PlayerMoney, PlayerBirthdate, TodayDate)
             else
                 TriggerClientEvent('QBCore:Notify', src, StripperActive, "error", 1700)
             end
@@ -105,22 +105,22 @@ AddEventHandler('qb-lapdance:buy', function()
 
     elseif Config.Framework == 'standalone' then
         if not LapDanceActive then
-            TriggerClientEvent('qb-lapdance:lapdance', source, PlayerMoney, PlayerBirthdate, TodayDate)
+            TriggerClientEvent('norskpixel-lapdance:lapdance', source, PlayerMoney, PlayerBirthdate, TodayDate)
         else
-            TriggerClientEvent('qb-lapdance:showNotify', source, StripperActive)
+            TriggerClientEvent('norskpixel-lapdance:showNotify', source, StripperActive)
         end
     end
 end)
 
-RegisterServerEvent('qb-lapdance:active')
-AddEventHandler('qb-lapdance:active', function()
+RegisterServerEvent('norskpixel-lapdance:active')
+AddEventHandler('norskpixel-lapdance:active', function()
 
     LapDanceActive = true
 
 end)
 
-RegisterServerEvent('qb-lapdance:idle')
-AddEventHandler('qb-lapdance:idle', function()
+RegisterServerEvent('norskpixel-lapdance:idle')
+AddEventHandler('norskpixel-lapdance:idle', function()
 
     LapDanceActive = false
 

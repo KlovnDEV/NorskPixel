@@ -1,4 +1,4 @@
-# qb-lawyerjob
+# norskpixel-lawyerjob
 Lawyer Job For QB-Core
 
 # License

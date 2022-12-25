@@ -63,16 +63,16 @@ $('document').ready(function() {
 
     document.onkeyup = function (data) {
         if (data.which == 116 ) {
-            $.post('https://qb-houses/toggleCursor');
+            $.post('https://norskpixel-houses/toggleCursor');
         }
 
         if (data.which == 13 ) {
             if (selectedObjectData != null && $(".decorate-confirm").css('display') != 'block') {
-                $.post('https://qb-houses/editOwnedObject', JSON.stringify({
+                $.post('https://norskpixel-houses/editOwnedObject', JSON.stringify({
                     objectData: selectedObjectData
                 }));
                 selectedObjectData = null;
-                $.post('https://qb-houses/setupMyObjects', JSON.stringify({}), function(myObjects){
+                $.post('https://norskpixel-houses/setupMyObjects', JSON.stringify({}), function(myObjects){
                     $('.decorate-items').html("");
                     $.each(myObjects, function(i, object){
                         var elem = '<div class="decorate-item" id="myobject-'+i+'" data-type="myObject"><span id="decorate-item-name"><b>Objekt: </b>'+object.hashname+'</span><span id="decorate-item-category"><strong>Pris: </strong><span id="item-price" style="color: green;">EJER</span></span></div>';
@@ -87,7 +87,7 @@ $('document').ready(function() {
                 var objData = $('#'+objId).data('objectData');
                 selectedObjectData = objData
                 if (objData != null) {
-                    $.post("https://qb-houses/spawnobject", JSON.stringify({
+                    $.post("https://norskpixel-houses/spawnobject", JSON.stringify({
                         object: objData.object,
                     }));
                     $(".decorate-items").fadeOut(150);
@@ -146,7 +146,7 @@ $(document).on('click', '.header-btn', function(){
             $(selectedHeaderButton).removeClass('header-btn-selected');
             $(this).addClass('header-btn-selected');
             $(".decorate-footer-buttons").fadeOut(150);
-            $.post('https://qb-houses/setupMyObjects', JSON.stringify({}), function(myObjects){
+            $.post('https://norskpixel-houses/setupMyObjects', JSON.stringify({}), function(myObjects){
                 $('.decorate-items').html("");
                 $.each(myObjects, function(i, object){
                     var elem = '<div class="decorate-item" id="myobject-'+i+'" data-type="myObject"><span id="decorate-item-name"><b>Objkct: </b>'+object.hashname+'</span><span id="decorate-item-category"><strong>Pris: </strong><span id="item-price" style="color: green;">EJER</span></span></div>';
@@ -158,7 +158,7 @@ $(document).on('click', '.header-btn', function(){
         }
     }
     
-    $.post('https://qb-houses/ResetSelectedProp');
+    $.post('https://norskpixel-houses/ResetSelectedProp');
 
     selectedHeaderButton = this;
 })
@@ -177,14 +177,14 @@ $(document).on('click', '.footer-btn', function(){
         $(".decorate-items").html("");
         $(".decorate-footer-buttons").html("");
         $(selectedHeaderButton).removeClass('header-btn-selected');
-        $.post('https://qb-houses/deleteSelectedObject');
+        $.post('https://norskpixel-houses/deleteSelectedObject');
         $(".decorate-footer-buttons").fadeOut(150);
         $(".decorate-items").fadeOut(150);
     }
 });
 
 $(document).on('click', '#buy-object', function(){
-    $.post("https://qb-houses/buySelectedObject", JSON.stringify({
+    $.post("https://norskpixel-houses/buySelectedObject", JSON.stringify({
         price: selectedObjectData.price,
     }));
     selectedObjectData = null;
@@ -192,7 +192,7 @@ $(document).on('click', '#buy-object', function(){
 });
 
 $(document).on('click', '#cancel-object', function(){
-    $.post('https://qb-houses/cancelSelectedObject');
+    $.post('https://norskpixel-houses/cancelSelectedObject');
     selectedObjectData = null;
     $(".decorate-confirm").css("display", "none");
 });
@@ -209,11 +209,11 @@ $(document).on('click', '.decorate-item', function(){
         if (selectedObject == this) {
             $(this).removeClass('selected-object');
             selectedObject = null;
-            $.post('https://qb-houses/removeObject');
+            $.post('https://norskpixel-houses/removeObject');
         } else {
             $(this).addClass('selected-object');
             selectedObject = this;
-            $.post("https://qb-houses/chooseobject", JSON.stringify({
+            $.post("https://norskpixel-houses/chooseobject", JSON.stringify({
                 object: objData.object,
             }));
             $(".decorate-item").css({'pointer-events': 'none'});
@@ -222,13 +222,13 @@ $(document).on('click', '.decorate-item', function(){
     } else if ($("#"+objId).data('type') == "myObject") {
         if (selectedObject == this) {
             $(this).removeClass('selected-object');
-            $.post('https://qb-houses/deselectOwnedObject')
+            $.post('https://norskpixel-houses/deselectOwnedObject')
             selectedObject = null;
         } else {
             $(this).addClass('selected-object');
             selectedObject = this;
             selectedObjectData = myObjectData;
-            $.post('https://qb-houses/selectOwnedObject', JSON.stringify({
+            $.post('https://norskpixel-houses/selectOwnedObject', JSON.stringify({
                 objectData: myObjectData
             }))
             $(".decorate-footer-buttons").html("");
@@ -248,13 +248,13 @@ Decorations.Close = function() {
         $(selectedHeaderButton).removeClass('header-btn-selected');
     }
     selectedObjectData = null;
-    $.post("https://qb-houses/closedecorations", JSON.stringify({}));
+    $.post("https://norskpixel-houses/closedecorations", JSON.stringify({}));
 }
 
 $(".property-accept").click(function(e){
-    $.post('https://qb-houses/buy', JSON.stringify({}))
+    $.post('https://norskpixel-houses/buy', JSON.stringify({}))
 });
 
 $(".property-cancel").click(function(e){
-    $.post('https://qb-houses/exit', JSON.stringify({}));
+    $.post('https://norskpixel-houses/exit', JSON.stringify({}));
 });

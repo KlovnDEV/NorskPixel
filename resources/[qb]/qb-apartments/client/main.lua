@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local InApartment = false
 local ClosestHouse = nil
 local CurrentApartment = nil
@@ -21,9 +21,9 @@ end)
 AddEventHandler('onResourceStop', function(resource)
     if resource == GetCurrentResourceName() then
         if houseObj ~= nil then
-            exports['qb-interior']:DespawnInterior(houseObj, function()
+            exports['norskpixel-interior']:DespawnInterior(houseObj, function()
                 CurrentApartment = nil
-                TriggerEvent('qb-weathersync:client:EnableSync')
+                TriggerEvent('norskpixel-weathersync:client:EnableSync')
                 DoScreenFadeIn(500)
                 while not IsScreenFadedOut() do
                     Citizen.Wait(10)
@@ -67,7 +67,7 @@ local function EnterApartment(house, apartmentId, new)
                 CurrentOffset = newoffset
                 TriggerServerEvent("apartments:server:AddObject", apartmentId, house, CurrentOffset)
                 local coords = { x = Apartments.Locations[house].coords.enter.x, y = Apartments.Locations[house].coords.enter.y, z = Apartments.Locations[house].coords.enter.z - CurrentOffset}
-                data = exports['qb-interior']:CreateApartmentFurnished(coords)
+                data = exports['norskpixel-interior']:CreateApartmentFurnished(coords)
                 Citizen.Wait(100)
                 houseObj = data[1]
                 POIOffsets = data[2]
@@ -76,9 +76,9 @@ local function EnterApartment(house, apartmentId, new)
                 ClosestHouse = house
                 rangDoorbell = nil
                 Citizen.Wait(500)
-                TriggerEvent('qb-weathersync:client:DisableSync')
+                TriggerEvent('norskpixel-weathersync:client:DisableSync')
                 Citizen.Wait(100)
-                TriggerServerEvent('qb-apartments:server:SetInsideMeta', house, apartmentId, true)
+                TriggerServerEvent('norskpixel-apartments:server:SetInsideMeta', house, apartmentId, true)
                 TriggerServerEvent("InteractSound_SV:PlayOnSource", "houses_door_close", 0.1)
                 TriggerServerEvent("QBCore:Server:SetMetaData", "currentapartment", CurrentApartment)
             end, house)
@@ -90,26 +90,26 @@ local function EnterApartment(house, apartmentId, new)
             TriggerServerEvent("InteractSound_SV:PlayOnSource", "houses_door_open", 0.1)
             TriggerServerEvent("apartments:server:AddObject", apartmentId, house, CurrentOffset)
             local coords = { x = Apartments.Locations[ClosestHouse].coords.enter.x, y = Apartments.Locations[ClosestHouse].coords.enter.y, z = Apartments.Locations[ClosestHouse].coords.enter.z - CurrentOffset}
-            data = exports['qb-interior']:CreateApartmentFurnished(coords)
+            data = exports['norskpixel-interior']:CreateApartmentFurnished(coords)
             Citizen.Wait(100)
             houseObj = data[1]
             POIOffsets = data[2]
             InApartment = true
             CurrentApartment = apartmentId
             Citizen.Wait(500)
-            TriggerEvent('qb-weathersync:client:DisableSync')
+            TriggerEvent('norskpixel-weathersync:client:DisableSync')
             Citizen.Wait(100)
             TriggerServerEvent("InteractSound_SV:PlayOnSource", "houses_door_close", 0.1)
             TriggerServerEvent("QBCore:Server:SetMetaData", "currentapartment", CurrentApartment)
         end
         if new ~= nil then
             if new then
-                TriggerEvent('qb-interior:client:SetNewState', true)
+                TriggerEvent('norskpixel-interior:client:SetNewState', true)
             else
-                TriggerEvent('qb-interior:client:SetNewState', false)
+                TriggerEvent('norskpixel-interior:client:SetNewState', false)
             end
         else
-            TriggerEvent('qb-interior:client:SetNewState', false)
+            TriggerEvent('norskpixel-interior:client:SetNewState', false)
         end
     end, apartmentId)
 end
@@ -117,16 +117,16 @@ end
 local function LeaveApartment(house)
     TriggerServerEvent("InteractSound_SV:PlayOnSource", "houses_door_open", 0.1)
     openHouseAnim()
-    TriggerServerEvent("qb-apartments:returnBucket")
+    TriggerServerEvent("norskpixel-apartments:returnBucket")
     DoScreenFadeOut(500)
     while not IsScreenFadedOut() do Wait(10) end
-    exports['qb-interior']:DespawnInterior(houseObj, function()
-        TriggerEvent('qb-weathersync:client:EnableSync')
+    exports['norskpixel-interior']:DespawnInterior(houseObj, function()
+        TriggerEvent('norskpixel-weathersync:client:EnableSync')
         SetEntityCoords(PlayerPedId(), Apartments.Locations[house].coords.enter.x, Apartments.Locations[house].coords.enter.y,Apartments.Locations[house].coords.enter.z)
         SetEntityHeading(PlayerPedId(), Apartments.Locations[house].coords.enter.w)
         Citizen.Wait(1000)
         TriggerServerEvent("apartments:server:RemoveObject", CurrentApartment, house)
-        TriggerServerEvent('qb-apartments:server:SetInsideMeta', CurrentApartment, false)
+        TriggerServerEvent('norskpixel-apartments:server:SetInsideMeta', CurrentApartment, false)
         CurrentApartment = nil
         InApartment = false
         CurrentOffset = 0
@@ -224,16 +224,16 @@ end
 RegisterNetEvent('apartments:client:setupSpawnUI', function(cData)
     QBCore.Functions.TriggerCallback('apartments:GetOwnedApartment', function(result)
         if result then
-            TriggerEvent('qb-spawn:client:setupSpawns', cData, false, nil)
-            TriggerEvent('qb-spawn:client:openUI', true)
+            TriggerEvent('norskpixel-spawn:client:setupSpawns', cData, false, nil)
+            TriggerEvent('norskpixel-spawn:client:openUI', true)
             TriggerEvent("apartments:client:SetHomeBlip", result.type)
         else
             if Apartments.Starting then
-                TriggerEvent('qb-spawn:client:setupSpawns', cData, true, Apartments.Locations)
-                TriggerEvent('qb-spawn:client:openUI', true)
+                TriggerEvent('norskpixel-spawn:client:setupSpawns', cData, true, Apartments.Locations)
+                TriggerEvent('norskpixel-spawn:client:openUI', true)
             else
-                TriggerEvent('qb-spawn:client:setupSpawns', cData, false, nil)
-                TriggerEvent('qb-spawn:client:openUI', true)
+                TriggerEvent('norskpixel-spawn:client:setupSpawns', cData, false, nil)
+                TriggerEvent('norskpixel-spawn:client:openUI', true)
             end
         end
     end, cData.citizenid)
@@ -253,7 +253,7 @@ RegisterNetEvent('apartments:client:SpawnInApartment', function(apartmentId, apa
     IsOwned = true
 end)
 
-RegisterNetEvent('qb-apartments:client:LastLocationHouse', function(apartmentType, apartmentId)
+RegisterNetEvent('norskpixel-apartments:client:LastLocationHouse', function(apartmentType, apartmentId)
     ClosestHouse = apartmentType
     EnterApartment(apartmentType, apartmentId, false)
 end)
@@ -349,7 +349,7 @@ Citizen.CreateThread(function()
                     DrawText3D(Apartments.Locations[ClosestHouse].coords.enter.x - POIOffsets.clothes.x, Apartments.Locations[ClosestHouse].coords.enter.y - POIOffsets.clothes.y, Apartments.Locations[ClosestHouse].coords.enter.z - CurrentOffset + POIOffsets.clothes.z, '~g~E~w~ - Outfit')
                     if IsControlJustPressed(0, 38) then -- E
                         TriggerServerEvent("InteractSound_SV:PlayOnSource", "Clothes1", 0.4)
-                        TriggerEvent('qb-clothing:client:openOutfitMenu')
+                        TriggerEvent('norskpixel-clothing:client:openOutfitMenu')
                     end
                 elseif outfitsdist < 3 then
                     DrawText3D(Apartments.Locations[ClosestHouse].coords.enter.x - POIOffsets.clothes.x, Apartments.Locations[ClosestHouse].coords.enter.y - POIOffsets.clothes.y, Apartments.Locations[ClosestHouse].coords.enter.z - CurrentOffset + POIOffsets.clothes.z, 'Outfit')
@@ -359,7 +359,7 @@ Citizen.CreateThread(function()
                 if logoutdist < 1.5 then
                     DrawText3D(Apartments.Locations[ClosestHouse].coords.enter.x - POIOffsets.logout.x, Apartments.Locations[ClosestHouse].coords.enter.y + POIOffsets.logout.y, Apartments.Locations[ClosestHouse].coords.enter.z - CurrentOffset + POIOffsets.logout.z, '~g~E~w~ - Log ud')
                     if IsControlJustPressed(0, 38) then -- E
-                        TriggerServerEvent('qb-houses:server:LogoutLocation')
+                        TriggerServerEvent('norskpixel-houses:server:LogoutLocation')
                     end
                 elseif logoutdist < 3 then
                     DrawText3D(Apartments.Locations[ClosestHouse].coords.enter.x - POIOffsets.logout.x, Apartments.Locations[ClosestHouse].coords.enter.y + POIOffsets.logout.y, Apartments.Locations[ClosestHouse].coords.enter.z - CurrentOffset + POIOffsets.logout.z, 'Log ud')

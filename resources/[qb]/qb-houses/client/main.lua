@@ -1,5 +1,5 @@
 
-QBCore = exports['qb-core']:GetCoreObject()
+QBCore = exports['norskpixel-core']:GetCoreObject()
 IsInside = false
 ClosestHouse = nil
 HasHouseKey = false
@@ -152,7 +152,7 @@ local function FrontDoorCam(coords)
     cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", coords.x, coords.y, coords.z + 0.5, 0.0, 0.00, coords.h - 180, 80.00, false, 0)
     SetCamActive(cam, true)
     RenderScriptCams(true, true, 500, true, true)
-    TriggerEvent('qb-weathersync:client:EnableSync')
+    TriggerEvent('norskpixel-weathersync:client:EnableSync')
     FrontCam = true
     FreezeEntityPosition(PlayerPedId(), true)
     Wait(500)
@@ -245,19 +245,19 @@ local function SetClosestHouse()
         end
         ClosestHouse = current
         if ClosestHouse ~= nil and tonumber(dist) < 30 then
-            QBCore.Functions.TriggerCallback('qb-houses:server:ProximityKO', function(key, owned)
+            QBCore.Functions.TriggerCallback('norskpixel-houses:server:ProximityKO', function(key, owned)
                 HasKey = key
                 HasHouseKey = key
                 isOwned = owned
             end, ClosestHouse)
         end
     end
-    TriggerEvent('qb-garages:client:setHouseGarage', ClosestHouse, HasHouseKey)
+    TriggerEvent('norskpixel-garages:client:setHouseGarage', ClosestHouse, HasHouseKey)
 end
 
 local function setHouseLocations()
     if ClosestHouse ~= nil then
-        QBCore.Functions.TriggerCallback('qb-houses:server:getHouseLocations', function(result)
+        QBCore.Functions.TriggerCallback('norskpixel-houses:server:getHouseLocations', function(result)
             if result ~= nil then
                 if result.stash ~= nil then
                     stashLocation = json.decode(result.stash)
@@ -287,7 +287,7 @@ end
 
 local function LoadDecorations(house)
 	if Config.Houses[house].decorations == nil or next(Config.Houses[house].decorations) == nil then
-		QBCore.Functions.TriggerCallback('qb-houses:server:getHouseDecorations', function(result)
+		QBCore.Functions.TriggerCallback('norskpixel-houses:server:getHouseDecorations', function(result)
 			Config.Houses[house].decorations = result
 			if Config.Houses[house].decorations ~= nil then
 				ObjectList = {}
@@ -345,11 +345,11 @@ end
 -- GUI Functions
 
 function CloseMenuFull()
-    exports['qb-menu']:closeMenu()
+    exports['norskpixel-menu']:closeMenu()
 end
 
 local function RemoveHouseKey(citizenData)
-    TriggerServerEvent('qb-houses:server:removeHouseKey', ClosestHouse, citizenData)
+    TriggerServerEvent('norskpixel-houses:server:removeHouseKey', ClosestHouse, citizenData)
     CloseMenuFull()
 end
 
@@ -358,7 +358,7 @@ local function getKeyHolders()
     fetchingHouseKeys = true
 
     local p = promise.new()
-    QBCore.Functions.TriggerCallback('qb-houses:server:getHouseKeyHolders', function(holders)
+    QBCore.Functions.TriggerCallback('norskpixel-houses:server:getHouseKeyHolders', function(holders)
         p:resolve(holders)
     end, ClosestHouse)
 
@@ -378,14 +378,14 @@ function HouseKeysMenu()
             keyholderMenu[#keyholderMenu+1] = {
                 header = holders[k].firstname .. " " .. holders[k].lastname,
                 params = {
-                    event = "qb-houses:client:OpenClientOptions",
+                    event = "norskpixel-houses:client:OpenClientOptions",
                     args = {
                         citizenData = holders[k]
                     }
                 }
             }
         end
-        exports['qb-menu']:openMenu(keyholderMenu)
+        exports['norskpixel-menu']:openMenu(keyholderMenu)
     end
 
 end
@@ -395,7 +395,7 @@ local function optionMenu(citizenData)
         {
             header = "Fjern nøgle",
             params = {
-                event = "qb-houses:client:RevokeKey",
+                event = "norskpixel-houses:client:RevokeKey",
                 args = {
                     citizenData = citizenData
                 }
@@ -404,25 +404,25 @@ local function optionMenu(citizenData)
         {
             header = "Tilbage",
             params = {
-                event = "qb-houses:client:removeHouseKey",
+                event = "norskpixel-houses:client:removeHouseKey",
                 args = {}
             }
         },
     }
 
-    exports['qb-menu']:openMenu(keyholderOptions)
+    exports['norskpixel-menu']:openMenu(keyholderOptions)
 end
 
 -- Shell Configuration
 local function getDataForHouseTier(house, coords)
     local houseTier = Config.Houses[house].tier
     local shells = {
-        [1] = function(coords) return exports['qb-interior']:CreateApartmentShell(coords) end,
-        [2] = function(coords) return exports['qb-interior']:CreateTier1House(coords) end,
-        [3] = function(coords) return exports['qb-interior']:CreateTrevorsShell(coords) end,
-        [4] = function(coords) return exports['qb-interior']:CreateCaravanShell(coords) end,
-        [5] = function(coords) return exports['qb-interior']:CreateLesterShell(coords) end,
-        [6] = function(coords) return exports['qb-interior']:CreateRanchShell(coords) end
+        [1] = function(coords) return exports['norskpixel-interior']:CreateApartmentShell(coords) end,
+        [2] = function(coords) return exports['norskpixel-interior']:CreateTier1House(coords) end,
+        [3] = function(coords) return exports['norskpixel-interior']:CreateTrevorsShell(coords) end,
+        [4] = function(coords) return exports['norskpixel-interior']:CreateCaravanShell(coords) end,
+        [5] = function(coords) return exports['norskpixel-interior']:CreateLesterShell(coords) end,
+        [6] = function(coords) return exports['norskpixel-interior']:CreateRanchShell(coords) end
     }
 
     if not shells[houseTier] then
@@ -437,127 +437,127 @@ end
 
 -- local function getDataForHouseTier(house, coords)
 --     if Config.Houses[house].tier == 1 then
---         return exports['qb-interior']:CreateApartmentShell(coords)
+--         return exports['norskpixel-interior']:CreateApartmentShell(coords)
 --     elseif Config.Houses[house].tier == 2 then
---         return exports['qb-interior']:CreateTier1House(coords)
+--         return exports['norskpixel-interior']:CreateTier1House(coords)
 --     elseif Config.Houses[house].tier == 3 then
---         return exports['qb-interior']:CreateTrevorsShell(coords)
+--         return exports['norskpixel-interior']:CreateTrevorsShell(coords)
 --     elseif Config.Houses[house].tier == 4 then
---         return exports['qb-interior']:CreateCaravanShell(coords)
+--         return exports['norskpixel-interior']:CreateCaravanShell(coords)
 --     elseif Config.Houses[house].tier == 5 then
---         return exports['qb-interior']:CreateLesterShell(coords)
+--         return exports['norskpixel-interior']:CreateLesterShell(coords)
 --     elseif Config.Houses[house].tier == 6 then
---         return exports['qb-interior']:CreateRanchShell(coords)
+--         return exports['norskpixel-interior']:CreateRanchShell(coords)
 --     elseif Config.Houses[house].tier == 7 then
---         return exports['qb-interior']:CreateFranklinAunt(coords)
+--         return exports['norskpixel-interior']:CreateFranklinAunt(coords)
 --     elseif Config.Houses[house].tier == 8 then
---         return exports['qb-interior']:CreateMedium2(coords)
+--         return exports['norskpixel-interior']:CreateMedium2(coords)
 --     elseif Config.Houses[house].tier == 9 then
---         return exports['qb-interior']:CreateMedium3(coords)
+--         return exports['norskpixel-interior']:CreateMedium3(coords)
 --     elseif Config.Houses[house].tier == 10 then
---         return exports['qb-interior']:CreateBanham(coords)
+--         return exports['norskpixel-interior']:CreateBanham(coords)
 --     elseif Config.Houses[house].tier == 11 then
---         return exports['qb-interior']:CreateWestons(coords)
+--         return exports['norskpixel-interior']:CreateWestons(coords)
 --     elseif Config.Houses[house].tier == 12 then
---         return exports['qb-interior']:CreateWestons2(coords)
+--         return exports['norskpixel-interior']:CreateWestons2(coords)
 --     elseif Config.Houses[house].tier == 13 then
---         return exports['qb-interior']:CreateClassicHouse(coords)
+--         return exports['norskpixel-interior']:CreateClassicHouse(coords)
 --     elseif Config.Houses[house].tier == 14 then
---         return exports['qb-interior']:CreateClassicHouse2(coords)
+--         return exports['norskpixel-interior']:CreateClassicHouse2(coords)
 --     elseif Config.Houses[house].tier == 15 then
---         return exports['qb-interior']:CreateClassicHouse3(coords)
+--         return exports['norskpixel-interior']:CreateClassicHouse3(coords)
 --     elseif Config.Houses[house].tier == 16 then
---         return exports['qb-interior']:CreateHighend1(coords)
+--         return exports['norskpixel-interior']:CreateHighend1(coords)
 --     elseif Config.Houses[house].tier == 17 then
---         return exports['qb-interior']:CreateHighend2(coords)
+--         return exports['norskpixel-interior']:CreateHighend2(coords)
 --     elseif Config.Houses[house].tier == 18 then
---         return exports['qb-interior']:CreateHighend3(coords)
+--         return exports['norskpixel-interior']:CreateHighend3(coords)
 --     elseif Config.Houses[house].tier == 19 then
---         return exports['qb-interior']:CreateHighend(coords)
+--         return exports['norskpixel-interior']:CreateHighend(coords)
 --     elseif Config.Houses[house].tier == 20 then
---         return exports['qb-interior']:CreateHighendV2(coords)
+--         return exports['norskpixel-interior']:CreateHighendV2(coords)
 --     elseif Config.Houses[house].tier == 21 then
---         return exports['qb-interior']:CreateMichael(coords)
+--         return exports['norskpixel-interior']:CreateMichael(coords)
 --     elseif Config.Houses[house].tier == 22 then
---         return exports['qb-interior']:CreateStashHouse(coords)
+--         return exports['norskpixel-interior']:CreateStashHouse(coords)
 --     elseif Config.Houses[house].tier == 23 then
---         return exports['qb-interior']:CreateStashHouse2(coords)
+--         return exports['norskpixel-interior']:CreateStashHouse2(coords)
 --     elseif Config.Houses[house].tier == 24 then
---         return exports['qb-interior']:CreateContainer(coords)
+--         return exports['norskpixel-interior']:CreateContainer(coords)
 --     elseif Config.Houses[house].tier == 25 then
---         return exports['qb-interior']:CreateGarageLow(coords)
+--         return exports['norskpixel-interior']:CreateGarageLow(coords)
 --     elseif Config.Houses[house].tier == 26 then
---         return exports['qb-interior']:CreateGarageMed(coords)
+--         return exports['norskpixel-interior']:CreateGarageMed(coords)
 --     elseif Config.Houses[house].tier == 27 then
---         return exports['qb-interior']:CreateGarageHigh(coords)
+--         return exports['norskpixel-interior']:CreateGarageHigh(coords)
 --     elseif Config.Houses[house].tier == 28 then
---         return exports['qb-interior']:CreateOffice1(coords)
+--         return exports['norskpixel-interior']:CreateOffice1(coords)
 --     elseif Config.Houses[house].tier == 29 then
---         return exports['qb-interior']:CreateOffice2(coords)
+--         return exports['norskpixel-interior']:CreateOffice2(coords)
 --     elseif Config.Houses[house].tier == 30 then
---         return exports['qb-interior']:CreateOfficeBig(coords)
+--         return exports['norskpixel-interior']:CreateOfficeBig(coords)
 --     elseif Config.Houses[house].tier == 31 then
---         return exports['qb-interior']:CreateBarber(coords)
+--         return exports['norskpixel-interior']:CreateBarber(coords)
 --     elseif Config.Houses[house].tier == 32 then
---         return exports['qb-interior']:CreateGunstore(coords)
+--         return exports['norskpixel-interior']:CreateGunstore(coords)
 --     elseif Config.Houses[house].tier == 33 then
---         return exports['qb-interior']:CreateStore1(coords)
+--         return exports['norskpixel-interior']:CreateStore1(coords)
 --     elseif Config.Houses[house].tier == 34 then
---         return exports['qb-interior']:CreateStore2(coords)
+--         return exports['norskpixel-interior']:CreateStore2(coords)
 --     elseif Config.Houses[house].tier == 35 then
---         return exports['qb-interior']:CreateStore3(coords)
+--         return exports['norskpixel-interior']:CreateStore3(coords)
 --     elseif Config.Houses[house].tier == 36 then
---         return exports['qb-interior']:CreateWarehouse1(coords)
+--         return exports['norskpixel-interior']:CreateWarehouse1(coords)
 --     elseif Config.Houses[house].tier == 37 then
---         return exports['qb-interior']:CreateWarehouse2(coords)
+--         return exports['norskpixel-interior']:CreateWarehouse2(coords)
 --     elseif Config.Houses[house].tier == 38 then
---         return exports['qb-interior']:CreateWarehouse3(coords)
+--         return exports['norskpixel-interior']:CreateWarehouse3(coords)
 --     elseif Config.Houses[house].tier == 39 then
---         return exports['qb-interior']:CreateK4Coke(coords)
+--         return exports['norskpixel-interior']:CreateK4Coke(coords)
 --     elseif Config.Houses[house].tier == 40 then
---         return exports['qb-interior']:CreateK4Meth(coords)
+--         return exports['norskpixel-interior']:CreateK4Meth(coords)
 --     elseif Config.Houses[house].tier == 41 then
---         return exports['qb-interior']:CreateK4Weed(coords)
+--         return exports['norskpixel-interior']:CreateK4Weed(coords)
 --     elseif Config.Houses[house].tier == 42 then
---         return exports['qb-interior']:CreateContainer2(coords)
+--         return exports['norskpixel-interior']:CreateContainer2(coords)
 --     elseif Config.Houses[house].tier == 43 then
---         return exports['qb-interior']:CreateFurniStash1(coords)
+--         return exports['norskpixel-interior']:CreateFurniStash1(coords)
 --     elseif Config.Houses[house].tier == 44 then
---         return exports['qb-interior']:CreateFurniStash3(coords)
+--         return exports['norskpixel-interior']:CreateFurniStash3(coords)
 --     elseif Config.Houses[house].tier == 45 then
---         return exports['qb-interior']:CreateFurniLow(coords)
+--         return exports['norskpixel-interior']:CreateFurniLow(coords)
 --     elseif Config.Houses[house].tier == 46 then
---         return exports['qb-interior']:CreateFurniMid(coords)
+--         return exports['norskpixel-interior']:CreateFurniMid(coords)
 --     elseif Config.Houses[house].tier == 47 then
---         return exports['qb-interior']:CreateFurniMotel(coords)
+--         return exports['norskpixel-interior']:CreateFurniMotel(coords)
 --     elseif Config.Houses[house].tier == 48 then
---         return exports['qb-interior']:CreateFurniMotelClassic(coords)
+--         return exports['norskpixel-interior']:CreateFurniMotelClassic(coords)
 --     elseif Config.Houses[house].tier == 49 then
---         return exports['qb-interior']:CreateFurniMotelStandard(coords)
+--         return exports['norskpixel-interior']:CreateFurniMotelStandard(coords)
 --     elseif Config.Houses[house].tier == 50 then
---         return exports['qb-interior']:CreateFurniMotelHigh(coords)
+--         return exports['norskpixel-interior']:CreateFurniMotelHigh(coords)
 --     elseif Config.Houses[house].tier == 51 then
---         return exports['qb-interior']:CreateFurniMotelModern(coords)
+--         return exports['norskpixel-interior']:CreateFurniMotelModern(coords)
 --     elseif Config.Houses[house].tier == 52 then
---         return exports['qb-interior']:CreateFurniMotelModern2(coords)
+--         return exports['norskpixel-interior']:CreateFurniMotelModern2(coords)
 --     elseif Config.Houses[house].tier == 53 then
---         return exports['qb-interior']:CreateFurniMotelModern3(coords)
+--         return exports['norskpixel-interior']:CreateFurniMotelModern3(coords)
 --     elseif Config.Houses[house].tier == 54 then
---         return exports['qb-interior']:CreateCoke(coords)
+--         return exports['norskpixel-interior']:CreateCoke(coords)
 --     elseif Config.Houses[house].tier == 55 then
---         return exports['qb-interior']:CreateCoke2(coords)
+--         return exports['norskpixel-interior']:CreateCoke2(coords)
 --     elseif Config.Houses[house].tier == 56 then
---         return exports['qb-interior']:CreateMeth(coords)
+--         return exports['norskpixel-interior']:CreateMeth(coords)
 --     elseif Config.Houses[house].tier == 57 then
---         return exports['qb-interior']:CreateWeed(coords)
+--         return exports['norskpixel-interior']:CreateWeed(coords)
 --     elseif Config.Houses[house].tier == 58 then
---         return exports['qb-interior']:CreateWeed2(coords)
+--         return exports['norskpixel-interior']:CreateWeed2(coords)
 --     elseif Config.Houses[house].tier == 59 then
---         return exports['qb-interior']:CreateMansion(coords)
+--         return exports['norskpixel-interior']:CreateMansion(coords)
 --     elseif Config.Houses[house].tier == 60 then
---         return exports['qb-interior']:CreateMansion2(coords)
+--         return exports['norskpixel-interior']:CreateMansion2(coords)
 --     elseif Config.Houses[house].tier == 61 then
---         return exports['qb-interior']:CreateMansion3(coords)
+--         return exports['norskpixel-interior']:CreateMansion3(coords)
 --     else
 --         QBCore.Functions.Notify('Invalid House Tier', 'error')
 --     end
@@ -578,10 +578,10 @@ local function enterOwnedHouse(house)
     POIOffsets = data[2]
     entering = true
     Wait(500)
-    TriggerServerEvent('qb-houses:server:SetInsideMeta', house, true)
-    --TriggerEvent('qb-weathersync:client:DisableSync')
-    TriggerEvent('qb-weathersync:client:EnableSync')
-    TriggerEvent('qb-weed:client:getHousePlants', house)
+    TriggerServerEvent('norskpixel-houses:server:SetInsideMeta', house, true)
+    --TriggerEvent('norskpixel-weathersync:client:DisableSync')
+    TriggerEvent('norskpixel-weathersync:client:EnableSync')
+    TriggerEvent('norskpixel-weed:client:getHousePlants', house)
     entering = false
     setHouseLocations()
     CloseMenuFull()
@@ -595,15 +595,15 @@ local function LeaveOwnedHouse(house)
         Wait(250)
         DoScreenFadeOut(250)
         Wait(500)
-        exports['qb-interior']:DespawnInterior(houseObj, function()
+        exports['norskpixel-interior']:DespawnInterior(houseObj, function()
             UnloadDecorations()
-            TriggerEvent('qb-weathersync:client:EnableSync')
+            TriggerEvent('norskpixel-weathersync:client:EnableSync')
             Wait(250)
             DoScreenFadeIn(250)
             SetEntityCoords(PlayerPedId(), Config.Houses[CurrentHouse].coords.enter.x, Config.Houses[CurrentHouse].coords.enter.y, Config.Houses[CurrentHouse].coords.enter.z + 0.2)
             SetEntityHeading(PlayerPedId(), Config.Houses[CurrentHouse].coords.enter.h)
-            TriggerEvent('qb-weed:client:leaveHouse')
-            TriggerServerEvent('qb-houses:server:SetInsideMeta', house, false)
+            TriggerEvent('norskpixel-weed:client:leaveHouse')
+            TriggerServerEvent('norskpixel-houses:server:SetInsideMeta', house, false)
             CurrentHouse = nil
         end)
     end
@@ -623,10 +623,10 @@ local function enterNonOwnedHouse(house)
     POIOffsets = data[2]
     entering = true
     Wait(500)
-    TriggerServerEvent('qb-houses:server:SetInsideMeta', house, true)
-    --TriggerEvent('qb-weathersync:client:DisableSync')
-    TriggerEvent('qb-weathersync:client:EnableSync')
-    TriggerEvent('qb-weed:client:getHousePlants', house)
+    TriggerServerEvent('norskpixel-houses:server:SetInsideMeta', house, true)
+    --TriggerEvent('norskpixel-weathersync:client:DisableSync')
+    TriggerEvent('norskpixel-weathersync:client:EnableSync')
+    TriggerEvent('norskpixel-weed:client:getHousePlants', house)
     entering = false
     InOwnedHouse = true
     setHouseLocations()
@@ -641,16 +641,16 @@ local function LeaveNonOwnedHouse(house)
         Wait(250)
         DoScreenFadeOut(250)
         Wait(500)
-        exports['qb-interior']:DespawnInterior(houseObj, function()
+        exports['norskpixel-interior']:DespawnInterior(houseObj, function()
             UnloadDecorations()
-            TriggerEvent('qb-weathersync:client:EnableSync')
+            TriggerEvent('norskpixel-weathersync:client:EnableSync')
             Wait(250)
             DoScreenFadeIn(250)
             SetEntityCoords(PlayerPedId(), Config.Houses[CurrentHouse].coords.enter.x, Config.Houses[CurrentHouse].coords.enter.y, Config.Houses[CurrentHouse].coords.enter.z + 0.2)
             SetEntityHeading(PlayerPedId(), Config.Houses[CurrentHouse].coords.enter.h)
             InOwnedHouse = false
-            TriggerEvent('qb-weed:client:leaveHouse')
-            TriggerServerEvent('qb-houses:server:SetInsideMeta', house, false)
+            TriggerEvent('norskpixel-weed:client:leaveHouse')
+            TriggerServerEvent('norskpixel-houses:server:SetInsideMeta', house, false)
             CurrentHouse = nil
         end)
     end
@@ -666,20 +666,20 @@ exports('HasHouseKey', HasHouseKey)
 
 -- Events
 
-RegisterNetEvent('qb-houses:server:sethousedecorations', function(house, decorations)
+RegisterNetEvent('norskpixel-houses:server:sethousedecorations', function(house, decorations)
 	Config.Houses[house].decorations = decorations
 	if IsInside and ClosestHouse == house then
 		LoadDecorations(house)
 	end
 end)
 
-RegisterNetEvent('qb-houses:client:sellHouse', function()
+RegisterNetEvent('norskpixel-houses:client:sellHouse', function()
     if ClosestHouse and HasHouseKey then
-        TriggerServerEvent('qb-houses:server:viewHouse', ClosestHouse)
+        TriggerServerEvent('norskpixel-houses:server:viewHouse', ClosestHouse)
     end
 end)
 
-RegisterNetEvent('qb-houses:client:EnterHouse', function()
+RegisterNetEvent('norskpixel-houses:client:EnterHouse', function()
     local ped = PlayerPedId()
     local pos = GetEntityCoords(ped)
 
@@ -697,19 +697,19 @@ RegisterNetEvent('qb-houses:client:EnterHouse', function()
     end
 end)
 
-RegisterNetEvent('qb-houses:client:RequestRing', function()
+RegisterNetEvent('norskpixel-houses:client:RequestRing', function()
     if ClosestHouse ~= nil then
-        TriggerServerEvent('qb-houses:server:RingDoor', ClosestHouse)
+        TriggerServerEvent('norskpixel-houses:server:RingDoor', ClosestHouse)
     end
 end)
 
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
     SetClosestHouse()
-    TriggerEvent('qb-houses:client:setupHouseBlips')
-    if Config.UnownedBlips then TriggerEvent('qb-houses:client:setupHouseBlips2') end
+    TriggerEvent('norskpixel-houses:client:setupHouseBlips')
+    if Config.UnownedBlips then TriggerEvent('norskpixel-houses:client:setupHouseBlips2') end
     Wait(100)
-    TriggerEvent('qb-garages:client:setHouseGarage', ClosestHouse, HasHouseKey)
-    TriggerServerEvent("qb-houses:server:setHouses")
+    TriggerEvent('norskpixel-garages:client:setHouseGarage', ClosestHouse, HasHouseKey)
+    TriggerServerEvent("norskpixel-houses:server:setHouses")
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
@@ -727,15 +727,15 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     end
 end)
 
-RegisterNetEvent('qb-houses:client:setHouseConfig', function(houseConfig)
+RegisterNetEvent('norskpixel-houses:client:setHouseConfig', function(houseConfig)
     Config.Houses = houseConfig
 end)
 
-RegisterNetEvent('qb-houses:client:lockHouse', function(bool, house)
+RegisterNetEvent('norskpixel-houses:client:lockHouse', function(bool, house)
     Config.Houses[house].locked = bool
 end)
 
-RegisterNetEvent('qb-houses:client:createHouses', function(price, tier)
+RegisterNetEvent('norskpixel-houses:client:createHouses', function(price, tier)
     local pos = GetEntityCoords(PlayerPedId())
     local heading = GetEntityHeading(PlayerPedId())
 	local s1, s2 = GetStreetNameAtCoord(pos.x, pos.y, pos.z)
@@ -745,11 +745,11 @@ RegisterNetEvent('qb-houses:client:createHouses', function(price, tier)
         cam 	= { x = pos.x, y = pos.y, z = pos.z, h = heading, yaw = -10.00},
     }
     street = street:gsub("%-", " ")
-    TriggerServerEvent('qb-houses:server:addNewHouse', street, coords, price, tier)
-    if Config.UnownedBlips then TriggerServerEvent('qb-houses:server:createBlip') end
+    TriggerServerEvent('norskpixel-houses:server:addNewHouse', street, coords, price, tier)
+    if Config.UnownedBlips then TriggerServerEvent('norskpixel-houses:server:createBlip') end
 end)
 
-RegisterNetEvent('qb-houses:client:addGarage', function()
+RegisterNetEvent('norskpixel-houses:client:addGarage', function()
     if ClosestHouse ~= nil then
         local pos = GetEntityCoords(PlayerPedId())
         local heading = GetEntityHeading(PlayerPedId())
@@ -759,22 +759,22 @@ RegisterNetEvent('qb-houses:client:addGarage', function()
             z = pos.z,
             h = heading,
         }
-        TriggerServerEvent('qb-houses:server:addGarage', ClosestHouse, coords)
+        TriggerServerEvent('norskpixel-houses:server:addGarage', ClosestHouse, coords)
     else
         QBCore.Functions.Notify("Ingen boliger i nærheden..", "error")
     end
 end)
 
-RegisterNetEvent('qb-houses:client:toggleDoorlock', function()
+RegisterNetEvent('norskpixel-houses:client:toggleDoorlock', function()
     local pos = GetEntityCoords(PlayerPedId())
     local dist = #(pos - vector3(Config.Houses[ClosestHouse].coords.enter.x, Config.Houses[ClosestHouse].coords.enter.y, Config.Houses[ClosestHouse].coords.enter.z))
     if dist <= 1.5 then
         if HasHouseKey then
             if Config.Houses[ClosestHouse].locked then
-                TriggerServerEvent('qb-houses:server:lockHouse', false, ClosestHouse)
+                TriggerServerEvent('norskpixel-houses:server:lockHouse', false, ClosestHouse)
                 QBCore.Functions.Notify("Boligen er ulåst!", "success", 2500)
             else
-                TriggerServerEvent('qb-houses:server:lockHouse', true, ClosestHouse)
+                TriggerServerEvent('norskpixel-houses:server:lockHouse', true, ClosestHouse)
                 QBCore.Functions.Notify("Boligen er låst!", "error", 2500)
             end
         else
@@ -785,7 +785,7 @@ RegisterNetEvent('qb-houses:client:toggleDoorlock', function()
     end
 end)
 
-RegisterNetEvent('qb-houses:client:RingDoor', function(player, house)
+RegisterNetEvent('norskpixel-houses:client:RingDoor', function(player, house)
     if ClosestHouse == house and IsInside then
         CurrentDoorBell = player
         TriggerServerEvent("InteractSound_SV:PlayOnSource", "doorbell", 0.1)
@@ -793,14 +793,14 @@ RegisterNetEvent('qb-houses:client:RingDoor', function(player, house)
     end
 end)
 
-RegisterNetEvent('qb-houses:client:giveHouseKey', function()
+RegisterNetEvent('norskpixel-houses:client:giveHouseKey', function()
     local player, distance = GetClosestPlayer()
     if player ~= -1 and distance < 2.5 and ClosestHouse ~= nil then
         local playerId = GetPlayerServerId(player)
         local pedpos = GetEntityCoords(PlayerPedId())
         local housedist = #(pedpos - vector3(Config.Houses[ClosestHouse].coords.enter.x, Config.Houses[ClosestHouse].coords.enter.y, Config.Houses[ClosestHouse].coords.enter.z))
         if housedist < 10 then
-            TriggerServerEvent('qb-houses:server:giveHouseKey', playerId, ClosestHouse)
+            TriggerServerEvent('norskpixel-houses:server:giveHouseKey', playerId, ClosestHouse)
         else
             QBCore.Functions.Notify("Du er ikke tæt nok på døren..", "error")
         end
@@ -811,12 +811,12 @@ RegisterNetEvent('qb-houses:client:giveHouseKey', function()
     end
 end)
 
-RegisterNetEvent('qb-houses:client:removeHouseKey', function()
+RegisterNetEvent('norskpixel-houses:client:removeHouseKey', function()
     if ClosestHouse ~= nil then
         local pedpos = GetEntityCoords(PlayerPedId())
         local housedist = #(pedpos - vector3(Config.Houses[ClosestHouse].coords.enter.x, Config.Houses[ClosestHouse].coords.enter.y, Config.Houses[ClosestHouse].coords.enter.z))
         if housedist <= 5 then
-            QBCore.Functions.TriggerCallback('qb-houses:server:getHouseOwner', function(result)
+            QBCore.Functions.TriggerCallback('norskpixel-houses:server:getHouseOwner', function(result)
                 if QBCore.Functions.GetPlayerData().citizenid == result then
                     HouseKeysMenu()
                 else
@@ -831,16 +831,16 @@ RegisterNetEvent('qb-houses:client:removeHouseKey', function()
     end
 end)
 
-RegisterNetEvent('qb-houses:client:RevokeKey', function(data)
+RegisterNetEvent('norskpixel-houses:client:RevokeKey', function(data)
     RemoveHouseKey(data.citizenData)
 end)
 
-RegisterNetEvent('qb-houses:client:refreshHouse', function(data)
+RegisterNetEvent('norskpixel-houses:client:refreshHouse', function(data)
     Wait(100)
     SetClosestHouse()
 end)
 
-RegisterNetEvent('qb-houses:client:SpawnInApartment', function(house)
+RegisterNetEvent('norskpixel-houses:client:SpawnInApartment', function(house)
     local pos = GetEntityCoords(PlayerPedId())
     if rangDoorbell ~= nil then
         if #(pos - vector3(Config.Houses[house].coords.enter.x, Config.Houses[house].coords.enter.y, Config.Houses[house].coords.enter.z)) > 5 then
@@ -851,7 +851,7 @@ RegisterNetEvent('qb-houses:client:SpawnInApartment', function(house)
     enterNonOwnedHouse(house)
 end)
 
-RegisterNetEvent('qb-houses:client:enterOwnedHouse', function(house)
+RegisterNetEvent('norskpixel-houses:client:enterOwnedHouse', function(house)
     QBCore.Functions.GetPlayerData(function(PlayerData)
 		if PlayerData.metadata["injail"] == 0 then
 			enterOwnedHouse(house)
@@ -859,7 +859,7 @@ RegisterNetEvent('qb-houses:client:enterOwnedHouse', function(house)
 	end)
 end)
 
-RegisterNetEvent('qb-houses:client:LastLocationHouse', function(houseId)
+RegisterNetEvent('norskpixel-houses:client:LastLocationHouse', function(houseId)
     QBCore.Functions.GetPlayerData(function(PlayerData)
 		if PlayerData.metadata["injail"] == 0 then
 			enterOwnedHouse(houseId)
@@ -867,11 +867,11 @@ RegisterNetEvent('qb-houses:client:LastLocationHouse', function(houseId)
 	end)
 end)
 
-RegisterNetEvent('qb-houses:client:setupHouseBlips', function() -- Setup owned on load
+RegisterNetEvent('norskpixel-houses:client:setupHouseBlips', function() -- Setup owned on load
     CreateThread(function()
         Wait(2000)
         if LocalPlayer.state.isLoggedIn then
-            QBCore.Functions.TriggerCallback('qb-houses:server:getOwnedHouses', function(ownedHouses)
+            QBCore.Functions.TriggerCallback('norskpixel-houses:server:getOwnedHouses', function(ownedHouses)
                 if ownedHouses then
                     for k, v in pairs(ownedHouses) do
                         local house = Config.Houses[ownedHouses[k]]
@@ -892,7 +892,7 @@ RegisterNetEvent('qb-houses:client:setupHouseBlips', function() -- Setup owned o
     end)
 end)
 
-RegisterNetEvent('qb-houses:client:setupHouseBlips2', function() -- Setup unowned on load
+RegisterNetEvent('norskpixel-houses:client:setupHouseBlips2', function() -- Setup unowned on load
     for k,v in pairs(Config.Houses) do
         if not v.owned then
             HouseBlip2 = AddBlipForCoord(v.coords.enter.x, v.coords.enter.y, v.coords.enter.z)
@@ -909,7 +909,7 @@ RegisterNetEvent('qb-houses:client:setupHouseBlips2', function() -- Setup unowne
     end
 end)
 
-RegisterNetEvent('qb-houses:client:createBlip', function(coords) -- Create unowned on command
+RegisterNetEvent('norskpixel-houses:client:createBlip', function(coords) -- Create unowned on command
     NewHouseBlip = AddBlipForCoord(coords.x, coords.y, coords.z)
     SetBlipSprite (NewHouseBlip, 40)
     SetBlipDisplay(NewHouseBlip, 4)
@@ -922,17 +922,17 @@ RegisterNetEvent('qb-houses:client:createBlip', function(coords) -- Create unown
     UnownedHouseBlips[#UnownedHouseBlips+1] = NewHouseBlip
 end)
 
-RegisterNetEvent('qb-houses:client:refreshBlips', function() -- Refresh unowned on buy
+RegisterNetEvent('norskpixel-houses:client:refreshBlips', function() -- Refresh unowned on buy
     for k,v in pairs(UnownedHouseBlips) do RemoveBlip(v) end
     Wait(250)
-    TriggerEvent('qb-houses:client:setupHouseBlips2')
+    TriggerEvent('norskpixel-houses:client:setupHouseBlips2')
 end)
 
-RegisterNetEvent('qb-houses:client:SetClosestHouse', function()
+RegisterNetEvent('norskpixel-houses:client:SetClosestHouse', function()
     SetClosestHouse()
 end)
 
-RegisterNetEvent('qb-houses:client:viewHouse', function(houseprice, brokerfee, bankfee, taxes, firstname, lastname)
+RegisterNetEvent('norskpixel-houses:client:viewHouse', function(houseprice, brokerfee, bankfee, taxes, firstname, lastname)
     setViewCam(Config.Houses[ClosestHouse].coords.cam, Config.Houses[ClosestHouse].coords.cam.h, Config.Houses[ClosestHouse].coords.yaw)
     Wait(500)
     openContract(true)
@@ -949,18 +949,18 @@ RegisterNetEvent('qb-houses:client:viewHouse', function(houseprice, brokerfee, b
     })
 end)
 
-RegisterNetEvent('qb-houses:client:setLocation', function(data)
+RegisterNetEvent('norskpixel-houses:client:setLocation', function(data)
     local ped = PlayerPedId()
     local pos = GetEntityCoords(ped)
     local coords = {x = pos.x, y = pos.y, z = pos.z}
     if IsInside then
         if HasHouseKey then
             if data.id == 'setstash' then
-                TriggerServerEvent('qb-houses:server:setLocation', coords, ClosestHouse, 1)
+                TriggerServerEvent('norskpixel-houses:server:setLocation', coords, ClosestHouse, 1)
             elseif data.id == 'setoutift' then
-                TriggerServerEvent('qb-houses:server:setLocation', coords, ClosestHouse, 2)
+                TriggerServerEvent('norskpixel-houses:server:setLocation', coords, ClosestHouse, 2)
             elseif data.id == 'setlogout' then
-                TriggerServerEvent('qb-houses:server:setLocation', coords, ClosestHouse, 3)
+                TriggerServerEvent('norskpixel-houses:server:setLocation', coords, ClosestHouse, 3)
             end
         else
             QBCore.Functions.Notify('Du ejer ikke boligen', 'error')
@@ -970,7 +970,7 @@ RegisterNetEvent('qb-houses:client:setLocation', function(data)
     end
 end)
 
-RegisterNetEvent('qb-houses:client:refreshLocations', function(house, location, type)
+RegisterNetEvent('norskpixel-houses:client:refreshLocations', function(house, location, type)
     if ClosestHouse == house then
         if IsInside then
             if type == 1 then
@@ -984,10 +984,10 @@ RegisterNetEvent('qb-houses:client:refreshLocations', function(house, location, 
     end
 end)
 
-RegisterNetEvent('qb-houses:client:HomeInvasion', function()
+RegisterNetEvent('norskpixel-houses:client:HomeInvasion', function()
     local ped = PlayerPedId()
     local pos = GetEntityCoords(ped)
-    local Skillbar = exports['qb-skillbar']:GetSkillbarObject()
+    local Skillbar = exports['norskpixel-skillbar']:GetSkillbarObject()
     if ClosestHouse ~= nil then
         QBCore.Functions.TriggerCallback('police:server:IsPoliceForcePresent', function(IsPresent)
             if IsPresent then
@@ -1005,10 +1005,10 @@ RegisterNetEvent('qb-houses:client:HomeInvasion', function()
                                 width = math.random(10, 20),
                             }, function()
                                 if RamsDone + 1 >= Config.RamsNeeded then
-                                    TriggerServerEvent('qb-houses:server:lockHouse', false, ClosestHouse)
+                                    TriggerServerEvent('norskpixel-houses:server:lockHouse', false, ClosestHouse)
                                     QBCore.Functions.Notify('Det virkede, døren er brudt!', 'success')
-                                    TriggerServerEvent('qb-houses:server:SetHouseRammed', true, ClosestHouse)
-                                    TriggerServerEvent('qb-houses:server:SetRamState', false, ClosestHouse)
+                                    TriggerServerEvent('norskpixel-houses:server:SetHouseRammed', true, ClosestHouse)
+                                    TriggerServerEvent('norskpixel-houses:server:SetRamState', false, ClosestHouse)
                                     DoRamAnimation(false)
                                 else
                                     DoRamAnimation(true)
@@ -1021,11 +1021,11 @@ RegisterNetEvent('qb-houses:client:HomeInvasion', function()
                                 end
                             end, function()
                                 RamsDone = 0
-                                TriggerServerEvent('qb-houses:server:SetRamState', false, ClosestHouse)
+                                TriggerServerEvent('norskpixel-houses:server:SetRamState', false, ClosestHouse)
                                 QBCore.Functions.Notify('Det fejlede, prøv igen.', 'error')
                                 DoRamAnimation(false)
                             end)
-                            TriggerServerEvent('qb-houses:server:SetRamState', true, ClosestHouse)
+                            TriggerServerEvent('norskpixel-houses:server:SetRamState', true, ClosestHouse)
                         else
                             QBCore.Functions.Notify('Nogen arbejder med døren..', 'error')
                         end
@@ -1044,26 +1044,26 @@ RegisterNetEvent('qb-houses:client:HomeInvasion', function()
     end
 end)
 
-RegisterNetEvent('qb-houses:client:SetRamState', function(bool, house)
+RegisterNetEvent('norskpixel-houses:client:SetRamState', function(bool, house)
     Config.Houses[house].IsRaming = bool
 end)
 
-RegisterNetEvent('qb-houses:client:SetHouseRammed', function(bool, house)
+RegisterNetEvent('norskpixel-houses:client:SetHouseRammed', function(bool, house)
     Config.Houses[house].IsRammed = bool
 end)
 
-RegisterNetEvent('qb-houses:client:ResetHouse', function()
+RegisterNetEvent('norskpixel-houses:client:ResetHouse', function()
     if ClosestHouse ~= nil then
         if Config.Houses[ClosestHouse].IsRammed == nil then
             Config.Houses[ClosestHouse].IsRammed = false
-            TriggerServerEvent('qb-houses:server:SetHouseRammed', false, ClosestHouse)
-            TriggerServerEvent('qb-houses:server:SetRamState', false, ClosestHouse)
+            TriggerServerEvent('norskpixel-houses:server:SetHouseRammed', false, ClosestHouse)
+            TriggerServerEvent('norskpixel-houses:server:SetRamState', false, ClosestHouse)
         end
         if Config.Houses[ClosestHouse].IsRammed then
             openHouseAnim()
-            TriggerServerEvent('qb-houses:server:SetHouseRammed', false, ClosestHouse)
-            TriggerServerEvent('qb-houses:server:SetRamState', false, ClosestHouse)
-            TriggerServerEvent('qb-houses:server:lockHouse', true, ClosestHouse)
+            TriggerServerEvent('norskpixel-houses:server:SetHouseRammed', false, ClosestHouse)
+            TriggerServerEvent('norskpixel-houses:server:SetRamState', false, ClosestHouse)
+            TriggerServerEvent('norskpixel-houses:server:lockHouse', true, ClosestHouse)
             RamsDone = 0
             QBCore.Functions.Notify('Du låste boligen igen..', 'success')
         else
@@ -1072,29 +1072,29 @@ RegisterNetEvent('qb-houses:client:ResetHouse', function()
     end
 end)
 
-RegisterNetEvent('qb-houses:client:ExitOwnedHouse', function()
+RegisterNetEvent('norskpixel-houses:client:ExitOwnedHouse', function()
     local door = vector3(Config.Houses[CurrentHouse].coords.enter.x + POIOffsets.exit.x, Config.Houses[CurrentHouse].coords.enter.y + POIOffsets.exit.y, Config.Houses[CurrentHouse].coords.enter.z - Config.MinZOffset + POIOffsets.exit.z)
     if CheckDistance(door, 1.5) then
         LeaveOwnedHouse(CurrentHouse)
     end
 end)
 
-RegisterNetEvent('qb-houses:client:FrontDoorCam', function()
+RegisterNetEvent('norskpixel-houses:client:FrontDoorCam', function()
     local door = vector3(Config.Houses[CurrentHouse].coords.enter.x + POIOffsets.exit.x, Config.Houses[CurrentHouse].coords.enter.y + POIOffsets.exit.y, Config.Houses[CurrentHouse].coords.enter.z - Config.MinZOffset + POIOffsets.exit.z)
     if CheckDistance(door, 1.5) then
         FrontDoorCam(Config.Houses[CurrentHouse].coords.enter)
     end
 end)
 
-RegisterNetEvent('qb-houses:client:AnswerDoorbell', function()
+RegisterNetEvent('norskpixel-houses:client:AnswerDoorbell', function()
     local door = vector3(Config.Houses[CurrentHouse].coords.enter.x + POIOffsets.exit.x, Config.Houses[CurrentHouse].coords.enter.y + POIOffsets.exit.y, Config.Houses[CurrentHouse].coords.enter.z - Config.MinZOffset + POIOffsets.exit.z)
     if CheckDistance(door, 1.5) and CurrentDoorBell ~= 0 then
-        TriggerServerEvent("qb-houses:server:OpenDoor", CurrentDoorBell, ClosestHouse)
+        TriggerServerEvent("norskpixel-houses:server:OpenDoor", CurrentDoorBell, ClosestHouse)
         CurrentDoorBell = 0
     end
 end)
 
-RegisterNetEvent('qb-houses:client:OpenStash', function()
+RegisterNetEvent('norskpixel-houses:client:OpenStash', function()
     local stashLoc = vector3(stashLocation.x, stashLocation.y, stashLocation.z)
     if CheckDistance(stashLoc, 1.5) then
         TriggerServerEvent("inventory:server:OpenInventory", "stash", CurrentHouse)
@@ -1103,46 +1103,46 @@ RegisterNetEvent('qb-houses:client:OpenStash', function()
     end
 end)
 
-RegisterNetEvent('qb-houses:client:ChangeCharacter', function()
+RegisterNetEvent('norskpixel-houses:client:ChangeCharacter', function()
     local stashLoc = vector3(logoutLocation.x, logoutLocation.y, logoutLocation.z)
     if CheckDistance(stashLoc, 1.5) then
         DoScreenFadeOut(250)
         while not IsScreenFadedOut() do
             Wait(10)
         end
-        exports['qb-interior']:DespawnInterior(houseObj, function()
-            TriggerEvent('qb-weathersync:client:EnableSync')
+        exports['norskpixel-interior']:DespawnInterior(houseObj, function()
+            TriggerEvent('norskpixel-weathersync:client:EnableSync')
             SetEntityCoords(PlayerPedId(), Config.Houses[CurrentHouse].coords.enter.x, Config.Houses[CurrentHouse].coords.enter.y, Config.Houses[CurrentHouse].coords.enter.z + 0.5)
             SetEntityHeading(PlayerPedId(), Config.Houses[CurrentHouse].coords.enter.h)
             InOwnedHouse = false
             IsInside = false
-            TriggerServerEvent('qb-houses:server:LogoutLocation')
+            TriggerServerEvent('norskpixel-houses:server:LogoutLocation')
         end)
     end
 end)
 
-RegisterNetEvent('qb-houses:client:ChangeOutfit', function()
+RegisterNetEvent('norskpixel-houses:client:ChangeOutfit', function()
     local outfitLoc = vector3(outfitLocation.x, outfitLocation.y, outfitLocation.z)
     if CheckDistance(outfitLoc, 1.5) then
         TriggerServerEvent("InteractSound_SV:PlayOnSource", "Clothes1", 0.4)
-        TriggerEvent('qb-clothing:client:openOutfitMenu')
+        TriggerEvent('norskpixel-clothing:client:openOutfitMenu')
     end
 end)
 
-RegisterNetEvent('qb-houses:client:ViewHouse', function()
+RegisterNetEvent('norskpixel-houses:client:ViewHouse', function()
     local houseCoords = vector3(Config.Houses[ClosestHouse].coords.enter.x, Config.Houses[ClosestHouse].coords.enter.y, Config.Houses[ClosestHouse].coords.enter.z)
     if CheckDistance(houseCoords, 1.5) then
-        TriggerServerEvent('qb-houses:server:viewHouse', ClosestHouse)
+        TriggerServerEvent('norskpixel-houses:server:viewHouse', ClosestHouse)
     end
 end)
 
-RegisterNetEvent('qb-houses:client:KeyholderOptions', function(data)
+RegisterNetEvent('norskpixel-houses:client:KeyholderOptions', function(data)
     optionMenu(data.citizenData)
 end)
 -- NUI Callbacks
 
 RegisterNUICallback('HasEnoughMoney', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-houses:server:HasEnoughMoney', function(hasEnough)
+    QBCore.Functions.TriggerCallback('norskpixel-houses:server:HasEnoughMoney', function(hasEnough)
     end, data.objectData)
 end)
 
@@ -1150,8 +1150,8 @@ RegisterNUICallback('buy', function()
     openContract(false)
     disableViewCam()
     Config.Houses[ClosestHouse].owned = true
-    if Config.UnownedBlips then TriggerEvent('qb-houses:client:refreshBlips') end
-    TriggerServerEvent('qb-houses:server:buyHouse', ClosestHouse)
+    if Config.UnownedBlips then TriggerEvent('norskpixel-houses:client:refreshBlips') end
+    TriggerServerEvent('norskpixel-houses:server:buyHouse', ClosestHouse)
 end)
 
 RegisterNUICallback('exit', function()
@@ -1164,11 +1164,11 @@ end)
 CreateThread(function()
     Wait(1000)
     SetClosestHouse()
-    TriggerEvent('qb-houses:client:setupHouseBlips')
-    if Config.UnownedBlips then TriggerEvent('qb-houses:client:setupHouseBlips2') end
+    TriggerEvent('norskpixel-houses:client:setupHouseBlips')
+    if Config.UnownedBlips then TriggerEvent('norskpixel-houses:client:setupHouseBlips2') end
     Wait(100)
-    TriggerEvent('qb-garages:client:setHouseGarage', ClosestHouse, HasHouseKey)
-    TriggerServerEvent("qb-houses:server:setHouses")
+    TriggerEvent('norskpixel-garages:client:setHouseGarage', ClosestHouse, HasHouseKey)
+    TriggerServerEvent("norskpixel-houses:server:setHouses")
 end)
 
 CreateThread(function()
@@ -1206,14 +1206,14 @@ CreateThread(function()
                                     {
                                         header = "Tilgå din bolig",
                                         params = {
-                                            event = "qb-houses:client:EnterHouse",
+                                            event = "norskpixel-houses:client:EnterHouse",
 
                                         }
                                     },
                                     {
                                         header = "Giv husnøgle",
                                         params = {
-                                            event = "qb-houses:client:giveHouseKey",
+                                            event = "norskpixel-houses:client:giveHouseKey",
                                         }
                                     }
                                 }
@@ -1228,14 +1228,14 @@ CreateThread(function()
                                     {
                                         header = "Forlad bolig",
                                         params = {
-                                            event = 'qb-houses:client:ExitOwnedHouse',
+                                            event = 'norskpixel-houses:client:ExitOwnedHouse',
                                             args = {}
                                         }
                                     },
                                     {
                                         header = "Front kamera",
                                         params = {
-                                            event = 'qb-houses:client:FrontDoorCam',
+                                            event = 'norskpixel-houses:client:FrontDoorCam',
                                             args = {}
                                         }
                                     }
@@ -1245,7 +1245,7 @@ CreateThread(function()
                                     houseMenu[#houseMenu+1] = {
                                         header = 'Åbn dør',
                                         params = {
-                                            event = 'qb-houses:client:AnswerDoorbell',
+                                            event = 'norskpixel-houses:client:AnswerDoorbell',
                                             args = {}
                                         }
                                     }
@@ -1265,7 +1265,7 @@ CreateThread(function()
                                         {
                                             header = "Se boligen",
                                             params = {
-                                                event = 'qb-houses:client:ViewHouse',
+                                                event = 'norskpixel-houses:client:ViewHouse',
                                                 args = {}
                                             }
                                         }
@@ -1283,7 +1283,7 @@ CreateThread(function()
                                     {
                                         header = "Ring på klokken",
                                         params = {
-                                            event = 'qb-houses:client:RequestRing',
+                                            event = 'norskpixel-houses:client:RequestRing',
                                             args = {}
                                         }
                                     }
@@ -1292,14 +1292,14 @@ CreateThread(function()
                                     houseMenu[#houseMenu+1] ={
                                         header = "Tilgå ulåst bolig",
                                         params = {
-                                            event = "qb-houses:client:EnterHouse",
+                                            event = "norskpixel-houses:client:EnterHouse",
                                         }
                                     }
                                     if QBCore.Functions.GetPlayerData().job.name == 'police' then
                                         houseMenu[#houseMenu+1] ={
                                             header = "Lås bolig",
                                             params = {
-                                                event = "qb-houses:client:ResetHouse",
+                                                event = "norskpixel-houses:client:ResetHouse",
                                             }
                                         }
                                     end
@@ -1316,7 +1316,7 @@ CreateThread(function()
                                     {
                                         header = "Forlad bolig",
                                         params = {
-                                            event = 'qb-houses:client:ExitOwnedHouse',
+                                            event = 'norskpixel-houses:client:ExitOwnedHouse',
                                             args = {}
                                         }
                                     }
@@ -1335,7 +1335,7 @@ CreateThread(function()
                                 {
                                     header = "Åbn stash",
                                     params = {
-                                        event = "qb-houses:client:OpenStash",
+                                        event = "norskpixel-houses:client:OpenStash",
                                         args = {}
                                     }
                                 }
@@ -1353,7 +1353,7 @@ CreateThread(function()
                                 {
                                     header = "Ændre outfit",
                                     params = {
-                                        event = "qb-houses:client:ChangeOutfit",
+                                        event = "norskpixel-houses:client:ChangeOutfit",
                                         args = {}
                                     }
                                 }
@@ -1370,7 +1370,7 @@ CreateThread(function()
                                 {
                                     header = "Ændre karakter",
                                     params = {
-                                        event = "qb-houses:client:ChangeCharacter",
+                                        event = "norskpixel-houses:client:ChangeCharacter",
                                         args = {}
                                     }
                                 }
@@ -1382,7 +1382,7 @@ CreateThread(function()
                 end
 
                 if nearLocation and not shownMenu then
-                    exports['qb-menu']:showHeader(houseMenu)
+                    exports['norskpixel-menu']:showHeader(houseMenu)
                     shownMenu = true
                 end
 

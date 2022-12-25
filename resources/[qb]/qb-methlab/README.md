@@ -1,4 +1,4 @@
-# qb-methlab
+# norskpixel-methlab
 
 Meth Creation for QBCore
 

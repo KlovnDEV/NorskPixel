@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local inside = false
 local currentHouse = nil
 local closestHouse
@@ -52,7 +52,7 @@ local function enterRobberyHouse(house)
     Wait(250)
     local coords = { x = Config.Houses[house]["coords"]["x"], y = Config.Houses[house]["coords"]["y"], z= Config.Houses[house]["coords"]["z"] - Config.MinZOffset}
     if Config.Houses[house]["tier"] == 1 then
-        data = exports['qb-interior']:CreateHouseRobbery(coords)
+        data = exports['norskpixel-interior']:CreateHouseRobbery(coords)
     end
     Wait(100)
     houseObj = data[1]
@@ -60,7 +60,7 @@ local function enterRobberyHouse(house)
     inside = true
     currentHouse = house
     Wait(500)
-    TriggerEvent('qb-weathersync:client:DisableSync')
+    TriggerEvent('norskpixel-weathersync:client:DisableSync')
 end
 
 local function leaveRobberyHouse(house)
@@ -70,8 +70,8 @@ local function leaveRobberyHouse(house)
     Wait(250)
     DoScreenFadeOut(250)
     Wait(500)
-    exports['qb-interior']:DespawnInterior(houseObj, function()
-        TriggerEvent('qb-weathersync:client:EnableSync')
+    exports['norskpixel-interior']:DespawnInterior(houseObj, function()
+        TriggerEvent('norskpixel-weathersync:client:EnableSync')
         Wait(250)
         DoScreenFadeIn(250)
         SetEntityCoords(ped, Config.Houses[house]["coords"]["x"], Config.Houses[house]["coords"]["y"], Config.Houses[house]["coords"]["z"] + 0.5)
@@ -93,7 +93,7 @@ end
 
 local function lockpickFinish(success)
     if success then
-        TriggerServerEvent('qb-houserobbery:server:enterHouse', closestHouse)
+        TriggerServerEvent('norskpixel-houserobbery:server:enterHouse', closestHouse)
         QBCore.Functions.Notify('Det virkede!', 'success', 2500)
     else
         if usingAdvanced then
@@ -147,13 +147,13 @@ end
 
 local function searchCabin(cabin)
     local ped = PlayerPedId()
-    local Skillbar = exports['qb-skillbar']:GetSkillbarObject()
+    local Skillbar = exports['norskpixel-skillbar']:GetSkillbarObject()
     if math.random(1, 100) <= 85 and not IsWearingHandshoes() then
         local pos = GetEntityCoords(PlayerPedId())
         TriggerServerEvent("evidence:server:CreateFingerDrop", pos)
     end
     LockpickDoorAnim()
-    TriggerServerEvent('qb-houserobbery:server:SetBusyState', cabin, currentHouse, true)
+    TriggerServerEvent('norskpixel-houserobbery:server:SetBusyState', cabin, currentHouse, true)
     FreezeEntityPosition(ped, true)
     IsLockpicking = true
     Skillbar.Start({
@@ -164,9 +164,9 @@ local function searchCabin(cabin)
         if SucceededAttempts + 1 >= NeededAttempts then
             openingDoor = false
             ClearPedTasks(PlayerPedId())
-            TriggerServerEvent('qb-houserobbery:server:searchCabin', cabin, currentHouse)
+            TriggerServerEvent('norskpixel-houserobbery:server:searchCabin', cabin, currentHouse)
             Config.Houses[currentHouse]["furniture"][cabin]["searched"] = true
-            TriggerServerEvent('qb-houserobbery:server:SetBusyState', cabin, currentHouse, false)
+            TriggerServerEvent('norskpixel-houserobbery:server:SetBusyState', cabin, currentHouse, false)
             SucceededAttempts = 0
             FreezeEntityPosition(ped, false)
             SetTimeout(500, function()
@@ -183,7 +183,7 @@ local function searchCabin(cabin)
     end, function()
         openingDoor = false
         ClearPedTasks(PlayerPedId())
-        TriggerServerEvent('qb-houserobbery:server:SetBusyState', cabin, currentHouse, false)
+        TriggerServerEvent('norskpixel-houserobbery:server:SetBusyState', cabin, currentHouse, false)
         QBCore.Functions.Notify("Afbrudt..", "error")
         SucceededAttempts = 0
         FreezeEntityPosition(ped, false)
@@ -196,12 +196,12 @@ end
 -- Events
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-    QBCore.Functions.TriggerCallback('qb-houserobbery:server:GetHouseConfig', function(HouseConfig)
+    QBCore.Functions.TriggerCallback('norskpixel-houserobbery:server:GetHouseConfig', function(HouseConfig)
         Config.Houses = HouseConfig
     end)
 end)
 
-RegisterNetEvent('qb-houserobbery:client:ResetHouseState', function(house)
+RegisterNetEvent('norskpixel-houserobbery:client:ResetHouseState', function(house)
     Config.Houses[house]["opened"] = false
     for k, v in pairs(Config.Houses[house]["furniture"]) do
         v["searched"] = false
@@ -212,19 +212,19 @@ RegisterNetEvent('police:SetCopCount', function(amount)
     CurrentCops = amount
 end)
 
-RegisterNetEvent('qb-houserobbery:client:enterHouse', function(house)
+RegisterNetEvent('norskpixel-houserobbery:client:enterHouse', function(house)
     enterRobberyHouse(house)
 end)
 
-RegisterNetEvent('qb-houserobbery:client:setHouseState', function(house, state)
+RegisterNetEvent('norskpixel-houserobbery:client:setHouseState', function(house, state)
     Config.Houses[house]["opened"] = state
 end)
 
-RegisterNetEvent('qb-houserobbery:client:setCabinState', function(house, cabin, state)
+RegisterNetEvent('norskpixel-houserobbery:client:setCabinState', function(house, cabin, state)
     Config.Houses[house]["furniture"][cabin]["searched"] = state
 end)
 
-RegisterNetEvent('qb-houserobbery:client:SetBusyState', function(cabin, house, bool)
+RegisterNetEvent('norskpixel-houserobbery:client:SetBusyState', function(cabin, house, bool)
     Config.Houses[house]["furniture"][cabin]["isBusy"] = bool
 end)
 
@@ -237,7 +237,7 @@ RegisterNetEvent('lockpicks:UseLockpick', function(isAdvanced)
                 if CurrentCops >= Config.MinimumHouseRobberyPolice then
                     if not Config.Houses[closestHouse]["opened"] then
                         PoliceCall()
-                        TriggerEvent('qb-lockpick:client:openLockpick', lockpickFinish)
+                        TriggerEvent('norskpixel-lockpick:client:openLockpick', lockpickFinish)
                         if math.random(1, 100) <= 85 and not IsWearingHandshoes() then
                             local pos = GetEntityCoords(PlayerPedId())
                             TriggerServerEvent("evidence:server:CreateFingerDrop", pos)
@@ -256,7 +256,7 @@ RegisterNetEvent('lockpicks:UseLockpick', function(isAdvanced)
                         if CurrentCops >= Config.MinimumHouseRobberyPolice then
                             if not Config.Houses[closestHouse]["opened"] then
                                 PoliceCall()
-                                TriggerEvent('qb-lockpick:client:openLockpick', lockpickFinish)
+                                TriggerEvent('norskpixel-lockpick:client:openLockpick', lockpickFinish)
                                 if math.random(1, 100) <= 85 and not IsWearingHandshoes() then
                                     local pos = GetEntityCoords(PlayerPedId())
                                     TriggerServerEvent("evidence:server:CreateFingerDrop", pos)

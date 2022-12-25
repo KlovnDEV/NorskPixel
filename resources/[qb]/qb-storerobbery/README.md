@@ -1,4 +1,4 @@
-# qb-storerobbery
+# norskpixel-storerobbery
 Store Robberies For QB-Core
 
 # License

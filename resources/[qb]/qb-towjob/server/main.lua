@@ -1,9 +1,9 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local PaymentTax = 15
 local Bail = {}
 
-RegisterNetEvent('qb-tow:server:DoBail', function(bool, vehInfo)
+RegisterNetEvent('norskpixel-tow:server:DoBail', function(bool, vehInfo)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if bool then
@@ -11,12 +11,12 @@ RegisterNetEvent('qb-tow:server:DoBail', function(bool, vehInfo)
             Bail[Player.PlayerData.citizenid] = Config.BailPrice
             Player.Functions.RemoveMoney('cash', Config.BailPrice, "tow-paid-bail")
             TriggerClientEvent('QBCore:Notify', src, 'Du har betalt et depositum på 1000,- DKK', 'success')
-            TriggerClientEvent('qb-tow:client:SpawnVehicle', src, vehInfo)
+            TriggerClientEvent('norskpixel-tow:client:SpawnVehicle', src, vehInfo)
         elseif Player.PlayerData.money.bank >= Config.BailPrice then
             Bail[Player.PlayerData.citizenid] = Config.BailPrice
             Player.Functions.RemoveMoney('bank', Config.BailPrice, "tow-paid-bail")
             TriggerClientEvent('QBCore:Notify', src, 'Du har betalt: '..Config.BailPrice..' DKK', 'success')
-            TriggerClientEvent('qb-tow:client:SpawnVehicle', src, vehInfo)
+            TriggerClientEvent('norskpixel-tow:client:SpawnVehicle', src, vehInfo)
         else
             TriggerClientEvent('QBCore:Notify', src, 'Ikke nok penge, depositummet er: '..Config.BailPrice..' DKK', 'error')
         end
@@ -29,13 +29,13 @@ RegisterNetEvent('qb-tow:server:DoBail', function(bool, vehInfo)
     end
 end)
 
-RegisterNetEvent('qb-tow:server:nano', function()
+RegisterNetEvent('norskpixel-tow:server:nano', function()
     local xPlayer = QBCore.Functions.GetPlayer(tonumber(source))
 	xPlayer.Functions.AddItem("cryptostick", 1, false)
 	TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items["cryptostick"], "add")
 end)
 
-RegisterNetEvent('qb-tow:server:11101110', function(drops)
+RegisterNetEvent('norskpixel-tow:server:11101110', function(drops)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local drops = tonumber(drops)
@@ -66,6 +66,6 @@ end)
 QBCore.Commands.Add("tow", "Placer et køretøj på et lad", {}, false, function(source, args)
     local Player = QBCore.Functions.GetPlayer(source)
     if Player.PlayerData.job.name == "tow"  or Player.PlayerData.job.name == "mechanic" then
-        TriggerClientEvent("qb-tow:client:TowVehicle", source)
+        TriggerClientEvent("norskpixel-tow:client:TowVehicle", source)
     end
 end)

@@ -1,13 +1,13 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 QBCore.Functions.CreateUseableItem("fitbit", function(source, item)
     local Player = QBCore.Functions.GetPlayer(source)
-    TriggerClientEvent('qb-fitbit:use', source)
+    TriggerClientEvent('norskpixel-fitbit:use', source)
 end)
 
-RegisterServerEvent('qb-fitbit:server:setValue')
-AddEventHandler('qb-fitbit:server:setValue', function(type, value)
+RegisterServerEvent('norskpixel-fitbit:server:setValue')
+AddEventHandler('norskpixel-fitbit:server:setValue', function(type, value)
     local src = source
     local ply = QBCore.Functions.GetPlayer(src)
     local fitbitData = {}
@@ -29,7 +29,7 @@ AddEventHandler('qb-fitbit:server:setValue', function(type, value)
     ply.Functions.SetMetaData('fitbit', fitbitData)
 end)
 
-QBCore.Functions.CreateCallback('qb-fitbit:server:HasFitbit', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-fitbit:server:HasFitbit', function(source, cb)
     local Ply = QBCore.Functions.GetPlayer(source)
     local Fitbit = Ply.Functions.GetItemByName("fitbit")
 

@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 InBank = false
 blips = {}
@@ -42,7 +42,7 @@ local function removeBlips()
 end
 
 local function openAccountScreen()
-    QBCore.Functions.TriggerCallback('qb-banking:getBankingInformation', function(banking)
+    QBCore.Functions.TriggerCallback('norskpixel-banking:getBankingInformation', function(banking)
         if banking ~= nil then
             InBank = true
             SetNuiFocus(true, true)
@@ -65,21 +65,21 @@ RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     removeBlips()
 end)
 
-RegisterNetEvent('qb-banking:transferError', function(msg)
+RegisterNetEvent('norskpixel-banking:transferError', function(msg)
     SendNUIMessage({
         status = "transferError",
         error = msg
     })
 end)
 
-RegisterNetEvent('qb-banking:successAlert', function(msg)
+RegisterNetEvent('norskpixel-banking:successAlert', function(msg)
     SendNUIMessage({
         status = "successMessage",
         message = msg
     })
 end)
 
-RegisterNetEvent('qb-banking:openBankScreen', function()
+RegisterNetEvent('norskpixel-banking:openBankScreen', function()
     openAccountScreen()
 end)
 
@@ -128,7 +128,7 @@ RegisterNetEvent("hidemenu", function()
     })
 end)
 
-RegisterNetEvent('qb-banking:client:newCardSuccess', function(cardno, ctype)
+RegisterNetEvent('norskpixel-banking:client:newCardSuccess', function(cardno, ctype)
     SendNUIMessage({
         status = "updateCard",
         number = cardno,
@@ -147,70 +147,70 @@ RegisterNUICallback("NUIFocusOff", function(data, cb)
 end)
 
 RegisterNUICallback("createSavingsAccount", function(data, cb)
-    TriggerServerEvent('qb-banking:createSavingsAccount')
+    TriggerServerEvent('norskpixel-banking:createSavingsAccount')
 end)
 
 RegisterNUICallback("doDeposit", function(data, cb)
     if tonumber(data.amount) ~= nil and tonumber(data.amount) > 0 then
-        TriggerServerEvent('qb-banking:doQuickDeposit', data.amount)
+        TriggerServerEvent('norskpixel-banking:doQuickDeposit', data.amount)
         openAccountScreen()
     end
 end)
 
 RegisterNUICallback("doWithdraw", function(data, cb)
     if tonumber(data.amount) ~= nil and tonumber(data.amount) > 0 then
-        TriggerServerEvent('qb-banking:doQuickWithdraw', data.amount, true)
+        TriggerServerEvent('norskpixel-banking:doQuickWithdraw', data.amount, true)
         openAccountScreen()
     end
 end)
 
 RegisterNUICallback("doATMWithdraw", function(data, cb)
     if tonumber(data.amount) ~= nil and tonumber(data.amount) > 0 then
-        TriggerServerEvent('qb-banking:doQuickWithdraw', data.amount, false)
+        TriggerServerEvent('norskpixel-banking:doQuickWithdraw', data.amount, false)
         openAccountScreen()
     end
 end)
 
 RegisterNUICallback("savingsDeposit", function(data, cb)
     if tonumber(data.amount) ~= nil and tonumber(data.amount) > 0 then
-        TriggerServerEvent('qb-banking:savingsDeposit', data.amount)
+        TriggerServerEvent('norskpixel-banking:savingsDeposit', data.amount)
         openAccountScreen()
     end
 end)
 
 RegisterNUICallback("requestNewCard", function(data, cb)
-    TriggerServerEvent('qb-banking:createNewCard')
+    TriggerServerEvent('norskpixel-banking:createNewCard')
 end)
 
 RegisterNUICallback("savingsWithdraw", function(data, cb)
     if tonumber(data.amount) ~= nil and tonumber(data.amount) > 0 then
-        TriggerServerEvent('qb-banking:savingsWithdraw', data.amount)
+        TriggerServerEvent('norskpixel-banking:savingsWithdraw', data.amount)
         openAccountScreen()
     end
 end)
 
 RegisterNUICallback("doTransfer", function(data, cb)
     if data ~= nil then
-        TriggerServerEvent('qb-banking:initiateTransfer', data)
+        TriggerServerEvent('norskpixel-banking:initiateTransfer', data)
     end
 end)
 
 RegisterNUICallback("createDebitCard", function(data, cb)
     if data.pin ~= nil then
-        TriggerServerEvent('qb-banking:createBankCard', data.pin)
+        TriggerServerEvent('norskpixel-banking:createBankCard', data.pin)
     end
 end)
 
 RegisterNUICallback("lockCard", function(data, cb)
-    TriggerServerEvent('qb-banking:toggleCard', true)
+    TriggerServerEvent('norskpixel-banking:toggleCard', true)
 end)
 
 RegisterNUICallback("unLockCard", function(data, cb)
-    TriggerServerEvent('qb-banking:toggleCard', false)
+    TriggerServerEvent('norskpixel-banking:toggleCard', false)
 end)
 
 RegisterNUICallback("updatePin", function(data, cb)
     if data.pin ~= nil then
-        TriggerServerEvent('qb-banking:updatePin', data.pin)
+        TriggerServerEvent('norskpixel-banking:updatePin', data.pin)
     end
 end)

@@ -1,4 +1,4 @@
-# qb-garbagejob
+# norskpixel-garbagejob
 Garbage Job For QB-Core
 
 # License

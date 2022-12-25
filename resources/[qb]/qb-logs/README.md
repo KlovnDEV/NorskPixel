@@ -1,4 +1,4 @@
-# qb-logs
+# norskpixel-logs
 Discord Logging System For QB-Core
 
 # License

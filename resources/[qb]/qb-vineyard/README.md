@@ -1,4 +1,4 @@
-# qb-vineyard
+# norskpixel-vineyard
 Vineyard Job For QB-Core
 
 # License

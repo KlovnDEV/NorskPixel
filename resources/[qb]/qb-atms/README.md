@@ -1,4 +1,4 @@
-# qb-atms
+# norskpixel-atms
 Useable ATMs for QB-Core
 
 # License

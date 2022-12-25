@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local inWatch = false
 
@@ -29,14 +29,14 @@ RegisterNUICallback('close', function()
     closeWatch()
 end)
 
-RegisterNetEvent('qb-fitbit:use', function()
+RegisterNetEvent('norskpixel-fitbit:use', function()
     openWatch()
 end)
 
 RegisterNUICallback('setFoodWarning', function(data)
     local foodValue = tonumber(data.value)
 
-    TriggerServerEvent('qb-fitbit:server:setValue', 'food', foodValue)
+    TriggerServerEvent('norskpixel-fitbit:server:setValue', 'food', foodValue)
 
     QBCore.Functions.Notify('Fitbit: Sult advarsel sat til '..foodValue..'%')
 end)
@@ -44,7 +44,7 @@ end)
 RegisterNUICallback('setThirstWarning', function(data)
     local thirstValue = tonumber(data.value)
 
-    TriggerServerEvent('qb-fitbit:server:setValue', 'thirst', thirstValue)
+    TriggerServerEvent('norskpixel-fitbit:server:setValue', 'thirst', thirstValue)
 
     QBCore.Functions.Notify('Fitbit: Tørst advarsel sat til '..thirstValue..'%')
 end)
@@ -53,7 +53,7 @@ Citizen.CreateThread(function()
     while true do
         Citizen.Wait(5 * 60 * 1000)
         if LocalPlayer.state.isLoggedIn then
-            QBCore.Functions.TriggerCallback('qb-fitbit:server:HasFitbit', function(hasItem)
+            QBCore.Functions.TriggerCallback('norskpixel-fitbit:server:HasFitbit', function(hasItem)
                 if hasItem then
                     local PlayerData = QBCore.Functions.GetPlayerData()
                     if PlayerData.metadata["fitbit"].food ~= nil then

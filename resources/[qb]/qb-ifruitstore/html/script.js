@@ -108,7 +108,7 @@ $(document).ready(function() {
         if (distance < HitDistance) {
             // if (unghi > MainAngle - 25 && unghi < MainAngle + 25) {
             MainDigits--;
-            $.post("https://qb-ifruitstore/thermiteclick");
+            $.post("https://norskpixel-ifruitstore/thermiteclick");
             // If game over, hide the game, display end of game options
             if (!MainDigits) {
                 $("#circle").addClass("hidden");
@@ -198,18 +198,18 @@ Thermite.Open = function(data) {
 }
 
 Thermite.Failed = function() {
-    if (active) $.post("https://qb-ifruitstore/thermitefailed");
+    if (active) $.post("https://norskpixel-ifruitstore/thermitefailed");
     active = false;
     Thermite.Close();
 }
 
 Thermite.Success = function() {
-    if (active) $.post("https://qb-ifruitstore/thermitesuccess");
+    if (active) $.post("https://norskpixel-ifruitstore/thermitesuccess");
     active = false;
     Thermite.Close();
 }
 
 Thermite.Close = function() {
     $('.thermite-container').css("display", "none");
-    $.post('https://qb-ifruitstore/closethermite');
+    $.post('https://norskpixel-ifruitstore/closethermite');
 }

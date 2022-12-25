@@ -1,4 +1,4 @@
-# qb-jewelery
+# norskpixel-jewelery
 Jewelry Robbery For QB-Core
 
 # License

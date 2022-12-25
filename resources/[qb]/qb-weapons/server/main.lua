@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 -- Functions
 
@@ -107,7 +107,7 @@ QBCore.Functions.CreateCallback("weapons:server:RepairWeapon", function(source, 
                         Config.WeaponRepairPoints[RepairPoint].IsRepairing = false
                         Config.WeaponRepairPoints[RepairPoint].RepairingData.Ready = true
                         TriggerClientEvent('weapons:client:SyncRepairShops', -1, Config.WeaponRepairPoints[RepairPoint], RepairPoint)
-                        TriggerEvent('qb-phone:server:sendNewMailToOffline', Player.PlayerData.citizenid, {
+                        TriggerEvent('norskpixel-phone:server:sendNewMailToOffline', Player.PlayerData.citizenid, {
                             sender = "Tyrone",
                             subject = "Reparer",
                             message = "Din/dit "..WeaponData.label.." er blevet lavet, hent den. <br><br> Peace out madafaka!"

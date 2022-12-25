@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local ItemTable = {
     "metalscrap",
@@ -11,8 +11,8 @@ local ItemTable = {
     "glass",
 }
 
-RegisterServerEvent("qb-recycle:server:getItem")
-AddEventHandler("qb-recycle:server:getItem", function()
+RegisterServerEvent("norskpixel-recycle:server:getItem")
+AddEventHandler("norskpixel-recycle:server:getItem", function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     for i = 1, math.random(1, 5), 1 do

@@ -1,7 +1,7 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
-QBCore.Functions.CreateCallback('qb-spawn:server:getOwnedHouses', function(source, cb, cid)
+QBCore.Functions.CreateCallback('norskpixel-spawn:server:getOwnedHouses', function(source, cb, cid)
     if cid ~= nil then
         local houses = exports.oxmysql:executeSync('SELECT * FROM player_houses WHERE citizenid = ?', {cid})
         if houses[1] ~= nil then

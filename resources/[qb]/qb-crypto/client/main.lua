@@ -1,6 +1,6 @@
 
 -- Variables
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local requiredItemsShowed = false
 local requiredItems = {[1] = {name = QBCore.Shared.Items["cryptostick"]["name"], image = QBCore.Shared.Items["cryptostick"]["image"]}}
 
@@ -22,7 +22,7 @@ local function DrawText3Ds(coords, text)
 end
 
 local function ExchangeSuccess()
-	TriggerServerEvent('qb-crypto:server:ExchangeSuccess', math.random(1, 10))
+	TriggerServerEvent('norskpixel-crypto:server:ExchangeSuccess', math.random(1, 10))
 end
 
 local function ExchangeFail()
@@ -30,8 +30,8 @@ local function ExchangeFail()
 	local RemoveChance = math.random(1, Odd)
 	local LosingNumber = math.random(1, Odd)
 	if RemoveChance == LosingNumber then
-		TriggerServerEvent('qb-crypto:server:ExchangeFail')
-		TriggerServerEvent('qb-crypto:server:SyncReboot')
+		TriggerServerEvent('norskpixel-crypto:server:ExchangeFail')
+		TriggerServerEvent('norskpixel-crypto:server:SyncReboot')
 	end
 end
 
@@ -40,11 +40,11 @@ local function SystemCrashCooldown()
 		while Crypto.Exchange.RebootInfo.state do
 			if (Crypto.Exchange.RebootInfo.percentage + 1) <= 100 then
 				Crypto.Exchange.RebootInfo.percentage = Crypto.Exchange.RebootInfo.percentage + 1
-				TriggerServerEvent('qb-crypto:server:Rebooting', true, Crypto.Exchange.RebootInfo.percentage)
+				TriggerServerEvent('norskpixel-crypto:server:Rebooting', true, Crypto.Exchange.RebootInfo.percentage)
 			else
 				Crypto.Exchange.RebootInfo.percentage = 0
 				Crypto.Exchange.RebootInfo.state = false
-				TriggerServerEvent('qb-crypto:server:Rebooting', false, 0)
+				TriggerServerEvent('norskpixel-crypto:server:Rebooting', false, 0)
 			end
 			Wait(1200)
 		end
@@ -79,7 +79,7 @@ CreateThread(function()
 						end
 
 						if IsControlJustPressed(0, 38) then
-							QBCore.Functions.TriggerCallback('qb-crypto:server:HasSticky', function(HasItem)
+							QBCore.Functions.TriggerCallback('norskpixel-crypto:server:HasSticky', function(HasItem)
 								if HasItem then
 									TriggerEvent("mhacking:show")
 									TriggerEvent("mhacking:start", math.random(4, 6), 45, HackingSuccess)
@@ -105,24 +105,24 @@ end)
 
 -- Events
 
-RegisterNetEvent('qb-crypto:client:SyncReboot', function()
+RegisterNetEvent('norskpixel-crypto:client:SyncReboot', function()
 	Crypto.Exchange.RebootInfo.state = true
 	SystemCrashCooldown()
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-	TriggerServerEvent('qb-crypto:server:FetchWorth')
-	TriggerServerEvent('qb-crypto:server:GetRebootState')
+	TriggerServerEvent('norskpixel-crypto:server:FetchWorth')
+	TriggerServerEvent('norskpixel-crypto:server:GetRebootState')
 end)
 
-RegisterNetEvent('qb-crypto:client:UpdateCryptoWorth', function(crypto, amount, history)
+RegisterNetEvent('norskpixel-crypto:client:UpdateCryptoWorth', function(crypto, amount, history)
 	Crypto.Worth[crypto] = amount
 	if history ~= nil then
 		Crypto.History[crypto] = history
 	end
 end)
 
-RegisterNetEvent('qb-crypto:client:GetRebootState', function(RebootInfo)
+RegisterNetEvent('norskpixel-crypto:client:GetRebootState', function(RebootInfo)
 	if RebootInfo.state then
 		Crypto.Exchange.RebootInfo.state = RebootInfo.state
 		Crypto.Exchange.RebootInfo.percentage = RebootInfo.percentage

@@ -1,11 +1,11 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local PaymentTax = 15
 local Bail = {}
 
-RegisterServerEvent('qb-trucker:server:DoBail')
-AddEventHandler('qb-trucker:server:DoBail', function(bool, vehInfo)
+RegisterServerEvent('norskpixel-trucker:server:DoBail')
+AddEventHandler('norskpixel-trucker:server:DoBail', function(bool, vehInfo)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
@@ -14,12 +14,12 @@ AddEventHandler('qb-trucker:server:DoBail', function(bool, vehInfo)
             Bail[Player.PlayerData.citizenid] = Config.BailPrice
             Player.Functions.RemoveMoney('cash', Config.BailPrice, "tow-received-bail")
             TriggerClientEvent('QBCore:Notify', src, '250 DKK i depositum blev kontant afregnet', 'success')
-            TriggerClientEvent('qb-trucker:client:SpawnVehicle', src, vehInfo)
+            TriggerClientEvent('norskpixel-trucker:client:SpawnVehicle', src, vehInfo)
         elseif Player.PlayerData.money.bank >= Config.BailPrice then
             Bail[Player.PlayerData.citizenid] = Config.BailPrice
             Player.Functions.RemoveMoney('bank', Config.BailPrice, "tow-received-bail")
             TriggerClientEvent('QBCore:Notify', src, '250 DKK i depositum blev betalt fra din konto', 'success')
-            TriggerClientEvent('qb-trucker:client:SpawnVehicle', src, vehInfo)
+            TriggerClientEvent('norskpixel-trucker:client:SpawnVehicle', src, vehInfo)
         else
             TriggerClientEvent('QBCore:Notify', src, 'Du skal lave et depositum på 250 DKK', 'error')
         end
@@ -32,8 +32,8 @@ AddEventHandler('qb-trucker:server:DoBail', function(bool, vehInfo)
     end
 end)
 
-RegisterNetEvent('qb-trucker:server:01101110')
-AddEventHandler('qb-trucker:server:01101110', function(drops)
+RegisterNetEvent('norskpixel-trucker:server:01101110')
+AddEventHandler('norskpixel-trucker:server:01101110', function(drops)
     local src = source 
     local Player = QBCore.Functions.GetPlayer(src)
     local drops = tonumber(drops)
@@ -56,8 +56,8 @@ AddEventHandler('qb-trucker:server:01101110', function(drops)
     TriggerClientEvent('QBCore:Notify', src, 'Du har tjent '..payment..' DKK', 'success')
 end)
 
-RegisterNetEvent('qb-trucker:server:nano')
-AddEventHandler('qb-trucker:server:nano', function()
+RegisterNetEvent('norskpixel-trucker:server:nano')
+AddEventHandler('norskpixel-trucker:server:nano', function()
     local xPlayer = QBCore.Functions.GetPlayer(tonumber(source))
 
 	xPlayer.Functions.AddItem("cryptostick", 1, false)

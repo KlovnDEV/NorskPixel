@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local PlayerData = {}
 local PlayerJob = {}
 local HotdogBlip = nil
@@ -149,7 +149,7 @@ Citizen.CreateThread(function()
 end)
 
 function StartWorking()
-    QBCore.Functions.TriggerCallback('qb-hotdogjob:server:HasMoney', function(HasMoney)
+    QBCore.Functions.TriggerCallback('norskpixel-hotdogjob:server:HasMoney', function(HasMoney)
         if HasMoney then
             local PlayerPed = PlayerPedId()
             local SpawnCoords = Config.Locations["spawn"].coords
@@ -278,14 +278,14 @@ function HotdogLoop()
     end)
 end
 
-RegisterNetEvent('qb-hotdogjob:client:UpdateReputation')
-AddEventHandler('qb-hotdogjob:client:UpdateReputation', function(JobRep)
+RegisterNetEvent('norskpixel-hotdogjob:client:UpdateReputation')
+AddEventHandler('norskpixel-hotdogjob:client:UpdateReputation', function(JobRep)
     PlayerData.metadata["jobrep"] = JobRep
     UpdateLevel()
 end)
 
-RegisterNetEvent('qb-hotdogjob:client:ToggleSell')
-AddEventHandler('qb-hotdogjob:client:ToggleSell', function(data)
+RegisterNetEvent('norskpixel-hotdogjob:client:ToggleSell')
+AddEventHandler('norskpixel-hotdogjob:client:ToggleSell', function(data)
     if not SellingData.Enabled then
         SellingData.Enabled = true
         ToggleSell()
@@ -469,7 +469,7 @@ function SellToPed(ped)
                 QBCore.Functions.DrawText3D(pedCoords.x, pedCoords.y, pedCoords.z, '[7] Salg '..HotdogsForSale..'x for en pris af '..(HotdogsForSale * SellingPrice)..' DKK / [8] Reject')
                 if IsControlJustPressed(0, 161) or IsDisabledControlJustPressed(0, 161) then
                     QBCore.Functions.Notify(HotdogsForSale..'x Hotdog(\'s) sælges til '..(HotdogsForSale * SellingPrice)..' DKK', 'success')
-                    TriggerServerEvent('qb-hotdogjob:server:Sell', HotdogsForSale, SellingPrice)
+                    TriggerServerEvent('norskpixel-hotdogjob:server:Sell', HotdogsForSale, SellingPrice)
                     SellingData.HasTarget = false
                     local Myped = PlayerPedId()
 
@@ -562,8 +562,8 @@ end
 
 function StartHotdogMinigame()
     PrepareAnim()
-    TriggerEvent('qb-keyminigame:show')
-    TriggerEvent('qb-keyminigame:start', FinishMinigame)
+    TriggerEvent('norskpixel-keyminigame:show')
+    TriggerEvent('norskpixel-keyminigame:start', FinishMinigame)
 end
 
 function PrepareAnim()
@@ -606,7 +606,7 @@ function FinishMinigame(faults)
         Quality = "forrygende"
     end
     if Config.Stock[Quality].Current + 1 <= Config.Stock[Quality].Max[Config.MyLevel] then
-        TriggerServerEvent('qb-hotdogjob:server:UpdateReputation', Quality)
+        TriggerServerEvent('norskpixel-hotdogjob:server:UpdateReputation', Quality)
         if Config.MyLevel == 1 then
             QBCore.Functions.Notify('Du har lavet en '..Config.Stock[Quality].Label..' Hot Dog!')
             Config.Stock[Quality].Current = Config.Stock[Quality].Current + 1
@@ -668,7 +668,7 @@ end
 
 function StopWorking()
     if DoesEntityExist(StandObject) then
-        QBCore.Functions.TriggerCallback('qb-hotdogjob:server:BringBack', function(DidBail)
+        QBCore.Functions.TriggerCallback('norskpixel-hotdogjob:server:BringBack', function(DidBail)
             if DidBail then
                 DeleteObject(StandObject)
                 ClearPedTasksImmediately(PlayerPedId())
@@ -734,8 +734,8 @@ function CheckLoop()
     end)
 end
 
-RegisterNetEvent('qb-hotdogjob:staff:DeletStand')
-AddEventHandler('qb-hotdogjob:staff:DeletStand', function()
+RegisterNetEvent('norskpixel-hotdogjob:staff:DeletStand')
+AddEventHandler('norskpixel-hotdogjob:staff:DeletStand', function()
     local ped = PlayerPedId()
     local pos = GetEntityCoords(ped)
     local Object = GetClosestObjectOfType(pos.x, pos.y, pos.z, 10.0, GetHashKey('prop_hotdogstand_01'), true, false, false)

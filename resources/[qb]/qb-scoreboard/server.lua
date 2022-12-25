@@ -1,7 +1,7 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
-QBCore.Functions.CreateCallback('qb-scoreboard:server:GetCurrentPlayers', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-scoreboard:server:GetCurrentPlayers', function(source, cb)
     local TotalPlayers = 0
     for k, v in pairs(QBCore.Functions.GetPlayers()) do
         TotalPlayers = TotalPlayers + 1
@@ -9,7 +9,7 @@ QBCore.Functions.CreateCallback('qb-scoreboard:server:GetCurrentPlayers', functi
     cb(TotalPlayers)
 end)
 
-QBCore.Functions.CreateCallback('qb-scoreboard:server:GetActivity', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-scoreboard:server:GetActivity', function(source, cb)
     local PoliceCount = 0
     local AmbulanceCount = 0
     
@@ -29,11 +29,11 @@ QBCore.Functions.CreateCallback('qb-scoreboard:server:GetActivity', function(sou
     cb(PoliceCount, AmbulanceCount)
 end)
 
-QBCore.Functions.CreateCallback('qb-scoreboard:server:GetConfig', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-scoreboard:server:GetConfig', function(source, cb)
     cb(Config.IllegalActions)
 end)
 
-QBCore.Functions.CreateCallback('qb-scoreboard:server:GetPlayersArrays', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-scoreboard:server:GetPlayersArrays', function(source, cb)
     local players = {}
     for k, v in pairs(QBCore.Functions.GetPlayers()) do
         local Player = QBCore.Functions.GetPlayer(v)
@@ -45,8 +45,8 @@ QBCore.Functions.CreateCallback('qb-scoreboard:server:GetPlayersArrays', functio
     cb(players)
 end)
 
-RegisterServerEvent('qb-scoreboard:server:SetActivityBusy')
-AddEventHandler('qb-scoreboard:server:SetActivityBusy', function(activity, bool)
+RegisterServerEvent('norskpixel-scoreboard:server:SetActivityBusy')
+AddEventHandler('norskpixel-scoreboard:server:SetActivityBusy', function(activity, bool)
     Config.IllegalActions[activity].busy = bool
-    TriggerClientEvent('qb-scoreboard:client:SetActivityBusy', -1, activity, bool)
+    TriggerClientEvent('norskpixel-scoreboard:client:SetActivityBusy', -1, activity, bool)
 end)

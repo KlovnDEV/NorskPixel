@@ -1,4 +1,4 @@
-# qb-banking
+# norskpixel-banking
 
 # License
 
@@ -19,8 +19,8 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>
 
 ## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
-- [qb-logs](https://github.com/qbcore-framework/qb-logs) - For keeping records
+- [norskpixel-core](https://github.com/qbcore-framework/norskpixel-core)
+- [norskpixel-logs](https://github.com/qbcore-framework/norskpixel-logs) - For keeping records
 
 ## Screenshots
 ![Account Home](https://i.imgur.com/XazaYYI.png)
@@ -40,12 +40,12 @@
 ## Installation
 ### Manual
 - Download the script and put it in the `[qb]` directory.
-- Import `qb-banking.sql` in your database
+- Import `norskpixel-banking.sql` in your database
 - Add the following code to your server.cfg/resouces.cfg
 ```
-ensure qb-core
-ensure qb-logs
-ensure qb-banking
+ensure norskpixel-core
+ensure norskpixel-logs
+ensure norskpixel-banking
 ```
 
 ## Configuration

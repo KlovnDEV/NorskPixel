@@ -1,10 +1,10 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
-RegisterNetEvent('qb-casino:context:casinoChipMenu', function()
+RegisterNetEvent('norskpixel-casino:context:casinoChipMenu', function()
     --TriggerEvent('drawtextui:HideUI')
     --TriggerEvent('nh-context:sendMenu', {
-        exports['qb-menu']:openMenu({
+        exports['norskpixel-menu']:openMenu({
         {
             header = "Diamond Casino",
             isMenuHeader = true,
@@ -13,7 +13,7 @@ RegisterNetEvent('qb-casino:context:casinoChipMenu', function()
             header = "Sælg alle hvide kasinochips", 
             txt = "Nuværende værdi: 1 DKK pr. chip",
             params = {
-                event = "qb-casino:client:WhiteSell",
+                event = "norskpixel-casino:client:WhiteSell",
                 args = {
 
                 }
@@ -23,7 +23,7 @@ RegisterNetEvent('qb-casino:context:casinoChipMenu', function()
             header = "Sælg alle røde kasinochips", 
             txt = "Nuværende værdi: 5 DKK pr. chip",
             params = {
-                event = "qb-casino:client:RedSell",
+                event = "norskpixel-casino:client:RedSell",
                 args = {
 
                 }
@@ -33,7 +33,7 @@ RegisterNetEvent('qb-casino:context:casinoChipMenu', function()
             header = "Sælg alle blå kasinochips", 
             txt = "Nuværende værdi: 10 DKK pr. chip",
             params = {
-                event = "qb-casino:client:BlueSell", 
+                event = "norskpixel-casino:client:BlueSell", 
                 args = {
 
                 }
@@ -43,7 +43,7 @@ RegisterNetEvent('qb-casino:context:casinoChipMenu', function()
             header = "Sælg alle sorte kasinochips", 
             txt = "Nuværende værdi: 50 DKK pr. chip",
             params = {
-                event = "qb-casino:client:BlackSell",
+                event = "norskpixel-casino:client:BlackSell",
                 args = {
 
                 }
@@ -53,7 +53,7 @@ RegisterNetEvent('qb-casino:context:casinoChipMenu', function()
             header = "Sælg alle guld kasinochips", 
             txt = "Nuværende værdi: 100 DKK pr. chip",
             params = {
-                event = "qb-casino:client:GoldSell",
+                event = "norskpixel-casino:client:GoldSell",
                 args = {
 
                 }

@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 -- Functions
 function PlayATMAnimation(animation)
@@ -33,14 +33,14 @@ AddEventHandler("hidemenu", function()
     })
 end)
 
-RegisterNetEvent('qb-atms:client:updateBankInformation', function(banking)
+RegisterNetEvent('norskpixel-atms:client:updateBankInformation', function(banking)
     SendNUIMessage({
         status = "loadBankAccount",
         information = banking
     })
 end)
 
-RegisterNetEvent('qb-atms:client:loadATM', function(cards)
+RegisterNetEvent('norskpixel-atms:client:loadATM', function(cards)
     if cards ~= nil and cards[1] ~= nil then
         local playerPed = PlayerPedId()
         local playerCoords = GetEntityCoords(playerPed, true)
@@ -95,12 +95,12 @@ end)
 
 RegisterNUICallback("doATMWithdraw", function(data, cb)
     if data ~= nil then
-        TriggerServerEvent('qb-atms:server:doAccountWithdraw', data)
+        TriggerServerEvent('norskpixel-atms:server:doAccountWithdraw', data)
     end
 end)
 
 RegisterNUICallback("loadBankingAccount", function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-atms:server:loadBankAccount', function(banking)
+    QBCore.Functions.TriggerCallback('norskpixel-atms:server:loadBankAccount', function(banking)
         if banking ~= false and type(banking) == "table" then
             SendNUIMessage({
                 status = "loadBankAccount",
@@ -116,7 +116,7 @@ RegisterNUICallback("loadBankingAccount", function(data, cb)
 end)
 
 RegisterNUICallback("removeCard", function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-debitcard:server:deleteCard', function(hasDeleted)
+    QBCore.Functions.TriggerCallback('norskpixel-debitcard:server:deleteCard', function(hasDeleted)
         if hasDeleted then
             SetNuiFocus(false, false)
             SendNUIMessage({

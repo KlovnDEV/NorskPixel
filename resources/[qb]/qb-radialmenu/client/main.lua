@@ -1,5 +1,5 @@
 
-QBCore = exports['qb-core']:GetCoreObject()
+QBCore = exports['norskpixel-core']:GetCoreObject()
 local inRadialMenu = false
 
 RegisterCommand('radialmenu', function()
@@ -45,7 +45,7 @@ function setupSubItems()
                     title = 'Fører',
                     icon = 'caret-up',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'norskpixel-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
                 [2] = {
@@ -53,7 +53,7 @@ function setupSubItems()
                     title = 'Passager',
                     icon = 'caret-up',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'norskpixel-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
             }
@@ -64,7 +64,7 @@ function setupSubItems()
                     title = 'Fører',
                     icon = 'caret-up',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'norskpixel-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
                 [1] = {
@@ -72,7 +72,7 @@ function setupSubItems()
                     title = 'Passager',
                     icon = 'caret-up',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'norskpixel-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
                 [3] = {
@@ -80,7 +80,7 @@ function setupSubItems()
                     title = 'Andet',
                     icon = 'caret-down',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'norskpixel-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
             }
@@ -91,7 +91,7 @@ function setupSubItems()
                     title = 'Fører',
                     icon = 'caret-up',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'norskpixel-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
                 [1] = {
@@ -99,7 +99,7 @@ function setupSubItems()
                     title = 'Passager',
                     icon = 'caret-up',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'norskpixel-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
                 [3] = {
@@ -107,7 +107,7 @@ function setupSubItems()
                     title = 'Venstre bag',
                     icon = 'caret-down',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'norskpixel-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
                 [2] = {
@@ -115,7 +115,7 @@ function setupSubItems()
                     title = 'Højre bag',
                     icon = 'caret-down',
                     type = 'client',
-                    event = 'qb-radialmenu:client:ChangeSeat',
+                    event = 'norskpixel-radialmenu:client:ChangeSeat',
                     shouldClose = false,
                 },
             }
@@ -163,18 +163,18 @@ RegisterNUICallback('selectItem', function(data)
     end
 end)
 
-RegisterNetEvent('qb-radialmenu:client:noPlayers')
-AddEventHandler('qb-radialmenu:client:noPlayers', function(data)
+RegisterNetEvent('norskpixel-radialmenu:client:noPlayers')
+AddEventHandler('norskpixel-radialmenu:client:noPlayers', function(data)
     QBCore.Functions.Notify('Der er ingen i nærheden', 'error', 2500)
 end)
 
-RegisterNetEvent('qb-radialmenu:client:giveidkaart')
-AddEventHandler('qb-radialmenu:client:giveidkaart', function(data)
+RegisterNetEvent('norskpixel-radialmenu:client:giveidkaart')
+AddEventHandler('norskpixel-radialmenu:client:giveidkaart', function(data)
     -- ??
 end)
 
-RegisterNetEvent('qb-radialmenu:client:openDoor')
-AddEventHandler('qb-radialmenu:client:openDoor', function(data)
+RegisterNetEvent('norskpixel-radialmenu:client:openDoor')
+AddEventHandler('norskpixel-radialmenu:client:openDoor', function(data)
     local string = data.id
     local replace = string:gsub("door", "")
     local door = tonumber(replace)
@@ -192,13 +192,13 @@ AddEventHandler('qb-radialmenu:client:openDoor', function(data)
             local plate = GetVehicleNumberPlateText(closestVehicle)
             if GetVehicleDoorAngleRatio(closestVehicle, door) > 0.0 then
                 if not IsVehicleSeatFree(closestVehicle, -1) then
-                    TriggerServerEvent('qb-radialmenu:trunk:server:Door', false, plate, door)
+                    TriggerServerEvent('norskpixel-radialmenu:trunk:server:Door', false, plate, door)
                 else
                     SetVehicleDoorShut(closestVehicle, door, false)
                 end
             else
                 if not IsVehicleSeatFree(closestVehicle, -1) then
-                    TriggerServerEvent('qb-radialmenu:trunk:server:Door', true, plate, door)
+                    TriggerServerEvent('norskpixel-radialmenu:trunk:server:Door', true, plate, door)
                 else
                     SetVehicleDoorOpen(closestVehicle, door, false, false)
                 end
@@ -215,8 +215,8 @@ AddEventHandler('qb-radialmenu:client:openDoor', function(data)
     end
 end)
 
-RegisterNetEvent('qb-radialmenu:client:setExtra')
-AddEventHandler('qb-radialmenu:client:setExtra', function(data)
+RegisterNetEvent('norskpixel-radialmenu:client:setExtra')
+AddEventHandler('norskpixel-radialmenu:client:setExtra', function(data)
     local string = data.id
     local replace = string:gsub("extra", "")
     local extra = tonumber(replace)
@@ -254,8 +254,8 @@ AddEventHandler('qb-radialmenu:client:setExtra', function(data)
     end
 end)
 
-RegisterNetEvent('qb-radialmenu:trunk:client:Door')
-AddEventHandler('qb-radialmenu:trunk:client:Door', function(plate, door, open)
+RegisterNetEvent('norskpixel-radialmenu:trunk:client:Door')
+AddEventHandler('norskpixel-radialmenu:trunk:client:Door', function(plate, door, open)
     local veh = GetVehiclePedIsIn(PlayerPedId())
 
     if veh ~= 0 then
@@ -278,12 +278,12 @@ local Seats = {
     ["2"] = "Højre bagsæde",
 }
 
-RegisterNetEvent('qb-radialmenu:client:ChangeSeat')
-AddEventHandler('qb-radialmenu:client:ChangeSeat', function(data)
+RegisterNetEvent('norskpixel-radialmenu:client:ChangeSeat')
+AddEventHandler('norskpixel-radialmenu:client:ChangeSeat', function(data)
     local Veh = GetVehiclePedIsIn(PlayerPedId())
     local IsSeatFree = IsVehicleSeatFree(Veh, data.id)
     local speed = GetEntitySpeed(Veh)
-    local HasHarnass = exports['qb-smallresources']:HasHarness()
+    local HasHarnass = exports['norskpixel-smallresources']:HasHarness()
     if not HasHarnass then
         local kmh = (speed * 3.6);  
 

@@ -1,7 +1,7 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
-QBCore.Functions.CreateCallback('qb-builderjob:server:GetCurrentProject', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-builderjob:server:GetCurrentProject', function(source, cb)
     local CurProject = nil
     for k, v in pairs(Config.Projects) do
         if v.IsActive then
@@ -18,15 +18,15 @@ QBCore.Functions.CreateCallback('qb-builderjob:server:GetCurrentProject', functi
     cb(Config)
 end)
 
-RegisterServerEvent('qb-builderjob:server:SetTaskState')
-AddEventHandler('qb-builderjob:server:SetTaskState', function(Task, IsBusy, IsCompleted)
+RegisterServerEvent('norskpixel-builderjob:server:SetTaskState')
+AddEventHandler('norskpixel-builderjob:server:SetTaskState', function(Task, IsBusy, IsCompleted)
     Config.Projects[Config.CurrentProject].ProjectLocations["tasks"][Task].IsBusy = IsBusy
     Config.Projects[Config.CurrentProject].ProjectLocations["tasks"][Task].completed = IsCompleted
-    TriggerClientEvent('qb-builderjob:client:SetTaskState', -1, Task, IsBusy, IsCompleted)
+    TriggerClientEvent('norskpixel-builderjob:client:SetTaskState', -1, Task, IsBusy, IsCompleted)
 end)
 
-RegisterServerEvent('qb-builderjob:server:FinishProject')
-AddEventHandler('qb-builderjob:server:FinishProject', function()
+RegisterServerEvent('norskpixel-builderjob:server:FinishProject')
+AddEventHandler('norskpixel-builderjob:server:FinishProject', function()
     Config.Projects[Config.CurrentProject].IsActive = false
     for k, v in pairs(Config.Projects[Config.CurrentProject].ProjectLocations["tasks"]) do
         v.completed = false
@@ -35,5 +35,5 @@ AddEventHandler('qb-builderjob:server:FinishProject', function()
     local NewProject = math.random(1, #Config.Projects)
     Config.CurrentProject = NewProject
     Config.Projects[NewProject].IsActive = true
-    TriggerClientEvent('qb-builderjob:client:FinishProject', -1, Config)
+    TriggerClientEvent('norskpixel-builderjob:client:FinishProject', -1, Config)
 end)

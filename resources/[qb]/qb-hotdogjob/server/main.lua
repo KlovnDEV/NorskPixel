@@ -1,9 +1,9 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local Bail = {}
 
-QBCore.Functions.CreateCallback('qb-hotdogjob:server:HasMoney', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-hotdogjob:server:HasMoney', function(source, cb)
     local Player = QBCore.Functions.GetPlayer(source)
 
     -- if Player.PlayerData.money.cash >= Config.Bail then
@@ -21,7 +21,7 @@ QBCore.Functions.CreateCallback('qb-hotdogjob:server:HasMoney', function(source,
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-hotdogjob:server:BringBack', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-hotdogjob:server:BringBack', function(source, cb)
     local Player = QBCore.Functions.GetPlayer(source)
 
     if Bail[Player.PlayerData.citizenid] then
@@ -32,8 +32,8 @@ QBCore.Functions.CreateCallback('qb-hotdogjob:server:BringBack', function(source
     end
 end)
 
-RegisterServerEvent('qb-hotdogjob:server:Sell')
-AddEventHandler('qb-hotdogjob:server:Sell', function(Amount, Price)
+RegisterServerEvent('norskpixel-hotdogjob:server:Sell')
+AddEventHandler('norskpixel-hotdogjob:server:Sell', function(Amount, Price)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
@@ -42,15 +42,15 @@ end)
 
 local Reset = false
 
-RegisterServerEvent('qb-hotdogjob:server:UpdateReputation')
-AddEventHandler('qb-hotdogjob:server:UpdateReputation', function(quality)
+RegisterServerEvent('norskpixel-hotdogjob:server:UpdateReputation')
+AddEventHandler('norskpixel-hotdogjob:server:UpdateReputation', function(quality)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local JobReputation = Player.PlayerData.metadata["jobrep"]
     if Reset then
         JobReputation["hotdog"] = 0
         Player.Functions.SetMetaData("jobrep", JobReputation)
-        TriggerClientEvent('qb-hotdogjob:client:UpdateReputation', src, JobReputation)
+        TriggerClientEvent('norskpixel-hotdogjob:client:UpdateReputation', src, JobReputation)
         return
     end
 
@@ -58,7 +58,7 @@ AddEventHandler('qb-hotdogjob:server:UpdateReputation', function(quality)
         if JobReputation["hotdog"] ~= nil and JobReputation["hotdog"] + 3 > Config.MaxReputation then
             JobReputation["hotdog"] = Config.MaxReputation
             Player.Functions.SetMetaData("jobrep", JobReputation)
-            TriggerClientEvent('qb-hotdogjob:client:UpdateReputation', src, JobReputation)
+            TriggerClientEvent('norskpixel-hotdogjob:client:UpdateReputation', src, JobReputation)
             return
         end
         if JobReputation["hotdog"] == nil then
@@ -70,7 +70,7 @@ AddEventHandler('qb-hotdogjob:server:UpdateReputation', function(quality)
         if JobReputation["hotdog"] ~= nil and JobReputation["hotdog"] + 2 > Config.MaxReputation then
             JobReputation["hotdog"] = Config.MaxReputation
             Player.Functions.SetMetaData("jobrep", JobReputation)
-            TriggerClientEvent('qb-hotdogjob:client:UpdateReputation', src, JobReputation)
+            TriggerClientEvent('norskpixel-hotdogjob:client:UpdateReputation', src, JobReputation)
             return
         end
         if JobReputation["hotdog"] == nil then
@@ -82,7 +82,7 @@ AddEventHandler('qb-hotdogjob:server:UpdateReputation', function(quality)
         if JobReputation["hotdog"] ~= nil and JobReputation["hotdog"] + 1 > Config.MaxReputation then
             JobReputation["hotdog"] = Config.MaxReputation
             Player.Functions.SetMetaData("jobrep", JobReputation)
-            TriggerClientEvent('qb-hotdogjob:client:UpdateReputation', src, JobReputation)
+            TriggerClientEvent('norskpixel-hotdogjob:client:UpdateReputation', src, JobReputation)
             return
         end
         if JobReputation["hotdog"] == nil then
@@ -92,10 +92,10 @@ AddEventHandler('qb-hotdogjob:server:UpdateReputation', function(quality)
         end
     end
     Player.Functions.SetMetaData("jobrep", JobReputation)
-    TriggerClientEvent('qb-hotdogjob:client:UpdateReputation', src, JobReputation)
+    TriggerClientEvent('norskpixel-hotdogjob:client:UpdateReputation', src, JobReputation)
 end)
 
 
 QBCore.Commands.Add("removestand", "Fjern bod (Kun Admin)", {}, false, function(source, args)
-    TriggerClientEvent('qb-hotdogjob:staff:DeletStand', source)
+    TriggerClientEvent('norskpixel-hotdogjob:staff:DeletStand', source)
 end, 'admin')

@@ -3,7 +3,7 @@ local openingDoor = false
 
 RegisterNetEvent("QBCore:Client:OnPlayerLoaded")
 AddEventHandler("QBCore:Client:OnPlayerLoaded", function()
-    QBCore.Functions.TriggerCallback('qb-pawnshop:melting:server:GetConfig', function(IsMelting, MeltTime, CanTake)
+    QBCore.Functions.TriggerCallback('norskpixel-pawnshop:melting:server:GetConfig', function(IsMelting, MeltTime, CanTake)
         Config.IsMelting = IsMelting
         Config.MeltTime = MeltTime
         Config.CanTake = CanTake
@@ -48,7 +48,7 @@ Citizen.CreateThread(function()
                     if Config.CanTake then
                         DrawText3D(Config.MeltLocation.x, Config.MeltLocation.y, Config.MeltLocation.z, "~g~E~w~ - Tag guldbare")
                         if IsControlJustReleased(0, 38) then
-                            TriggerServerEvent("qb-pawnshop:server:getGoldBars")
+                            TriggerServerEvent("norskpixel-pawnshop:server:getGoldBars")
                         end
                     else
                         DrawText3D(Config.MeltLocation.x, Config.MeltLocation.y, Config.MeltLocation.z, "~g~E~w~ - Smelt guld ting")
@@ -63,7 +63,7 @@ Citizen.CreateThread(function()
                             }, {}, {}, {}, function() -- Done
                                 if not Config.IsMelting then
                                     StopAnimTask(PlayerPedId(), "mp_car_bomb", "car_bomb_mechanic", 1.0)
-                                    TriggerServerEvent("qb-pawnshop:server:meltItems")
+                                    TriggerServerEvent("norskpixel-pawnshop:server:meltItems")
                                 end
                             end)
                         end
@@ -109,7 +109,7 @@ Citizen.CreateThread(function()
                             }, {}, {}, function() -- Done
                                 openingDoor = false
                                 ClearPedTasks(PlayerPedId())
-                                TriggerServerEvent('qb-pawnshop:server:sellGold')
+                                TriggerServerEvent('norskpixel-pawnshop:server:sellGold')
                             end, function() -- Cancel
                                 openingDoor = false
                                 ClearPedTasks(PlayerPedId())
@@ -152,7 +152,7 @@ end
 
 function HasPlayerGold()
 	local retval = false
-	QBCore.Functions.TriggerCallback('qb-pawnshop:server:hasGold', function(result)
+	QBCore.Functions.TriggerCallback('norskpixel-pawnshop:server:hasGold', function(result)
 		retval = result
 	end)
     Citizen.Wait(500)
@@ -166,8 +166,8 @@ function loadAnimDict(dict)
     end
 end
 
-RegisterNetEvent('qb-pawnshop:client:startMelting')
-AddEventHandler('qb-pawnshop:client:startMelting', function()
+RegisterNetEvent('norskpixel-pawnshop:client:startMelting')
+AddEventHandler('norskpixel-pawnshop:client:startMelting', function()
     if not Config.IsMelting then
         Config.IsMelting = true
         Config.MeltTime = 300
@@ -188,15 +188,15 @@ AddEventHandler('qb-pawnshop:client:startMelting', function()
     end
 end)
 
-RegisterNetEvent('qb-pawnshop:client:SetTakeState')
-AddEventHandler('qb-pawnshop:client:SetTakeState', function(state)
+RegisterNetEvent('norskpixel-pawnshop:client:SetTakeState')
+AddEventHandler('norskpixel-pawnshop:client:SetTakeState', function(state)
     Config.CanTake = state
     Config.IsMelting = state
     if not state then
         Config.MeltTime = 300
     end
 
-    QBCore.Functions.TriggerCallback('qb-pawnshop:melting:server:GetConfig', function(IsMelting, MeltTime, CanTake)
+    QBCore.Functions.TriggerCallback('norskpixel-pawnshop:melting:server:GetConfig', function(IsMelting, MeltTime, CanTake)
         Config.IsMelting = IsMelting
         Config.MeltTime = MeltTime
         Config.CanTake = CanTake

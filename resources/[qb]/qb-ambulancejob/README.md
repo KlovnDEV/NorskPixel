@@ -1,4 +1,4 @@
-# qb-ambulancejob
+# norskpixel-ambulancejob
 EMS Job and Death/Wound Logic for QB-Core Framework :ambulance:
 
 # License
@@ -20,14 +20,14 @@ EMS Job and Death/Wound Logic for QB-Core Framework :ambulance:
     along with this program.  If not, see <https://www.gnu.org/licenses/>
 
 ## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
-- [qb-radialmenu](https://github.com/qbcore-framework/qb-radialmenu) - Job Actions Menu 
-- [qb-logs](https://github.com/qbcore-framework/qb-logs) - Keeping logs
-- [qb-hud](https://github.com/qbcore-framework/qb-hud) - 
-- [qb-phone](https://github.com/qbcore-framework/qb-phone) - EMS Emails and other stuff
-- [qb-policejob](https://github.com/qbcore-framework/qb-policejob) - Things across departments (See each others blip on map, panic button, alerts etc.)
-- [qb-inventory](https://github.com/qbcore-framework/qb-inventory) - Inventory related stuff (Armory) 
-- [qb-vehiclekeys](https://github.com/qbcore-framework/qb-vehiclekeys) - Job vehicle's ownership
+- [norskpixel-core](https://github.com/qbcore-framework/norskpixel-core)
+- [norskpixel-radialmenu](https://github.com/qbcore-framework/norskpixel-radialmenu) - Job Actions Menu 
+- [norskpixel-logs](https://github.com/qbcore-framework/norskpixel-logs) - Keeping logs
+- [norskpixel-hud](https://github.com/qbcore-framework/norskpixel-hud) - 
+- [norskpixel-phone](https://github.com/qbcore-framework/norskpixel-phone) - EMS Emails and other stuff
+- [norskpixel-policejob](https://github.com/qbcore-framework/norskpixel-policejob) - Things across departments (See each others blip on map, panic button, alerts etc.)
+- [norskpixel-inventory](https://github.com/qbcore-framework/norskpixel-inventory) - Inventory related stuff (Armory) 
+- [norskpixel-vehiclekeys](https://github.com/qbcore-framework/norskpixel-vehiclekeys) - Job vehicle's ownership
 
 ## Screenshots
 ![Check In](https://imgur.com/ZrshDaK.png)
@@ -41,7 +41,7 @@ EMS Job and Death/Wound Logic for QB-Core Framework :ambulance:
 ![Heliopter](https://imgur.com/VG5yQU7.png)
 
 ## Features
-- Job actions menu (qb-radialmenu needed)
+- Job actions menu (norskpixel-radialmenu needed)
 - On Duty/Off Duty
 - Colleague blips on map
 - Elevator for hospital
@@ -68,15 +68,15 @@ EMS Job and Death/Wound Logic for QB-Core Framework :ambulance:
 - Download the script and put it in the `[qb]` directory.
 - Add the following code to your server.cfg/resouces.cfg
 ```
-ensure qb-core
-ensure qb-ambulancejob
-ensure qb-radialmenu
-ensure qb-logs
-ensure qb-hud
-ensure qb-phone
-ensure qb-policejob
-ensure qb-inventory
-ensure qb-vehiclekeys
+ensure norskpixel-core
+ensure norskpixel-ambulancejob
+ensure norskpixel-radialmenu
+ensure norskpixel-logs
+ensure norskpixel-hud
+ensure norskpixel-phone
+ensure norskpixel-policejob
+ensure norskpixel-inventory
+ensure norskpixel-vehiclekeys
 ```
 
 ## Configuration

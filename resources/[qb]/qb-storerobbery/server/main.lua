@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local SafeCodes = {}
 local cashA = 250 				--<<how much minimum you can get from a robbery
@@ -33,8 +33,8 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterServerEvent('qb-storerobbery:server:takeMoney')
-AddEventHandler('qb-storerobbery:server:takeMoney', function(register, isDone)
+RegisterServerEvent('norskpixel-storerobbery:server:takeMoney')
+AddEventHandler('norskpixel-storerobbery:server:takeMoney', function(register, isDone)
     local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
 	-- Add some stuff if you want, this here above the if statement will trigger every 2 seconds of the animation when robbing a cash register.
@@ -63,26 +63,26 @@ AddEventHandler('qb-storerobbery:server:takeMoney', function(register, isDone)
     end
 end)
 
-RegisterServerEvent('qb-storerobbery:server:setRegisterStatus')
-AddEventHandler('qb-storerobbery:server:setRegisterStatus', function(register)
+RegisterServerEvent('norskpixel-storerobbery:server:setRegisterStatus')
+AddEventHandler('norskpixel-storerobbery:server:setRegisterStatus', function(register)
     Config.Registers[register].robbed   = true
     Config.Registers[register].time     = Config.resetTime
-    TriggerClientEvent('qb-storerobbery:client:setRegisterStatus', -1, register, Config.Registers[register])
+    TriggerClientEvent('norskpixel-storerobbery:client:setRegisterStatus', -1, register, Config.Registers[register])
 end)
 
-RegisterServerEvent('qb-storerobbery:server:setSafeStatus')
-AddEventHandler('qb-storerobbery:server:setSafeStatus', function(safe)
-    TriggerClientEvent('qb-storerobbery:client:setSafeStatus', -1, safe, true)
+RegisterServerEvent('norskpixel-storerobbery:server:setSafeStatus')
+AddEventHandler('norskpixel-storerobbery:server:setSafeStatus', function(safe)
+    TriggerClientEvent('norskpixel-storerobbery:client:setSafeStatus', -1, safe, true)
     Config.Safes[safe].robbed = true
 
     SetTimeout(math.random(40, 80) * (60 * 1000), function()
-        TriggerClientEvent('qb-storerobbery:client:setSafeStatus', -1, safe, false)
+        TriggerClientEvent('norskpixel-storerobbery:client:setSafeStatus', -1, safe, false)
         Config.Safes[safe].robbed = false
     end)
 end)
 
-RegisterServerEvent('qb-storerobbery:server:SafeReward')
-AddEventHandler('qb-storerobbery:server:SafeReward', function(safe)
+RegisterServerEvent('norskpixel-storerobbery:server:SafeReward')
+AddEventHandler('norskpixel-storerobbery:server:SafeReward', function(safe)
     local src = source
 	local Player = QBCore.Functions.GetPlayer(src)
 	local bags = math.random(1,3)
@@ -104,8 +104,8 @@ AddEventHandler('qb-storerobbery:server:SafeReward', function(safe)
     end
 end)
 
-RegisterServerEvent('qb-storerobbery:server:callCops')
-AddEventHandler('qb-storerobbery:server:callCops', function(type, safe, streetLabel, coords)
+RegisterServerEvent('norskpixel-storerobbery:server:callCops')
+AddEventHandler('norskpixel-storerobbery:server:callCops', function(type, safe, streetLabel, coords)
     local cameraId = 4
     if type == "safe" then
         cameraId = Config.Safes[safe].camId
@@ -117,8 +117,8 @@ AddEventHandler('qb-storerobbery:server:callCops', function(type, safe, streetLa
         coords = {x = coords.x, y = coords.y, z = coords.z},
         description = "Der er blevet startet et butiksrøveri ved "..streetLabel.." (KAMERA ID: "..cameraId..")"
     }
-    TriggerClientEvent("qb-storerobbery:client:robberyCall", -1, type, safe, streetLabel, coords)
-    TriggerClientEvent("qb-phone:client:addPoliceAlert", -1, alertData)
+    TriggerClientEvent("norskpixel-storerobbery:client:robberyCall", -1, type, safe, streetLabel, coords)
+    TriggerClientEvent("norskpixel-phone:client:addPoliceAlert", -1, alertData)
 end)
 
 Citizen.CreateThread(function()
@@ -140,25 +140,25 @@ Citizen.CreateThread(function()
 
         if #toSend > 0 then
             --The false on the end of this is redundant
-            TriggerClientEvent('qb-storerobbery:client:setRegisterStatus', -1, toSend, false)
+            TriggerClientEvent('norskpixel-storerobbery:client:setRegisterStatus', -1, toSend, false)
         end
 
         Citizen.Wait(Config.tickInterval)
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-storerobbery:server:isCombinationRight', function(source, cb, safe)
+QBCore.Functions.CreateCallback('norskpixel-storerobbery:server:isCombinationRight', function(source, cb, safe)
     cb(SafeCodes[safe])
 end)
 
-QBCore.Functions.CreateCallback('qb-storerobbery:server:getPadlockCombination', function(source, cb, safe)
+QBCore.Functions.CreateCallback('norskpixel-storerobbery:server:getPadlockCombination', function(source, cb, safe)
     cb(SafeCodes[safe])
 end)
 
-QBCore.Functions.CreateCallback('qb-storerobbery:server:getRegisterStatus', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-storerobbery:server:getRegisterStatus', function(source, cb)
     cb(Config.Registers)
 end)
 
-QBCore.Functions.CreateCallback('qb-storerobbery:server:getSafeStatus', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-storerobbery:server:getSafeStatus', function(source, cb)
     cb(Config.Safes)
 end)

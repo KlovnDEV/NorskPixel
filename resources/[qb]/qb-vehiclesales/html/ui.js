@@ -26,7 +26,7 @@ var app = new Vue({
                             desc: this.vehicleDescription
                         })                        
                     };
-                    fetch("https://qb-vehiclesales/sellVehicle", requestOptions);
+                    fetch("https://norskpixel-vehiclesales/sellVehicle", requestOptions);
                     this.close();
                 } else {
                     this.errors.push("Price must be a numeric value only");
@@ -41,7 +41,7 @@ var app = new Vue({
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({})
             };
-            fetch("https://qb-vehiclesales/buyVehicle", requestOptions);
+            fetch("https://norskpixel-vehiclesales/buyVehicle", requestOptions);
             this.close();
         },
         close() {            
@@ -50,7 +50,7 @@ var app = new Vue({
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({})
             };
-            fetch("https://qb-vehiclesales/close", requestOptions);
+            fetch("https://norskpixel-vehiclesales/close", requestOptions);
             // .then(function(msg) {
             //     console.log(msg);
 

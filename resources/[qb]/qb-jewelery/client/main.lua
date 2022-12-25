@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local robberyAlert = false
 local isLoggedIn = false
@@ -50,7 +50,7 @@ Citizen.CreateThread(function()
                                 if not Config.Locations[case]["isBusy"] and not Config.Locations[case]["isOpened"] then
                                     DrawText3Ds(Config.Locations[case]["coords"]["x"], Config.Locations[case]["coords"]["y"], Config.Locations[case]["coords"]["z"], '[E] Øldelæg glasmontre')
                                     if IsControlJustPressed(0, 38) then
-                                        QBCore.Functions.TriggerCallback('qb-jewellery:server:getCops', function(cops)
+                                        QBCore.Functions.TriggerCallback('norskpixel-jewellery:server:getCops', function(cops)
                                             if cops >= Config.RequiredCops then
                                                 if validWeapon() then
                                                     smashVitrine(case)
@@ -142,21 +142,21 @@ function smashVitrine(k)
         disableMouse = false,
         disableCombat = true,
     }, {}, {}, {}, function() -- Done
-        TriggerServerEvent('qb-jewellery:server:setVitrineState', "isOpened", true, k)
-        TriggerServerEvent('qb-jewellery:server:setVitrineState', "isBusy", false, k)
-        TriggerServerEvent('qb-jewellery:server:vitrineReward')
-        TriggerServerEvent('qb-jewellery:server:setTimeout')
+        TriggerServerEvent('norskpixel-jewellery:server:setVitrineState', "isOpened", true, k)
+        TriggerServerEvent('norskpixel-jewellery:server:setVitrineState', "isBusy", false, k)
+        TriggerServerEvent('norskpixel-jewellery:server:vitrineReward')
+        TriggerServerEvent('norskpixel-jewellery:server:setTimeout')
         local data = {displayCode = '211A', description = 'Røveri', isImportant = 1, recipientList = {'police'}, length = '10000', infoM = 'fa-info-circle', info = 'Vangelico juvel røveri'}
         local dispatchData = {dispatchData = data, caller = 'Alarm', coords = vector3(-633.9, -241.7, 38.1)}
         TriggerServerEvent('wf-alerts:svNotify', dispatchData)
         smashing = false
         TaskPlayAnim(ped, animDict, "exit", 3.0, 3.0, -1, 2, 0, 0, 0, 0)
     end, function() -- Cancel
-        TriggerServerEvent('qb-jewellery:server:setVitrineState', "isBusy", false, k)
+        TriggerServerEvent('norskpixel-jewellery:server:setVitrineState', "isBusy", false, k)
         smashing = false
         TaskPlayAnim(ped, animDict, "exit", 3.0, 3.0, -1, 2, 0, 0, 0, 0)
     end)
-    TriggerServerEvent('qb-jewellery:server:setVitrineState', "isBusy", true, k)
+    TriggerServerEvent('norskpixel-jewellery:server:setVitrineState', "isBusy", true, k)
 
     Citizen.CreateThread(function()
         while smashing do
@@ -171,20 +171,20 @@ function smashVitrine(k)
     end)
 end
 
-RegisterNetEvent('qb-jewellery:client:setVitrineState')
-AddEventHandler('qb-jewellery:client:setVitrineState', function(stateType, state, k)
+RegisterNetEvent('norskpixel-jewellery:client:setVitrineState')
+AddEventHandler('norskpixel-jewellery:client:setVitrineState', function(stateType, state, k)
     Config.Locations[k][stateType] = state
 end)
 
-RegisterNetEvent('qb-jewellery:client:setAlertState')
-AddEventHandler('qb-jewellery:client:setAlertState', function(bool)
+RegisterNetEvent('norskpixel-jewellery:client:setAlertState')
+AddEventHandler('norskpixel-jewellery:client:setAlertState', function(bool)
     robberyAlert = bool
 end)
 
-RegisterNetEvent('qb-jewellery:client:PoliceAlertMessage')
-AddEventHandler('qb-jewellery:client:PoliceAlertMessage', function(title, coords, blip)
+RegisterNetEvent('norskpixel-jewellery:client:PoliceAlertMessage')
+AddEventHandler('norskpixel-jewellery:client:PoliceAlertMessage', function(title, coords, blip)
     if blip then
-        TriggerEvent('qb-policealerts:client:AddPoliceAlert', {
+        TriggerEvent('norskpixel-policealerts:client:AddPoliceAlert', {
             timeOut = 5000,
             alertTitle = title,
             details = {
@@ -230,7 +230,7 @@ AddEventHandler('qb-jewellery:client:PoliceAlertMessage', function(title, coords
     else
         if not robberyAlert then
             PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
-            TriggerEvent('qb-policealerts:client:AddPoliceAlert', {
+            TriggerEvent('norskpixel-policealerts:client:AddPoliceAlert', {
                 timeOut = 5000,
                 alertTitle = title,
                 details = {

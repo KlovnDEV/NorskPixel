@@ -147,7 +147,7 @@ AddEventHandler('electronickit:UseElectronickit', function()
     local pos = GetEntityCoords(ped)
     local dist = #(pos - Config.BigBanks["pacific"]["coords"][2])
     if dist < 1.5 then
-        QBCore.Functions.TriggerCallback('qb-bankrobbery:server:isRobberyActive', function(isBusy)
+        QBCore.Functions.TriggerCallback('norskpixel-bankrobbery:server:isRobberyActive', function(isBusy)
             if not isBusy then
                 local dist = #(pos - Config.BigBanks["pacific"]["coords"][2])
                 if dist < 1.5 then
@@ -183,7 +183,7 @@ AddEventHandler('electronickit:UseElectronickit', function()
                                                 streetLabel = streetLabel .. " " .. street2
                                             end
                                             if Config.BigBanks["pacific"]["alarm"] then
-                                                TriggerServerEvent("qb-bankrobbery:server:callCops", "pacific", 0, streetLabel, pos)
+                                                TriggerServerEvent("norskpixel-bankrobbery:server:callCops", "pacific", 0, streetLabel, pos)
                                                 copsCalled = true
                                             end
                                         end
@@ -209,8 +209,8 @@ AddEventHandler('electronickit:UseElectronickit', function()
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:UseBankcardB')
-AddEventHandler('qb-bankrobbery:UseBankcardB', function()
+RegisterNetEvent('norskpixel-bankrobbery:UseBankcardB')
+AddEventHandler('norskpixel-bankrobbery:UseBankcardB', function()
     local ped = PlayerPedId()
     local pos = GetEntityCoords(ped)
     local dist = #(pos - Config.BigBanks["pacific"]["coords"][1])
@@ -218,7 +218,7 @@ AddEventHandler('qb-bankrobbery:UseBankcardB', function()
         TriggerServerEvent("evidence:server:CreateFingerDrop", pos)
     end
     if dist < 1.5 then
-        QBCore.Functions.TriggerCallback('qb-bankrobbery:server:isRobberyActive', function(isBusy)
+        QBCore.Functions.TriggerCallback('norskpixel-bankrobbery:server:isRobberyActive', function(isBusy)
             if not isBusy then
                 if CurrentCops >= Config.MinimumPacificPolice then
                     if not Config.BigBanks["pacific"]["isOpened"] then 
@@ -234,7 +234,7 @@ AddEventHandler('qb-bankrobbery:UseBankcardB', function()
                             flags = 16,
                         }, {}, {}, function() -- Done
                             StopAnimTask(PlayerPedId(), "anim@gangops@facility@servers@", "hotwire", 1.0)
-                            TriggerServerEvent('qb-doorlock:server:updateState', 1, false)
+                            TriggerServerEvent('norskpixel-doorlock:server:updateState', 1, false)
                             TriggerServerEvent("QBCore:Server:RemoveItem", "security_card_02", 1)
                             if not copsCalled then
                                 local s1, s2 = Citizen.InvokeNative(0x2EB41072B4C1E4C0, pos.x, pos.y, pos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt())
@@ -245,7 +245,7 @@ AddEventHandler('qb-bankrobbery:UseBankcardB', function()
                                     streetLabel = streetLabel .. " " .. street2
                                 end
                                 if Config.BigBanks["pacific"]["alarm"] then
-                                    TriggerServerEvent("qb-bankrobbery:server:callCops", "pacific", 0, streetLabel, pos)
+                                    TriggerServerEvent("norskpixel-bankrobbery:server:callCops", "pacific", 0, streetLabel, pos)
                                     copsCalled = true
                                 end
                             end
@@ -269,7 +269,7 @@ end)
 function OnHackPacificDone(success, timeremaining)
     if success then
         TriggerEvent('mhacking:hide')
-        TriggerServerEvent('qb-bankrobbery:server:setBankState', "pacific", true)
+        TriggerServerEvent('norskpixel-bankrobbery:server:setBankState', "pacific", true)
     else
 		TriggerEvent('mhacking:hide')
 	end

@@ -5,7 +5,7 @@ AddEventHandler('playerDropped', function()
     local src = source
     if QBCore.Players[src] then
         local Player = QBCore.Players[src]
-        TriggerEvent('qb-log:server:CreateLog', 'joinleave', 'Dropped', 'red', '**' .. GetPlayerName(src) .. '** (' .. Player.PlayerData.license .. ') left..')
+        TriggerEvent('norskpixel-log:server:CreateLog', 'joinleave', 'Dropped', 'red', '**' .. GetPlayerName(src) .. '** (' .. Player.PlayerData.license .. ') left..')
         Player.Functions.Save()
         _G.Player_Buckets[Player.PlayerData.license] = nil
         QBCore.Players[src] = nil
@@ -189,7 +189,7 @@ RegisterNetEvent('QBCore:Server:AddItem', function(itemName, amount, slot, info)
     Player.Functions.AddItem(itemName, amount, slot, info)
 end)
 
--- Non-Chat Command Calling (ex: qb-adminmenu)
+-- Non-Chat Command Calling (ex: norskpixel-adminmenu)
 
 RegisterNetEvent('QBCore:CallCommand', function(command, args)
     local src = source

@@ -1,4 +1,4 @@
-# qb-hotdogjob
+# norskpixel-hotdogjob
 Hot Dog Job For QB-Core
 
 # License

@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local currentHouseGarage = nil
 local hasGarageKey = nil
 local currentGarage = nil
@@ -22,16 +22,16 @@ RegisterNetEvent('QBCore:Client:OnJobUpdate', function(job)
     PlayerJob = job
 end)
 
-RegisterNetEvent('qb-garages:client:setHouseGarage', function(house, hasKey)
+RegisterNetEvent('norskpixel-garages:client:setHouseGarage', function(house, hasKey)
     currentHouseGarage = house
     hasGarageKey = hasKey
 end)
 
-RegisterNetEvent('qb-garages:client:houseGarageConfig', function(garageConfig)
+RegisterNetEvent('norskpixel-garages:client:houseGarageConfig', function(garageConfig)
     HouseGarages = garageConfig
 end)
 
-RegisterNetEvent('qb-garages:client:addHouseGarage', function(house, garageInfo)
+RegisterNetEvent('norskpixel-garages:client:addHouseGarage', function(house, garageInfo)
     HouseGarages[house] = garageInfo
 end)
 
@@ -57,7 +57,7 @@ local function round(num, numDecimalPlaces)
 end
 
 local function MenuGarage()
-    exports['qb-menu']:openMenu({
+    exports['norskpixel-menu']:openMenu({
         {
             header = "Offentlig garage",
             isMenuHeader = true
@@ -66,21 +66,21 @@ local function MenuGarage()
             header = "Mine køretøjer",
             txt = "Oversigt over køretøjer",
             params = {
-                event = "qb-garages:client:VehicleList"
+                event = "norskpixel-garages:client:VehicleList"
             }
         },
         {
             header = "⬅ Forlad garage",
             txt = "",
             params = {
-                event = "qb-menu:closeMenu"
+                event = "norskpixel-menu:closeMenu"
             }
         },
     })
 end
 
 local function GangMenuGarage()
-    exports['qb-menu']:openMenu({
+    exports['norskpixel-menu']:openMenu({
         {
             header = "Bande garage",
             isMenuHeader = true
@@ -89,21 +89,21 @@ local function GangMenuGarage()
             header = "Mine køretøjer",
             txt = "Oversigt over køretøjer",
             params = {
-                event = "qb-garages:client:GangVehicleList"
+                event = "norskpixel-garages:client:GangVehicleList"
             }
         },
         {
             header = "⬅ Forlad garage",
             txt = "",
             params = {
-                event = "qb-menu:closeMenu"
+                event = "norskpixel-menu:closeMenu"
             }
         },
     })
 end
 
 local function JobMenuGarage()
-    exports['qb-menu']:openMenu({
+    exports['norskpixel-menu']:openMenu({
         {
             header = "Job garage",
             isMenuHeader = true
@@ -112,21 +112,21 @@ local function JobMenuGarage()
             header = "Mine køretøjer",
             txt = "Oversigt over køretøjer",
             params = {
-                event = "qb-garages:client:JobVehicleList"
+                event = "norskpixel-garages:client:JobVehicleList"
             }
         },
         {
             header = "⬅ Forlad garage",
             txt = "",
             params = {
-                event = "qb-menu:closeMenu"
+                event = "norskpixel-menu:closeMenu"
             }
         },
     })
 end
 
 local function MenuDepot()
-    exports['qb-menu']:openMenu({
+    exports['norskpixel-menu']:openMenu({
         {
             header = "Impound",
             isMenuHeader = true
@@ -135,21 +135,21 @@ local function MenuDepot()
             header = "Mine køretøjer",
             txt = "Oversigt over impounded køretøjer!",
             params = {
-                event = "qb-garages:client:DepotList"
+                event = "norskpixel-garages:client:DepotList"
             }
         },
         {
             header = "⬅ Forlad impound",
             txt = "",
             params = {
-                event = "qb-menu:closeMenu"
+                event = "norskpixel-menu:closeMenu"
             }
         },
     })
 end
 
 local function MenuHouseGarage(house)
-    exports['qb-menu']:openMenu({
+    exports['norskpixel-menu']:openMenu({
         {
             header = "Bolig garage",
             isMenuHeader = true
@@ -158,7 +158,7 @@ local function MenuHouseGarage(house)
             header = "Mine køretøjer",
             txt = "Oversigt over køretøjer",
             params = {
-                event = "qb-garages:client:HouseGarage",
+                event = "norskpixel-garages:client:HouseGarage",
                 args = house
             }
         },
@@ -166,14 +166,14 @@ local function MenuHouseGarage(house)
             header = "⬅ Forlad garage",
             txt = "",
             params = {
-                event = "qb-menu:closeMenu"
+                event = "norskpixel-menu:closeMenu"
             }
         },
     })
 end
 
 local function ClearMenu()
-	TriggerEvent("qb-menu:closeMenu")
+	TriggerEvent("norskpixel-menu:closeMenu")
 end
 
 local function closeMenuFull()
@@ -249,14 +249,14 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-garages:client:takeOutDepot', function(vehicle)
+RegisterNetEvent('norskpixel-garages:client:takeOutDepot', function(vehicle)
     local VehExists = DoesEntityExist(OutsideVehicles[vehicle.plate])
     if not VehExists then
         if OutsideVehicles and next(OutsideVehicles) then
             if OutsideVehicles[vehicle.plate] then
                 local Engine = GetVehicleEngineHealth(OutsideVehicles[vehicle.plate])
                 QBCore.Functions.SpawnVehicle(vehicle.vehicle, function(veh)
-                    QBCore.Functions.TriggerCallback('qb-garage:server:GetVehicleProperties', function(properties)
+                    QBCore.Functions.TriggerCallback('norskpixel-garage:server:GetVehicleProperties', function(properties)
                         QBCore.Functions.SetVehicleProperties(veh, properties)
                         enginePercent = round(vehicle.engine / 10, 0)
                         bodyPercent = round(vehicle.body / 10, 0)
@@ -268,7 +268,7 @@ RegisterNetEvent('qb-garages:client:takeOutDepot', function(vehicle)
                         exports['LegacyFuel']:SetFuel(veh, vehicle.fuel)
                         SetEntityAsMissionEntity(veh, true, true)
                         doCarDamage(veh, vehicle)
-                        TriggerServerEvent('qb-garage:server:updateVehicleState', 0, vehicle.plate, vehicle.garage)
+                        TriggerServerEvent('norskpixel-garage:server:updateVehicleState', 0, vehicle.plate, vehicle.garage)
                         TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
                         closeMenuFull()
                         SetVehicleEngineOn(veh, true, true)
@@ -280,7 +280,7 @@ RegisterNetEvent('qb-garages:client:takeOutDepot', function(vehicle)
                 end)
             else
                 QBCore.Functions.SpawnVehicle(vehicle.vehicle, function(veh)
-                    QBCore.Functions.TriggerCallback('qb-garage:server:GetVehicleProperties', function(properties)
+                    QBCore.Functions.TriggerCallback('norskpixel-garage:server:GetVehicleProperties', function(properties)
                         QBCore.Functions.SetVehicleProperties(veh, properties)
                         enginePercent = round(vehicle.engine / 10, 0)
                         bodyPercent = round(vehicle.body / 10, 0)
@@ -288,13 +288,13 @@ RegisterNetEvent('qb-garages:client:takeOutDepot', function(vehicle)
 
                         if vehicle.plate then
                             OutsideVehicles[vehicle.plate] = veh
-                            TriggerServerEvent('qb-garages:server:UpdateOutsideVehicles', OutsideVehicles)
+                            TriggerServerEvent('norskpixel-garages:server:UpdateOutsideVehicles', OutsideVehicles)
                         end
 
                     if vehicle.plate then
                         DeleteVehicle(OutsideVehicles[vehicle.plate])
                         OutsideVehicles[vehicle.plate] = veh
-                        TriggerServerEvent('qb-garages:server:UpdateOutsideVehicles', OutsideVehicles)
+                        TriggerServerEvent('norskpixel-garages:server:UpdateOutsideVehicles', OutsideVehicles)
                     end
 
                     SetVehicleNumberPlateText(veh, vehicle.plate)
@@ -303,7 +303,7 @@ RegisterNetEvent('qb-garages:client:takeOutDepot', function(vehicle)
                     exports['LegacyFuel']:SetFuel(veh, vehicle.fuel)
                     SetEntityAsMissionEntity(veh, true, true)
                     doCarDamage(veh, vehicle)
-                    TriggerServerEvent('qb-garage:server:updateVehicleState', 0, vehicle.plate, vehicle.garage)
+                    TriggerServerEvent('norskpixel-garage:server:updateVehicleState', 0, vehicle.plate, vehicle.garage)
                     TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
                     closeMenuFull()
                     SetVehicleEngineOn(veh, true, true)
@@ -316,7 +316,7 @@ RegisterNetEvent('qb-garages:client:takeOutDepot', function(vehicle)
         end
         else
             QBCore.Functions.SpawnVehicle(vehicle.vehicle, function(veh)
-                QBCore.Functions.TriggerCallback('qb-garage:server:GetVehicleProperties', function(properties)
+                QBCore.Functions.TriggerCallback('norskpixel-garage:server:GetVehicleProperties', function(properties)
                     QBCore.Functions.SetVehicleProperties(veh, properties)
                     enginePercent = round(vehicle.engine / 10, 0)
                     bodyPercent = round(vehicle.body / 10, 0)
@@ -324,7 +324,7 @@ RegisterNetEvent('qb-garages:client:takeOutDepot', function(vehicle)
 
                     if vehicle.plate then
                         OutsideVehicles[vehicle.plate] = veh
-                        TriggerServerEvent('qb-garages:server:UpdateOutsideVehicles', OutsideVehicles)
+                        TriggerServerEvent('norskpixel-garages:server:UpdateOutsideVehicles', OutsideVehicles)
                     end
 
                     SetVehicleNumberPlateText(veh, vehicle.plate)
@@ -333,7 +333,7 @@ RegisterNetEvent('qb-garages:client:takeOutDepot', function(vehicle)
                     exports['LegacyFuel']:SetFuel(veh, vehicle.fuel)
                     SetEntityAsMissionEntity(veh, true, true)
                     doCarDamage(veh, vehicle)
-                    TriggerServerEvent('qb-garage:server:updateVehicleState', 0, vehicle.plate, vehicle.garage)
+                    TriggerServerEvent('norskpixel-garage:server:updateVehicleState', 0, vehicle.plate, vehicle.garage)
                     TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
                     closeMenuFull()
                     SetVehicleEngineOn(veh, true, true)
@@ -349,8 +349,8 @@ RegisterNetEvent('qb-garages:client:takeOutDepot', function(vehicle)
     end
 end)
 
-RegisterNetEvent("qb-garages:client:HouseGarage", function(house)
-    QBCore.Functions.TriggerCallback("qb-garage:server:GetHouseVehicles", function(result)
+RegisterNetEvent("norskpixel-garages:client:HouseGarage", function(house)
+    QBCore.Functions.TriggerCallback("norskpixel-garage:server:GetHouseVehicles", function(result)
         if result == nil then
             QBCore.Functions.Notify("Du har ingen køretøjer i denne garage!", "error", 5000)
         else
@@ -380,7 +380,7 @@ RegisterNetEvent("qb-garages:client:HouseGarage", function(house)
                     header = vname.." ["..v.plate.."]",
                     txt = "Status: "..v.state.. "<br>Tank: "..currentFuel.." | Motor: "..enginePercent.." | Karosseri: "..bodyPercent,
                     params = {
-                        event = "qb-garages:client:TakeOutHouseGarage",
+                        event = "norskpixel-garages:client:TakeOutHouseGarage",
                         args = v
                     }
                 }
@@ -390,16 +390,16 @@ RegisterNetEvent("qb-garages:client:HouseGarage", function(house)
                 header = "⬅ Forlad garage",
                 txt = "",
                 params = {
-                    event = "qb-menu:closeMenu",
+                    event = "norskpixel-menu:closeMenu",
                 }
             }
-            exports['qb-menu']:openMenu(MenuHouseGarageOptions)
+            exports['norskpixel-menu']:openMenu(MenuHouseGarageOptions)
         end
     end, house)
 end)
 
-RegisterNetEvent("qb-garages:client:DepotList", function()
-    QBCore.Functions.TriggerCallback("qb-garage:server:GetDepotVehicles", function(result)
+RegisterNetEvent("norskpixel-garages:client:DepotList", function()
+    QBCore.Functions.TriggerCallback("norskpixel-garage:server:GetDepotVehicles", function(result)
         if result == nil then
             QBCore.Functions.Notify("Du har ingen impounded køretøjer!", "error", 5000)
         else
@@ -423,7 +423,7 @@ RegisterNetEvent("qb-garages:client:DepotList", function()
                     header = vname.." ["..v.depotprice.."]",
                     txt = "Reg.Nr.: "..v.plate.."<br>Tank: "..currentFuel.." | Motor: "..enginePercent.." | Karosseri: "..bodyPercent,
                     params = {
-                        event = "qb-garages:client:TakeOutDepotVehicle",
+                        event = "norskpixel-garages:client:TakeOutDepotVehicle",
                         args = v
                     }
                 }
@@ -433,16 +433,16 @@ RegisterNetEvent("qb-garages:client:DepotList", function()
                 header = "⬅ Forlad depot",
                 txt = "",
                 params = {
-                    event = "qb-menu:closeMenu",
+                    event = "norskpixel-menu:closeMenu",
                 }
             }
-            exports['qb-menu']:openMenu(MenuDepotOptions)
+            exports['norskpixel-menu']:openMenu(MenuDepotOptions)
         end
     end)
 end)
 
-RegisterNetEvent("qb-garages:client:VehicleList", function()
-    QBCore.Functions.TriggerCallback("qb-garage:server:GetUserVehicles", function(result)
+RegisterNetEvent("norskpixel-garages:client:VehicleList", function()
+    QBCore.Functions.TriggerCallback("norskpixel-garage:server:GetUserVehicles", function(result)
         if result == nil then
             QBCore.Functions.Notify("Du har ingen køretøjer i denne garage!", "error", 5000)
         else
@@ -471,7 +471,7 @@ RegisterNetEvent("qb-garages:client:VehicleList", function()
                     header = vname.." ["..v.plate.."]",
                     txt = "Status: "..v.state.." <br>Tank: "..currentFuel.." | Motor: "..enginePercent.." | Karosseri: "..bodyPercent,
                     params = {
-                        event = "qb-garages:client:takeOutPublicGarage",
+                        event = "norskpixel-garages:client:takeOutPublicGarage",
                         args = v,
                     }
                 }
@@ -481,16 +481,16 @@ RegisterNetEvent("qb-garages:client:VehicleList", function()
                 header = "⬅ Forlad garage",
                 txt = "",
                 params = {
-                    event = "qb-menu:closeMenu",
+                    event = "norskpixel-menu:closeMenu",
                 }
             }
-            exports['qb-menu']:openMenu(MenuPublicGarageOptions)
+            exports['norskpixel-menu']:openMenu(MenuPublicGarageOptions)
         end
     end, currentGarage)
 end)
 
-RegisterNetEvent("qb-garages:client:GangVehicleList", function()
-    QBCore.Functions.TriggerCallback("qb-garage:server:GetUserVehicles", function(result)
+RegisterNetEvent("norskpixel-garages:client:GangVehicleList", function()
+    QBCore.Functions.TriggerCallback("norskpixel-garage:server:GetUserVehicles", function(result)
         if result == nil then
             QBCore.Functions.Notify("Du har ingen køretøjer i denne garage!", "error", 5000)
         else
@@ -519,7 +519,7 @@ RegisterNetEvent("qb-garages:client:GangVehicleList", function()
                     header = vname.." ["..v.plate.."]",
                     txt = "Status: "..v.state.."<br>Tank: "..currentFuel.." | Motor: "..enginePercent.." | Karosseri: "..bodyPercent,
                     params = {
-                        event = "qb-garages:client:takeOutGangGarage",
+                        event = "norskpixel-garages:client:takeOutGangGarage",
                         args = v
                     }
                 }
@@ -529,16 +529,16 @@ RegisterNetEvent("qb-garages:client:GangVehicleList", function()
                 header = "⬅ Forlad garage",
                 txt = "",
                 params = {
-                    event = "qb-menu:closeMenu",
+                    event = "norskpixel-menu:closeMenu",
                 }
             }
-            exports['qb-menu']:openMenu(MenuGangGarageOptions)
+            exports['norskpixel-menu']:openMenu(MenuGangGarageOptions)
         end
     end, currentGarage)
 end)
 
-RegisterNetEvent("qb-garages:client:JobVehicleList", function()
-    QBCore.Functions.TriggerCallback("qb-garage:server:GetUserVehicles", function(result)
+RegisterNetEvent("norskpixel-garages:client:JobVehicleList", function()
+    QBCore.Functions.TriggerCallback("norskpixel-garage:server:GetUserVehicles", function(result)
         if result == nil then
             QBCore.Functions.Notify("Du har ingen køretøjer i denne garage!", "error", 5000)
         else
@@ -567,7 +567,7 @@ RegisterNetEvent("qb-garages:client:JobVehicleList", function()
                     header = vname.." ["..v.plate.."]",
                     txt = "Status: "..v.state.."<br>Tank: "..currentFuel.." | Motor: "..enginePercent.." | Karosseri: "..bodyPercent,
                     params = {
-                        event = "qb-garages:client:takeOutJobGarage",
+                        event = "norskpixel-garages:client:takeOutJobGarage",
                         args = v
                     }
                 }
@@ -577,26 +577,26 @@ RegisterNetEvent("qb-garages:client:JobVehicleList", function()
                 header = "⬅ Forlad garage",
                 txt = "",
                 params = {
-                    event = "qb-menu:closeMenu",
+                    event = "norskpixel-menu:closeMenu",
                 }
             }
-            exports['qb-menu']:openMenu(MenuJobGarageOptions)
+            exports['norskpixel-menu']:openMenu(MenuJobGarageOptions)
         end
     end, currentGarage)
 end)
 
-RegisterNetEvent('qb-garages:client:takeOutPublicGarage', function(vehicle)
+RegisterNetEvent('norskpixel-garages:client:takeOutPublicGarage', function(vehicle)
     if vehicle.state == "Garaged" then
         enginePercent = round(vehicle.engine / 10, 1)
         bodyPercent = round(vehicle.body / 10, 1)
         currentFuel = vehicle.fuel
 
         QBCore.Functions.SpawnVehicle(vehicle.vehicle, function(veh)
-            QBCore.Functions.TriggerCallback('qb-garage:server:GetVehicleProperties', function(properties)
+            QBCore.Functions.TriggerCallback('norskpixel-garage:server:GetVehicleProperties', function(properties)
 
                 if vehicle.plate then
                     OutsideVehicles[vehicle.plate] = veh
-                    TriggerServerEvent('qb-garages:server:UpdateOutsideVehicles', OutsideVehicles)
+                    TriggerServerEvent('norskpixel-garages:server:UpdateOutsideVehicles', OutsideVehicles)
                 end
 
                 QBCore.Functions.SetVehicleProperties(veh, properties)
@@ -605,7 +605,7 @@ RegisterNetEvent('qb-garages:client:takeOutPublicGarage', function(vehicle)
                 exports['LegacyFuel']:SetFuel(veh, vehicle.fuel)
                 doCarDamage(veh, vehicle)
                 SetEntityAsMissionEntity(veh, true, true)
-                TriggerServerEvent('qb-garage:server:updateVehicleState', 0, vehicle.plate, vehicle.garage)
+                TriggerServerEvent('norskpixel-garage:server:updateVehicleState', 0, vehicle.plate, vehicle.garage)
                 closeMenuFull()
                 TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
                 TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
@@ -620,18 +620,18 @@ RegisterNetEvent('qb-garages:client:takeOutPublicGarage', function(vehicle)
     end
 end)
 
-RegisterNetEvent('qb-garages:client:takeOutGangGarage', function(vehicle)
+RegisterNetEvent('norskpixel-garages:client:takeOutGangGarage', function(vehicle)
     if vehicle.state == "Garaged" then
         enginePercent = round(vehicle.engine / 10, 1)
         bodyPercent = round(vehicle.body / 10, 1)
         currentFuel = vehicle.fuel
 
         QBCore.Functions.SpawnVehicle(vehicle.vehicle, function(veh)
-            QBCore.Functions.TriggerCallback('qb-garage:server:GetVehicleProperties', function(properties)
+            QBCore.Functions.TriggerCallback('norskpixel-garage:server:GetVehicleProperties', function(properties)
 
                 if vehicle.plate then
                     OutsideVehicles[vehicle.plate] = veh
-                    TriggerServerEvent('qb-garages:server:UpdateOutsideVehicles', OutsideVehicles)
+                    TriggerServerEvent('norskpixel-garages:server:UpdateOutsideVehicles', OutsideVehicles)
                 end
 
                 QBCore.Functions.SetVehicleProperties(veh, properties)
@@ -640,7 +640,7 @@ RegisterNetEvent('qb-garages:client:takeOutGangGarage', function(vehicle)
                 exports['LegacyFuel']:SetFuel(veh, vehicle.fuel)
                 doCarDamage(veh, vehicle)
                 SetEntityAsMissionEntity(veh, true, true)
-                TriggerServerEvent('qb-garage:server:updateVehicleState', 0, vehicle.plate, vehicle.garage)
+                TriggerServerEvent('norskpixel-garage:server:updateVehicleState', 0, vehicle.plate, vehicle.garage)
                 closeMenuFull()
                 TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
                 TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
@@ -655,16 +655,16 @@ RegisterNetEvent('qb-garages:client:takeOutGangGarage', function(vehicle)
     end
 end)
 
-RegisterNetEvent('qb-garages:client:takeOutJobGarage', function(vehicle)
+RegisterNetEvent('norskpixel-garages:client:takeOutJobGarage', function(vehicle)
     if vehicle.state == "Garaged" then
         enginePercent = round(vehicle.engine / 10, 1)
         bodyPercent = round(vehicle.body / 10, 1)
         currentFuel = vehicle.fuel
         QBCore.Functions.SpawnVehicle(vehicle.vehicle, function(veh)
-            QBCore.Functions.TriggerCallback('qb-garage:server:GetVehicleProperties', function(properties)
+            QBCore.Functions.TriggerCallback('norskpixel-garage:server:GetVehicleProperties', function(properties)
                 if vehicle.plate then
                     OutsideVehicles[vehicle.plate] = veh
-                    TriggerServerEvent('qb-garages:server:UpdateOutsideVehicles', OutsideVehicles)
+                    TriggerServerEvent('norskpixel-garages:server:UpdateOutsideVehicles', OutsideVehicles)
                 end
                 QBCore.Functions.SetVehicleProperties(veh, properties)
                 SetVehicleNumberPlateText(veh, vehicle.plate)
@@ -672,7 +672,7 @@ RegisterNetEvent('qb-garages:client:takeOutJobGarage', function(vehicle)
                 exports['LegacyFuel']:SetFuel(veh, vehicle.fuel)
                 doCarDamage(veh, vehicle)
                 SetEntityAsMissionEntity(veh, true, true)
-                TriggerServerEvent('qb-garage:server:updateVehicleState', 0, vehicle.plate, vehicle.garage)
+                TriggerServerEvent('norskpixel-garage:server:updateVehicleState', 0, vehicle.plate, vehicle.garage)
                 closeMenuFull()
                 TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
                 TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
@@ -686,17 +686,17 @@ RegisterNetEvent('qb-garages:client:takeOutJobGarage', function(vehicle)
     end
 end)
 
-RegisterNetEvent('qb-garages:client:TakeOutDepotVehicle', function(vehicle)
+RegisterNetEvent('norskpixel-garages:client:TakeOutDepotVehicle', function(vehicle)
     if vehicle.state == "Impound" then
-        TriggerServerEvent("qb-garage:server:PayDepotPrice", vehicle)
+        TriggerServerEvent("norskpixel-garage:server:PayDepotPrice", vehicle)
         Wait(1000)
     end
 end)
 
-RegisterNetEvent('qb-garages:client:TakeOutHouseGarage', function(vehicle)
+RegisterNetEvent('norskpixel-garages:client:TakeOutHouseGarage', function(vehicle)
     if vehicle.state == "Garaged" then
         QBCore.Functions.SpawnVehicle(vehicle.vehicle, function(veh)
-            QBCore.Functions.TriggerCallback('qb-garage:server:GetVehicleProperties', function(properties)
+            QBCore.Functions.TriggerCallback('norskpixel-garage:server:GetVehicleProperties', function(properties)
                 QBCore.Functions.SetVehicleProperties(veh, properties)
                 enginePercent = round(vehicle.engine / 10, 1)
                 bodyPercent = round(vehicle.body / 10, 1)
@@ -704,7 +704,7 @@ RegisterNetEvent('qb-garages:client:TakeOutHouseGarage', function(vehicle)
 
                 if vehicle.plate then
                     OutsideVehicles[vehicle.plate] = veh
-                    TriggerServerEvent('qb-garages:server:UpdateOutsideVehicles', OutsideVehicles)
+                    TriggerServerEvent('norskpixel-garages:server:UpdateOutsideVehicles', OutsideVehicles)
                 end
 
                 SetVehicleNumberPlateText(veh, vehicle.plate)
@@ -713,7 +713,7 @@ RegisterNetEvent('qb-garages:client:TakeOutHouseGarage', function(vehicle)
                 exports['LegacyFuel']:SetFuel(veh, vehicle.fuel)
                 SetEntityAsMissionEntity(veh, true, true)
                 doCarDamage(veh, vehicle)
-                TriggerServerEvent('qb-garage:server:updateVehicleState', 0, vehicle.plate, vehicle.garage)
+                TriggerServerEvent('norskpixel-garage:server:updateVehicleState', 0, vehicle.plate, vehicle.garage)
                 closeMenuFull()
                 TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
                 SetVehicleEngineOn(veh, true, true)
@@ -760,19 +760,19 @@ CreateThread(function()
                     if IsControlJustPressed(0, 38) then
                         local curVeh = GetVehiclePedIsIn(ped)
                         local plate = QBCore.Functions.GetPlate(curVeh)
-                        QBCore.Functions.TriggerCallback('qb-garage:server:checkVehicleOwner', function(owned)
+                        QBCore.Functions.TriggerCallback('norskpixel-garage:server:checkVehicleOwner', function(owned)
                             if owned then
                                 local bodyDamage = math.ceil(GetVehicleBodyHealth(curVeh))
                                 local engineDamage = math.ceil(GetVehicleEngineHealth(curVeh))
                                 local totalFuel = exports['LegacyFuel']:GetFuel(curVeh)
                                 local vehProperties = QBCore.Functions.GetVehicleProperties(curVeh)
                                 CheckPlayers(curVeh)
-                                TriggerServerEvent('qb-garage:server:updateVehicleStatus', totalFuel, engineDamage, bodyDamage, plate, k)
-                                TriggerServerEvent('qb-garage:server:updateVehicleState', 1, plate, k)
-                                TriggerServerEvent('qb-vehicletuning:server:SaveVehicleProps', vehProperties)
+                                TriggerServerEvent('norskpixel-garage:server:updateVehicleStatus', totalFuel, engineDamage, bodyDamage, plate, k)
+                                TriggerServerEvent('norskpixel-garage:server:updateVehicleState', 1, plate, k)
+                                TriggerServerEvent('norskpixel-vehicletuning:server:SaveVehicleProps', vehProperties)
                                 if plate then
                                     OutsideVehicles[plate] = veh
-                                    TriggerServerEvent('qb-garages:server:UpdateOutsideVehicles', OutsideVehicles)
+                                    TriggerServerEvent('norskpixel-garages:server:UpdateOutsideVehicles', OutsideVehicles)
                                 end
                                 QBCore.Functions.Notify("Køretøj blev parkeret", "primary", 4500)
                             else
@@ -827,7 +827,7 @@ CreateThread(function()
                         if IsControlJustPressed(0, 38) then
                             local curVeh = GetVehiclePedIsIn(ped)
                             local plate = QBCore.Functions.GetPlate(curVeh)
-                            QBCore.Functions.TriggerCallback('qb-garage:server:checkVehicleOwner', function(owned)
+                            QBCore.Functions.TriggerCallback('norskpixel-garage:server:checkVehicleOwner', function(owned)
                                 if owned then
                                     local bodyDamage = math.ceil(GetVehicleBodyHealth(curVeh))
                                     local engineDamage = math.ceil(GetVehicleEngineHealth(curVeh))
@@ -838,12 +838,12 @@ CreateThread(function()
                                     if DoesEntityExist(curVeh) then
                                         QBCore.Functions.Notify("Køretøjet kan ikke parkeres, tjek om der er nogen i køretøjet", "error", 4500)
                                     else
-                                    TriggerServerEvent('qb-garage:server:updateVehicleStatus', totalFuel, engineDamage, bodyDamage, plate, Name)
-                                    TriggerServerEvent('qb-garage:server:updateVehicleState', 1, plate, Name)
-                                    TriggerServerEvent('qb-vehicletuning:server:SaveVehicleProps', vehProperties)
+                                    TriggerServerEvent('norskpixel-garage:server:updateVehicleStatus', totalFuel, engineDamage, bodyDamage, plate, Name)
+                                    TriggerServerEvent('norskpixel-garage:server:updateVehicleState', 1, plate, Name)
+                                    TriggerServerEvent('norskpixel-vehicletuning:server:SaveVehicleProps', vehProperties)
                                     if plate then
                                         OutsideVehicles[plate] = veh
-                                        TriggerServerEvent('qb-garages:server:UpdateOutsideVehicles', OutsideVehicles)
+                                        TriggerServerEvent('norskpixel-garages:server:UpdateOutsideVehicles', OutsideVehicles)
                                     end
                                     QBCore.Functions.Notify("Køretøjet blev parkeret", "primary", 4500)
                                 end
@@ -900,7 +900,7 @@ CreateThread(function()
                         if IsControlJustPressed(0, 38) then
                             local curVeh = GetVehiclePedIsIn(ped)
                             local plate = QBCore.Functions.GetPlate(curVeh)
-                            QBCore.Functions.TriggerCallback('qb-garage:server:checkVehicleOwner', function(owned)
+                            QBCore.Functions.TriggerCallback('norskpixel-garage:server:checkVehicleOwner', function(owned)
                                 if owned then
                                     local bodyDamage = math.ceil(GetVehicleBodyHealth(curVeh))
                                     local engineDamage = math.ceil(GetVehicleEngineHealth(curVeh))
@@ -911,12 +911,12 @@ CreateThread(function()
                                     if DoesEntityExist(curVeh) then
                                         QBCore.Functions.Notify("Køretøjet kan ikke parkeres, tjek om der er nogen i køretøjet", "error", 4500)
                                     else
-                                    TriggerServerEvent('qb-garage:server:updateVehicleStatus', totalFuel, engineDamage, bodyDamage, plate, Name)
-                                    TriggerServerEvent('qb-garage:server:updateVehicleState', 1, plate, Name)
-                                    TriggerServerEvent('qb-vehicletuning:server:SaveVehicleProps', vehProperties)
+                                    TriggerServerEvent('norskpixel-garage:server:updateVehicleStatus', totalFuel, engineDamage, bodyDamage, plate, Name)
+                                    TriggerServerEvent('norskpixel-garage:server:updateVehicleState', 1, plate, Name)
+                                    TriggerServerEvent('norskpixel-vehicletuning:server:SaveVehicleProps', vehProperties)
                                     if plate then
                                         OutsideVehicles[plate] = veh
-                                        TriggerServerEvent('qb-garages:server:UpdateOutsideVehicles', OutsideVehicles)
+                                        TriggerServerEvent('norskpixel-garages:server:UpdateOutsideVehicles', OutsideVehicles)
                                     end
                                     QBCore.Functions.Notify("Køretøjet blev parkeret", "primary", 4500)
                                 end
@@ -961,7 +961,7 @@ CreateThread(function()
                                 if IsControlJustPressed(0, 38) then
                                     local curVeh = GetVehiclePedIsIn(ped)
                                     local plate = QBCore.Functions.GetPlate(curVeh)
-                                    QBCore.Functions.TriggerCallback('qb-garage:server:checkVehicleHouseOwner', function(owned)
+                                    QBCore.Functions.TriggerCallback('norskpixel-garage:server:checkVehicleHouseOwner', function(owned)
                                         if owned then
                                             local bodyDamage = round(GetVehicleBodyHealth(curVeh), 1)
                                             local engineDamage = round(GetVehicleEngineHealth(curVeh), 1)
@@ -971,13 +971,13 @@ CreateThread(function()
                                             if DoesEntityExist(curVeh) then
                                                     QBCore.Functions.Notify("Køretøjet kan ikke parkeres, tjek om der er nogen i køretøjet", "error", 4500)
                                             else
-                                            TriggerServerEvent('qb-garage:server:updateVehicleStatus', totalFuel, engineDamage, bodyDamage, plate, currentHouseGarage)
-                                            TriggerServerEvent('qb-garage:server:updateVehicleState', 1, plate, currentHouseGarage)
-                                            TriggerServerEvent('qb-vehicletuning:server:SaveVehicleProps', vehProperties)
+                                            TriggerServerEvent('norskpixel-garage:server:updateVehicleStatus', totalFuel, engineDamage, bodyDamage, plate, currentHouseGarage)
+                                            TriggerServerEvent('norskpixel-garage:server:updateVehicleState', 1, plate, currentHouseGarage)
+                                            TriggerServerEvent('norskpixel-vehicletuning:server:SaveVehicleProps', vehProperties)
                                             QBCore.Functions.DeleteVehicle(curVeh)
                                             if plate then
                                                 OutsideVehicles[plate] = veh
-                                                TriggerServerEvent('qb-garages:server:UpdateOutsideVehicles', OutsideVehicles)
+                                                TriggerServerEvent('norskpixel-garages:server:UpdateOutsideVehicles', OutsideVehicles)
                                             end
                                             QBCore.Functions.Notify("Køretøjet blev parkeret", "primary", 4500)
                                         end

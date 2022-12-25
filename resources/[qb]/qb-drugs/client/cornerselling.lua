@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local cornerselling = false
 local hasTarget = false
@@ -15,8 +15,8 @@ local policeMessage = {
     "Mulig narko handel",
 }
 
-RegisterNetEvent('qb-drugs:client:cornerselling', function(data)
-    QBCore.Functions.TriggerCallback('qb-drugs:server:cornerselling:getAvailableDrugs', function(result)
+RegisterNetEvent('norskpixel-drugs:client:cornerselling', function(data)
+    QBCore.Functions.TriggerCallback('norskpixel-drugs:server:cornerselling:getAvailableDrugs', function(result)
         if CurrentCops >= Config.MinimumDrugSalePolice then
             if result ~= nil then
                 availableDrugs = result
@@ -44,7 +44,7 @@ RegisterNetEvent('police:SetCopCount', function(amount)
     CurrentCops = amount
 end)
 
-RegisterNetEvent('qb-drugs:client:refreshAvailableDrugs', function(items)
+RegisterNetEvent('norskpixel-drugs:client:refreshAvailableDrugs', function(items)
     availableDrugs = items
     if #availableDrugs <= 0 then
         QBCore.Functions.Notify('Ikke flere stoffer at sælge!', 'error')
@@ -173,7 +173,7 @@ local function SellToPed(ped)
             pedCoords = GetEntityCoords(ped)
             pedDist = #(coords - pedCoords)
             if getRobbed == 18 or getRobbed == 9 then
-                TriggerServerEvent('qb-drugs:server:robCornerDrugs', availableDrugs[drugType].item, bagAmount)
+                TriggerServerEvent('norskpixel-drugs:server:robCornerDrugs', availableDrugs[drugType].item, bagAmount)
                 QBCore.Functions.Notify('Du er blevet røvet og mistede '..bagAmount..' poser '..availableDrugs[drugType].label, 'error')
                 stealingPed = ped
                 stealData = {
@@ -199,7 +199,7 @@ local function SellToPed(ped)
                 if pedDist < 1.5 and cornerselling then
                     DrawText3D(pedCoords.x, pedCoords.y, pedCoords.z, '~g~E~w~ '..bagAmount..'x '..currentOfferDrug.label..' for '..randomPrice..' DKK? / ~g~G~w~ Afslå bud')
                     if IsControlJustPressed(0, 38) then
-                        TriggerServerEvent('qb-drugs:server:sellCornerDrugs', availableDrugs[drugType].item, bagAmount, randomPrice)
+                        TriggerServerEvent('norskpixel-drugs:server:sellCornerDrugs', availableDrugs[drugType].item, bagAmount, randomPrice)
                         hasTarget = false
 
                         loadAnimDict("gestures@f@standing@casual")

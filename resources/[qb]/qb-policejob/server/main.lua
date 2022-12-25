@@ -6,7 +6,7 @@ local Casings = {}
 local BloodDrops = {}
 local FingerDrops = {}
 local Objects = {}
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 Citizen.CreateThread(function()
     while true do
@@ -107,7 +107,7 @@ AddEventHandler('police:server:BillPlayer', function(playerId, price)
     if Player.PlayerData.job.name == "police" then
         if OtherPlayer ~= nil then
             OtherPlayer.Functions.RemoveMoney("bank", price, "paid-bills")
-            TriggerEvent('qb-bossmenu:server:addAccountMoney', "police", price)
+            TriggerEvent('norskpixel-bossmenu:server:addAccountMoney', "police", price)
             TriggerClientEvent('QBCore:Notify', OtherPlayer.PlayerData.source, "Du modtager en bøde på " .. price..' DKK')
         end
     end
@@ -223,7 +223,7 @@ AddEventHandler('police:server:VehicleCall', function(pos, msg, alertTitle, stre
         description = msg
     }
     TriggerClientEvent("police:client:VehicleCall", -1, pos, alertTitle, streetLabel, modelPlate, modelName)
-    TriggerClientEvent("qb-phone:client:addPoliceAlert", -1, alertData)
+    TriggerClientEvent("norskpixel-phone:client:addPoliceAlert", -1, alertData)
 end)
 
 RegisterServerEvent('police:server:HouseRobberyCall')
@@ -239,7 +239,7 @@ AddEventHandler('police:server:HouseRobberyCall', function(coords, message, gend
         description = message
     }
     TriggerClientEvent("police:client:HouseRobberyCall", -1, coords, message, gender, streetLabel)
-    TriggerClientEvent("qb-phone:client:addPoliceAlert", -1, alertData)
+    TriggerClientEvent("norskpixel-phone:client:addPoliceAlert", -1, alertData)
 end)
 
 RegisterServerEvent('police:server:SendEmergencyMessage')
@@ -256,7 +256,7 @@ AddEventHandler('police:server:SendEmergencyMessage', function(coords, message)
         },
         description = message
     }
-    TriggerClientEvent("qb-phone:client:addPoliceAlert", -1, alertData)
+    TriggerClientEvent("norskpixel-phone:client:addPoliceAlert", -1, alertData)
     TriggerClientEvent('police:server:SendEmergencyMessageCheck', -1, MainPlayer, message, coords)
 end)
 
@@ -582,7 +582,7 @@ AddEventHandler('police:server:SendTrackerLocation', function(coords, requestId)
     }
 
     TriggerClientEvent("police:client:TrackerMessage", requestId, msg, coords)
-    TriggerClientEvent("qb-phone:client:addPoliceAlert", requestId, alertData)
+    TriggerClientEvent("norskpixel-phone:client:addPoliceAlert", requestId, alertData)
 end)
 
 RegisterServerEvent('police:server:SendPoliceEmergencyAlert')
@@ -604,7 +604,7 @@ AddEventHandler('police:server:SendPoliceEmergencyAlert', function(streetLabel, 
         coords = coords
     }
     TriggerEvent('wf-alerts:svNotify', dispatchData)
-    TriggerClientEvent("qb-phone:client:addPoliceAlert", -1, dispatchData)
+    TriggerClientEvent("norskpixel-phone:client:addPoliceAlert", -1, dispatchData)
 end)
 
 QBCore.Functions.CreateCallback('police:server:isPlayerDead', function(source, cb, playerId)
@@ -891,7 +891,7 @@ QBCore.Commands.Add("palert", "Lav en politi anmeldelse", {{
         if args[1] ~= nil then
             local msg = table.concat(args, " ")
             TriggerClientEvent("chatMessage", -1, "POLICE ANMELDELSE", "error", msg)
-            TriggerEvent("qb-log:server:CreateLog", "palert", "Police alert", "blue",
+            TriggerEvent("norskpixel-log:server:CreateLog", "palert", "Police alert", "blue",
                 "**" .. GetPlayerName(source) .. "** (CitizenID: " .. Player.PlayerData.citizenid .. " | ID: " .. source ..
                     ") **Alert:** " .. msg, false)
             TriggerClientEvent('police:PlaySound', -1)
@@ -1166,7 +1166,7 @@ QBCore.Commands.Add("112", "Send en besked til beredskabstjenester", {{
 
     if Player.Functions.GetItemByName("phone") ~= nil then
         TriggerClientEvent("police:client:SendEmergencyMessage", source, message)
-        TriggerEvent("qb-log:server:CreateLog", "911", "911 alert", "blue",
+        TriggerEvent("norskpixel-log:server:CreateLog", "911", "911 alert", "blue",
             "**" .. GetPlayerName(source) .. "** (CitizenID: " .. Player.PlayerData.citizenid .. " | ID: " .. source ..
                 ") **Alert:** " .. message, false)
     else

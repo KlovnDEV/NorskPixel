@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local NeededAttempts = 0
 local SucceededAttempts = 0
@@ -38,7 +38,7 @@ Citizen.CreateThread(function()
             if distance < 2 then
                 DrawText3Ds(1100.29, -3194.08, -38.99, "[G] Hak kokainblade")
                 if IsControlJustPressed(0, 47) then
-                    TriggerServerEvent("qb-coke:server:grindleaves")
+                    TriggerServerEvent("norskpixel-coke:server:grindleaves")
 
                 end
             end
@@ -112,7 +112,7 @@ Citizen.CreateThread(function()
             if distance < 2 then
                 DrawText3Ds(-1078.21, -1678.42, 4.57, "[G] Producér Crack")
                 if IsControlJustPressed(0, 47) then
-                    TriggerServerEvent("qb-coke:server:processCrack")
+                    TriggerServerEvent("norskpixel-coke:server:processCrack")
                 end
             end
         end
@@ -169,14 +169,14 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterNetEvent('qb-coke:client:grindleavesMinigame')
-AddEventHandler('qb-coke:client:grindleavesMinigame', function(source)
+RegisterNetEvent('norskpixel-coke:client:grindleavesMinigame')
+AddEventHandler('norskpixel-coke:client:grindleavesMinigame', function(source)
     PrepareProcessAnim()
     ProcessMinigame(source)
 end)
 
-RegisterNetEvent('qb-coke:client:processCrack')
-AddEventHandler('qb-coke:client:processCrack', function(source)
+RegisterNetEvent('norskpixel-coke:client:processCrack')
+AddEventHandler('norskpixel-coke:client:processCrack', function(source)
     ProcessCrackMinigame(source)
 end)
 
@@ -187,7 +187,7 @@ function pickProcess()
         disableMouse = false,
         disableCombat = true,
     }, {}, {}, {}, function() -- Done
-        TriggerServerEvent("qb-coke:server:getleaf")
+        TriggerServerEvent("norskpixel-coke:server:getleaf")
         ClearPedTasks(PlayerPedId())
         cokepicking = false
     end, function() -- Cancel
@@ -204,7 +204,7 @@ function cokeProcess()
         disableMouse = false,
         disableCombat = true,
     }, {}, {}, {}, function() -- Done
-        TriggerServerEvent("qb-coke:server:getcoke")
+        TriggerServerEvent("norskpixel-coke:server:getcoke")
         ClearPedTasks(PlayerPedId())
         cokepicking = false
     end, function() -- Cancel
@@ -221,7 +221,7 @@ function crackProcess()
         disableMouse = false,
         disableCombat = true,
     }, {}, {}, {}, function() -- Done
-        TriggerServerEvent("qb-coke:server:getcrack")
+        TriggerServerEvent("norskpixel-coke:server:getcrack")
         ClearPedTasks(PlayerPedId())
         cokepicking = false
     end, function() -- Cancel
@@ -232,7 +232,7 @@ function crackProcess()
 end
 
 function PickMinigame()
-    local Skillbar = exports['qb-skillbar']:GetSkillbarObject()
+    local Skillbar = exports['norskpixel-skillbar']:GetSkillbarObject()
     if NeededAttempts == 0 then
         NeededAttempts = math.random(3, 5)
         -- NeededAttempts = 1
@@ -271,7 +271,7 @@ function PickMinigame()
 end
 
 function ProcessMinigame(source)
-    local Skillbar = exports['qb-skillbar']:GetSkillbarObject()
+    local Skillbar = exports['norskpixel-skillbar']:GetSkillbarObject()
     if NeededAttempts == 0 then
         NeededAttempts = math.random(3, 5)
         -- NeededAttempts = 1
@@ -311,7 +311,7 @@ function ProcessMinigame(source)
 end
 
 function ProcessCrackMinigame(source)
-    local Skillbar = exports['qb-skillbar']:GetSkillbarObject()
+    local Skillbar = exports['norskpixel-skillbar']:GetSkillbarObject()
     if NeededAttempts == 0 then
         NeededAttempts = math.random(3, 4)
         -- NeededAttempts = 1
@@ -445,7 +445,7 @@ function knockDoorAnim(home)
         Citizen.Wait(1000)
         dealerIsHome = true
         -- TriggerEvent("chatMessage", "Dealer Johnny", "normal", 'Yo '..myData.charinfo.firstname..', damn you got ')
-        TriggerServerEvent("qb-coke:server:cokesell")
+        TriggerServerEvent("norskpixel-coke:server:cokesell")
 
         -- knockTimeout()
     else

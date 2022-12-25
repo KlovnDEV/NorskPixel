@@ -1,10 +1,10 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 -- Code
 
-RegisterNetEvent('qb-drugs:AddWeapons')
-AddEventHandler('qb-drugs:AddWeapons', function()
+RegisterNetEvent('norskpixel-drugs:AddWeapons')
+AddEventHandler('norskpixel-drugs:AddWeapons', function()
     Config.Dealers[2]["products"][#Config.Dealers[2]["products"]+1] = {
         name = "weapon_snspistol",
         price = 5000,

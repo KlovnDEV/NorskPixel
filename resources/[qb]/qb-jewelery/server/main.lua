@@ -1,17 +1,17 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local timeOut = false
 local alarmTriggered = false
 
-RegisterServerEvent('qb-jewellery:server:setVitrineState')
-AddEventHandler('qb-jewellery:server:setVitrineState', function(stateType, state, k)
+RegisterServerEvent('norskpixel-jewellery:server:setVitrineState')
+AddEventHandler('norskpixel-jewellery:server:setVitrineState', function(stateType, state, k)
     Config.Locations[k][stateType] = state
-    TriggerClientEvent('qb-jewellery:client:setVitrineState', -1, stateType, state, k)
+    TriggerClientEvent('norskpixel-jewellery:client:setVitrineState', -1, stateType, state, k)
 end)
 
-RegisterServerEvent('qb-jewellery:server:vitrineReward')
-AddEventHandler('qb-jewellery:server:vitrineReward', function()
+RegisterServerEvent('norskpixel-jewellery:server:vitrineReward')
+AddEventHandler('norskpixel-jewellery:server:vitrineReward', function()
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local otherchance = math.random(1, 4)
@@ -35,19 +35,19 @@ AddEventHandler('qb-jewellery:server:vitrineReward', function()
     end
 end)
 
-RegisterServerEvent('qb-jewellery:server:setTimeout')
-AddEventHandler('qb-jewellery:server:setTimeout', function()
+RegisterServerEvent('norskpixel-jewellery:server:setTimeout')
+AddEventHandler('norskpixel-jewellery:server:setTimeout', function()
     if not timeOut then
         timeOut = true
-        TriggerEvent('qb-scoreboard:server:SetActivityBusy', "jewellery", true)
+        TriggerEvent('norskpixel-scoreboard:server:SetActivityBusy', "jewellery", true)
         Citizen.CreateThread(function()
             Citizen.Wait(Config.Timeout)
 
             for k, v in pairs(Config.Locations) do
                 Config.Locations[k]["isOpened"] = false
-                TriggerClientEvent('qb-jewellery:client:setVitrineState', -1, 'isOpened', false, k)
-                TriggerClientEvent('qb-jewellery:client:setAlertState', -1, false)
-                TriggerEvent('qb-scoreboard:server:SetActivityBusy', "jewellery", false)
+                TriggerClientEvent('norskpixel-jewellery:client:setVitrineState', -1, 'isOpened', false, k)
+                TriggerClientEvent('norskpixel-jewellery:client:setAlertState', -1, false)
+                TriggerEvent('norskpixel-scoreboard:server:SetActivityBusy', "jewellery", false)
             end
             timeOut = false
             alarmTriggered = false
@@ -55,8 +55,8 @@ AddEventHandler('qb-jewellery:server:setTimeout', function()
     end
 end)
 
-RegisterServerEvent('qb-jewellery:server:PoliceAlertMessage')
-AddEventHandler('qb-jewellery:server:PoliceAlertMessage', function(title, coords, blip)
+RegisterServerEvent('norskpixel-jewellery:server:PoliceAlertMessage')
+AddEventHandler('norskpixel-jewellery:server:PoliceAlertMessage', function(title, coords, blip)
     local src = source
     local alertData = {
         title = title,
@@ -70,20 +70,20 @@ AddEventHandler('qb-jewellery:server:PoliceAlertMessage', function(title, coords
             if (Player.PlayerData.job.name == "police" and Player.PlayerData.job.onduty) then
                 if blip then
                     if not alarmTriggered then
-                        TriggerClientEvent("qb-phone:client:addPoliceAlert", v, alertData)
-                        TriggerClientEvent("qb-jewellery:client:PoliceAlertMessage", v, title, coords, blip)
+                        TriggerClientEvent("norskpixel-phone:client:addPoliceAlert", v, alertData)
+                        TriggerClientEvent("norskpixel-jewellery:client:PoliceAlertMessage", v, title, coords, blip)
                         alarmTriggered = true
                     end
                 else
-                    TriggerClientEvent("qb-phone:client:addPoliceAlert", v, alertData)
-                    TriggerClientEvent("qb-jewellery:client:PoliceAlertMessage", v, title, coords, blip)
+                    TriggerClientEvent("norskpixel-phone:client:addPoliceAlert", v, alertData)
+                    TriggerClientEvent("norskpixel-jewellery:client:PoliceAlertMessage", v, title, coords, blip)
                 end
             end
         end
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-jewellery:server:getCops', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-jewellery:server:getCops', function(source, cb)
 	local amount = 0
     for k, v in pairs(QBCore.Functions.GetPlayers()) do
         local Player = QBCore.Functions.GetPlayer(v)

@@ -1,8 +1,8 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
-RegisterNetEvent("qb-justice:client:showLawyerLicense")
-AddEventHandler("qb-justice:client:showLawyerLicense", function(sourceId, data)
+RegisterNetEvent("norskpixel-justice:client:showLawyerLicense")
+AddEventHandler("norskpixel-justice:client:showLawyerLicense", function(sourceId, data)
     local sourcePos = GetEntityCoords(GetPlayerPed(GetPlayerFromServerId(sourceId)), false)
     local pos = GetEntityCoords(PlayerPedId(), false)
     if #(pos - sourcePos) < 2.0 then

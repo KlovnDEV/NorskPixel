@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local call_index = 0
 
 RegisterServerEvent("mdt:hotKeyOpen")

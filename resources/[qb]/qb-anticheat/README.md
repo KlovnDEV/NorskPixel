@@ -1,4 +1,4 @@
-# qb-anticheat
+# norskpixel-anticheat
 Anticheat System For QB-Core
 
 # License

@@ -11,14 +11,14 @@ Citizen.CreateThread(function()
         if PaletoDist < 15 then
             inRange = true
             if Config.BigBanks["paleto"]["isOpened"] then
-                TriggerServerEvent('qb-doorlock:server:updateState', 85, false)
+                TriggerServerEvent('norskpixel-doorlock:server:updateState', 85, false)
                 local object = GetClosestObjectOfType(Config.BigBanks["paleto"]["coords"]["x"], Config.BigBanks["paleto"]["coords"]["y"], Config.BigBanks["paleto"]["coords"]["z"], 5.0, Config.BigBanks["paleto"]["object"], false, false, false)
             
                 if object ~= 0 then
                     SetEntityHeading(object, Config.BigBanks["paleto"]["heading"].open)
                 end
             else
-                TriggerServerEvent('qb-doorlock:server:updateState', 85, true)
+                TriggerServerEvent('norskpixel-doorlock:server:updateState', 85, true)
                 local object = GetClosestObjectOfType(Config.BigBanks["paleto"]["coords"]["x"], Config.BigBanks["paleto"]["coords"]["y"], Config.BigBanks["paleto"]["coords"]["z"], 5.0, Config.BigBanks["paleto"]["object"], false, false, false)
             
                 if object ~= 0 then
@@ -51,9 +51,9 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterNetEvent('qb-bankrobbery:client:ClearTimeoutDoors')
-AddEventHandler('qb-bankrobbery:client:ClearTimeoutDoors', function()
-    TriggerServerEvent('qb-doorlock:server:updateState', 85, true)
+RegisterNetEvent('norskpixel-bankrobbery:client:ClearTimeoutDoors')
+AddEventHandler('norskpixel-bankrobbery:client:ClearTimeoutDoors', function()
+    TriggerServerEvent('norskpixel-doorlock:server:updateState', 85, true)
     local PaletoObject = GetClosestObjectOfType(Config.BigBanks["paleto"]["coords"]["x"], Config.BigBanks["paleto"]["coords"]["y"], Config.BigBanks["paleto"]["coords"]["z"], 5.0, Config.BigBanks["paleto"]["object"], false, false, false)
     if PaletoObject ~= 0 then
         SetEntityHeading(PaletoObject, Config.BigBanks["paleto"]["heading"].closed)

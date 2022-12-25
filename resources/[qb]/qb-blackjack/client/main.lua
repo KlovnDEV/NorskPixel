@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local seatSideAngle = 30
 local bet = 0
 local hand = {}
@@ -34,17 +34,17 @@ CreateThread(function()
 end)
 
 --[===[
-	exports["qb-blackjack"]:SetSatDownCallback(function()
+	exports["norskpixel-blackjack"]:SetSatDownCallback(function()
 		-- Disable hud components?
 		-- etc
 	end)
 
-	exports["qb-blackjack"]:SetStandUpCallback(function()
+	exports["norskpixel-blackjack"]:SetStandUpCallback(function()
 		-- Enable hud components?
 		-- etc
 	end)
 
-	exports["qb-blackjack"]:SetLeaveCheckCallback(function()
+	exports["norskpixel-blackjack"]:SetLeaveCheckCallback(function()
 		-- if isCuffed or isBeingCarried or isInJail??? then
 		-- return true
 		-- else
@@ -52,7 +52,7 @@ end)
 		-- end
 	end)
 
-	exports["qb-blackjack"]:SetCanSitDownCallback(function()
+	exports["norskpixel-blackjack"]:SetCanSitDownCallback(function()
 		-- if not isCuffed and not isBeingCarried and not isInJail??? then
 		-- return true
 		-- else
@@ -1507,7 +1507,7 @@ CreateThread(function()
 		CreateThread(CreatePeds)
 	else
 		ThefeedSetAnimpostfxColor(255, 0, 0, 255)
-		Notification("This server is missing objects required for qb-blackjack!", nil, true)
+		Notification("This server is missing objects required for norskpixel-blackjack!", nil, true)
 	end
 end)
 

@@ -1,14 +1,14 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
-RegisterServerEvent('qb-drugs:server:updateDealerItems')
-AddEventHandler('qb-drugs:server:updateDealerItems', function(itemData, amount, dealer)
+RegisterServerEvent('norskpixel-drugs:server:updateDealerItems')
+AddEventHandler('norskpixel-drugs:server:updateDealerItems', function(itemData, amount, dealer)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if Config.Dealers[dealer]["products"][itemData.slot].amount - 1 >= 0 then
         Config.Dealers[dealer]["products"][itemData.slot].amount =
             Config.Dealers[dealer]["products"][itemData.slot].amount - amount
-        TriggerClientEvent('qb-drugs:client:setDealerItems', -1, itemData, amount, dealer)
+        TriggerClientEvent('norskpixel-drugs:client:setDealerItems', -1, itemData, amount, dealer)
     else
         Player.Functions.RemoveItem(itemData.name, amount)
         Player.Functions.AddMoney('cash', amount * Config.Dealers[dealer]["products"][itemData.slot].price)
@@ -17,8 +17,8 @@ AddEventHandler('qb-drugs:server:updateDealerItems', function(itemData, amount, 
     end
 end)
 
-RegisterServerEvent('qb-drugs:server:giveDeliveryItems')
-AddEventHandler('qb-drugs:server:giveDeliveryItems', function(amount)
+RegisterServerEvent('norskpixel-drugs:server:giveDeliveryItems')
+AddEventHandler('norskpixel-drugs:server:giveDeliveryItems', function(amount)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
@@ -26,12 +26,12 @@ AddEventHandler('qb-drugs:server:giveDeliveryItems', function(amount)
     TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["weed_brick"], "add")
 end)
 
-QBCore.Functions.CreateCallback('qb-drugs:server:RequestConfig', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-drugs:server:RequestConfig', function(source, cb)
     cb(Config.Dealers)
 end)
 
-RegisterServerEvent('qb-drugs:server:succesDelivery')
-AddEventHandler('qb-drugs:server:succesDelivery', function(deliveryData, inTime)
+RegisterServerEvent('norskpixel-drugs:server:succesDelivery')
+AddEventHandler('norskpixel-drugs:server:succesDelivery', function(deliveryData, inTime)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local curRep = Player.PlayerData.metadata["dealerrep"]
@@ -64,7 +64,7 @@ AddEventHandler('qb-drugs:server:succesDelivery', function(deliveryData, inTime)
             TriggerClientEvent('QBCore:Notify', src, 'Din ordre er blevet afleveret korrekt', 'success')
 
             SetTimeout(math.random(5000, 10000), function()
-                TriggerClientEvent('qb-drugs:client:sendDeliveryMail', src, 'perfect', deliveryData)
+                TriggerClientEvent('norskpixel-drugs:client:sendDeliveryMail', src, 'perfect', deliveryData)
 
                 Player.Functions.SetMetaData('dealerrep', (curRep + 1))
             end)
@@ -80,7 +80,7 @@ AddEventHandler('qb-drugs:server:succesDelivery', function(deliveryData, inTime)
             TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["weed_brick"], "remove")
 
             SetTimeout(math.random(5000, 10000), function()
-                TriggerClientEvent('qb-drugs:client:sendDeliveryMail', src, 'bad', deliveryData)
+                TriggerClientEvent('norskpixel-drugs:client:sendDeliveryMail', src, 'bad', deliveryData)
 
                 if curRep - 1 > 0 then
                     Player.Functions.SetMetaData('dealerrep', (curRep - 1))
@@ -98,7 +98,7 @@ AddEventHandler('qb-drugs:server:succesDelivery', function(deliveryData, inTime)
         TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["weed_brick"], "remove")
 
         SetTimeout(math.random(5000, 10000), function()
-            TriggerClientEvent('qb-drugs:client:sendDeliveryMail', src, 'late', deliveryData)
+            TriggerClientEvent('norskpixel-drugs:client:sendDeliveryMail', src, 'late', deliveryData)
 
             if curRep - 1 > 0 then
                 Player.Functions.SetMetaData('dealerrep', (curRep - 1))
@@ -109,8 +109,8 @@ AddEventHandler('qb-drugs:server:succesDelivery', function(deliveryData, inTime)
     end
 end)
 
-RegisterServerEvent('qb-drugs:server:callCops')
-AddEventHandler('qb-drugs:server:callCops', function(streetLabel, coords)
+RegisterServerEvent('norskpixel-drugs:server:callCops')
+AddEventHandler('norskpixel-drugs:server:callCops', function(streetLabel, coords)
     local msg = "Mistænkelig adfærd finder sted ved " .. streetLabel .. ", mulig narko salg."
     local alertData = {
         title = "Narko salg",
@@ -125,8 +125,8 @@ AddEventHandler('qb-drugs:server:callCops', function(streetLabel, coords)
         local Player = QBCore.Functions.GetPlayer(v)
         if Player ~= nil then
             if (Player.PlayerData.job.name == "police" and Player.PlayerData.job.onduty) then
-                TriggerClientEvent("qb-drugs:client:robberyCall", Player.PlayerData.source, msg, streetLabel, coords)
-                TriggerClientEvent("qb-phone:client:addPoliceAlert", Player.PlayerData.source, alertData)
+                TriggerClientEvent("norskpixel-drugs:client:robberyCall", Player.PlayerData.source, msg, streetLabel, coords)
+                TriggerClientEvent("norskpixel-phone:client:addPoliceAlert", Player.PlayerData.source, alertData)
             end
         end
     end
@@ -146,7 +146,7 @@ QBCore.Commands.Add("newdealer", "Placer en dealer (Kun Admin)", {{
     local mintime = tonumber(args[2])
     local maxtime = tonumber(args[3])
 
-    TriggerClientEvent('qb-drugs:client:CreateDealer', source, dealerName, mintime, maxtime)
+    TriggerClientEvent('norskpixel-drugs:client:CreateDealer', source, dealerName, mintime, maxtime)
 end, "admin")
 
 QBCore.Commands.Add("deletedealer", "Fjern dealer (Kun Admin)", {{
@@ -158,7 +158,7 @@ QBCore.Commands.Add("deletedealer", "Fjern dealer (Kun Admin)", {{
     if result then
         exports.oxmysql:execute('DELETE FROM dealers WHERE name = ?', {dealerName})
         Config.Dealers[dealerName] = nil
-        TriggerClientEvent('qb-drugs:client:RefreshDealers', -1, Config.Dealers)
+        TriggerClientEvent('norskpixel-drugs:client:RefreshDealers', -1, Config.Dealers)
         TriggerClientEvent('QBCore:Notify', source, "Dealer: " .. dealerName .. " Blev slettet", "success")
     else
         TriggerClientEvent('QBCore:Notify', source, "Dealer: " .. dealerName .. " Eksistere ikke", "error")
@@ -188,7 +188,7 @@ QBCore.Commands.Add("dealergoto", "Teleport til dealer (Kun Admin)", {{
     local DealerName = tostring(args[1])
 
     if Config.Dealers[DealerName] ~= nil then
-        TriggerClientEvent('qb-drugs:client:GotoDealer', source, Config.Dealers[DealerName])
+        TriggerClientEvent('norskpixel-drugs:client:GotoDealer', source, Config.Dealers[DealerName])
     else
         TriggerClientEvent('QBCore:Notify', source, 'Denne dealer eksistere ikke.', 'error')
     end
@@ -217,11 +217,11 @@ CreateThread(function()
             }
         end
     end
-    TriggerClientEvent('qb-drugs:client:RefreshDealers', -1, Config.Dealers)
+    TriggerClientEvent('norskpixel-drugs:client:RefreshDealers', -1, Config.Dealers)
 end)
 
-RegisterServerEvent('qb-drugs:server:CreateDealer')
-AddEventHandler('qb-drugs:server:CreateDealer', function(DealerData)
+RegisterServerEvent('norskpixel-drugs:server:CreateDealer')
+AddEventHandler('norskpixel-drugs:server:CreateDealer', function(DealerData)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local result = exports.oxmysql:executeSync('SELECT * FROM dealers WHERE name = ?', {DealerData.name})
@@ -245,7 +245,7 @@ AddEventHandler('qb-drugs:server:CreateDealer', function(DealerData)
                 ["products"] = Config.Products
             }
 
-            TriggerClientEvent('qb-drugs:client:RefreshDealers', -1, Config.Dealers)
+            TriggerClientEvent('norskpixel-drugs:client:RefreshDealers', -1, Config.Dealers)
         end)
     end
 end)

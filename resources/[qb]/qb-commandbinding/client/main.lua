@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local keyPressed = false
 local inKeyBinding = false
@@ -32,8 +32,8 @@ end
 
 RegisterNUICallback('close', closeBindingMenu)
 
-RegisterNetEvent('qb-commandbinding:client:openUI')
-AddEventHandler('qb-commandbinding:client:openUI', function()
+RegisterNetEvent('norskpixel-commandbinding:client:openUI')
+AddEventHandler('norskpixel-commandbinding:client:openUI', function()
     openBindingMenu()
 end)
 
@@ -73,5 +73,5 @@ RegisterNUICallback('save', function(data)
 
     QBCore.Functions.Notify('Binds blev gemt!', 'success')
 
-    TriggerServerEvent('qb-commandbinding:server:setKeyMeta', keyData)
+    TriggerServerEvent('norskpixel-commandbinding:server:setKeyMeta', keyData)
 end)

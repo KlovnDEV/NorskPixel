@@ -28,7 +28,7 @@ QBClothing.ResetItemTexture = function(obj, category) {
     var defaultTextureValue = clothingCategorys[category].defaultTexture;
     $(itemTexture).val(defaultTextureValue);
 
-    $.post('https://qb-clothing/updateSkin', JSON.stringify({
+    $.post('https://norskpixel-clothing/updateSkin', JSON.stringify({
         clothingType: category,
         articleNumber: defaultTextureValue,
         type: "texture",
@@ -46,19 +46,19 @@ $(document).on('click', '.clothing-menu-option-item-right', function(e){
 
     if (canChange) {
         if (hasTracker && clothingCategory == "accessory") {
-            $.post('https://qb-clothing/TrackerError');
+            $.post('https://norskpixel-clothing/TrackerError');
             return
         } else {
             if (clothingCategory == "model") {
                 $(inputElem).val(newValue);
-                $.post('https://qb-clothing/setCurrentPed', JSON.stringify({ped: newValue}), function(model){
+                $.post('https://norskpixel-clothing/setCurrentPed', JSON.stringify({ped: newValue}), function(model){
                     $("#current-model").html("<p>"+model+"</p>")
                 });
                 canChange = true;
                 QBClothing.ResetValues()
             } else if (clothingCategory == "hair") {
                 $(inputElem).val(newValue);
-                $.post('https://qb-clothing/updateSkin', JSON.stringify({
+                $.post('https://norskpixel-clothing/updateSkin', JSON.stringify({
                     clothingType: clothingCategory,
                     articleNumber: newValue,
                     type: buttonType,
@@ -71,7 +71,7 @@ $(document).on('click', '.clothing-menu-option-item-right', function(e){
                     var buttonMax = $(this).parent().find('[data-headertype="item-header"]').data('maxItem');
                     if (clothingCategory == "accessory" && newValue == 13) {
                         $(inputElem).val(14);
-                        $.post('https://qb-clothing/updateSkin', JSON.stringify({
+                        $.post('https://norskpixel-clothing/updateSkin', JSON.stringify({
                             clothingType: clothingCategory,
                             articleNumber: 14,
                             type: buttonType,
@@ -79,7 +79,7 @@ $(document).on('click', '.clothing-menu-option-item-right', function(e){
                     } else {
                         if (newValue <= parseInt(buttonMax)) {
                             $(inputElem).val(newValue);
-                            $.post('https://qb-clothing/updateSkin', JSON.stringify({
+                            $.post('https://norskpixel-clothing/updateSkin', JSON.stringify({
                                 clothingType: clothingCategory,
                                 articleNumber: newValue,
                                 type: buttonType,
@@ -91,7 +91,7 @@ $(document).on('click', '.clothing-menu-option-item-right', function(e){
                     var buttonMax = $(this).parent().find('[data-headertype="texture-header"]').data('maxTexture');
                     if (newValue <= parseInt(buttonMax)) {
                         $(inputElem).val(newValue);
-                        $.post('https://qb-clothing/updateSkin', JSON.stringify({
+                        $.post('https://norskpixel-clothing/updateSkin', JSON.stringify({
                             clothingType: clothingCategory,
                             articleNumber: newValue,
                             type: buttonType,
@@ -114,13 +114,13 @@ $(document).on('click', '.clothing-menu-option-item-left', function(e){
 
     if (canChange) {
         if (hasTracker && clothingCategory == "accessory") {
-            $.post('https://qb-clothing/TrackerError');
+            $.post('https://norskpixel-clothing/TrackerError');
             return
         } else {
             if (clothingCategory == "model") {
                 if (newValue != 0) {
                     $(inputElem).val(newValue);
-                    $.post('https://qb-clothing/setCurrentPed', JSON.stringify({ped: newValue}), function(model){
+                    $.post('https://norskpixel-clothing/setCurrentPed', JSON.stringify({ped: newValue}), function(model){
                         $("#current-model").html("<p>"+model+"</p>")
                     });
                     canChange = true;
@@ -131,14 +131,14 @@ $(document).on('click', '.clothing-menu-option-item-left', function(e){
                     if (newValue >= clothingCategorys[clothingCategory].defaultItem) {
                         if (clothingCategory == "accessory" && newValue == 13) {
                             $(inputElem).val(12);
-                            $.post('https://qb-clothing/updateSkin', JSON.stringify({
+                            $.post('https://norskpixel-clothing/updateSkin', JSON.stringify({
                                 clothingType: clothingCategory,
                                 articleNumber: 12,
                                 type: buttonType,
                             }));
                         } else {
                             $(inputElem).val(newValue);
-                            $.post('https://qb-clothing/updateSkin', JSON.stringify({
+                            $.post('https://norskpixel-clothing/updateSkin', JSON.stringify({
                                 clothingType: clothingCategory,
                                 articleNumber: newValue,
                                 type: buttonType,
@@ -150,14 +150,14 @@ $(document).on('click', '.clothing-menu-option-item-left', function(e){
                     if (newValue >= clothingCategorys[clothingCategory].defaultTexture) {
                         if (clothingCategory == "accessory" && newValue == 13) {
                             $(inputElem).val(12);
-                            $.post('https://qb-clothing/updateSkin', JSON.stringify({
+                            $.post('https://norskpixel-clothing/updateSkin', JSON.stringify({
                                 clothingType: clothingCategory,
                                 articleNumber: 12,
                                 type: buttonType,
                             }));
                         } else {
                             $(inputElem).val(newValue);
-                            $.post('https://qb-clothing/updateSkin', JSON.stringify({
+                            $.post('https://norskpixel-clothing/updateSkin', JSON.stringify({
                                 clothingType: clothingCategory,
                                 articleNumber: newValue,
                                 type: buttonType,
@@ -201,7 +201,7 @@ $(document).on('change', '.item-number', function(){
     changingCat = this;
 
     if (hasTracker && clothingCategory == "accessory") {
-        $.post('https://qb-clothing/TrackerError');
+        $.post('https://norskpixel-clothing/TrackerError');
         $(this).val(13);
         return
     } else {
@@ -209,7 +209,7 @@ $(document).on('change', '.item-number', function(){
             $(this).val(12);
             return
         } else {
-            $.post('https://qb-clothing/updateSkinOnInput', JSON.stringify({
+            $.post('https://norskpixel-clothing/updateSkinOnInput', JSON.stringify({
                 clothingType: clothingCategory,
                 articleNumber: parseFloat(inputVal),
                 type: buttonType,
@@ -225,14 +225,14 @@ $(document).on('click', '.clothing-menu-header-camera-btn', function(e){
 
     if (selectedCam == null) {
         $(this).addClass("selected-cam");
-        $.post('https://qb-clothing/setupCam', JSON.stringify({
+        $.post('https://norskpixel-clothing/setupCam', JSON.stringify({
             value: camValue
         }));
         selectedCam = this;
     } else {
         if (selectedCam == this) {
             $(selectedCam).removeClass("selected-cam");
-            $.post('https://qb-clothing/setupCam', JSON.stringify({
+            $.post('https://norskpixel-clothing/setupCam', JSON.stringify({
                 value: 0
             }));
 
@@ -240,7 +240,7 @@ $(document).on('click', '.clothing-menu-header-camera-btn', function(e){
         } else {
             $(selectedCam).removeClass("selected-cam");
             $(this).addClass("selected-cam");
-            $.post('https://qb-clothing/setupCam', JSON.stringify({
+            $.post('https://norskpixel-clothing/setupCam', JSON.stringify({
                 value: camValue
             }));
 
@@ -252,10 +252,10 @@ $(document).on('click', '.clothing-menu-header-camera-btn', function(e){
 $(document).on('keydown', function() {
     switch(event.keyCode) {
         case 68: // D
-            $.post('https://qb-clothing/rotateRight');
+            $.post('https://norskpixel-clothing/rotateRight');
             break;
         case 65: // A
-            $.post('https://qb-clothing/rotateLeft');
+            $.post('https://norskpixel-clothing/rotateLeft');
             break;
         case 38: // UP
             ChangeUp();
@@ -308,13 +308,13 @@ QBClothing.ReloadOutfits = function(outfits) {
 $(document).on('click', "#save-menu", function(e){
     e.preventDefault();
     QBClothing.Close();
-    $.post('https://qb-clothing/saveClothing');
+    $.post('https://norskpixel-clothing/saveClothing');
 });
 
 $(document).on('click', "#cancel-menu", function(e){
     e.preventDefault();
     QBClothing.Close();
-    $.post('https://qb-clothing/resetOutfit');
+    $.post('https://norskpixel-clothing/resetOutfit');
 });
 
 QBClothing.SetCurrentValues = function(clothingValues) {
@@ -397,7 +397,7 @@ $(document).on('click', '.clothing-menu-outfit-option-button', function(e){
 
     var oData = $(this).parent().data('outfitData');
 
-    $.post('https://qb-clothing/selectOutfit', JSON.stringify({
+    $.post('https://norskpixel-clothing/selectOutfit', JSON.stringify({
         outfitData: oData.outfitData,
         outfitName: oData.outfitLabel
     }))
@@ -408,7 +408,7 @@ $(document).on('click', '.clothing-menu-myOutfit-option-button', function(e){
 
     var outfitData = $(this).parent().data('myOutfitData');
 
-    $.post('https://qb-clothing/selectOutfit', JSON.stringify({
+    $.post('https://norskpixel-clothing/selectOutfit', JSON.stringify({
         outfitData: outfitData.skin,
         outfitName: outfitData.outfitname,
         outfitId: outfitData.outfitId,
@@ -420,7 +420,7 @@ $(document).on('click', '.clothing-menu-myOutfit-option-button-remove', function
 
     var outfitData = $(this).parent().data('myOutfitData');
 
-    $.post('https://qb-clothing/removeOutfit', JSON.stringify({
+    $.post('https://norskpixel-clothing/removeOutfit', JSON.stringify({
         outfitData: outfitData.skin,
         outfitName: outfitData.outfitname,
         outfitId: outfitData.outfitId,
@@ -428,7 +428,7 @@ $(document).on('click', '.clothing-menu-myOutfit-option-button-remove', function
 });
 
 QBClothing.Close = function() {
-    $.post('https://qb-clothing/close');
+    $.post('https://norskpixel-clothing/close');
     $(".change-camera-buttons").fadeOut(150);
     $(".clothing-menu-roomOutfits-container").css("display", "none");
     $(".clothing-menu-myOutfits-container").css("display", "none");
@@ -510,7 +510,7 @@ $(document).on('click', '#save-outfit-save', function(e){
     $(".clothing-menu-container").css({"display":"block"}).animate({right: 0,}, 200);
     $(".clothing-menu-save-outfit-name").fadeOut(150);
 
-    $.post('https://qb-clothing/saveOutfit', JSON.stringify({
+    $.post('https://norskpixel-clothing/saveOutfit', JSON.stringify({
         outfitName: $("#outfit-name").val()
     }));
 });
@@ -527,7 +527,7 @@ $(document).on('click', '.change-camera-button', function(e){
 
     var rotationType = $(this).data('rotation');
 
-    $.post('https://qb-clothing/rotateCam', JSON.stringify({
+    $.post('https://norskpixel-clothing/rotateCam', JSON.stringify({
         type: rotationType
     }))
 });

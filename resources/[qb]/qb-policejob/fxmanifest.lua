@@ -39,4 +39,4 @@ exports {
 	'IsArmoryWhitelist'
 }
 
-dependency 'qb-core'
+dependency 'norskpixel-core'

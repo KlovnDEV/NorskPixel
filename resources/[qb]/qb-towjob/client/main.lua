@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local PlayerJob = {}
 local JobsDone = 0
 local NpcOn = false
@@ -146,7 +146,7 @@ function VehicleList(isDown)
 end
 
 function TakeOutVehicle(vehicleInfo)
-    TriggerServerEvent('qb-tow:server:DoBail', true, vehicleInfo)
+    TriggerServerEvent('norskpixel-tow:server:DoBail', true, vehicleInfo)
     selectedVeh = vehicleInfo
 end
 
@@ -158,7 +158,7 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-tow:client:SpawnVehicle', function()
+RegisterNetEvent('norskpixel-tow:client:SpawnVehicle', function()
     local vehicleInfo = selectedVeh
     local coords = Config.Locations["vehicle"].coords
     QBCore.Functions.SpawnVehicle(vehicleInfo, function(veh)
@@ -258,7 +258,7 @@ RegisterNetEvent('jobs:client:ToggleNpc', function()
     end
 end)
 
-RegisterNetEvent('qb-tow:client:TowVehicle', function()
+RegisterNetEvent('norskpixel-tow:client:TowVehicle', function()
     local vehicle = GetVehiclePedIsIn(PlayerPedId(), true)
     if isTowVehicle(vehicle) then
         if CurrentTow == nil then
@@ -302,7 +302,7 @@ RegisterNetEvent('qb-tow:client:TowVehicle', function()
                                 SetBlipRouteColour(CurrentBlip2, 3)
                                 local chance = math.random(1,100)
                                 if chance < 26 then
-                                    TriggerServerEvent('qb-tow:server:nano')
+                                    TriggerServerEvent('norskpixel-tow:server:nano')
                                 end
                             end
                             QBCore.Functions.Notify("Køretøj er sat på plads")
@@ -366,7 +366,7 @@ CreateThread(function()
                         if IsControlJustReleased(0, 38) then
                             if IsPedInAnyVehicle(PlayerPedId(), false) then
                                 DeleteVehicle(GetVehiclePedIsIn(PlayerPedId()))
-                                TriggerServerEvent('qb-tow:server:DoBail', false)
+                                TriggerServerEvent('norskpixel-tow:server:DoBail', false)
                             else
                                 MenuGarage()
                                 Menu.hidden = not Menu.hidden
@@ -382,7 +382,7 @@ CreateThread(function()
                         if IsControlJustReleased(0, 38) then
                             if JobsDone > 0 then
                                 RemoveBlip(CurrentBlip)
-                                TriggerServerEvent("qb-tow:server:11101110", JobsDone)
+                                TriggerServerEvent("norskpixel-tow:server:11101110", JobsDone)
                                 JobsDone = 0
                                 NpcOn = false
                             else

@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local InLapdance = false
 local InCooldown = false
 local NearText = false
@@ -33,8 +33,8 @@ Citizen.CreateThread(function()
 	end
 end)
 
-RegisterNetEvent('qb-lapdance:showNotify')
-AddEventHandler('qb-lapdance:showNotify', function(notify)
+RegisterNetEvent('norskpixel-lapdance:showNotify')
+AddEventHandler('norskpixel-lapdance:showNotify', function(notify)
 	ShowAboveRadarMessage(notify)
 end)
 
@@ -78,7 +78,7 @@ Citizen.CreateThread(function()
             if NearText then
 				DrawText3D(117.04, -1294.8, 29.25, lapText)
 				if IsControlPressed(0, 38) and not InCooldown then
-					TriggerServerEvent('qb-lapdance:buy')
+					TriggerServerEvent('norskpixel-lapdance:buy')
 					Citizen.Wait(5000)
 				elseif IsControlPressed(0, 38) and InCooldown and Config.Framework == 'qbcore' then
 					QBCore.Functions.Notify(StripperPause, "error")
@@ -113,8 +113,8 @@ Citizen.CreateThread(function()
     end
 end) 
 
-RegisterNetEvent('qb-lapdance:lapdance')
-AddEventHandler('qb-lapdance:lapdance', function(PlayerMoney, PlayerBirthdate, TodayDate)
+RegisterNetEvent('norskpixel-lapdance:lapdance')
+AddEventHandler('norskpixel-lapdance:lapdance', function(PlayerMoney, PlayerBirthdate, TodayDate)
 	local Player = PlayerPedId()
 	Birthdate = {}
 	Date = {}
@@ -143,7 +143,7 @@ AddEventHandler('qb-lapdance:lapdance', function(PlayerMoney, PlayerBirthdate, T
 		
 	RequestModel(1846523796)
 	InCooldown = true
-	TriggerServerEvent('qb-lapdance:active')
+	TriggerServerEvent('norskpixel-lapdance:active')
 	while not HasModelLoaded(1846523796) do
 		Wait(20)
 	end
@@ -187,7 +187,7 @@ AddEventHandler('qb-lapdance:lapdance', function(PlayerMoney, PlayerBirthdate, T
 	end
 
 	if Config.Debug then
-		print("------ qb-lapdance : Debug print start ------")
+		print("------ norskpixel-lapdance : Debug print start ------")
 		print("Player cash: ", PlayerMoney, "Player birthdate: ", PlayerBirthdate, "Today date: ", TodayDate)
 		print('Config.Language is set to: ' .. Config.Language)
 		print('Framework used: ' .. Config.Framework)
@@ -219,7 +219,7 @@ AddEventHandler('qb-lapdance:lapdance', function(PlayerMoney, PlayerBirthdate, T
 		else
 			print("Stripper is topless")
 		end
-		print("------ qb-lapdance : Debug print end ------")
+		print("------ norskpixel-lapdance : Debug print end ------")
 	end
 
 	RequestAnimDict("mini@strip_club@idles@stripper")
@@ -275,7 +275,7 @@ AddEventHandler('qb-lapdance:lapdance', function(PlayerMoney, PlayerBirthdate, T
 	Citizen.Wait(10000)
 
 	InCooldown = false
-	TriggerServerEvent('qb-lapdance:idle')
+	TriggerServerEvent('norskpixel-lapdance:idle')
 
 	DeleteEntity(SpawnObject)
 end)

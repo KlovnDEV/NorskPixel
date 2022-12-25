@@ -1,4 +1,4 @@
-# qb-mechanicjob
+# norskpixel-mechanicjob
 Mechanic Job for QB-Core Framework :mechanic:
 
 # License
@@ -21,8 +21,8 @@ Mechanic Job for QB-Core Framework :mechanic:
 
 
 ## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
-- [qb-inventory](https://github.com/qbcore-framework/qb-inventory) - 
+- [norskpixel-core](https://github.com/qbcore-framework/norskpixel-core)
+- [norskpixel-inventory](https://github.com/qbcore-framework/norskpixel-inventory) - 
 
 ## Screenshots
 ![Platform](https://imgur.com/KzmXIaY.png)
@@ -40,12 +40,12 @@ Mechanic Job for QB-Core Framework :mechanic:
 ## Installation
 ### Manual
 - Download the script and put it in the `[qb]` directory.
-- Import `qb-.sql` in your database
+- Import `norskpixel-.sql` in your database
 - Add the following code to your server.cfg/resouces.cfg
 ```
-ensure qb-core
-ensure qb-inventory
-ensure qb-mechanicjob
+ensure norskpixel-core
+ensure norskpixel-inventory
+ensure norskpixel-mechanicjob
 ```
 
 ## Configuration

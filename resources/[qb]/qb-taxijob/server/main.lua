@@ -1,9 +1,9 @@
 
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
-RegisterServerEvent('qb-taxi:server:NpcPay')
-AddEventHandler('qb-taxi:server:NpcPay', function(Payment)
+RegisterServerEvent('norskpixel-taxi:server:NpcPay')
+AddEventHandler('norskpixel-taxi:server:NpcPay', function(Payment)
     local fooikansasah = math.random(1, 5)
     local r1, r2 = math.random(1, 5), math.random(1, 5)
 

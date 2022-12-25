@@ -1,4 +1,4 @@
-# qb-skillbar
+# norskpixel-skillbar
 Skill Bar For QB-Core
 
 # License

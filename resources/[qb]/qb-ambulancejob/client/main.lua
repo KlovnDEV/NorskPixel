@@ -1,5 +1,5 @@
 
-QBCore = exports['qb-core']:GetCoreObject()
+QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local getOutDict = 'switch@franklin@bed'
 local getOutAnim = 'sleep_getup_rubeyes'
@@ -731,7 +731,7 @@ end)
 
 RegisterNetEvent('hospital:client:RespawnAtHospital', function()
     TriggerServerEvent("hospital:server:RespawnAtHospital")
-    if exports["qb-policejob"]:IsHandcuffed() then
+    if exports["norskpixel-policejob"]:IsHandcuffed() then
         TriggerEvent("police:client:GetCuffed", -1)
     end
     TriggerEvent("police:client:DeEscort")
@@ -744,7 +744,7 @@ RegisterNetEvent('hospital:client:SendBillEmail', function(amount)
             gender = "Mrs."
         end
         local charinfo = QBCore.Functions.GetPlayerData().charinfo
-        TriggerServerEvent('qb-phone:server:sendNewMail', {
+        TriggerServerEvent('norskpixel-phone:server:sendNewMail', {
             sender = "Pillbox",
             subject = "Hospital's regning",
             message = "Kære " .. gender .. " " .. charinfo.lastname .. ",<br /><br />Hermed modtager du en mail om de omkostinger der var forbundet med dit sidste besøg.<br />Din regning ender på: <strong>"..amount.."DKK</strong><br /><br />Vi håber du får en god bedring!",

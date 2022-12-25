@@ -1,10 +1,10 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local OutsideVehicles = {}
 
 -- Events
 
-RegisterNetEvent('qb-garages:server:UpdateOutsideVehicles', function(Vehicles)
+RegisterNetEvent('norskpixel-garages:server:UpdateOutsideVehicles', function(Vehicles)
     local src = source
     local Ply = QBCore.Functions.GetPlayer(src)
     local CitizenId = Ply.PlayerData.citizenid
@@ -20,7 +20,7 @@ AddEventHandler('onResourceStart', function(resource)
     end
 end)
 
-RegisterNetEvent('qb-garage:server:PayDepotPrice', function(vehicle, garage)
+RegisterNetEvent('norskpixel-garage:server:PayDepotPrice', function(vehicle, garage)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local cashBalance = Player.PlayerData.money["cash"]
@@ -29,10 +29,10 @@ RegisterNetEvent('qb-garage:server:PayDepotPrice', function(vehicle, garage)
         if result[1] then
             if cashBalance >= result[1].depotprice then
                 Player.Functions.RemoveMoney("cash", result[1].depotprice, "paid-depot")
-                TriggerClientEvent("qb-garages:client:takeOutDepot", src, vehicle, garage)
+                TriggerClientEvent("norskpixel-garages:client:takeOutDepot", src, vehicle, garage)
             elseif bankBalance >= result[1].depotprice then
                 Player.Functions.RemoveMoney("bank", result[1].depotprice, "paid-depot")
-                TriggerClientEvent("qb-garages:client:takeOutDepot", src, vehicle, garage)
+                TriggerClientEvent("norskpixel-garages:client:takeOutDepot", src, vehicle, garage)
             else
                 TriggerClientEvent('QBCore:Notify', src, 'Du har ikke penge nok', 'error')
             end
@@ -40,11 +40,11 @@ RegisterNetEvent('qb-garage:server:PayDepotPrice', function(vehicle, garage)
     end)
 end)
 
-RegisterNetEvent('qb-garage:server:updateVehicleState', function(state, plate, garage)
+RegisterNetEvent('norskpixel-garage:server:updateVehicleState', function(state, plate, garage)
     exports.oxmysql:execute('UPDATE player_vehicles SET state = ?, garage = ?, depotprice = ? WHERE plate = ?',{state, garage, 0, plate})
 end)
 
-RegisterNetEvent('qb-garage:server:updateVehicleStatus', function(fuel, engine, body, plate, garage)
+RegisterNetEvent('norskpixel-garage:server:updateVehicleStatus', function(fuel, engine, body, plate, garage)
     local src = source
     local pData = QBCore.Functions.GetPlayer(src)
 
@@ -61,7 +61,7 @@ end)
 
 -- Callbacks
 
-QBCore.Functions.CreateCallback("qb-garage:server:checkVehicleOwner", function(source, cb, plate)
+QBCore.Functions.CreateCallback("norskpixel-garage:server:checkVehicleOwner", function(source, cb, plate)
     local src = source
     local pData = QBCore.Functions.GetPlayer(src)
     exports.oxmysql:execute('SELECT * FROM player_vehicles WHERE plate = ? AND citizenid = ?',{plate, pData.PlayerData.citizenid}, function(result)
@@ -73,7 +73,7 @@ QBCore.Functions.CreateCallback("qb-garage:server:checkVehicleOwner", function(s
     end)
 end)
 
-QBCore.Functions.CreateCallback("qb-garage:server:GetOutsideVehicles", function(source, cb)
+QBCore.Functions.CreateCallback("norskpixel-garage:server:GetOutsideVehicles", function(source, cb)
     local Ply = QBCore.Functions.GetPlayer(source)
     local CitizenId = Ply.PlayerData.citizenid
     if OutsideVehicles[CitizenId] and next(OutsideVehicles[CitizenId]) then
@@ -83,7 +83,7 @@ QBCore.Functions.CreateCallback("qb-garage:server:GetOutsideVehicles", function(
     end
 end)
 
-QBCore.Functions.CreateCallback("qb-garage:server:GetUserVehicles", function(source, cb, garage)
+QBCore.Functions.CreateCallback("norskpixel-garage:server:GetUserVehicles", function(source, cb, garage)
     local src = source
     local pData = QBCore.Functions.GetPlayer(src)
     exports.oxmysql:execute('SELECT * FROM player_vehicles WHERE citizenid = ? AND garage = ?', {pData.PlayerData.citizenid, garage}, function(result)
@@ -95,7 +95,7 @@ QBCore.Functions.CreateCallback("qb-garage:server:GetUserVehicles", function(sou
     end)
 end)
 
-QBCore.Functions.CreateCallback("qb-garage:server:GetVehicleProperties", function(source, cb, plate)
+QBCore.Functions.CreateCallback("norskpixel-garage:server:GetVehicleProperties", function(source, cb, plate)
     local src = source
     local properties = {}
     local result = exports.oxmysql:executeSync('SELECT mods FROM player_vehicles WHERE plate = ?', {plate})
@@ -105,7 +105,7 @@ QBCore.Functions.CreateCallback("qb-garage:server:GetVehicleProperties", functio
     cb(properties)
 end)
 
-QBCore.Functions.CreateCallback("qb-garage:server:GetDepotVehicles", function(source, cb)
+QBCore.Functions.CreateCallback("norskpixel-garage:server:GetDepotVehicles", function(source, cb)
     local src = source
     local pData = QBCore.Functions.GetPlayer(src)
     exports.oxmysql:execute('SELECT * FROM player_vehicles WHERE citizenid = ? AND state = ?',{pData.PlayerData.citizenid, 0}, function(result)
@@ -117,7 +117,7 @@ QBCore.Functions.CreateCallback("qb-garage:server:GetDepotVehicles", function(so
     end)
 end)
 
-QBCore.Functions.CreateCallback("qb-garage:server:GetHouseVehicles", function(source, cb, house)
+QBCore.Functions.CreateCallback("norskpixel-garage:server:GetHouseVehicles", function(source, cb, house)
     local src = source
     local pData = QBCore.Functions.GetPlayer(src)
     exports.oxmysql:execute('SELECT * FROM player_vehicles WHERE garage = ?', {house}, function(result)
@@ -129,12 +129,12 @@ QBCore.Functions.CreateCallback("qb-garage:server:GetHouseVehicles", function(so
     end)
 end)
 
-QBCore.Functions.CreateCallback("qb-garage:server:checkVehicleHouseOwner", function(source, cb, plate, house)
+QBCore.Functions.CreateCallback("norskpixel-garage:server:checkVehicleHouseOwner", function(source, cb, plate, house)
     local src = source
     local pData = QBCore.Functions.GetPlayer(src)
     exports.oxmysql:execute('SELECT * FROM player_vehicles WHERE plate = ?', {plate}, function(result)
         if result[1] then
-            local hasHouseKey = exports['qb-houses']:hasKey(result[1].license, result[1].citizenid, house)
+            local hasHouseKey = exports['norskpixel-houses']:hasKey(result[1].license, result[1].citizenid, house)
             if hasHouseKey then
                 cb(true)
             else

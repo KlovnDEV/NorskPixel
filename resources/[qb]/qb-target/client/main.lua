@@ -4,7 +4,7 @@ local Config, Types, Bones, Players, Entities, Models, Zones, Functions = Config
 local playerPed, curFlag, targetActive, hasFocus, success, PedsReady, AllowTarget, sendData = PlayerPedId(), 30, false, false, false, false, true, nil
 
 if not Config.Standalone then
-	QBCore = exports['qb-core']:GetCoreObject()
+	QBCore = exports['norskpixel-core']:GetCoreObject()
 	PlayerData = QBCore.Functions.GetPlayerData()
 
 	-- This makes sure that peds only spawn when you are spawned and your PlayerData gets set when you have access to the target

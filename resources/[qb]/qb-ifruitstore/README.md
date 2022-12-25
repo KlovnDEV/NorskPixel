@@ -1,4 +1,4 @@
-# qb-ifruitstore
+# norskpixel-ifruitstore
 iFruit Robbery For QB-Core
 
 # License

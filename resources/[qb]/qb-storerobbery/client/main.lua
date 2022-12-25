@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local uiOpen = false
 local currentRegister   = 0
@@ -75,7 +75,7 @@ Citizen.CreateThread(function()
                                         })
                                         SetNuiFocus(true, true)
                                     else
-                                        QBCore.Functions.TriggerCallback('qb-storerobbery:server:getPadlockCombination', function(combination)
+                                        QBCore.Functions.TriggerCallback('norskpixel-storerobbery:server:getPadlockCombination', function(combination)
                                             TriggerEvent("SafeCracker:StartMinigame", combination)
                                         end, safe)
                                     end
@@ -89,7 +89,7 @@ Citizen.CreateThread(function()
                                         if street2 ~= nil then
                                             streetLabel = streetLabel .. " " .. street2
                                         end
-                                        TriggerServerEvent("qb-storerobbery:server:callCops", "safe", currentSafe, streetLabel, pos)
+                                        TriggerServerEvent("norskpixel-storerobbery:server:callCops", "safe", currentSafe, streetLabel, pos)
                                         copsCalled = true
                                     end
                                 else
@@ -156,7 +156,7 @@ AddEventHandler('lockpicks:UseLockpick', function(isAdvanced)
                         if street2 ~= nil then
                             streetLabel = streetLabel .. " " .. street2
                         end
-                        TriggerServerEvent("qb-storerobbery:server:callCops", "cashier", currentRegister, streetLabel, pos)
+                        TriggerServerEvent("norskpixel-storerobbery:server:callCops", "cashier", currentRegister, streetLabel, pos)
                         copsCalled = true
                     end
                 else
@@ -174,7 +174,7 @@ AddEventHandler('lockpicks:UseLockpick', function(isAdvanced)
                         if street2 ~= nil then
                             streetLabel = streetLabel .. " " .. street2
                         end
-                        TriggerServerEvent("qb-storerobbery:server:callCops", "cashier", currentRegister, streetLabel, pos)
+                        TriggerServerEvent("norskpixel-storerobbery:server:callCops", "cashier", currentRegister, streetLabel, pos)
                         copsCalled = true
                     end
 
@@ -205,7 +205,7 @@ function IsWearingHandshoes()
 end
 
 function setupRegister()
-    QBCore.Functions.TriggerCallback('qb-storerobbery:server:getRegisterStatus', function(Registers)
+    QBCore.Functions.TriggerCallback('norskpixel-storerobbery:server:getRegisterStatus', function(Registers)
         for k, v in pairs(Registers) do
             Config.Registers[k].robbed = Registers[k].robbed
         end
@@ -213,7 +213,7 @@ function setupRegister()
 end
 
 function setupSafes()
-    QBCore.Functions.TriggerCallback('qb-storerobbery:server:getSafeStatus', function(Safes)
+    QBCore.Functions.TriggerCallback('norskpixel-storerobbery:server:getSafeStatus', function(Safes)
         for k, v in pairs(Safes) do
             Config.Safes[k].robbed = Safes[k].robbed
         end
@@ -267,7 +267,7 @@ local openingDoor = false
 RegisterNUICallback('success', function()
     if currentRegister ~= 0 then
         lockpick(false)
-        TriggerServerEvent('qb-storerobbery:server:setRegisterStatus', currentRegister)
+        TriggerServerEvent('norskpixel-storerobbery:server:setRegisterStatus', currentRegister)
         local lockpickTime = 25000
         LockpickDoorAnim(lockpickTime)
         QBCore.Functions.Progressbar("search_register", "Tømmer kasseapparatet..", lockpickTime, false, true, {
@@ -282,7 +282,7 @@ RegisterNUICallback('success', function()
         }, {}, {}, function() -- Done
             openingDoor = false
             ClearPedTasks(PlayerPedId())
-            TriggerServerEvent('qb-storerobbery:server:takeMoney', currentRegister, true)
+            TriggerServerEvent('norskpixel-storerobbery:server:takeMoney', currentRegister, true)
             currentRegister = 0
         end, function() -- Cancel
             openingDoor = false
@@ -313,7 +313,7 @@ function LockpickDoorAnim(time)
             TaskPlayAnim(PlayerPedId(), "veh@break_in@0h@p_m_one@", "low_force_entry_ds", 3.0, 3.0, -1, 16, 0, 0, 0, 0)
             Citizen.Wait(2000)
             time = time - 2
-            TriggerServerEvent('qb-storerobbery:server:takeMoney', currentRegister, false)
+            TriggerServerEvent('norskpixel-storerobbery:server:takeMoney', currentRegister, false)
             if time <= 0 then
                 openingDoor = false
                 StopAnimTask(PlayerPedId(), "veh@break_in@0h@p_m_one@", "low_force_entry_ds", 1.0)
@@ -333,8 +333,8 @@ AddEventHandler('SafeCracker:EndMinigame', function(won)
             if currentSafe ~= 0 then
                 if not Config.Safes[currentSafe].robbed then
                     SetNuiFocus(false, false)
-                    TriggerServerEvent("qb-storerobbery:server:SafeReward", currentSafe)
-                    TriggerServerEvent("qb-storerobbery:server:setSafeStatus", currentSafe)
+                    TriggerServerEvent("norskpixel-storerobbery:server:SafeReward", currentSafe)
+                    TriggerServerEvent("norskpixel-storerobbery:server:setSafeStatus", currentSafe)
                     currentSafe = 0
                     takeAnim()
                 end
@@ -396,11 +396,11 @@ RegisterNUICallback('exit', function()
 end)
 
 RegisterNUICallback('TryCombination', function(data, cb)
-    QBCore.Functions.TriggerCallback('qb-storerobbery:server:isCombinationRight', function(combination)
+    QBCore.Functions.TriggerCallback('norskpixel-storerobbery:server:isCombinationRight', function(combination)
         if tonumber(data.combination) ~= nil then
             if tonumber(data.combination) == combination then
-                TriggerServerEvent("qb-storerobbery:server:SafeReward", currentSafe)
-                TriggerServerEvent("qb-storerobbery:server:setSafeStatus", currentSafe)
+                TriggerServerEvent("norskpixel-storerobbery:server:SafeReward", currentSafe)
+                TriggerServerEvent("norskpixel-storerobbery:server:setSafeStatus", currentSafe)
                 SetNuiFocus(false, false)
                 SendNUIMessage({
                     action = "closeKeypad",
@@ -421,8 +421,8 @@ RegisterNUICallback('TryCombination', function(data, cb)
     end, currentSafe)
 end)
 
-RegisterNetEvent('qb-storerobbery:client:setRegisterStatus')
-AddEventHandler('qb-storerobbery:client:setRegisterStatus', function(batch, val)
+RegisterNetEvent('norskpixel-storerobbery:client:setRegisterStatus')
+AddEventHandler('norskpixel-storerobbery:client:setRegisterStatus', function(batch, val)
     -- Has to be a better way maybe like adding a unique id to identify the register
     if(type(batch) ~= "table") then
         Config.Registers[batch] = val
@@ -433,13 +433,13 @@ AddEventHandler('qb-storerobbery:client:setRegisterStatus', function(batch, val)
     end
 end)
 
-RegisterNetEvent('qb-storerobbery:client:setSafeStatus')
-AddEventHandler('qb-storerobbery:client:setSafeStatus', function(safe, bool)
+RegisterNetEvent('norskpixel-storerobbery:client:setSafeStatus')
+AddEventHandler('norskpixel-storerobbery:client:setSafeStatus', function(safe, bool)
     Config.Safes[safe].robbed = bool
 end)
 
-RegisterNetEvent('qb-storerobbery:client:robberyCall')
-AddEventHandler('qb-storerobbery:client:robberyCall', function(type, key, streetLabel, coords)
+RegisterNetEvent('norskpixel-storerobbery:client:robberyCall')
+AddEventHandler('norskpixel-storerobbery:client:robberyCall', function(type, key, streetLabel, coords)
     if PlayerJob.name == "police" and onDuty then
         local cameraId = 4
         if type == "safe" then
@@ -448,7 +448,7 @@ AddEventHandler('qb-storerobbery:client:robberyCall', function(type, key, street
             cameraId = Config.Registers[key].camId
         end
         PlaySound(-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0, 0, 1)
-        TriggerEvent('qb-policealerts:client:AddPoliceAlert', {
+        TriggerEvent('norskpixel-policealerts:client:AddPoliceAlert', {
             timeOut = 5000,
             alertTitle = "10-31 | Butiks røveri",
             coords = {

@@ -51,7 +51,7 @@ $(document).on('click', '#accept-background', function(e){
         $(".phone-background").css({"background-image":"url('"+QB.Phone.Settings.Background+"')"});
     }
 
-    $.post('https://qb-phone/SetBackground', JSON.stringify({
+    $.post('https://norskpixel-phone/SetBackground', JSON.stringify({
         background: QB.Phone.Settings.Background,
     }))
 });
@@ -149,7 +149,7 @@ $(document).on('click', '#accept-profilepicture', function(e){
         QB.Phone.Animations.TopSlideUp(".settings-"+QB.Phone.Settings.OpenedTab+"-tab", 200, -100);
         $("[data-settingstab='profilepicture']").find('.settings-tab-icon').html('<img src="'+ProfilePicture+'">');
     }
-    $.post('https://qb-phone/UpdateProfilePicture', JSON.stringify({
+    $.post('https://norskpixel-phone/UpdateProfilePicture', JSON.stringify({
         profilepicture: ProfilePicture,
     }));
 });

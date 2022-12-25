@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local Races = {}
 local AvailableRaces = {}
@@ -30,7 +30,7 @@ Citizen.CreateThread(function()
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-lapraces:server:GetRacingLeaderboards', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-lapraces:server:GetRacingLeaderboards', function(source, cb)
     cb(Races)
 end)
 
@@ -48,8 +48,8 @@ function SecondsToClock(seconds)
     return retval
 end
 
-RegisterServerEvent('qb-lapraces:server:FinishPlayer')
-AddEventHandler('qb-lapraces:server:FinishPlayer', function(RaceData, TotalTime, TotalLaps, BestLap)
+RegisterServerEvent('norskpixel-lapraces:server:FinishPlayer')
+AddEventHandler('norskpixel-lapraces:server:FinishPlayer', function(RaceData, TotalTime, TotalLaps, BestLap)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local AvailableKey = GetOpenedRaceKey(RaceData.RaceId)
@@ -98,7 +98,7 @@ AddEventHandler('qb-lapraces:server:FinishPlayer', function(RaceData, TotalTime,
             }
             exports.oxmysql:execute('UPDATE lapraces SET records = ? WHERE raceid = ?',
                 {json.encode(Races[RaceData.RaceId].Records), RaceData.RaceId})
-            TriggerClientEvent('qb-phone:client:RaceNotify', src, 'Du har vundet WR fra ' .. RaceData.RaceName ..
+            TriggerClientEvent('norskpixel-phone:client:RaceNotify', src, 'Du har vundet WR fra ' .. RaceData.RaceName ..
                 ' afsluttede med en tid på: ' .. SecondsToClock(BLap) .. '!')
         end
     else
@@ -111,11 +111,11 @@ AddEventHandler('qb-lapraces:server:FinishPlayer', function(RaceData, TotalTime,
         }
         exports.oxmysql:execute('UPDATE lapraces SET records = ? WHERE raceid = ?',
             {json.encode(Races[RaceData.RaceId].Records), RaceData.RaceId})
-        TriggerClientEvent('qb-phone:client:RaceNotify', src, 'Du har vundet WR fra ' .. RaceData.RaceName ..
+        TriggerClientEvent('norskpixel-phone:client:RaceNotify', src, 'Du har vundet WR fra ' .. RaceData.RaceName ..
             ' og afsluttede med en tid på: ' .. SecondsToClock(BLap) .. '!')
     end
     AvailableRaces[AvailableKey].RaceData = Races[RaceData.RaceId]
-    TriggerClientEvent('qb-lapraces:client:PlayerFinishs', -1, RaceData.RaceId, PlayersFinished, Player)
+    TriggerClientEvent('norskpixel-lapraces:client:PlayerFinishs', -1, RaceData.RaceId, PlayersFinished, Player)
     if PlayersFinished == AmountOfRacers then
         if NotFinished ~= nil and next(NotFinished) ~= nil and NotFinished[RaceData.RaceId] ~= nil and
             next(NotFinished[RaceData.RaceId]) ~= nil then
@@ -138,7 +138,7 @@ AddEventHandler('qb-lapraces:server:FinishPlayer', function(RaceData, TotalTime,
         LastRaces[RaceData.RaceId] = nil
         NotFinished[RaceData.RaceId] = nil
     end
-    TriggerClientEvent('qb-phone:client:UpdateLapraces', -1)
+    TriggerClientEvent('norskpixel-phone:client:UpdateLapraces', -1)
 end)
 
 function IsWhitelisted(CitizenId)
@@ -168,14 +168,14 @@ function IsNameAvailable(RaceName)
     return retval
 end
 
-RegisterServerEvent('qb-lapraces:server:CreateLapRace')
-AddEventHandler('qb-lapraces:server:CreateLapRace', function(RaceName)
+RegisterServerEvent('norskpixel-lapraces:server:CreateLapRace')
+AddEventHandler('norskpixel-lapraces:server:CreateLapRace', function(RaceName)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
     if IsWhitelisted(Player.PlayerData.citizenid) then
         if IsNameAvailable(RaceName) then
-            TriggerClientEvent('qb-lapraces:client:StartRaceEditor', source, RaceName)
+            TriggerClientEvent('norskpixel-lapraces:client:StartRaceEditor', source, RaceName)
         else
             TriggerClientEvent('QBCore:Notify', source, 'Der er allerede et race med samme navn.', 'error')
         end
@@ -184,23 +184,23 @@ AddEventHandler('qb-lapraces:server:CreateLapRace', function(RaceName)
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-lapraces:server:GetRaces', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-lapraces:server:GetRaces', function(source, cb)
     cb(AvailableRaces)
 end)
 
-QBCore.Functions.CreateCallback('qb-lapraces:server:GetListedRaces', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-lapraces:server:GetListedRaces', function(source, cb)
     cb(Races)
 end)
 
-QBCore.Functions.CreateCallback('qb-lapraces:server:GetRacingData', function(source, cb, RaceId)
+QBCore.Functions.CreateCallback('norskpixel-lapraces:server:GetRacingData', function(source, cb, RaceId)
     cb(Races[RaceId])
 end)
 
-QBCore.Functions.CreateCallback('qb-lapraces:server:HasCreatedRace', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-lapraces:server:HasCreatedRace', function(source, cb)
     cb(HasOpenedRace(QBCore.Functions.GetPlayer(source).PlayerData.citizenid))
 end)
 
-QBCore.Functions.CreateCallback('qb-lapraces:server:IsAuthorizedToCreateRaces', function(source, cb, TrackName)
+QBCore.Functions.CreateCallback('norskpixel-lapraces:server:IsAuthorizedToCreateRaces', function(source, cb, TrackName)
     cb(IsWhitelisted(QBCore.Functions.GetPlayer(source).PlayerData.citizenid), IsNameAvailable(TrackName))
 end)
 
@@ -214,7 +214,7 @@ function HasOpenedRace(CitizenId)
     return retval
 end
 
-QBCore.Functions.CreateCallback('qb-lapraces:server:GetTrackData', function(source, cb, RaceId)
+QBCore.Functions.CreateCallback('norskpixel-lapraces:server:GetTrackData', function(source, cb, RaceId)
     local result = exports.oxmysql:executeSync('SELECT * FROM players WHERE citizenid = ?', {Races[RaceId].Creator})
     if result[1] ~= nil then
         result[1].charinfo = json.decode(result[1].charinfo)
@@ -253,8 +253,8 @@ function GetCurrentRace(MyCitizenId)
     return retval
 end
 
-RegisterServerEvent('qb-lapraces:server:JoinRace')
-AddEventHandler('qb-lapraces:server:JoinRace', function(RaceData)
+RegisterServerEvent('norskpixel-lapraces:server:JoinRace')
+AddEventHandler('norskpixel-lapraces:server:JoinRace', function(RaceData)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local RaceName = RaceData.RaceData.RaceName
@@ -274,12 +274,12 @@ AddEventHandler('qb-lapraces:server:JoinRace', function(RaceData)
             Races[CurrentRace].Waiting = false
             table.remove(AvailableRaces, PreviousRaceKey)
             TriggerClientEvent('QBCore:Notify', src, 'Du var den eneste tilmeldte, race afsluttes', 'error')
-            TriggerClientEvent('qb-lapraces:client:LeaveRace', src, Races[CurrentRace])
+            TriggerClientEvent('norskpixel-lapraces:client:LeaveRace', src, Races[CurrentRace])
         else
             AvailableRaces[PreviousRaceKey].RaceData = Races[CurrentRace]
-            TriggerClientEvent('qb-lapraces:client:LeaveRace', src, Races[CurrentRace])
+            TriggerClientEvent('norskpixel-lapraces:client:LeaveRace', src, Races[CurrentRace])
         end
-        TriggerClientEvent('qb-phone:client:UpdateLapraces', -1)
+        TriggerClientEvent('norskpixel-phone:client:UpdateLapraces', -1)
     end
     Races[RaceId].Waiting = true
     Races[RaceId].Racers[Player.PlayerData.citizenid] = {
@@ -288,19 +288,19 @@ AddEventHandler('qb-lapraces:server:JoinRace', function(RaceData)
         Finished = false
     }
     AvailableRaces[AvailableKey].RaceData = Races[RaceId]
-    TriggerClientEvent('qb-lapraces:client:JoinRace', src, Races[RaceId], RaceData.Laps)
-    TriggerClientEvent('qb-phone:client:UpdateLapraces', -1)
+    TriggerClientEvent('norskpixel-lapraces:client:JoinRace', src, Races[RaceId], RaceData.Laps)
+    TriggerClientEvent('norskpixel-phone:client:UpdateLapraces', -1)
     local creatorsource = QBCore.Functions.GetPlayerByCitizenId(AvailableRaces[AvailableKey].SetupCitizenId).PlayerData
                               .source
     if creatorsource ~= Player.PlayerData.source then
-        TriggerClientEvent('qb-phone:client:RaceNotify', creatorsource,
+        TriggerClientEvent('norskpixel-phone:client:RaceNotify', creatorsource,
             string.sub(Player.PlayerData.charinfo.firstname, 1, 1) .. '. ' .. Player.PlayerData.charinfo.lastname ..
                 ' race er blevet oprettet!')
     end
 end)
 
-RegisterServerEvent('qb-lapraces:server:LeaveRace')
-AddEventHandler('qb-lapraces:server:LeaveRace', function(RaceData)
+RegisterServerEvent('norskpixel-lapraces:server:LeaveRace')
+AddEventHandler('norskpixel-lapraces:server:LeaveRace', function(RaceData)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local RaceName
@@ -314,7 +314,7 @@ AddEventHandler('qb-lapraces:server:LeaveRace', function(RaceData)
     local creatorsource = QBCore.Functions.GetPlayerByCitizenId(AvailableRaces[AvailableKey].SetupCitizenId).PlayerData
                               .source
     if creatorsource ~= Player.PlayerData.source then
-        TriggerClientEvent('qb-phone:client:RaceNotify', creatorsource,
+        TriggerClientEvent('norskpixel-phone:client:RaceNotify', creatorsource,
             string.sub(Player.PlayerData.charinfo.firstname, 1, 1) .. '. ' .. Player.PlayerData.charinfo.lastname ..
                 ' race er blevet leveret!')
     end
@@ -375,18 +375,18 @@ AddEventHandler('qb-lapraces:server:LeaveRace', function(RaceData)
         Races[RaceId].Waiting = false
         table.remove(AvailableRaces, AvailableKey)
         TriggerClientEvent('QBCore:Notify', src, 'Du var den eneste tilmeldte, race afsluttes.', 'error')
-        TriggerClientEvent('qb-lapraces:client:LeaveRace', src, Races[RaceId])
+        TriggerClientEvent('norskpixel-lapraces:client:LeaveRace', src, Races[RaceId])
         LastRaces[RaceId] = nil
         NotFinished[RaceId] = nil
     else
         AvailableRaces[AvailableKey].RaceData = Races[RaceId]
-        TriggerClientEvent('qb-lapraces:client:LeaveRace', src, Races[RaceId])
+        TriggerClientEvent('norskpixel-lapraces:client:LeaveRace', src, Races[RaceId])
     end
-    TriggerClientEvent('qb-phone:client:UpdateLapraces', -1)
+    TriggerClientEvent('norskpixel-phone:client:UpdateLapraces', -1)
 end)
 
-RegisterServerEvent('qb-lapraces:server:SetupRace')
-AddEventHandler('qb-lapraces:server:SetupRace', function(RaceId, Laps)
+RegisterServerEvent('norskpixel-lapraces:server:SetupRace')
+AddEventHandler('norskpixel-lapraces:server:SetupRace', function(RaceId, Laps)
     local Player = QBCore.Functions.GetPlayer(source)
     if Races[RaceId] ~= nil then
         if not Races[RaceId].Waiting then
@@ -398,14 +398,14 @@ AddEventHandler('qb-lapraces:server:SetupRace', function(RaceId, Laps)
                     RaceId = RaceId,
                     SetupCitizenId = Player.PlayerData.citizenid
                 })
-                TriggerClientEvent('qb-phone:client:UpdateLapraces', -1)
+                TriggerClientEvent('norskpixel-phone:client:UpdateLapraces', -1)
                 SetTimeout(5 * 60 * 1000, function()
                     if Races[RaceId].Waiting then
                         local AvailableKey = GetOpenedRaceKey(RaceId)
                         for cid, _ in pairs(Races[RaceId].Racers) do
                             local RacerData = QBCore.Functions.GetPlayerByCitizenId(cid)
                             if RacerData ~= nil then
-                                TriggerClientEvent('qb-lapraces:client:LeaveRace', RacerData.PlayerData.source,
+                                TriggerClientEvent('norskpixel-lapraces:client:LeaveRace', RacerData.PlayerData.source,
                                     Races[RaceId])
                             end
                         end
@@ -415,7 +415,7 @@ AddEventHandler('qb-lapraces:server:SetupRace', function(RaceId, Laps)
                         Races[RaceId].Started = false
                         Races[RaceId].Waiting = false
                         LastRaces[RaceId] = nil
-                        TriggerClientEvent('qb-phone:client:UpdateLapraces', -1)
+                        TriggerClientEvent('norskpixel-phone:client:UpdateLapraces', -1)
                     end
                 end)
             else
@@ -429,14 +429,14 @@ AddEventHandler('qb-lapraces:server:SetupRace', function(RaceId, Laps)
     end
 end)
 
-RegisterServerEvent('qb-lapraces:server:UpdateRaceState')
-AddEventHandler('qb-lapraces:server:UpdateRaceState', function(RaceId, Started, Waiting)
+RegisterServerEvent('norskpixel-lapraces:server:UpdateRaceState')
+AddEventHandler('norskpixel-lapraces:server:UpdateRaceState', function(RaceId, Started, Waiting)
     Races[RaceId].Waiting = Waiting
     Races[RaceId].Started = Started
 end)
 
-RegisterServerEvent('qb-lapraces:server:UpdateRacerData')
-AddEventHandler('qb-lapraces:server:UpdateRacerData', function(RaceId, Checkpoint, Lap, Finished)
+RegisterServerEvent('norskpixel-lapraces:server:UpdateRacerData')
+AddEventHandler('norskpixel-lapraces:server:UpdateRacerData', function(RaceId, Checkpoint, Lap, Finished)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local CitizenId = Player.PlayerData.citizenid
@@ -445,11 +445,11 @@ AddEventHandler('qb-lapraces:server:UpdateRacerData', function(RaceId, Checkpoin
     Races[RaceId].Racers[CitizenId].Lap = Lap
     Races[RaceId].Racers[CitizenId].Finished = Finished
 
-    TriggerClientEvent('qb-lapraces:client:UpdateRaceRacerData', -1, RaceId, Races[RaceId])
+    TriggerClientEvent('norskpixel-lapraces:client:UpdateRaceRacerData', -1, RaceId, Races[RaceId])
 end)
 
-RegisterServerEvent('qb-lapraces:server:StartRace')
-AddEventHandler('qb-lapraces:server:StartRace', function(RaceId)
+RegisterServerEvent('norskpixel-lapraces:server:StartRace')
+AddEventHandler('norskpixel-lapraces:server:StartRace', function(RaceId)
     local src = source
     local MyPlayer = QBCore.Functions.GetPlayer(src)
     local AvailableKey = GetOpenedRaceKey(RaceId)
@@ -461,10 +461,10 @@ AddEventHandler('qb-lapraces:server:StartRace', function(RaceId)
             for CitizenId, _ in pairs(Races[RaceId].Racers) do
                 local Player = QBCore.Functions.GetPlayerByCitizenId(CitizenId)
                 if Player ~= nil then
-                    TriggerClientEvent('qb-lapraces:client:RaceCountdown', Player.PlayerData.source)
+                    TriggerClientEvent('norskpixel-lapraces:client:RaceCountdown', Player.PlayerData.source)
                 end
             end
-            TriggerClientEvent('qb-phone:client:UpdateLapraces', -1)
+            TriggerClientEvent('norskpixel-phone:client:UpdateLapraces', -1)
         else
             TriggerClientEvent('QBCore:Notify', src, 'Du er ikke arrangør for dette race..', 'error')
         end
@@ -473,8 +473,8 @@ AddEventHandler('qb-lapraces:server:StartRace', function(RaceId)
     end
 end)
 
-RegisterServerEvent('qb-lapraces:server:SaveRace')
-AddEventHandler('qb-lapraces:server:SaveRace', function(RaceData)
+RegisterServerEvent('norskpixel-lapraces:server:SaveRace')
+AddEventHandler('norskpixel-lapraces:server:SaveRace', function(RaceData)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local RaceId = GenerateRaceId()
@@ -548,7 +548,7 @@ QBCore.Commands.Add("cancelrace", "Afbryd race..", {}, false, function(source, a
                 for cid, _ in pairs(Races[RaceId].Racers) do
                     local RacerData = QBCore.Functions.GetPlayerByCitizenId(cid)
                     if RacerData ~= nil then
-                        TriggerClientEvent('qb-lapraces:client:LeaveRace', RacerData.PlayerData.source, Races[RaceId])
+                        TriggerClientEvent('norskpixel-lapraces:client:LeaveRace', RacerData.PlayerData.source, Races[RaceId])
                     end
                 end
                 table.remove(AvailableRaces, AvailableKey)
@@ -557,7 +557,7 @@ QBCore.Commands.Add("cancelrace", "Afbryd race..", {}, false, function(source, a
                 Races[RaceId].Started = false
                 Races[RaceId].Waiting = false
                 LastRaces[RaceId] = nil
-                TriggerClientEvent('qb-phone:client:UpdateLapraces', -1)
+                TriggerClientEvent('norskpixel-phone:client:UpdateLapraces', -1)
             else
                 TriggerClientEvent('QBCore:Notify', source, 'Dette race er ikke startet endnu.', 'error')
             end
@@ -567,6 +567,6 @@ QBCore.Commands.Add("cancelrace", "Afbryd race..", {}, false, function(source, a
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-lapraces:server:CanRaceSetup', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-lapraces:server:CanRaceSetup', function(source, cb)
     cb(Config.RaceSetupAllowed)
 end)

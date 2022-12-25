@@ -1,6 +1,6 @@
 
 
-# qb-input
+# norskpixel-input
 
 NUI input system for QBCore
 
@@ -12,7 +12,7 @@ Here is an example commant which will create a basic form and will print out it'
 
 ```lua
 RegisterCommand('testinput', function()
-    local dialog = exports['qb-input']:ShowInput({
+    local dialog = exports['norskpixel-input']:ShowInput({
         header = "Test",
         submitText = "Bill",
         inputs = {

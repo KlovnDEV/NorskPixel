@@ -1,4 +1,4 @@
-# qb-scoreboard
+# norskpixel-scoreboard
 Scoreboard for QB-Core
 
 # License

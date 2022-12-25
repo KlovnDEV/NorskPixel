@@ -1,4 +1,4 @@
-# qb-streetraces
+# norskpixel-streetraces
 Street Racing For QB-Core
 
 # License

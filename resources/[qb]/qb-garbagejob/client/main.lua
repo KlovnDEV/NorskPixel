@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local isLoggedIn = false
 local PlayerJob = {}
@@ -156,7 +156,7 @@ function PayCheckLoop(location)
                 if distance < 1.5 then
                     DrawText3D(coords.x, coords.y, coords.z, "~g~E~w~ - Lønseddel")
                     if IsControlJustPressed(0, 38) then
-                        TriggerServerEvent('qb-garbagejob:server:PayShit', Earnings, location)
+                        TriggerServerEvent('norskpixel-garbagejob:server:PayShit', Earnings, location)
                         Earnings = 0
                     end
                 elseif distance < 5 then
@@ -185,7 +185,7 @@ Citizen.CreateThread(function()
                         if InVehicle then
                             DrawText3D(Config.Locations["vehicle"].coords.x, Config.Locations["vehicle"].coords.y, Config.Locations["vehicle"].coords.z, "~g~E~w~ - Store Garbage Truck")
                             if IsControlJustReleased(0, 38) then
-                                QBCore.Functions.TriggerCallback('qb-garbagejob:server:CheckBail', function(DidBail)
+                                QBCore.Functions.TriggerCallback('norskpixel-garbagejob:server:CheckBail', function(DidBail)
                                     if DidBail then
                                         BringBackCar()
                                         QBCore.Functions.Notify("Du har fået dine 250,- DKK i depositum tilbage!")
@@ -197,7 +197,7 @@ Citizen.CreateThread(function()
                         else
                             DrawText3D(Config.Locations["vehicle"].coords.x, Config.Locations["vehicle"].coords.y, Config.Locations["vehicle"].coords.z, "~g~E~w~ - Garbage Truck")
                             if IsControlJustReleased(0, 38) then
-                                QBCore.Functions.TriggerCallback('qb-garbagejob:server:HasMoney', function(HasMoney)
+                                QBCore.Functions.TriggerCallback('norskpixel-garbagejob:server:HasMoney', function(HasMoney)
                                     if HasMoney then
                                         local coords = Config.Locations["vehicle"].coords
                                         QBCore.Functions.SpawnVehicle("trash2", function(veh)
@@ -288,7 +288,7 @@ Citizen.CreateThread(function()
                                                         GarbageLocation = GarbageLocation + 1
                                                         local chance = math.random(1,100)
                                                         if chance < 26 then
-                                                            TriggerServerEvent('qb-garbagejob:server:nano')
+                                                            TriggerServerEvent('norskpixel-garbagejob:server:nano')
                                                         end
                                                         SetGarbageRoute()
                                                         QBCore.Functions.Notify("Alle affaldsposer er færdige, fortsæt til det næste sted!")

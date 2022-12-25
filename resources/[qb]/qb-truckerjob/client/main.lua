@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local isLoggedIn = true
 local PlayerJob = {}
@@ -102,7 +102,7 @@ Citizen.CreateThread(function()
                                 if GetPedInVehicleSeat(GetVehiclePedIsIn(PlayerPedId()), -1) == PlayerPedId() then
                                     if isTruckerVehicle(GetVehiclePedIsIn(PlayerPedId(), false)) then
                                         DeleteVehicle(GetVehiclePedIsIn(PlayerPedId()))
-                                        TriggerServerEvent('qb-trucker:server:DoBail', false)
+                                        TriggerServerEvent('norskpixel-trucker:server:DoBail', false)
                                     else
                                         QBCore.Functions.Notify('Dette er ikke et erhvervskøretøj!', 'error')
                                     end
@@ -123,7 +123,7 @@ Citizen.CreateThread(function()
                         DrawText3D(Config.Locations["main"].coords.x, Config.Locations["main"].coords.y, Config.Locations["main"].coords.z, "~g~E~w~ - Lønseddel")
                         if IsControlJustReleased(0, 38) then
                             if JobsDone > 0 then
-                                TriggerServerEvent("qb-trucker:server:01101110", JobsDone)
+                                TriggerServerEvent("norskpixel-trucker:server:01101110", JobsDone)
                                 JobsDone = 0
                                 if #LocationsDone == #Config.Locations["stores"] then
                                     LocationsDone = {}
@@ -197,11 +197,11 @@ Citizen.CreateThread(function()
                                             currentCount = currentCount + 1
                                             if currentCount == CurrentLocation.dropcount then
                                                 table.insert(LocationsDone, CurrentLocation.id)
-                                                TriggerServerEvent("qb-shops:server:RestockShopItems", CurrentLocation.store)
+                                                TriggerServerEvent("norskpixel-shops:server:RestockShopItems", CurrentLocation.store)
                                                 QBCore.Functions.Notify("Du har afleveret en kasse, videre til næste")
                                                 local chance = math.random(1,100)
                                                 if chance < 26 then
-                                                    TriggerServerEvent('qb-trucker:server:nano')
+                                                    TriggerServerEvent('norskpixel-trucker:server:nano')
                                                 end
                                                 if CurrentBlip ~= nil then
                                                     RemoveBlip(CurrentBlip)
@@ -326,7 +326,7 @@ function VehicleList(isDown)
 end
 
 function TakeOutVehicle(vehicleInfo)
-    TriggerServerEvent('qb-trucker:server:DoBail', true, vehicleInfo)
+    TriggerServerEvent('norskpixel-trucker:server:DoBail', true, vehicleInfo)
     selectedVeh = vehicleInfo
 end
 
@@ -344,8 +344,8 @@ function RemoveTruckerBlips()
     end
 end
 
-RegisterNetEvent('qb-trucker:client:SpawnVehicle')
-AddEventHandler('qb-trucker:client:SpawnVehicle', function()
+RegisterNetEvent('norskpixel-trucker:client:SpawnVehicle')
+AddEventHandler('norskpixel-trucker:client:SpawnVehicle', function()
     local vehicleInfo = selectedVeh
     local coords = Config.Locations["vehicle"].coords
     QBCore.Functions.SpawnVehicle(vehicleInfo, function(veh)

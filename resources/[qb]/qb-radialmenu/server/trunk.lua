@@ -1,28 +1,28 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local trunkBusy = {}
 
-RegisterServerEvent('qb-trunk:server:setTrunkBusy')
-AddEventHandler('qb-trunk:server:setTrunkBusy', function(plate, busy)
+RegisterServerEvent('norskpixel-trunk:server:setTrunkBusy')
+AddEventHandler('norskpixel-trunk:server:setTrunkBusy', function(plate, busy)
     trunkBusy[plate] = busy
 end)
 
-QBCore.Functions.CreateCallback('qb-trunk:server:getTrunkBusy', function(source, cb, plate)
+QBCore.Functions.CreateCallback('norskpixel-trunk:server:getTrunkBusy', function(source, cb, plate)
     if trunkBusy[plate] then
         cb(true)
     end
     cb(false)
 end)
 
-RegisterServerEvent('qb-trunk:server:KidnapTrunk')
-AddEventHandler('qb-trunk:server:KidnapTrunk', function(targetId, closestVehicle)
-    TriggerClientEvent('qb-trunk:client:KidnapGetIn', targetId, closestVehicle)
+RegisterServerEvent('norskpixel-trunk:server:KidnapTrunk')
+AddEventHandler('norskpixel-trunk:server:KidnapTrunk', function(targetId, closestVehicle)
+    TriggerClientEvent('norskpixel-trunk:client:KidnapGetIn', targetId, closestVehicle)
 end)
 
 QBCore.Commands.Add("getintrunk", "Get In Trunk", {}, false, function(source, args)
-    TriggerClientEvent('qb-trunk:client:GetIn', source)
+    TriggerClientEvent('norskpixel-trunk:client:GetIn', source)
 end)
 
 QBCore.Commands.Add("putintrunk", "Put Player In Trunk", {}, false, function(source, args)
-    TriggerClientEvent('qb-trunk:server:KidnapTrunk', source)
+    TriggerClientEvent('norskpixel-trunk:server:KidnapTrunk', source)
 end)

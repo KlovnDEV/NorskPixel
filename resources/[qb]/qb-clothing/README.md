@@ -1,4 +1,4 @@
-# qb-clothing
+# norskpixel-clothing
 Clothing for QB-Core Framework :dress:
 
 # License
@@ -20,7 +20,7 @@ Clothing for QB-Core Framework :dress:
     along with this program.  If not, see <https://www.gnu.org/licenses/>
 
 ## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
+- [norskpixel-core](https://github.com/qbcore-framework/norskpixel-core)
 
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/66404074/153545004-6337e685-d3a5-478c-8fa2-e50f4b1d2030.png)
@@ -50,11 +50,11 @@ Clothing for QB-Core Framework :dress:
 ## Installation
 ### Manual
 - Download the script and put it in the `[qb]` directory.
-- Import `qb-clothing.sql` in your database
+- Import `norskpixel-clothing.sql` in your database
 - Add the following code to your server.cfg/resouces.cfg
 ```
-ensure qb-core
-ensure qb-clothing
+ensure norskpixel-core
+ensure norskpixel-clothing
 ```
 
 ## Configuration

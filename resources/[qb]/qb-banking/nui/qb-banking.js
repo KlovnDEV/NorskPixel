@@ -242,7 +242,7 @@ function pad(n, width, z) {
 }
 
 function closeBanking() {
-    $.post("https://qb-banking/NUIFocusOff", JSON.stringify({}));
+    $.post("https://norskpixel-banking/NUIFocusOff", JSON.stringify({}));
 };
 
 $(function() {
@@ -256,18 +256,18 @@ $(function() {
         $("#debitCardStatus").removeClass('bg-success');
         $("#debitCardStatus").addClass('bg-danger');
         $("#debitCardStatus").html('<div class="card-header">Kort låst</div><div class="card-body">Dit kort er spærret.</div><div class="card-footer"><button class="btn btn-primary btn-block" id="unLockCard">Lås op</button></div>');
-        $.post('https://qb-banking/lockCard', JSON.stringify({ }));
+        $.post('https://norskpixel-banking/lockCard', JSON.stringify({ }));
     });
 
     $(document).on('click','#unLockCard',function(){
         $("#debitCardStatus").removeClass('bg-danger');
         $("#debitCardStatus").addClass('bg-success');
         $("#debitCardStatus").html('<div class="card-header">Kort ulåst</div><div class="card-body">Dit kort er aktivt.</div><div class="card-footer"><button class="btn btn-primary btn-block" id="lockCard">Lås/spær kort</button></div>');
-        $.post('https://qb-banking/unLockCard', JSON.stringify({ }));
+        $.post('https://norskpixel-banking/unLockCard', JSON.stringify({ }));
     });
 
     $("#openSavings").click(function() {
-        $.post('https://qb-banking/createSavingsAccount', JSON.stringify({ }));
+        $.post('https://norskpixel-banking/createSavingsAccount', JSON.stringify({ }));
     });
 
     $("#changePin").click(function() {
@@ -280,7 +280,7 @@ $(function() {
         if(newPin !== null && newPin !== undefined && newPin.replace(/[^0-9]/g,"").length === 4) {
             $("#newPinReqMsgDiv").css({"display":"none"});
             $("#newPinReqMsg").html('')
-            $.post('https://qb-banking/updatePin', JSON.stringify({
+            $.post('https://norskpixel-banking/updatePin', JSON.stringify({
                 pin: pad(newPin, 4)
              }));
              $('#newPinNumber').val('');
@@ -297,7 +297,7 @@ $(function() {
         if(amount !== undefined && amount > 0) {
             $("#withdrawError").css({"display":"none"});
             $("#withdrawErrorMsg").html('');
-            $.post('https://qb-banking/doWithdraw', JSON.stringify({
+            $.post('https://norskpixel-banking/doWithdraw', JSON.stringify({
                 amount: parseInt(amount)
             }));
             $('#withdrawAmount').val('')
@@ -314,7 +314,7 @@ $(function() {
             if(amount !== undefined && amount > 0) {
                 $("#withdrawATMError").css({"display":"none"});
                 $("#withdrawATMErrorMsg").html('');
-                $.post('https://qb-banking/doATMWithdraw', JSON.stringify({
+                $.post('https://norskpixel-banking/doATMWithdraw', JSON.stringify({
                     amount: parseInt(amount)
                 }));
                 $('#withdrawAmountATM').val('');
@@ -341,7 +341,7 @@ $(function() {
         if(amount !== undefined && amount > 0) {
             $("#depositError").css({"display":"none"});
             $("#depositErrorMsg").html('');
-            $.post('https://qb-banking/doDeposit', JSON.stringify({
+            $.post('https://norskpixel-banking/doDeposit', JSON.stringify({
                 amount: parseInt(amount)
             }));
             $('#depositAmount').val('');
@@ -355,7 +355,7 @@ $(function() {
     $("[data-action=deposit]").click(function() {
         var amount = $(this).attr('data-amount');
         if(amount > 0) {
-            $.post('https://qb-banking/doDeposit', JSON.stringify({
+            $.post('https://norskpixel-banking/doDeposit', JSON.stringify({
                 amount: parseInt(amount)
             }));
         }
@@ -372,7 +372,7 @@ $(function() {
         if(pinValue !== null && pinValue !== undefined && pinValue.replace(/[^0-9]/g,"").length === 4) {
             $("#pinCreatorError").css({"display":"none"});
             $("#pinCreatorErrorMsg").html('');
-            $.post('https://qb-banking/createDebitCard', JSON.stringify({
+            $.post('https://norskpixel-banking/createDebitCard', JSON.stringify({
                 pin: pad(pinValue, 4)
             }));
         } else {
@@ -390,7 +390,7 @@ $(function() {
         if(amount !== undefined && amount !== null && amount > 0 && sortcode !== undefined && sortcode !== null && sortcode > 0 && account !== undefined && account !== null && account > 0) {
             $("#transferError").css({"display":"none"});
             $("#transferErrorMsg").html('');
-            $.post('https://qb-banking/doTransfer', JSON.stringify({
+            $.post('https://norskpixel-banking/doTransfer', JSON.stringify({
                 amount: parseInt(amount),
                 account: parseInt(account),
                 sortcode: parseInt(sortcode)
@@ -408,7 +408,7 @@ $(function() {
     $("[data-action=withdraw]").click(function() {
         var amount = $(this).attr('data-amount');
         if(amount > 0) {
-            $.post('https://qb-banking/doWithdraw', JSON.stringify({
+            $.post('https://norskpixel-banking/doWithdraw', JSON.stringify({
                 amount: parseInt(amount)
             }));
         }
@@ -418,7 +418,7 @@ $(function() {
         var amount = $(this).attr('data-amount');
         if (currentLimit + parseInt(amount) <= Config.ATMTransLimit) {
             if(amount > 0) {
-                $.post('https://qb-banking/doATMWithdraw', JSON.stringify({
+                $.post('https://norskpixel-banking/doATMWithdraw', JSON.stringify({
                     amount: parseInt(amount)
                 }));
                 $("#successMessageATM").removeClass('alert-danger').addClass('alert-success');
@@ -437,7 +437,7 @@ $(function() {
     $("[data-action=savingsdeposit]").click(function() {
         var amount = $(this).attr('data-amount');
         if(amount > 0) {
-            $.post('https://qb-banking/savingsDeposit', JSON.stringify({
+            $.post('https://norskpixel-banking/savingsDeposit', JSON.stringify({
                 amount: parseInt(amount)
             }));
         }
@@ -457,7 +457,7 @@ $(function() {
         $("#requestNewCard2").css({"display":"none"});
         $("#requestNewCard3").css({"display":"block"});
 
-        $.post('https://qb-banking/requestNewCard', JSON.stringify({
+        $.post('https://norskpixel-banking/requestNewCard', JSON.stringify({
 
         }));
 
@@ -475,13 +475,13 @@ $(function() {
             if(action == "deposit") {
                 $("#savingsTAmount").val('');
                 $("#savingsAction").val('def');
-                $.post('https://qb-banking/savingsDeposit', JSON.stringify({
+                $.post('https://norskpixel-banking/savingsDeposit', JSON.stringify({
                     amount: parseInt(amount)
                 }));
             } else {
                 $("#savingsTAmount").val('');
                 $("#savingsAction").val('def');
-                $.post('https://qb-banking/savingsWithdraw', JSON.stringify({
+                $.post('https://norskpixel-banking/savingsWithdraw', JSON.stringify({
                     amount: parseInt(amount)
                 }));
             }
@@ -523,7 +523,7 @@ $(function() {
     $("[data-action=savingswithdraw]").click(function() {
         var amount = $(this).attr('data-amount');
         if(amount > 0) {
-            $.post('https://qb-banking/savingsWithdraw', JSON.stringify({
+            $.post('https://norskpixel-banking/savingsWithdraw', JSON.stringify({
                 amount: parseInt(amount)
             }));
         }

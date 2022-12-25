@@ -1,4 +1,4 @@
-# qb-diving
+# norskpixel-diving
 Diving Script For QB-Core
 
 # License

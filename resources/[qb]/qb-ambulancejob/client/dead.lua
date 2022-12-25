@@ -109,7 +109,7 @@ CreateThread(function()
                     weaponLabel = weaponItem.label
                     weaponName = weaponItem.name
                 end
-                TriggerServerEvent("qb-log:server:CreateLog", "death", GetPlayerName(-1) .. " ("..GetPlayerServerId(player)..") er død", "red", "**".. killerName .. "** har dræbt ".. GetPlayerName(player) .." med en/et **".. weaponLabel .. "** (" .. weaponName .. ")")
+                TriggerServerEvent("norskpixel-log:server:CreateLog", "death", GetPlayerName(-1) .. " ("..GetPlayerServerId(player)..") er død", "red", "**".. killerName .. "** har dræbt ".. GetPlayerName(player) .." med en/et **".. weaponLabel .. "** (" .. weaponName .. ")")
                 deathTime = Config.DeathTime
                 OnDeath()
                 DeathTimer()

@@ -1,4 +1,4 @@
-# qb-smallresources
+# norskpixel-smallresources
 Base scripts for QB-Core Framework :building_construction:
 
 # License
@@ -21,7 +21,7 @@ Base scripts for QB-Core Framework :building_construction:
 
 
 ## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
+- [norskpixel-core](https://github.com/qbcore-framework/norskpixel-core)
 
 ## Features
 - Consumeable foods/beverages/drinks/drugs (sandwich, water_bottle, tosti, beer, vodka etc.)
@@ -59,8 +59,8 @@ Base scripts for QB-Core Framework :building_construction:
 - Download the script and put it in the `[qb]` directory.
 - Add the following code to your server.cfg/resouces.cfg
 ```
-ensure qb-core
-ensure qb-smallresources
+ensure norskpixel-core
+ensure norskpixel-smallresources
 ```
 
 ## Configuration

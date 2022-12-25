@@ -1,4 +1,4 @@
-# qb-scrapyard
+# norskpixel-scrapyard
 Scrapyard For QB-Core
 
 # License

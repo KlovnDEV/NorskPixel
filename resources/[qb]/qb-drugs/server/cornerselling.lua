@@ -1,7 +1,7 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
-QBCore.Functions.CreateCallback('qb-drugs:server:cornerselling:getAvailableDrugs', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-drugs:server:cornerselling:getAvailableDrugs', function(source, cb)
     local AvailableDrugs = {}
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
@@ -25,8 +25,8 @@ QBCore.Functions.CreateCallback('qb-drugs:server:cornerselling:getAvailableDrugs
     end
 end)
 
-RegisterServerEvent('qb-drugs:server:sellCornerDrugs')
-AddEventHandler('qb-drugs:server:sellCornerDrugs', function(item, amount, price)
+RegisterServerEvent('norskpixel-drugs:server:sellCornerDrugs')
+AddEventHandler('norskpixel-drugs:server:sellCornerDrugs', function(item, amount, price)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local hasItem = Player.Functions.GetItemByName(item)
@@ -50,14 +50,14 @@ AddEventHandler('qb-drugs:server:sellCornerDrugs', function(item, amount, price)
             end
         end
 
-        TriggerClientEvent('qb-drugs:client:refreshAvailableDrugs', src, AvailableDrugs)
+        TriggerClientEvent('norskpixel-drugs:client:refreshAvailableDrugs', src, AvailableDrugs)
     else
-        TriggerClientEvent('qb-drugs:client:cornerselling', src)
+        TriggerClientEvent('norskpixel-drugs:client:cornerselling', src)
     end
 end)
 
-RegisterServerEvent('qb-drugs:server:robCornerDrugs')
-AddEventHandler('qb-drugs:server:robCornerDrugs', function(item, amount, price)
+RegisterServerEvent('norskpixel-drugs:server:robCornerDrugs')
+AddEventHandler('norskpixel-drugs:server:robCornerDrugs', function(item, amount, price)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local AvailableDrugs = {}
@@ -78,5 +78,5 @@ AddEventHandler('qb-drugs:server:robCornerDrugs', function(item, amount, price)
         end
     end
 
-    TriggerClientEvent('qb-drugs:client:refreshAvailableDrugs', src, AvailableDrugs)
+    TriggerClientEvent('norskpixel-drugs:client:refreshAvailableDrugs', src, AvailableDrugs)
 end)

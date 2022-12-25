@@ -1,6 +1,6 @@
 local xSound = exports.xsound
 
-RegisterNetEvent('qb-djbooth:server:playMusic', function(song, zoneName)
+RegisterNetEvent('norskpixel-djbooth:server:playMusic', function(song, zoneName)
     local src = source
     local ped = GetPlayerPed(src)
     local coords = GetEntityCoords(ped)
@@ -10,10 +10,10 @@ RegisterNetEvent('qb-djbooth:server:playMusic', function(song, zoneName)
     xSound:PlayUrlPos(-1, zoneName, song, Config.DefaultVolume, coords)
     xSound:Distance(-1, zoneName, Config.Locations[zoneName].radius)
     Config.Locations[zoneName].playing = true
-    TriggerClientEvent('qb-djbooth:client:playMusic', src)
+    TriggerClientEvent('norskpixel-djbooth:client:playMusic', src)
 end)
 
-RegisterNetEvent('qb-djbooth:server:stopMusic', function(data)
+RegisterNetEvent('norskpixel-djbooth:server:stopMusic', function(data)
     local src = source
     local ped = GetPlayerPed(src)
     local coords = GetEntityCoords(ped)
@@ -24,10 +24,10 @@ RegisterNetEvent('qb-djbooth:server:stopMusic', function(data)
         Config.Locations[data.zoneName].playing = false
         xSound:Destroy(-1, data.zoneName)
     end
-    TriggerClientEvent('qb-djbooth:client:playMusic', src)
+    TriggerClientEvent('norskpixel-djbooth:client:playMusic', src)
 end)
 
-RegisterNetEvent('qb-djbooth:server:pauseMusic', function(data)
+RegisterNetEvent('norskpixel-djbooth:server:pauseMusic', function(data)
     local src = source
     local ped = GetPlayerPed(src)
     local coords = GetEntityCoords(ped)
@@ -38,10 +38,10 @@ RegisterNetEvent('qb-djbooth:server:pauseMusic', function(data)
         Config.Locations[data.zoneName].playing = false
         xSound:Pause(-1, data.zoneName)
     end
-    TriggerClientEvent('qb-djbooth:client:playMusic', src)
+    TriggerClientEvent('norskpixel-djbooth:client:playMusic', src)
 end)
 
-RegisterNetEvent('qb-djbooth:server:resumeMusic', function(data)
+RegisterNetEvent('norskpixel-djbooth:server:resumeMusic', function(data)
     local src = source
     local ped = GetPlayerPed(src)
     local coords = GetEntityCoords(ped)
@@ -52,10 +52,10 @@ RegisterNetEvent('qb-djbooth:server:resumeMusic', function(data)
         Config.Locations[data.zoneName].playing = true
         xSound:Resume(-1, data.zoneName)
     end
-    TriggerClientEvent('qb-djbooth:client:playMusic', src)
+    TriggerClientEvent('norskpixel-djbooth:client:playMusic', src)
 end)
 
-RegisterNetEvent('qb-djbooth:server:changeVolume', function(volume, zoneName)
+RegisterNetEvent('norskpixel-djbooth:server:changeVolume', function(volume, zoneName)
     local src = source
     local ped = GetPlayerPed(src)
     local coords = GetEntityCoords(ped)
@@ -66,5 +66,5 @@ RegisterNetEvent('qb-djbooth:server:changeVolume', function(volume, zoneName)
     if Config.Locations[zoneName].playing then
         xSound:setVolume(-1, zoneName, volume)
     end
-    TriggerClientEvent('qb-djbooth:client:playMusic', src)
+    TriggerClientEvent('norskpixel-djbooth:client:playMusic', src)
 end)

@@ -1,4 +1,4 @@
-# qb-traphouse
+# norskpixel-traphouse
 Player Trap Houses For QB-Core
 
 # License

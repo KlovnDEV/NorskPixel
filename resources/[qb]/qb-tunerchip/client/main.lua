@@ -1,5 +1,5 @@
 
-QBCore = exports['qb-core']:GetCoreObject()
+QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local inTuner = false
 local RainbowNeon = false
@@ -27,26 +27,26 @@ function resetVeh(veh)
 end
 
 RegisterNUICallback('save', function(data)
-    QBCore.Functions.TriggerCallback('qb-tunerchip:server:HasChip', function(HasChip)
+    QBCore.Functions.TriggerCallback('norskpixel-tunerchip:server:HasChip', function(HasChip)
         if HasChip then
             local ped = PlayerPedId()
             local veh = GetVehiclePedIsUsing(ped)
             setVehData(veh, data)
             QBCore.Functions.Notify('TunerChip v1.05: Køretøj tuned!', 'error')
 
-            TriggerServerEvent('qb-tunerchip:server:TuneStatus', GetVehicleNumberPlateText(veh), true)
+            TriggerServerEvent('norskpixel-tunerchip:server:TuneStatus', GetVehicleNumberPlateText(veh), true)
         end
     end)
 end)
 
-RegisterNetEvent('qb-tunerchip:client:TuneStatus')
-AddEventHandler('qb-tunerchip:client:TuneStatus', function()
+RegisterNetEvent('norskpixel-tunerchip:client:TuneStatus')
+AddEventHandler('norskpixel-tunerchip:client:TuneStatus', function()
     local ped = PlayerPedId()
     local closestVehicle = GetClosestVehicle(GetEntityCoords(ped), 5.0, 0, 70)
     local plate = GetVehicleNumberPlateText(closestVehicle)
     local vehModel = GetEntityModel(closestVehicle)
     if vehModel ~= 0 then
-        QBCore.Functions.TriggerCallback('qb-tunerchip:server:GetStatus', function(status)
+        QBCore.Functions.TriggerCallback('norskpixel-tunerchip:server:GetStatus', function(status)
             if status then
                 QBCore.Functions.Notify('Dette køretøj har fået tun', 'success')
             else
@@ -75,8 +75,8 @@ RegisterNUICallback('reset', function(data)
     QBCore.Functions.Notify('Tilslutter: TunerChip v1.05....', 'error')
 end)
 
-RegisterNetEvent('qb-tunerchip:client:openChip')
-AddEventHandler('qb-tunerchip:client:openChip', function()
+RegisterNetEvent('norskpixel-tunerchip:client:openChip')
+AddEventHandler('norskpixel-tunerchip:client:openChip', function()
     local ped = PlayerPedId()
     local inVehicle = IsPedInAnyVehicle(ped)
 
@@ -144,7 +144,7 @@ local RainbowNeonColors = {
 }
 
 RegisterNUICallback('saveNeon', function(data)
-    QBCore.Functions.TriggerCallback('qb-tunerchip:server:HasChip', function(HasChip)
+    QBCore.Functions.TriggerCallback('norskpixel-tunerchip:server:HasChip', function(HasChip)
         if HasChip then
             if not data.rainbowEnabled then
                 local ped = PlayerPedId()
@@ -213,7 +213,7 @@ local RainbowHeadlight = false
 local RainbowHeadlightValue = 0
 
 RegisterNUICallback('saveHeadlights', function(data)
-    QBCore.Functions.TriggerCallback('qb-tunerchip:server:HasChip', function(HasChip)
+    QBCore.Functions.TriggerCallback('norskpixel-tunerchip:server:HasChip', function(HasChip)
         if HasChip then
             if data.rainbowEnabled then
                 RainbowHeadlight = true

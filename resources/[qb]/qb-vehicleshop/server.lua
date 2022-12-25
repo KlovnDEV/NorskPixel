@@ -1,18 +1,18 @@
 
 -- Variables
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local financetimer = {}
 local paymentDue = false
 
 -- Handlers
 
 -- Store game time for player when they load
-RegisterNetEvent('qb-vehicleshop:server:addPlayer', function(citizenid, gameTime)
+RegisterNetEvent('norskpixel-vehicleshop:server:addPlayer', function(citizenid, gameTime)
     financetimer[citizenid] = gameTime
 end)
 
 -- Deduct stored game time from player on logout
-RegisterNetEvent('qb-vehicleshop:server:removePlayer', function(citizenid)
+RegisterNetEvent('norskpixel-vehicleshop:server:removePlayer', function(citizenid)
     if financetimer[citizenid] then
         local playTime = financetimer[citizenid]
         local financetime = exports.oxmysql:executeSync('SELECT * FROM player_vehicles WHERE citizenid = ?', {citizenid})
@@ -96,7 +96,7 @@ end
 
 -- Callbacks
 
-QBCore.Functions.CreateCallback('qb-vehicleshop:server:getVehicles', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-vehicleshop:server:getVehicles', function(source, cb)
     local src = source
     local player = QBCore.Functions.GetPlayer(src)
     if player then
@@ -110,15 +110,15 @@ end)
 -- Events
 
 -- Sync vehicle for other players
-RegisterNetEvent('qb-vehicleshop:server:swapVehicle', function(data)
+RegisterNetEvent('norskpixel-vehicleshop:server:swapVehicle', function(data)
     local src = source
-    TriggerClientEvent('qb-vehicleshop:client:swapVehicle', -1, data)
+    TriggerClientEvent('norskpixel-vehicleshop:client:swapVehicle', -1, data)
     Wait(1500) -- let new car spawn
-    TriggerClientEvent('qb-vehicleshop:client:homeMenu', src) -- reopen main menu
+    TriggerClientEvent('norskpixel-vehicleshop:client:homeMenu', src) -- reopen main menu
 end)
 
 -- Send customer for test drive
-RegisterNetEvent('qb-vehicleshop:server:customTestDrive', function(data)
+RegisterNetEvent('norskpixel-vehicleshop:server:customTestDrive', function(data)
     local src = source
     local PlayerPed = GetPlayerPed(src)
     local pCoords = GetEntityCoords(PlayerPed)
@@ -131,11 +131,11 @@ RegisterNetEvent('qb-vehicleshop:server:customTestDrive', function(data)
         end
     end
     if not testDrivePlayer then return TriggerClientEvent('QBCore:Notify', src, 'Ingen i nærheden', 'error') end
-    TriggerClientEvent('qb-vehicleshop:client:customTestDrive', testDrivePlayer.PlayerData.source, data)
+    TriggerClientEvent('norskpixel-vehicleshop:client:customTestDrive', testDrivePlayer.PlayerData.source, data)
 end)
 
 -- Make a finance payment
-RegisterNetEvent('qb-vehicleshop:server:financePayment', function(paymentAmount, vehData)
+RegisterNetEvent('norskpixel-vehicleshop:server:financePayment', function(paymentAmount, vehData)
     local src = source
     local player = QBCore.Functions.GetPlayer(src)
     local cash = player.PlayerData.money['cash']
@@ -166,7 +166,7 @@ end)
 
 
 -- Pay off vehice in full
-RegisterNetEvent('qb-vehicleshop:server:financePaymentFull', function(data)
+RegisterNetEvent('norskpixel-vehicleshop:server:financePaymentFull', function(data)
     local src = source
     local player = QBCore.Functions.GetPlayer(src)
     local cash = player.PlayerData.money['cash']
@@ -189,7 +189,7 @@ RegisterNetEvent('qb-vehicleshop:server:financePaymentFull', function(data)
 end)
 
 -- Buy public vehicle outright
-RegisterNetEvent('qb-vehicleshop:server:buyShowroomVehicle', function(vehicle)
+RegisterNetEvent('norskpixel-vehicleshop:server:buyShowroomVehicle', function(vehicle)
     local src = source
     local vehicle = vehicle.buyVehicle
     local pData = QBCore.Functions.GetPlayer(src)
@@ -209,7 +209,7 @@ RegisterNetEvent('qb-vehicleshop:server:buyShowroomVehicle', function(vehicle)
             0
         })
         TriggerClientEvent('QBCore:Notify', src, 'Tillykke med dit køb!', 'success')
-        TriggerClientEvent('qb-vehicleshop:client:buyShowroomVehicle', src, vehicle, plate)
+        TriggerClientEvent('norskpixel-vehicleshop:client:buyShowroomVehicle', src, vehicle, plate)
         pData.Functions.RemoveMoney('cash', vehiclePrice, 'vehicle-bought-in-showroom')
     elseif bank > vehiclePrice then
         exports.oxmysql:insert('INSERT INTO player_vehicles (license, citizenid, vehicle, hash, mods, plate, state) VALUES (?, ?, ?, ?, ?, ?, ?)', {
@@ -222,7 +222,7 @@ RegisterNetEvent('qb-vehicleshop:server:buyShowroomVehicle', function(vehicle)
             0
         })
         TriggerClientEvent('QBCore:Notify', src, 'Tillykke med dit køb!', 'success')
-        TriggerClientEvent('qb-vehicleshop:client:buyShowroomVehicle', src, vehicle, plate)
+        TriggerClientEvent('norskpixel-vehicleshop:client:buyShowroomVehicle', src, vehicle, plate)
         pData.Functions.RemoveMoney('bank', vehiclePrice, 'vehicle-bought-in-showroom')
     else
         TriggerClientEvent('QBCore:Notify', src, 'Ikke penge nok', 'error')
@@ -230,7 +230,7 @@ RegisterNetEvent('qb-vehicleshop:server:buyShowroomVehicle', function(vehicle)
 end)
 
 -- Finance public vehicle
-RegisterNetEvent('qb-vehicleshop:server:financeVehicle', function(downPayment, paymentAmount, vehicle)
+RegisterNetEvent('norskpixel-vehicleshop:server:financeVehicle', function(downPayment, paymentAmount, vehicle)
     local src = source
     local downPayment = tonumber(downPayment)
     local paymentAmount = tonumber(paymentAmount)
@@ -261,7 +261,7 @@ RegisterNetEvent('qb-vehicleshop:server:financeVehicle', function(downPayment, p
             timer
         })
         TriggerClientEvent('QBCore:Notify', src, 'Tillykke med dit køb!', 'success')
-        TriggerClientEvent('qb-vehicleshop:client:buyShowroomVehicle', src, vehicle, plate)
+        TriggerClientEvent('norskpixel-vehicleshop:client:buyShowroomVehicle', src, vehicle, plate)
         pData.Functions.RemoveMoney('cash', downPayment, 'vehicle-bought-in-showroom')
     elseif bank >= downPayment then
         exports.oxmysql:insert('INSERT INTO player_vehicles (license, citizenid, vehicle, hash, mods, plate, state, balance, paymentamount, paymentsleft, financetime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', {
@@ -278,7 +278,7 @@ RegisterNetEvent('qb-vehicleshop:server:financeVehicle', function(downPayment, p
             timer
         })
         TriggerClientEvent('QBCore:Notify', src, 'Tillykke med dit køb!', 'success')
-        TriggerClientEvent('qb-vehicleshop:client:buyShowroomVehicle', src, vehicle, plate)
+        TriggerClientEvent('norskpixel-vehicleshop:client:buyShowroomVehicle', src, vehicle, plate)
         pData.Functions.RemoveMoney('bank', downPayment, 'vehicle-bought-in-showroom')
     else
         TriggerClientEvent('QBCore:Notify', src, 'Ikke penge nok', 'error')
@@ -286,7 +286,7 @@ RegisterNetEvent('qb-vehicleshop:server:financeVehicle', function(downPayment, p
 end)
 
 -- Sell vehicle to customer
-RegisterNetEvent('qb-vehicleshop:server:sellShowroomVehicle', function(data)
+RegisterNetEvent('norskpixel-vehicleshop:server:sellShowroomVehicle', function(data)
     local src = source
     local PlayerPed = GetPlayerPed(src)
     local pCoords = GetEntityCoords(PlayerPed)
@@ -317,10 +317,10 @@ RegisterNetEvent('qb-vehicleshop:server:sellShowroomVehicle', function(data)
             plate,
             0
         })
-        TriggerClientEvent('qb-vehicleshop:client:buyShowroomVehicle', targetPlayer.PlayerData.source, vehicle, plate)
+        TriggerClientEvent('norskpixel-vehicleshop:client:buyShowroomVehicle', targetPlayer.PlayerData.source, vehicle, plate)
         targetPlayer.Functions.RemoveMoney('cash', vehiclePrice, 'vehicle-bought-in-showroom')
         player.Functions.AddMoney('bank', commission)
-        TriggerEvent('qb-bossmenu:server:addAccountMoney', player.PlayerData.job.name, vehiclePrice)
+        TriggerEvent('norskpixel-bossmenu:server:addAccountMoney', player.PlayerData.job.name, vehiclePrice)
         TriggerClientEvent('QBCore:Notify', targetPlayer.PlayerData.source, 'Tillykke med dit køb!', 'success')
         TriggerClientEvent('QBCore:Notify', src, 'Du tjente '..comma_value(commission)..' DKK i provision', 'success')
     elseif bank >= vehiclePrice then
@@ -333,10 +333,10 @@ RegisterNetEvent('qb-vehicleshop:server:sellShowroomVehicle', function(data)
             plate,
             0
         })
-        TriggerClientEvent('qb-vehicleshop:client:buyShowroomVehicle', targetPlayer.PlayerData.source, vehicle, plate)
+        TriggerClientEvent('norskpixel-vehicleshop:client:buyShowroomVehicle', targetPlayer.PlayerData.source, vehicle, plate)
         targetPlayer.Functions.RemoveMoney('bank', vehiclePrice, 'vehicle-bought-in-showroom')
         player.Functions.AddMoney('bank', commission)
-        TriggerEvent('qb-bossmenu:server:addAccountMoney', player.PlayerData.job.name, vehiclePrice)
+        TriggerEvent('norskpixel-bossmenu:server:addAccountMoney', player.PlayerData.job.name, vehiclePrice)
         TriggerClientEvent('QBCore:Notify', targetPlayer.PlayerData.source, 'Tillykke med dit køb', 'success')
         TriggerClientEvent('QBCore:Notify', src, 'Du tjente '..comma_value(commission)..' DKK i provision', 'success')
     else
@@ -345,7 +345,7 @@ RegisterNetEvent('qb-vehicleshop:server:sellShowroomVehicle', function(data)
 end)
 
 -- Finance vehicle to customer
-RegisterNetEvent('qb-vehicleshop:server:sellfinanceVehicle', function(downPayment, paymentAmount, vehicle)
+RegisterNetEvent('norskpixel-vehicleshop:server:sellfinanceVehicle', function(downPayment, paymentAmount, vehicle)
     local src = source
     local PlayerPed = GetPlayerPed(src)
     local pCoords = GetEntityCoords(PlayerPed)
@@ -387,10 +387,10 @@ RegisterNetEvent('qb-vehicleshop:server:sellfinanceVehicle', function(downPaymen
             paymentAmount,
             timer
         })
-        TriggerClientEvent('qb-vehicleshop:client:buyShowroomVehicle', targetplayer.PlayerData.source, vehicle, plate)
+        TriggerClientEvent('norskpixel-vehicleshop:client:buyShowroomVehicle', targetplayer.PlayerData.source, vehicle, plate)
         targetplayer.Functions.RemoveMoney('cash', downPayment, 'vehicle-bought-in-showroom')
         player.Functions.AddMoney('bank', commission)
-        TriggerEvent('qb-bossmenu:server:addAccountMoney', player.PlayerData.job.name, vehiclePrice)
+        TriggerEvent('norskpixel-bossmenu:server:addAccountMoney', player.PlayerData.job.name, vehiclePrice)
         TriggerClientEvent('QBCore:Notify', targetplayer.PlayerData.source, 'Tillykke med dig køb!', 'success')
         TriggerClientEvent('QBCore:Notify', src, 'Du tjente '..comma_value(commission)..' DKK i provision', 'success')
     elseif bank >= downPayment then
@@ -407,10 +407,10 @@ RegisterNetEvent('qb-vehicleshop:server:sellfinanceVehicle', function(downPaymen
             paymentAmount,
             timer
         })
-        TriggerClientEvent('qb-vehicleshop:client:buyShowroomVehicle', targetplayer.PlayerData.source, vehicle, plate)
+        TriggerClientEvent('norskpixel-vehicleshop:client:buyShowroomVehicle', targetplayer.PlayerData.source, vehicle, plate)
         targetplayer.Functions.RemoveMoney('bank', downPayment, 'vehicle-bought-in-showroom')
         player.Functions.AddMoney('bank', commission)
-        TriggerEvent('qb-bossmenu:server:addAccountMoney', player.PlayerData.job.name, vehiclePrice)
+        TriggerEvent('norskpixel-bossmenu:server:addAccountMoney', player.PlayerData.job.name, vehiclePrice)
         TriggerClientEvent('QBCore:Notify', targetplayer.PlayerData.source, 'Tillykke med købet!', 'success')
         TriggerClientEvent('QBCore:Notify', src, 'Du tjente '..comma_value(commission)..' DKK i provision', 'success')
     else
@@ -419,7 +419,7 @@ RegisterNetEvent('qb-vehicleshop:server:sellfinanceVehicle', function(downPaymen
 end)
 
 -- Check if payment is due
-RegisterNetEvent('qb-vehicleshop:server:checkFinance', function()
+RegisterNetEvent('norskpixel-vehicleshop:server:checkFinance', function()
     local src = source
     local player = QBCore.Functions.GetPlayer(src)
     local result = exports.oxmysql:executeSync('SELECT * FROM player_vehicles WHERE citizenid = ?', {player.PlayerData.citizenid})

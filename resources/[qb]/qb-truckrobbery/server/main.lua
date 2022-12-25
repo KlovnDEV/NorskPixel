@@ -1,6 +1,6 @@
 
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 ---======================---
 -----
 ---======================---
@@ -44,11 +44,11 @@ TriggerClientEvent('QBCore:Notify', _source, 'Der er allerede nogen der laver de
 end
 end)
 
-RegisterServerEvent('qb-armoredtruckheist:server:callCops')
-AddEventHandler('qb-armoredtruckheist:server:callCops', function(streetLabel, coords)
+RegisterServerEvent('norskpixel-armoredtruckheist:server:callCops')
+AddEventHandler('norskpixel-armoredtruckheist:server:callCops', function(streetLabel, coords)
     local place = "Pengetransport"
     local msg = "Alarmen er blevet aktiveret fra "..place.. " ved " ..streetLabel
-    TriggerClientEvent("qb-armoredtruckheist:client:robberyCall", -1, streetLabel, coords)
+    TriggerClientEvent("norskpixel-armoredtruckheist:client:robberyCall", -1, streetLabel, coords)
 end)
 
 function OdpalTimer()

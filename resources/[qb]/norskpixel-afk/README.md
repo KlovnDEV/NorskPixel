@@ -1,4 +1,4 @@
-# qb-afk
+# norskpixel-afk
 AFK Kicking Script For QB-Core
 
 # License

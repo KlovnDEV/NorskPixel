@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 RaceData = {
     InCreator = false,
@@ -42,8 +42,8 @@ function IsInEditor()
     return retval
 end
 
-RegisterNetEvent('qb-lapraces:client:StartRaceEditor')
-AddEventHandler('qb-lapraces:client:StartRaceEditor', function(RaceName)
+RegisterNetEvent('norskpixel-lapraces:client:StartRaceEditor')
+AddEventHandler('norskpixel-lapraces:client:StartRaceEditor', function(RaceName)
     if not RaceData.InCreator then
         CreatorData.RaceName = RaceName
         RaceData.InCreator = true
@@ -213,7 +213,7 @@ function SaveRace()
 
     CreatorData.RaceDistance = RaceDistance
 
-    TriggerServerEvent('qb-lapraces:server:SaveRace', CreatorData)
+    TriggerServerEvent('norskpixel-lapraces:server:SaveRace', CreatorData)
 
     QBCore.Functions.Notify('Race: '..CreatorData.RaceName..' er gemt!', 'success')
 
@@ -329,8 +329,8 @@ function DeleteCheckpoint()
     end
 end
 
-RegisterNetEvent('qb-lapraces:client:UpdateRaceRacerData')
-AddEventHandler('qb-lapraces:client:UpdateRaceRacerData', function(RaceId, RaceData)
+RegisterNetEvent('norskpixel-lapraces:client:UpdateRaceRacerData')
+AddEventHandler('norskpixel-lapraces:client:UpdateRaceRacerData', function(RaceId, RaceData)
     if (CurrentRaceData.RaceId ~= nil) and CurrentRaceData.RaceId == RaceId then
         CurrentRaceData.Racers = RaceData.Racers
     end
@@ -424,19 +424,19 @@ AddEventHandler('onResourceStop', function(resource)
     end
 end)
 
-RegisterNetEvent('qb-lapraces:client:JoinRace')
-AddEventHandler('qb-lapraces:client:JoinRace', function(Data, Laps)
+RegisterNetEvent('norskpixel-lapraces:client:JoinRace')
+AddEventHandler('norskpixel-lapraces:client:JoinRace', function(Data, Laps)
     if not RaceData.InRace then
         RaceData.InRace = true
         SetupRace(Data, Laps)
-        TriggerServerEvent('qb-lapraces:server:UpdateRaceState', CurrentRaceData.RaceId, false, true)
+        TriggerServerEvent('norskpixel-lapraces:server:UpdateRaceState', CurrentRaceData.RaceId, false, true)
     else
         QBCore.Functions.Notify('Du deltager allerede i et race..', 'error')
     end
 end)
 
-RegisterNetEvent('qb-lapraces:client:LeaveRace')
-AddEventHandler('qb-lapraces:client:LeaveRace', function(data)
+RegisterNetEvent('norskpixel-lapraces:client:LeaveRace')
+AddEventHandler('norskpixel-lapraces:client:LeaveRace', function(data)
     QBCore.Functions.Notify('Du har gennemført et race!')
     for k, v in pairs(CurrentRaceData.Checkpoints) do
         if CurrentRaceData.Checkpoints[k].blip ~= nil then
@@ -590,9 +590,9 @@ function DoPilePfx()
     end
 end
 
-RegisterNetEvent('qb-lapraces:client:RaceCountdown')
-AddEventHandler('qb-lapraces:client:RaceCountdown', function()
-    TriggerServerEvent('qb-lapraces:server:UpdateRaceState', CurrentRaceData.RaceId, true, false)
+RegisterNetEvent('norskpixel-lapraces:client:RaceCountdown')
+AddEventHandler('norskpixel-lapraces:client:RaceCountdown', function()
+    TriggerServerEvent('norskpixel-lapraces:server:UpdateRaceState', CurrentRaceData.RaceId, true, false)
     if CurrentRaceData.RaceId ~= nil then
         while Countdown ~= 0 do
             if CurrentRaceData.RaceName ~= nil then
@@ -669,7 +669,7 @@ Citizen.CreateThread(function()
                         if CurrentRaceData.CurrentCheckpoint + 1 < #CurrentRaceData.Checkpoints then
                             CurrentRaceData.CurrentCheckpoint = CurrentRaceData.CurrentCheckpoint + 1
                             SetNewWaypoint(CurrentRaceData.Checkpoints[CurrentRaceData.CurrentCheckpoint + 1].coords.x, CurrentRaceData.Checkpoints[CurrentRaceData.CurrentCheckpoint + 1].coords.y)
-                            TriggerServerEvent('qb-lapraces:server:UpdateRacerData', CurrentRaceData.RaceId, CurrentRaceData.CurrentCheckpoint, CurrentRaceData.Lap, false)
+                            TriggerServerEvent('norskpixel-lapraces:server:UpdateRacerData', CurrentRaceData.RaceId, CurrentRaceData.CurrentCheckpoint, CurrentRaceData.Lap, false)
                             DoPilePfx()
                             PlaySound(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0, 1)
                             SetBlipScale(CurrentRaceData.Checkpoints[CurrentRaceData.CurrentCheckpoint].blip, 0.6)
@@ -678,7 +678,7 @@ Citizen.CreateThread(function()
                             DoPilePfx()
                             PlaySound(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0, 1)
                             CurrentRaceData.CurrentCheckpoint = CurrentRaceData.CurrentCheckpoint + 1
-                            TriggerServerEvent('qb-lapraces:server:UpdateRacerData', CurrentRaceData.RaceId, CurrentRaceData.CurrentCheckpoint, CurrentRaceData.Lap, true)
+                            TriggerServerEvent('norskpixel-lapraces:server:UpdateRacerData', CurrentRaceData.RaceId, CurrentRaceData.CurrentCheckpoint, CurrentRaceData.Lap, true)
                             FinishRace()
                         end
                     else
@@ -687,7 +687,7 @@ Citizen.CreateThread(function()
                                 DoPilePfx()
                                 PlaySound(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0, 1)
                                 CurrentRaceData.CurrentCheckpoint = CurrentRaceData.CurrentCheckpoint + 1
-                                TriggerServerEvent('qb-lapraces:server:UpdateRacerData', CurrentRaceData.RaceId, CurrentRaceData.CurrentCheckpoint, CurrentRaceData.Lap, true)
+                                TriggerServerEvent('norskpixel-lapraces:server:UpdateRacerData', CurrentRaceData.RaceId, CurrentRaceData.CurrentCheckpoint, CurrentRaceData.Lap, true)
                                 FinishRace()
                             else
                                 DoPilePfx()
@@ -701,18 +701,18 @@ Citizen.CreateThread(function()
                                 CurrentRaceData.Lap = CurrentRaceData.Lap + 1
                                 CurrentRaceData.CurrentCheckpoint = 1
                                 SetNewWaypoint(CurrentRaceData.Checkpoints[CurrentRaceData.CurrentCheckpoint + 1].coords.x, CurrentRaceData.Checkpoints[CurrentRaceData.CurrentCheckpoint + 1].coords.y)
-                                TriggerServerEvent('qb-lapraces:server:UpdateRacerData', CurrentRaceData.RaceId, CurrentRaceData.CurrentCheckpoint, CurrentRaceData.Lap, false)
+                                TriggerServerEvent('norskpixel-lapraces:server:UpdateRacerData', CurrentRaceData.RaceId, CurrentRaceData.CurrentCheckpoint, CurrentRaceData.Lap, false)
                             end
                         else
                             CurrentRaceData.CurrentCheckpoint = CurrentRaceData.CurrentCheckpoint + 1
                             if CurrentRaceData.CurrentCheckpoint ~= #CurrentRaceData.Checkpoints then
                                 SetNewWaypoint(CurrentRaceData.Checkpoints[CurrentRaceData.CurrentCheckpoint + 1].coords.x, CurrentRaceData.Checkpoints[CurrentRaceData.CurrentCheckpoint + 1].coords.y)
-                                TriggerServerEvent('qb-lapraces:server:UpdateRacerData', CurrentRaceData.RaceId, CurrentRaceData.CurrentCheckpoint, CurrentRaceData.Lap, false)
+                                TriggerServerEvent('norskpixel-lapraces:server:UpdateRacerData', CurrentRaceData.RaceId, CurrentRaceData.CurrentCheckpoint, CurrentRaceData.Lap, false)
                                 SetBlipScale(CurrentRaceData.Checkpoints[CurrentRaceData.CurrentCheckpoint].blip, 0.6)
                                 SetBlipScale(CurrentRaceData.Checkpoints[CurrentRaceData.CurrentCheckpoint + 1].blip, 1.0)
                             else
                                 SetNewWaypoint(CurrentRaceData.Checkpoints[1].coords.x, CurrentRaceData.Checkpoints[1].coords.y)
-                                TriggerServerEvent('qb-lapraces:server:UpdateRacerData', CurrentRaceData.RaceId, CurrentRaceData.CurrentCheckpoint, CurrentRaceData.Lap, false)
+                                TriggerServerEvent('norskpixel-lapraces:server:UpdateRacerData', CurrentRaceData.RaceId, CurrentRaceData.CurrentCheckpoint, CurrentRaceData.Lap, false)
                                 SetBlipScale(CurrentRaceData.Checkpoints[#CurrentRaceData.Checkpoints].blip, 0.6)
                                 SetBlipScale(CurrentRaceData.Checkpoints[1].blip, 1.0)
                             end
@@ -749,7 +749,7 @@ function SecondsToClock(seconds)
 end
 
 function FinishRace()
-    TriggerServerEvent('qb-lapraces:server:FinishPlayer', CurrentRaceData, CurrentRaceData.TotalTime, CurrentRaceData.TotalLaps, CurrentRaceData.BestLap)
+    TriggerServerEvent('norskpixel-lapraces:server:FinishPlayer', CurrentRaceData, CurrentRaceData.TotalTime, CurrentRaceData.TotalLaps, CurrentRaceData.BestLap)
     if CurrentRaceData.BestLap ~= 0 then
         QBCore.Functions.Notify('Race afsluttede efter '..SecondsToClock(CurrentRaceData.TotalTime)..', med best lap: '..SecondsToClock(CurrentRaceData.BestLap))
     else
@@ -788,8 +788,8 @@ function FinishRace()
     RaceData.InRace = false
 end
 
-RegisterNetEvent('qb-lapraces:client:PlayerFinishs')
-AddEventHandler('qb-lapraces:client:PlayerFinishs', function(RaceId, Place, FinisherData)
+RegisterNetEvent('norskpixel-lapraces:client:PlayerFinishs')
+AddEventHandler('norskpixel-lapraces:client:PlayerFinishs', function(RaceId, Place, FinisherData)
     if CurrentRaceData.RaceId ~= nil then
         if CurrentRaceData.RaceId == RaceId then
             QBCore.Functions.Notify(FinisherData.PlayerData.charinfo.firstname..' aflsuttede på en: '..Place.. ' plads!', 'error', 3500)
@@ -809,8 +809,8 @@ end)
 
 local ToFarCountdown = 10
 
-RegisterNetEvent('qb-lapraces:client:WaitingDistanceCheck')
-AddEventHandler('qb-lapraces:client:WaitingDistanceCheck', function()
+RegisterNetEvent('norskpixel-lapraces:client:WaitingDistanceCheck')
+AddEventHandler('norskpixel-lapraces:client:WaitingDistanceCheck', function()
     Wait(1000)
     Citizen.CreateThread(function()
         while true do
@@ -825,7 +825,7 @@ AddEventHandler('qb-lapraces:client:WaitingDistanceCheck', function()
                             ToFarCountdown = ToFarCountdown - 1
                             QBCore.Functions.Notify('Gå tilbage til starten ellers vil du få et kick fra race: '..ToFarCountdown..'s', 'error', 500)
                         else
-                            TriggerServerEvent('qb-lapraces:server:LeaveRace', CurrentRaceData)
+                            TriggerServerEvent('norskpixel-lapraces:server:LeaveRace', CurrentRaceData)
                             ToFarCountdown = 10
                             break
                         end

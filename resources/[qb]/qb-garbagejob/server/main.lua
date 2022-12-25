@@ -1,9 +1,9 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local Bail = {}
 
-QBCore.Functions.CreateCallback('qb-garbagejob:server:HasMoney', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-garbagejob:server:HasMoney', function(source, cb)
     local Player = QBCore.Functions.GetPlayer(source)
     local CitizenId = Player.PlayerData.citizenid
 
@@ -21,7 +21,7 @@ QBCore.Functions.CreateCallback('qb-garbagejob:server:HasMoney', function(source
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-garbagejob:server:CheckBail', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-garbagejob:server:CheckBail', function(source, cb)
     local Player = QBCore.Functions.GetPlayer(source)
     local CitizenId = Player.PlayerData.citizenid
 
@@ -44,16 +44,16 @@ local Materials = {
     "glass",
 }
 
-RegisterNetEvent('qb-garbagejob:server:nano')
-AddEventHandler('qb-garbagejob:server:nano', function()
+RegisterNetEvent('norskpixel-garbagejob:server:nano')
+AddEventHandler('norskpixel-garbagejob:server:nano', function()
     local xPlayer = QBCore.Functions.GetPlayer(tonumber(source))
 
 	xPlayer.Functions.AddItem("cryptostick", 1, false)
 	TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items["cryptostick"], "add")
 end)
 
-RegisterServerEvent('qb-garbagejob:server:PayShit')
-AddEventHandler('qb-garbagejob:server:PayShit', function(amount, location)
+RegisterServerEvent('norskpixel-garbagejob:server:PayShit')
+AddEventHandler('norskpixel-garbagejob:server:PayShit', function(amount, location)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 

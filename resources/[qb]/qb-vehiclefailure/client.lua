@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local pedInSameVehicleLast=false
 local vehicle
@@ -46,7 +46,7 @@ local function DamageRandomComponent()
 	local dmgFctr = math.random() + math.random(0, 2)
 	local randomComponent = DamageComponents[math.random(1, #DamageComponents)]
 	local randomDamage = (math.random() + math.random(0, 1)) * dmgFctr
-	--exports['qb-vehicletuning']:SetVehicleStatus(QBCore.Functions.GetPlate(vehicle), randomComponent, exports['qb-vehicletuning']:GetVehicleStatus(QBCore.Functions.GetPlate(vehicle), randomComponent) - randomDamage)
+	--exports['norskpixel-vehicletuning']:SetVehicleStatus(QBCore.Functions.GetPlate(vehicle), randomComponent, exports['norskpixel-vehicletuning']:GetVehicleStatus(QBCore.Functions.GetPlate(vehicle), randomComponent) - randomDamage)
 end
 
 local function CleanVehicle(vehicle)
@@ -63,7 +63,7 @@ local function CleanVehicle(vehicle)
 		SetVehicleDirtLevel(vehicle, 0.1)
         SetVehicleUndriveable(vehicle, false)
 		WashDecalsFromVehicle(vehicle, 1.0)
-		TriggerServerEvent('qb-vehiclefailure:server:removewashingkit', vehicle)
+		TriggerServerEvent('norskpixel-vehiclefailure:server:removewashingkit', vehicle)
 		TriggerEvent('inventory:client:ItemBox', QBCore.Shared.Items["cleaningkit"], "remove")
 		ClearAllPedProps(ped)
 		ClearPedTasks(ped)
@@ -104,7 +104,7 @@ local function RepairVehicleFull(vehicle)
 		else
 			SetVehicleDoorShut(vehicle, 4, false)
 		end
-		TriggerServerEvent('qb-vehiclefailure:removeItem', "advancedrepairkit")
+		TriggerServerEvent('norskpixel-vehiclefailure:removeItem', "advancedrepairkit")
 	end, function() -- Cancel
 		StopAnimTask(PlayerPedId(), "mini@repair", "fixing_a_player", 1.0)
 		QBCore.Functions.Notify("Mislykkedes!", "error")
@@ -146,7 +146,7 @@ local function RepairVehicle(vehicle)
 		else
 			SetVehicleDoorShut(vehicle, 4, false)
 		end
-		TriggerServerEvent('qb-vehiclefailure:removeItem', "repairkit")
+		TriggerServerEvent('norskpixel-vehiclefailure:removeItem', "repairkit")
 	end, function() -- Cancel
 		StopAnimTask(PlayerPedId(), "mini@repair", "fixing_a_player", 1.0)
 		QBCore.Functions.Notify("Mislykket!", "error")
@@ -270,7 +270,7 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-vehiclefailure:client:RepairVehicle', function()
+RegisterNetEvent('norskpixel-vehiclefailure:client:RepairVehicle', function()
 	local vehicle = QBCore.Functions.GetClosestVehicle()
 	local engineHealth = GetVehicleEngineHealth(vehicle) --This is to prevent people from "repairing" a vehicle and setting engine health lower than what the vehicles engine health was before repairing.
 	if vehicle ~= nil and vehicle ~= 0 and engineHealth < 500 then
@@ -292,13 +292,13 @@ RegisterNetEvent('qb-vehiclefailure:client:RepairVehicle', function()
 end)
 
 
-RegisterNetEvent('qb-vehiclefailure:client:SyncWash', function(veh)
+RegisterNetEvent('norskpixel-vehiclefailure:client:SyncWash', function(veh)
 	SetVehicleDirtLevel(veh, 0.1)
 	SetVehicleUndriveable(veh, false)
 	WashDecalsFromVehicle(veh, 1.0)
 end)
 
-RegisterNetEvent('qb-vehiclefailure:client:CleanVehicle', function()
+RegisterNetEvent('norskpixel-vehiclefailure:client:CleanVehicle', function()
 	local vehicle = QBCore.Functions.GetClosestVehicle()
 	if vehicle ~= nil and vehicle ~= 0 then
 		local ped = PlayerPedId()
@@ -310,7 +310,7 @@ RegisterNetEvent('qb-vehiclefailure:client:CleanVehicle', function()
 	end
 end)
 
-RegisterNetEvent('qb-vehiclefailure:client:RepairVehicleFull', function()
+RegisterNetEvent('norskpixel-vehiclefailure:client:RepairVehicleFull', function()
 	local vehicle = QBCore.Functions.GetClosestVehicle()
 	if vehicle ~= nil and vehicle ~= 0 then
 		local ped = PlayerPedId()
@@ -437,7 +437,7 @@ if cfg.torqueMultiplierEnabled or cfg.preventVehicleFlip or cfg.limpMode then
 								-- Forward and braking
 								isBrakingForward = true
 								brk = fscale(brake, 127.0, 254.0, 0.01, fBrakeForce, 10.0-(cfg.sundayDriverBrakeCurve*2.0))
-								--exports['qb-vehicletuning']:SetVehicleStatus(GetVehicleNumberPlateText(vehicle), "brakes", exports['qb-vehicletuning']:GetVehicleStatus(GetVehicleNumberPlateText(vehicle), "brakes") - 0.01)
+								--exports['norskpixel-vehicletuning']:SetVehicleStatus(GetVehicleNumberPlateText(vehicle), "brakes", exports['norskpixel-vehicletuning']:GetVehicleStatus(GetVehicleNumberPlateText(vehicle), "brakes") - 0.01)
 							end
 						elseif speed <= -1.0 then
 							-- Going reverse
@@ -445,7 +445,7 @@ if cfg.torqueMultiplierEnabled or cfg.preventVehicleFlip or cfg.limpMode then
 								-- Reversing and accelerating (using the brake)
 								local rev = fscale(brake, 127.0, 254.0, 0.1, 1.0, 10.0-(cfg.sundayDriverAcceleratorCurve*2.0))
 								factor = factor * rev
-								--exports['qb-vehicletuning']:SetVehicleStatus(GetVehicleNumberPlateText(vehicle), "brakes", exports['qb-vehicletuning']:GetVehicleStatus(GetVehicleNumberPlateText(vehicle), "brakes") - 0.01)
+								--exports['norskpixel-vehicletuning']:SetVehicleStatus(GetVehicleNumberPlateText(vehicle), "brakes", exports['norskpixel-vehicletuning']:GetVehicleStatus(GetVehicleNumberPlateText(vehicle), "brakes") - 0.01)
 							end
 							if accelerator > 127 then
 								-- Reversing and braking (Using the accelerator)

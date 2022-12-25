@@ -46,8 +46,8 @@ function disabledCarCheck(veh)
     return false
 end
 
-RegisterNetEvent('qb-kidnapping:client:SetKidnapping')
-AddEventHandler('qb-kidnapping:client:SetKidnapping', function(bool)
+RegisterNetEvent('norskpixel-kidnapping:client:SetKidnapping')
+AddEventHandler('norskpixel-kidnapping:client:SetKidnapping', function(bool)
     isKidnapping = bool
 end)
 
@@ -120,8 +120,8 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterNetEvent('qb-trunk:client:KidnapTrunk')
-AddEventHandler('qb-trunk:client:KidnapTrunk', function()
+RegisterNetEvent('norskpixel-trunk:client:KidnapTrunk')
+AddEventHandler('norskpixel-trunk:client:KidnapTrunk', function()
     closestPlayer, distance = QBCore.Functions.GetClosestPlayer()
     local closestPlayerPed = GetPlayerPed(closestPlayer)
     if (distance ~= -1 and distance < 2) then
@@ -131,7 +131,7 @@ AddEventHandler('qb-trunk:client:KidnapTrunk', function()
                 TriggerEvent('police:client:KidnapPlayer')
                 TriggerServerEvent("police:server:CuffPlayer", GetPlayerServerId(closestPlayer), false)
                 Citizen.Wait(50)
-                TriggerServerEvent("qb-trunk:server:KidnapTrunk", GetPlayerServerId(closestPlayer), closestVehicle)
+                TriggerServerEvent("norskpixel-trunk:server:KidnapTrunk", GetPlayerServerId(closestPlayer), closestVehicle)
             end
         else
             QBCore.Functions.Notify('Du har ikke kidnappet denne person!', 'error')
@@ -139,15 +139,15 @@ AddEventHandler('qb-trunk:client:KidnapTrunk', function()
     end
 end)
 
-RegisterNetEvent('qb-trunk:client:KidnapGetIn')
-AddEventHandler('qb-trunk:client:KidnapGetIn', function(veh)
+RegisterNetEvent('norskpixel-trunk:client:KidnapGetIn')
+AddEventHandler('norskpixel-trunk:client:KidnapGetIn', function(veh)
     local ped = PlayerPedId()
     local closestVehicle = veh
     local vehClass = GetVehicleClass(closestVehicle)
     local plate = GetVehicleNumberPlateText(closestVehicle)
 
     if Config.TrunkClasses[vehClass].allowed then
-        QBCore.Functions.TriggerCallback('qb-trunk:server:getTrunkBusy', function(isBusy)
+        QBCore.Functions.TriggerCallback('norskpixel-trunk:server:getTrunkBusy', function(isBusy)
             if not disabledCarCheck(closestVehicle) then
                 if not inTrunk then
                     if not isBusy then
@@ -162,7 +162,7 @@ AddEventHandler('qb-trunk:client:KidnapGetIn', function(veh)
                                 TaskPlayAnim(ped, "fin_ext_p1-7", "cs_devin_dual-7", 8.0, 8.0, -1, 1, 999.0, 0, 0, 0)
                                 -- AttachEntityToEntity(ped, closestVehicle, -1, 0.0, -2.0, 0.5, 0.0, 0.0, 0.0, false, false, false, false, 20, true)
                                 AttachEntityToEntity(ped, closestVehicle, 0, offset.x, offset.y, offset.z, 0, 0, 40.0, 1, 1, 1, 1, 1, 1)
-                                TriggerServerEvent('qb-trunk:server:setTrunkBusy', plate, true)
+                                TriggerServerEvent('norskpixel-trunk:server:setTrunkBusy', plate, true)
                                 inTrunk = true
                                 Citizen.Wait(500)
                                 SetVehicleDoorShut(closestVehicle, 5, false)
@@ -183,7 +183,7 @@ AddEventHandler('qb-trunk:client:KidnapGetIn', function(veh)
                                 DetachEntity(ped, true, true)
                                 ClearPedTasks(ped)
                                 inTrunk = false
-                                TriggerServerEvent('qb-smallresources:trunk:server:setTrunkBusy', plate, nil)
+                                TriggerServerEvent('norskpixel-smallresources:trunk:server:setTrunkBusy', plate, nil)
                                 SetEntityCoords(ped, vehCoords.x, vehCoords.y, vehCoords.z)
                                 SetEntityCollision(PlayerPedId(), true, true)
                                 TrunkCam(false)
@@ -206,8 +206,8 @@ AddEventHandler('qb-trunk:client:KidnapGetIn', function(veh)
     end
 end)
 
-RegisterNetEvent('qb-trunk:client:GetIn')
-AddEventHandler('qb-trunk:client:GetIn', function(isKidnapped)
+RegisterNetEvent('norskpixel-trunk:client:GetIn')
+AddEventHandler('norskpixel-trunk:client:GetIn', function(isKidnapped)
     local ped = PlayerPedId()
     local closestVehicle = getNearestVeh()
 
@@ -215,7 +215,7 @@ AddEventHandler('qb-trunk:client:GetIn', function(isKidnapped)
         local vehClass = GetVehicleClass(closestVehicle)
         local plate = GetVehicleNumberPlateText(closestVehicle)
         if Config.TrunkClasses[vehClass].allowed then
-            QBCore.Functions.TriggerCallback('qb-trunk:server:getTrunkBusy', function(isBusy)
+            QBCore.Functions.TriggerCallback('norskpixel-trunk:server:getTrunkBusy', function(isBusy)
                 if not disabledCarCheck(closestVehicle) then
                     if not inTrunk then
                         if not isBusy then
@@ -229,7 +229,7 @@ AddEventHandler('qb-trunk:client:GetIn', function(isKidnapped)
                                 TaskPlayAnim(ped, "fin_ext_p1-7", "cs_devin_dual-7", 8.0, 8.0, -1, 1, 999.0, 0, 0, 0)
                                 -- AttachEntityToEntity(ped, closestVehicle, -1, 0.0, -2.0, 0.5, 0.0, 0.0, 0.0, false, false, false, false, 20, true)
                                 AttachEntityToEntity(ped, closestVehicle, 0, offset.x, offset.y, offset.z, 0, 0, 40.0, 1, 1, 1, 1, 1, 1)
-                                TriggerServerEvent('qb-trunk:server:setTrunkBusy', plate, true)
+                                TriggerServerEvent('norskpixel-trunk:server:setTrunkBusy', plate, true)
                                 inTrunk = true
                                 Citizen.Wait(500)
                                 SetVehicleDoorShut(closestVehicle, 5, false)
@@ -275,7 +275,7 @@ Citizen.CreateThread(function()
                             DetachEntity(ped, true, true)
                             ClearPedTasks(ped)
                             inTrunk = false
-                            TriggerServerEvent('qb-trunk:server:setTrunkBusy', plate, false)
+                            TriggerServerEvent('norskpixel-trunk:server:setTrunkBusy', plate, false)
                             SetEntityCoords(ped, vehCoords.x, vehCoords.y, vehCoords.z)
                             SetEntityCollision(PlayerPedId(), true, true)
                             TrunkCam(false)
@@ -288,7 +288,7 @@ Citizen.CreateThread(function()
                         DrawText3Ds(drawPos.x, drawPos.y, drawPos.z + 0.5, '[G] For at lukke baggagerummet')
                         if IsControlJustPressed(0, 47) then
                             if not IsVehicleSeatFree(vehicle, -1) then
-                                TriggerServerEvent('qb-radialmenu:trunk:server:Door', false, plate, 5)
+                                TriggerServerEvent('norskpixel-radialmenu:trunk:server:Door', false, plate, 5)
                             else
                                 SetVehicleDoorShut(vehicle, 5, false)
                             end
@@ -297,7 +297,7 @@ Citizen.CreateThread(function()
                         DrawText3Ds(drawPos.x, drawPos.y, drawPos.z + 0.5, '[G] For at åbne baggagerummet')
                         if IsControlJustPressed(0, 47) then
                             if not IsVehicleSeatFree(vehicle, -1) then
-                                TriggerServerEvent('qb-radialmenu:trunk:server:Door', true, plate, 5)
+                                TriggerServerEvent('norskpixel-radialmenu:trunk:server:Door', true, plate, 5)
                             else
                                 SetVehicleDoorOpen(vehicle, 5, false, false)
                             end

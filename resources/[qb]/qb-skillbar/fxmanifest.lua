@@ -20,7 +20,7 @@ exports {
 }
 
 dependencies {
-  'qb-core'
+  'norskpixel-core'
 }
 
 lua54 'yes'

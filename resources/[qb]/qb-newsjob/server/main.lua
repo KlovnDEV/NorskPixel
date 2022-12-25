@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 QBCore.Commands.Add("newscam", "Tag et kamera frem", {}, false, function(source, args)
     local Player = QBCore.Functions.GetPlayer(source)

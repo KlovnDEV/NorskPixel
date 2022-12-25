@@ -1,4 +1,4 @@
-# qb-customs
+# norskpixel-customs
 Vehicle Customization For QB-Core
 
 # License

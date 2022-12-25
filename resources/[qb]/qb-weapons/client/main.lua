@@ -1,6 +1,6 @@
 
 -- Variables
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local PlayerData, CurrentWeaponData, CanShoot, MultiplierAmount = {}, {}, true, 0
 
 -- Handlers

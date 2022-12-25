@@ -1,4 +1,4 @@
-# qb-garages
+# norskpixel-garages
 
 # License
 
@@ -20,10 +20,10 @@
 
 
 ## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
-- [qb-houses](https://github.com/qbcore-framework/qb-houses) - For house garages
+- [norskpixel-core](https://github.com/qbcore-framework/norskpixel-core)
+- [norskpixel-houses](https://github.com/qbcore-framework/norskpixel-houses) - For house garages
 - [LegacyFuel](https://github.com/qbcore-framework/LegacyFuel) - For fuel physics and saving the fuel
-- [qb-vehiclekeys](https://github.com/qbcore-framework/qb-vehiclekeys) - For vehicle ownership
+- [norskpixel-vehiclekeys](https://github.com/qbcore-framework/norskpixel-vehiclekeys) - For vehicle ownership
 
 ## Screenshots
 ![Take Out Vehicle](https://imgur.com/dSoE1mZ.png)
@@ -40,10 +40,10 @@
 - Add the following code to your server.cfg/resouces.cfg
 ```
 ensure LegacyFuel
-ensure qb-core
-ensure qb-garages
-ensure qb-houses
-ensure qb-vehiclekeys
+ensure norskpixel-core
+ensure norskpixel-garages
+ensure norskpixel-houses
+ensure norskpixel-vehiclekeys
 ```
 
 ## Configuration

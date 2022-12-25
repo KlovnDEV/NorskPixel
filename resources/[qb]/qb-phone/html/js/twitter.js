@@ -18,11 +18,11 @@ $(document).on('click', '.twitter-header-tab', function(e){
         $("."+PressedTwitterTab+"-tab").css({"display":"block"});
 
         if (PressedTwitterTab === "twitter-mentions") {
-            $.post('https://qb-phone/ClearMentions');
+            $.post('https://norskpixel-phone/ClearMentions');
         }
 
         if (PressedTwitterTab == "twitter-home") {
-            $.post('https://qb-phone/GetTweets', JSON.stringify({}), function(Tweets){
+            $.post('https://norskpixel-phone/GetTweets', JSON.stringify({}), function(Tweets){
                 QB.Phone.Notifications.LoadTweets(Tweets);
             });
         }
@@ -54,13 +54,13 @@ $(document).on('click', '.twitter-header-tab', function(e){
     } else if (CurrentTwitterTab == "twitter-home" && PressedTwitterTab == "twitter-home") {
         event.preventDefault();
 
-        $.post('https://qb-phone/GetTweets', JSON.stringify({}), function(Tweets){
+        $.post('https://norskpixel-phone/GetTweets', JSON.stringify({}), function(Tweets){
             QB.Phone.Notifications.LoadTweets(Tweets);
         });
     } else if (CurrentTwitterTab == "twitter-mentions" && PressedTwitterTab == "twitter-mentions") {
         event.preventDefault();
 
-        $.post('https://qb-phone/GetMentionedTweets', JSON.stringify({}), function(MentionedTweets){
+        $.post('https://norskpixel-phone/GetMentionedTweets', JSON.stringify({}), function(MentionedTweets){
             QB.Phone.Notifications.LoadMentionedTweets(MentionedTweets)
         })
     }
@@ -74,7 +74,7 @@ $(document).on('click', '.twitter-new-tweet', function(e){
 
 $(document).on('click', '#take-pic', function (e) {
     e.preventDefault();
-    $.post('https://qb-phone/TakePhoto', JSON.stringify({}),function(url){
+    $.post('https://norskpixel-phone/TakePhoto', JSON.stringify({}),function(url){
         if(url){
             $('#tweet-new-url').val(url)
         }
@@ -128,7 +128,7 @@ $(document).on('click','#twt-delete-click',function(e){
     e.preventDefault();
     let source = $('.twitter-tweet').data('twtid')
     $(this).parent().parent().parent().parent().remove()
-    $.post('https://qb-phone/DeleteTweet', JSON.stringify({id: source}))
+    $.post('https://norskpixel-phone/DeleteTweet', JSON.stringify({id: source}))
 })
 
 $(document).on('click', '.tweet-reply', function(e){
@@ -217,7 +217,7 @@ $(document).on('click', '#send-tweet', function(e){
     var imageURL = $('#tweet-new-url').val()
     if (TweetMessage != "") {
         var CurrentDate = new Date();
-        $.post('https://qb-phone/PostNewTweet', JSON.stringify({
+        $.post('https://norskpixel-phone/PostNewTweet', JSON.stringify({
             Message: TweetMessage,
             Date: CurrentDate,
             Picture: QB.Phone.Data.MetaData.profilepicture,
@@ -225,7 +225,7 @@ $(document).on('click', '#send-tweet', function(e){
         }), function(Tweets){
             QB.Phone.Notifications.LoadTweets(Tweets);
         });
-        $.post('https://qb-phone/GetHashtags', JSON.stringify({}), function(Hashtags){
+        $.post('https://norskpixel-phone/GetHashtags', JSON.stringify({}), function(Hashtags){
             QB.Phone.Notifications.LoadHashtags(Hashtags)
         })
         QB.Phone.Animations.TopSlideUp(".twitter-new-tweet-tab", 450, -120);
@@ -265,7 +265,7 @@ $(document).on('click', '.hashtag-tag-text', function(e){
         $("."+CurrentTwitterTab+"-tab").css({"display":"none"});
         $(".twitter-hashtags-tab").css({"display":"block"});
 
-        $.post('https://qb-phone/GetHashtagMessages', JSON.stringify({hashtag: Hashtag}), function(HashtagData){
+        $.post('https://norskpixel-phone/GetHashtagMessages', JSON.stringify({hashtag: Hashtag}), function(HashtagData){
             QB.Phone.Notifications.LoadHashtagMessages(HashtagData.messages);
         });
 

@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 QBCore.Functions.CreateUseableItem("radio", function(source, item)
     TriggerClientEvent('norskpixel-radio:use', source)

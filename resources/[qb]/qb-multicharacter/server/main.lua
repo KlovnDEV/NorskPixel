@@ -1,30 +1,30 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
-RegisterServerEvent('qb-multicharacter:server:disconnect')
-AddEventHandler('qb-multicharacter:server:disconnect', function()
+RegisterServerEvent('norskpixel-multicharacter:server:disconnect')
+AddEventHandler('norskpixel-multicharacter:server:disconnect', function()
     local src = source
 
     DropPlayer(src, "Du har frakoblet dig serveren")
 end)
 
-RegisterServerEvent('qb-multicharacter:server:loadUserData')
-AddEventHandler('qb-multicharacter:server:loadUserData', function(cData)
+RegisterServerEvent('norskpixel-multicharacter:server:loadUserData')
+AddEventHandler('norskpixel-multicharacter:server:loadUserData', function(cData)
     local src = source
     if QBCore.Player.Login(src, cData.citizenid) then
-        print('^2[qb-core]^7 '..GetPlayerName(src)..' (Citizen ID: '..cData.citizenid..') has succesfully loaded!')
+        print('^2[norskpixel-core]^7 '..GetPlayerName(src)..' (Citizen ID: '..cData.citizenid..') has succesfully loaded!')
         QBCore.Commands.Refresh(src)
         loadHouseData()
 		--TriggerEvent('QBCore:Server:OnPlayerLoaded')-
         --TriggerClientEvent('QBCore:Client:OnPlayerLoaded', src)
         
         TriggerClientEvent('apartments:client:setupSpawnUI', src, cData)
-        TriggerEvent("qb-log:server:CreateLog", "joinleave", "Loaded", "green", "**".. GetPlayerName(src) .. "** ("..cData.citizenid.." | "..src..") loaded..")
+        TriggerEvent("norskpixel-log:server:CreateLog", "joinleave", "Loaded", "green", "**".. GetPlayerName(src) .. "** ("..cData.citizenid.." | "..src..") loaded..")
 	end
 end)
 
-RegisterServerEvent('qb-multicharacter:server:createCharacter')
-AddEventHandler('qb-multicharacter:server:createCharacter', function(data)
+RegisterServerEvent('norskpixel-multicharacter:server:createCharacter')
+AddEventHandler('norskpixel-multicharacter:server:createCharacter', function(data)
     local src = source
     local newData = {}
     newData.cid = data.cid
@@ -33,11 +33,11 @@ AddEventHandler('qb-multicharacter:server:createCharacter', function(data)
     SetPlayerRoutingBucket(src, randbucket)
     --QBCore.Player.CreateCharacter(src, data)
     if QBCore.Player.Login(src, false, newData) then
-        print('^2[qb-core]^7 '..GetPlayerName(src)..' has succesfully loaded!')
+        print('^2[norskpixel-core]^7 '..GetPlayerName(src)..' has succesfully loaded!')
         QBCore.Commands.Refresh(src)
         loadHouseData()
 
-        TriggerClientEvent("qb-multicharacter:client:closeNUI", src)
+        TriggerClientEvent("norskpixel-multicharacter:client:closeNUI", src)
         TriggerClientEvent('apartments:client:setupSpawnUI', src, newData)
         GiveStarterItems(src)
 	end
@@ -66,13 +66,13 @@ function GiveStarterItems(source)
     end
 end
 
-RegisterServerEvent('qb-multicharacter:server:deleteCharacter')
-AddEventHandler('qb-multicharacter:server:deleteCharacter', function(citizenid)
+RegisterServerEvent('norskpixel-multicharacter:server:deleteCharacter')
+AddEventHandler('norskpixel-multicharacter:server:deleteCharacter', function(citizenid)
     local src = source
     QBCore.Player.DeleteCharacter(src, citizenid)
 end)
 
-QBCore.Functions.CreateCallback("qb-multicharacter:server:GetUserCharacters", function(source, cb)
+QBCore.Functions.CreateCallback("norskpixel-multicharacter:server:GetUserCharacters", function(source, cb)
     local license = QBCore.Functions.GetIdentifier(source, 'license')
 
     exports.oxmysql:fetch('SELECT * FROM players WHERE license = ?', {license}, function(result)
@@ -80,13 +80,13 @@ QBCore.Functions.CreateCallback("qb-multicharacter:server:GetUserCharacters", fu
     end)
 end)
 
-QBCore.Functions.CreateCallback("qb-multicharacter:server:GetServerLogs", function(source, cb)
+QBCore.Functions.CreateCallback("norskpixel-multicharacter:server:GetServerLogs", function(source, cb)
     exports.oxmysql:fetch('SELECT * FROM server_logs', {}, function(result)
         cb(result)
     end)
 end)
 
-QBCore.Functions.CreateCallback("qb-multicharacter:server:setupCharacters", function(source, cb)
+QBCore.Functions.CreateCallback("norskpixel-multicharacter:server:setupCharacters", function(source, cb)
     local license = QBCore.Functions.GetIdentifier(source, 'license')
     local plyChars = {}
     
@@ -104,14 +104,14 @@ end)
 
 QBCore.Commands.Add("logout", "Logout af karaktere (Kun Admin)", {}, false, function(source, args)
     QBCore.Player.Logout(source)
-    TriggerClientEvent('qb-multicharacter:client:chooseChar', source)
+    TriggerClientEvent('norskpixel-multicharacter:client:chooseChar', source)
 end, "admin")
 
 QBCore.Commands.Add("closeNUI", "Luk Multi NUI", {}, false, function(source, args)
-    TriggerClientEvent('qb-multicharacter:client:closeNUI', source)
+    TriggerClientEvent('norskpixel-multicharacter:client:closeNUI', source)
 end)
 
-QBCore.Functions.CreateCallback("qb-multicharacter:server:getSkin", function(source, cb, cid)
+QBCore.Functions.CreateCallback("norskpixel-multicharacter:server:getSkin", function(source, cb, cid)
     local src = source
 
     local result = exports.oxmysql:executeSync('SELECT * FROM playerskins WHERE citizenid = ? AND active = ?', {cid, 1})
@@ -149,6 +149,6 @@ function loadHouseData()
             }
         end
     end
-    TriggerClientEvent("qb-garages:client:houseGarageConfig", -1, HouseGarages)
-    TriggerClientEvent("qb-houses:client:setHouseConfig", -1, Houses)
+    TriggerClientEvent("norskpixel-garages:client:houseGarageConfig", -1, HouseGarages)
+    TriggerClientEvent("norskpixel-houses:client:setHouseConfig", -1, Houses)
 end

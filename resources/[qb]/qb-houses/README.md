@@ -1,4 +1,4 @@
-# qb-houses
+# norskpixel-houses
 Real Estate for QB-Core Framework :house_with_garden:
 
 # License
@@ -20,17 +20,17 @@ Real Estate for QB-Core Framework :house_with_garden:
     along with this program.  If not, see <https://www.gnu.org/licenses/>
 
 ## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
-- [qb-radialmenu](https://github.com/qbcore-framework/qb-radialmenu) - For the menu in screenshots
-- [qb-anticheat](https://github.com/qbcore-framework/qb-anticheat) - Anti Cheat 
-- [qb-phone](https://github.com/qbcore-framework/qb-phone) - Houses app
-- [qb-multicharacter](https://github.com/qbcore-framework/qb-multicharacter) - Checking if player is inside after character chosen (You need to edit the lines if you don't use this)
-- [qb-garages](https://github.com/qbcore-framework/qb-garages) - House Garage
-- [qb-interior](https://github.com/qbcore-framework/qb-interior) - Necessary for house interiors
-- [qb-clothing](https://github.com/qbcore-framework/qb-clothing) - Outfits
-- [qb-weathersync](https://github.com/qbcore-framework/qb-weathersync) - Desync weather inside house
-- [qb-weed](https://github.com/qbcore-framework/qb-weed) - Weed plant
-- [qb-skillbar](https://github.com/qbcore-framework/qb-skillbar) - Skills
+- [norskpixel-core](https://github.com/qbcore-framework/norskpixel-core)
+- [norskpixel-radialmenu](https://github.com/qbcore-framework/norskpixel-radialmenu) - For the menu in screenshots
+- [norskpixel-anticheat](https://github.com/qbcore-framework/norskpixel-anticheat) - Anti Cheat 
+- [norskpixel-phone](https://github.com/qbcore-framework/norskpixel-phone) - Houses app
+- [norskpixel-multicharacter](https://github.com/qbcore-framework/norskpixel-multicharacter) - Checking if player is inside after character chosen (You need to edit the lines if you don't use this)
+- [norskpixel-garages](https://github.com/qbcore-framework/norskpixel-garages) - House Garage
+- [norskpixel-interior](https://github.com/qbcore-framework/norskpixel-interior) - Necessary for house interiors
+- [norskpixel-clothing](https://github.com/qbcore-framework/norskpixel-clothing) - Outfits
+- [norskpixel-weathersync](https://github.com/qbcore-framework/norskpixel-weathersync) - Desync weather inside house
+- [norskpixel-weed](https://github.com/qbcore-framework/norskpixel-weed) - Weed plant
+- [norskpixel-skillbar](https://github.com/qbcore-framework/norskpixel-skillbar) - Skills
 
 ## Screenshots
 ![Buy House](https://imgur.com/4eQnRqA.png)
@@ -66,20 +66,20 @@ Real Estate for QB-Core Framework :house_with_garden:
 ## Installation
 ### Manual
 - Download the script and put it in the `[qb]` directory.
-- Import `qb-houses.sql` in your database
+- Import `norskpixel-houses.sql` in your database
 - Add the following code to your server.cfg/resouces.cfg
 ```
-ensure qb-core
-ensure qb-radialmenu
-ensure qb-anticheat
-ensure qb-phone
-ensure qb-multicharacter
-ensure qb-garages
-ensure qb-interior
-ensure qb-clothing
-ensure qb-weathersync
-ensure qb-weed
-ensure qb-skillbar
+ensure norskpixel-core
+ensure norskpixel-radialmenu
+ensure norskpixel-anticheat
+ensure norskpixel-phone
+ensure norskpixel-multicharacter
+ensure norskpixel-garages
+ensure norskpixel-interior
+ensure norskpixel-clothing
+ensure norskpixel-weathersync
+ensure norskpixel-weed
+ensure norskpixel-skillbar
 ```
 
 ## Configuration

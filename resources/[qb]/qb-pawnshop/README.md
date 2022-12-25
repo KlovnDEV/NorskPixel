@@ -1,4 +1,4 @@
-# qb-pawnshop
+# norskpixel-pawnshop
 Pawn Shop For QB-Core
 
 # License

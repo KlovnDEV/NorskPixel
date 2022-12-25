@@ -1,4 +1,4 @@
-# qb-taxijob
+# norskpixel-taxijob
 Taxi Job For QB-Core
 
 # License

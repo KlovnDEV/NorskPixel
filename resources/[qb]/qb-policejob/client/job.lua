@@ -56,7 +56,7 @@ Citizen.CreateThread(function()
                                 TriggerServerEvent("police:server:UpdateCurrentCops")
                                 TriggerServerEvent("QBCore:ToggleDuty")
                                 TriggerServerEvent("police:server:UpdateBlips")
-                                TriggerEvent('qb-policealerts:ToggleDuty', onDuty)
+                                TriggerEvent('norskpixel-policealerts:ToggleDuty', onDuty)
                             end
                         elseif #(pos - vector3(v.x, v.y, v.z)) < 2.5 then
                             DrawText3D(v.x, v.y, v.z, "af/på job")
@@ -442,7 +442,7 @@ function TakeOutImpound(vehicle)
     currentFuel = vehicle.fuel
     local coords = Config.Locations["impound"][currentGarage]
     QBCore.Functions.SpawnVehicle(vehicle.vehicle, function(veh)
-        QBCore.Functions.TriggerCallback('qb-garage:server:GetVehicleProperties', function(properties)
+        QBCore.Functions.TriggerCallback('norskpixel-garage:server:GetVehicleProperties', function(properties)
             QBCore.Functions.SetVehicleProperties(veh, properties)
             SetVehicleNumberPlateText(veh, vehicle.plate)
             SetEntityHeading(veh, coords.w)

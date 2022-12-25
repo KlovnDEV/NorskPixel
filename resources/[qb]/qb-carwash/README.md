@@ -1,4 +1,4 @@
-# qb-carwash
+# norskpixel-carwash
 Carwash For QB-Core
 
 # License

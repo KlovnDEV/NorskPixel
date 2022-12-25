@@ -1,6 +1,6 @@
 
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local Races = {}
 local InRace = false
@@ -35,7 +35,7 @@ Citizen.CreateThread(function()
                         if #(pos - vector3(Races[k].startx, Races[k].starty, Races[k].startz)) < 15.0 and not Races[k].started then
                             DrawText3Ds(Races[k].startx, Races[k].starty, Races[k].startz, "[~g~H~w~] For at tilmelde dig (~g~"..Races[k].amount..",- DKK~w~)")
                             if IsControlJustReleased(0, 74) then
-                                TriggerServerEvent("qb-streetraces:JoinRace", k)
+                                TriggerServerEvent("norskpixel-streetraces:JoinRace", k)
                             end
                         end
                     end
@@ -53,7 +53,7 @@ Citizen.CreateThread(function()
                 if #(pos - vector3(Races[RaceId].endx, Races[RaceId].endy, pos.z)) < 250.0 and Races[RaceId].started then
                     DrawText3Ds(Races[RaceId].endx, Races[RaceId].endy, pos.z + 0.98, "MÅL")
                     if #(pos - vector3(Races[RaceId].endx, Races[RaceId].endy, pos.z)) < 15.0 then
-                        TriggerServerEvent("qb-streetraces:RaceWon", RaceId)
+                        TriggerServerEvent("norskpixel-streetraces:RaceWon", RaceId)
                         InRace = false
                     end
                 end
@@ -68,8 +68,8 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterNetEvent('qb-streetraces:StartRace')
-AddEventHandler('qb-streetraces:StartRace', function(race)
+RegisterNetEvent('norskpixel-streetraces:StartRace')
+AddEventHandler('norskpixel-streetraces:StartRace', function(race)
     if RaceId ~= 0 and RaceId == race then
         SetNewWaypoint(Races[RaceId].endx, Races[RaceId].endy)
         InRace = true
@@ -77,8 +77,8 @@ AddEventHandler('qb-streetraces:StartRace', function(race)
     end
 end)
 
-RegisterNetEvent('qb-streetraces:RaceDone')
-AddEventHandler('qb-streetraces:RaceDone', function(race, winner)
+RegisterNetEvent('norskpixel-streetraces:RaceDone')
+AddEventHandler('norskpixel-streetraces:RaceDone', function(race, winner)
     if RaceId ~= 0 and RaceId == race then
         RaceId = 0
         InRace = false
@@ -86,14 +86,14 @@ AddEventHandler('qb-streetraces:RaceDone', function(race, winner)
     end
 end)
 
-RegisterNetEvent('qb-streetraces:StopRace')
-AddEventHandler('qb-streetraces:StopRace', function()
+RegisterNetEvent('norskpixel-streetraces:StopRace')
+AddEventHandler('norskpixel-streetraces:StopRace', function()
     RaceId = 0
     InRace = false
 end)
 
-RegisterNetEvent('qb-streetraces:CreateRace')
-AddEventHandler('qb-streetraces:CreateRace', function(amount)
+RegisterNetEvent('norskpixel-streetraces:CreateRace')
+AddEventHandler('norskpixel-streetraces:CreateRace', function(amount)
     local pos = GetEntityCoords(PlayerPedId(), true)
     local WaypointHandle = GetFirstBlipInfoId(8)
     if DoesBlipExist(WaypointHandle) then
@@ -113,7 +113,7 @@ AddEventHandler('qb-streetraces:CreateRace', function(amount)
                 pot = amount, 
                 joined = {}
             }
-            TriggerServerEvent("qb-streetraces:NewRace", race)
+            TriggerServerEvent("norskpixel-streetraces:NewRace", race)
             QBCore.Functions.Notify("Race for "..amount.." DKK", "success")
         else
             QBCore.Functions.Notify("Slutningen er for tæt på", "error")
@@ -123,13 +123,13 @@ AddEventHandler('qb-streetraces:CreateRace', function(amount)
     end
 end)
 
-RegisterNetEvent('qb-streetraces:SetRace')
-AddEventHandler('qb-streetraces:SetRace', function(RaceTable)
+RegisterNetEvent('norskpixel-streetraces:SetRace')
+AddEventHandler('norskpixel-streetraces:SetRace', function(RaceTable)
     Races = RaceTable
 end)
 
-RegisterNetEvent('qb-streetraces:SetRaceId')
-AddEventHandler('qb-streetraces:SetRaceId', function(race)
+RegisterNetEvent('norskpixel-streetraces:SetRaceId')
+AddEventHandler('norskpixel-streetraces:SetRaceId', function(race)
     RaceId = race
     SetNewWaypoint(Races[RaceId].endx, Races[RaceId].endy)
 end)

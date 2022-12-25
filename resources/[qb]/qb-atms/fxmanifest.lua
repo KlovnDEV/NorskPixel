@@ -21,7 +21,7 @@ files {
   'nui/scripting/jquery-ui.js',
   'nui/style.css',
   'nui/index.html',
-  'nui/qb-atms.js'
+  'nui/norskpixel-atms.js'
 }
 
 lua54 'yes'

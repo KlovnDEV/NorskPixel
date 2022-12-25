@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 local occasionVehicles = {}
 local inRange
 local vehiclesSpawned = false
@@ -20,7 +20,7 @@ CreateThread(function()
                     if not vehiclesSpawned then
                         vehiclesSpawned = true
 
-                        QBCore.Functions.TriggerCallback('qb-occasions:server:getVehicles', function(vehicles)
+                        QBCore.Functions.TriggerCallback('norskpixel-occasions:server:getVehicles', function(vehicles)
                             occasionVehicles = vehicles
                             despawnOccasionsVehicles()
                             spawnOccasionsVehicles(vehicles)
@@ -44,7 +44,7 @@ CreateThread(function()
                         end
                     DrawText3Ds(Config.SellVehicleBack.x, Config.SellVehicleBack.y, Config.SellVehicleBack.z, '[~g~E~w~] - Sælg køretøj til forhandler til ~g~'..math.floor(sellVehData.price / 2)..' DKK')
                     if IsControlJustPressed(0, 38) then
-                        QBCore.Functions.TriggerCallback('qb-garage:server:checkVehicleOwner', function(owned)
+                        QBCore.Functions.TriggerCallback('norskpixel-garage:server:checkVehicleOwner', function(owned)
                             if owned then
                                 SellToDealer(sellVehData, GetVehiclePedIsIn(ped))
                             else
@@ -74,7 +74,7 @@ CreateThread(function()
                                 if IsControlJustPressed(0, 38) then
                                     currentVehicle = i
                                     
-                                    QBCore.Functions.TriggerCallback('qb-occasions:server:getSellerInformation', function(info)
+                                    QBCore.Functions.TriggerCallback('norskpixel-occasions:server:getSellerInformation', function(info)
                                         if info ~= nil then 
                                             info.charinfo = json.decode(info.charinfo)
                                         else
@@ -96,7 +96,7 @@ CreateThread(function()
                                 if IsDisabledControlJustPressed(0, 161) then
                                     isConfirming = false
                                     currentVehicle = i
-                                    TriggerServerEvent("qb-occasions:server:ReturnVehicle", Config.OccasionSlots[i])
+                                    TriggerServerEvent("norskpixel-occasions:server:ReturnVehicle", Config.OccasionSlots[i])
                                 end
                                 if IsDisabledControlJustPressed(0, 162) then
                                     isConfirming = false
@@ -114,7 +114,7 @@ CreateThread(function()
                         DrawText3Ds(Config.SellVehicle.x, Config.SellVehicle.y, Config.SellVehicle.z, '[~g~E~w~] - Sæt køretøj til salg')
                         if IsControlJustPressed(0, 38) then
                             local VehiclePlate = GetVehicleNumberPlateText(GetVehiclePedIsIn(ped))
-                            QBCore.Functions.TriggerCallback('qb-garage:server:checkVehicleOwner', function(owned)
+                            QBCore.Functions.TriggerCallback('norskpixel-garage:server:checkVehicleOwner', function(owned)
                                 if owned then
                                     openSellContract(true)
                                 else
@@ -164,7 +164,7 @@ function SellToDealer(sellVehData, vehicleHash)
             DrawText3Ds(coords.x, coords.y, coords.z + 1.6, '~g~Y~w~ - Bekræft / ~r~N~w~ - Afbryd ~g~') -- (coords, text, size, font)
 
             if IsDisabledControlJustPressed(0, 246) then
-                TriggerServerEvent('qb-occasions:server:sellVehicleBack', sellVehData)
+                TriggerServerEvent('norskpixel-occasions:server:sellVehicleBack', sellVehData)
                 QBCore.Functions.DeleteVehicle(vehicleHash)
 
                 keepGoing = false
@@ -261,14 +261,14 @@ end)
 
 RegisterNUICallback('buyVehicle', function(data, cb)
     local vehData = Config.OccasionSlots[currentVehicle]
-    TriggerServerEvent('qb-occasions:server:buyVehicle', vehData)
+    TriggerServerEvent('norskpixel-occasions:server:buyVehicle', vehData)
     cb('ok')
 end)
 
 DoScreenFadeIn(250)
 
-RegisterNetEvent('qb-occasions:client:BuyFinished')
-AddEventHandler('qb-occasions:client:BuyFinished', function(vehdata)
+RegisterNetEvent('norskpixel-occasions:client:BuyFinished')
+AddEventHandler('norskpixel-occasions:client:BuyFinished', function(vehdata)
     local vehmods = json.decode(vehdata.mods)
 
     DoScreenFadeOut(250)
@@ -289,8 +289,8 @@ AddEventHandler('qb-occasions:client:BuyFinished', function(vehdata)
     currentVehicle = nil
 end)
 
-RegisterNetEvent('qb-occasions:client:ReturnOwnedVehicle')
-AddEventHandler('qb-occasions:client:ReturnOwnedVehicle', function(vehdata)
+RegisterNetEvent('norskpixel-occasions:client:ReturnOwnedVehicle')
+AddEventHandler('norskpixel-occasions:client:ReturnOwnedVehicle', function(vehdata)
     local vehmods = json.decode(vehdata.mods)
     DoScreenFadeOut(250)
     Wait(500)
@@ -317,7 +317,7 @@ RegisterNUICallback('sellVehicle', function(data, cb)
 end)
 
 function SellData(data,model)
-    QBCore.Functions.TriggerCallback("qb-vehiclesales:server:CheckModelName",function(DataReturning) 
+    QBCore.Functions.TriggerCallback("norskpixel-vehiclesales:server:CheckModelName",function(DataReturning) 
         local vehicleData = {}
         local PlayerData = QBCore.Functions.GetPlayerData()
         vehicleData.ent = GetVehiclePedIsUsing(PlayerPedId())
@@ -325,7 +325,7 @@ function SellData(data,model)
         vehicleData.plate = model
         vehicleData.mods = QBCore.Functions.GetVehicleProperties(vehicleData.ent)
         vehicleData.desc = data.desc
-        TriggerServerEvent('qb-occasions:server:sellVehicle', data.price, vehicleData)
+        TriggerServerEvent('norskpixel-occasions:server:sellVehicle', data.price, vehicleData)
         sellVehicleWait(data.price)
     end,model) --the older function GetDisplayNameFromVehicleModel doest like long names like Washington or Buccanner2
 end
@@ -340,10 +340,10 @@ function sellVehicleWait(price)
     PlaySound(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", 0, 0, 1)
 end
 
-RegisterNetEvent('qb-occasion:client:refreshVehicles')
-AddEventHandler('qb-occasion:client:refreshVehicles', function()
+RegisterNetEvent('norskpixel-occasion:client:refreshVehicles')
+AddEventHandler('norskpixel-occasion:client:refreshVehicles', function()
     if inRange then
-        QBCore.Functions.TriggerCallback('qb-occasions:server:getVehicles', function(vehicles)
+        QBCore.Functions.TriggerCallback('norskpixel-occasions:server:getVehicles', function(vehicles)
             occasionVehicles = vehicles
             despawnOccasionsVehicles()
             spawnOccasionsVehicles(vehicles)

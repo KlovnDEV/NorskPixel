@@ -1,7 +1,7 @@
 
 local IsNew = false
 
-RegisterNetEvent('qb-interior:client:SetNewState', function(bool)
+RegisterNetEvent('norskpixel-interior:client:SetNewState', function(bool)
 	IsNew = bool
 end)
 
@@ -53,7 +53,7 @@ local function CreateApartmentFurnished(spawn)
 	TeleportToInterior(spawn.x + 1.5, spawn.y - 10.0, spawn.z, POIOffsets.exit.h)
 	if IsNew then
 		SetTimeout(750, function()
-			TriggerEvent('qb-clothes:client:CreateFirstCharacter')
+			TriggerEvent('norskpixel-clothes:client:CreateFirstCharacter')
 			IsNew = false
 		end)
 	end

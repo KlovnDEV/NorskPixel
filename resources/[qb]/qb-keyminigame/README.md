@@ -1,4 +1,4 @@
-# qb-keyminigame
+# norskpixel-keyminigame
 Keys Mini-Game For QB-Core
 
 # License

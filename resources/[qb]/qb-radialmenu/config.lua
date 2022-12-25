@@ -12,28 +12,28 @@ Config.MenuItems = {
                 title = 'Giv kontakt oplysninger',
                 icon = 'address-book',
                 type = 'client',
-                event = 'qb-phone:client:GiveContactDetails',
+                event = 'norskpixel-phone:client:GiveContactDetails',
                 shouldClose = true
             }, {
                 id = 'getintrunk',
                 title = 'Gå i baggagerummet',
                 icon = 'car',
                 type = 'client',
-                event = 'qb-trunk:client:GetIn',
+                event = 'norskpixel-trunk:client:GetIn',
                 shouldClose = true
             }, {
                 id = 'cornerselling',
                 title = 'Gade sælger',
                 icon = 'cannabis',
                 type = 'client',
-                event = 'qb-drugs:client:cornerselling',
+                event = 'norskpixel-drugs:client:cornerselling',
                 shouldClose = true
             }, {
                 id = 'togglehotdogsell',
                 title = 'Hotdog salg',
                 icon = 'hotdog',
                 type = 'client',
-                event = 'qb-hotdogjob:client:ToggleSell',
+                event = 'norskpixel-hotdogjob:client:ToggleSell',
                 shouldClose = true
             }, {
                 id = 'interactions',
@@ -109,7 +109,7 @@ Config.MenuItems = {
                         title = 'Giv hus nøgler',
                         icon = 'key',
                         type = 'client',
-                        event = 'qb-houses:client:giveHouseKey',
+                        event = 'norskpixel-houses:client:giveHouseKey',
                         shouldClose = true,
                         items = {}
                     }, {
@@ -117,7 +117,7 @@ Config.MenuItems = {
                         title = 'Fjern hus nøgler',
                         icon = 'key',
                         type = 'client',
-                        event = 'qb-houses:client:removeHouseKey',
+                        event = 'norskpixel-houses:client:removeHouseKey',
                         shouldClose = true,
                         items = {}
                     }, {
@@ -125,14 +125,14 @@ Config.MenuItems = {
                         title = 'Ring på klokke',
                         icon = 'door-closed',
                         type = 'client',
-                        event = 'qb-houses:client:toggleDoorlock',
+                        event = 'norskpixel-houses:client:toggleDoorlock',
                         shouldClose = true
                     }, {
                         id = 'decoratehouse',
                         title = 'Dekorere bolig',
                         icon = 'boxes',
                         type = 'client',
-                        event = 'qb-houses:client:decorate',
+                        event = 'norskpixel-houses:client:decorate',
                         shouldClose = true
                     }, {
                         id = 'houseLocations',
@@ -144,21 +144,21 @@ Config.MenuItems = {
                                 title = 'Sæt obevaring',
                                 icon = 'box-open',
                                 type = 'client',
-                                event = 'qb-houses:client:setLocation',
+                                event = 'norskpixel-houses:client:setLocation',
                                 shouldClose = true
                             }, {
                                 id = 'setoutift',
                                 title = 'Sæt outfit',
                                 icon = 'tshirt',
                                 type = 'client',
-                                event = 'qb-houses:client:setLocation',
+                                event = 'norskpixel-houses:client:setLocation',
                                 shouldClose = true
                             }, {
                                 id = 'setlogout',
                                 title = 'Sæt logout',
                                 icon = 'door-open',
                                 type = 'client',
-                                event = 'qb-houses:client:setLocation',
+                                event = 'norskpixel-houses:client:setLocation',
                                 shouldClose = true
                             }
                         }
@@ -174,49 +174,49 @@ Config.MenuItems = {
                         title = 'Hår',
                         icon = 'user',
                         type = 'client',
-                        event = 'qb-radialmenu:ToggleClothing',
+                        event = 'norskpixel-radialmenu:ToggleClothing',
                         shouldClose = true
                     }, {
                         id = 'Ear',
                         title = 'Øre tilbehør',
                         icon = 'deaf',
                         type = 'client',
-                        event = 'qb-radialmenu:ToggleProps',
+                        event = 'norskpixel-radialmenu:ToggleProps',
                         shouldClose = true
                     }, {
                         id = 'Neck',
                         title = 'Nakke/hals',
                         icon = 'user-tie',
                         type = 'client',
-                        event = 'qb-radialmenu:ToggleClothing',
+                        event = 'norskpixel-radialmenu:ToggleClothing',
                         shouldClose = true
                     }, {
                         id = 'Top',
                         title = 'T-Shirt',
                         icon = 'tshirt',
                         type = 'client',
-                        event = 'qb-radialmenu:ToggleClothing',
+                        event = 'norskpixel-radialmenu:ToggleClothing',
                         shouldClose = true
                     }, {
                         id = 'Shirt',
                         title = 'Trøje',
                         icon = 'tshirt',
                         type = 'client',
-                        event = 'qb-radialmenu:ToggleClothing',
+                        event = 'norskpixel-radialmenu:ToggleClothing',
                         shouldClose = true
                     }, {
                         id = 'Pants',
                         title = 'Bukser',
                         icon = 'user',
                         type = 'client',
-                        event = 'qb-radialmenu:ToggleClothing',
+                        event = 'norskpixel-radialmenu:ToggleClothing',
                         shouldClose = true
                     }, {
                         id = 'Shoes',
                         title = 'Sko',
                         icon = 'shoe-prints',
                         type = 'client',
-                        event = 'qb-radialmenu:ToggleClothing',
+                        event = 'norskpixel-radialmenu:ToggleClothing',
                         shouldClose = true
                     }, {
                         id = 'meer',
@@ -228,63 +228,63 @@ Config.MenuItems = {
                                 title = 'Hat',
                                 icon = 'hat-cowboy-side',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleProps',
+                                event = 'norskpixel-radialmenu:ToggleProps',
                                 shouldClose = true
                             }, {
                                 id = 'Glasses',
                                 title = 'Briller',
                                 icon = 'glasses',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleProps',
+                                event = 'norskpixel-radialmenu:ToggleProps',
                                 shouldClose = true
                             }, {
                                 id = 'Visor',
                                 title = 'Visor',
                                 icon = 'hat-cowboy-side',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleProps',
+                                event = 'norskpixel-radialmenu:ToggleProps',
                                 shouldClose = true
                             }, {
                                 id = 'Mask',
                                 title = 'Mask',
                                 icon = 'theater-masks',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleClothing',
+                                event = 'norskpixel-radialmenu:ToggleClothing',
                                 shouldClose = true
                             }, {
                                 id = 'Vest',
                                 title = 'Veste',
                                 icon = 'vest',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleClothing',
+                                event = 'norskpixel-radialmenu:ToggleClothing',
                                 shouldClose = true
                             }, {
                                 id = 'Bag',
                                 title = 'Tasker',
                                 icon = 'shopping-bag',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleClothing',
+                                event = 'norskpixel-radialmenu:ToggleClothing',
                                 shouldClose = true
                             }, {
                                 id = 'Bracelet',
                                 title = 'Armbånd',
                                 icon = 'user',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleProps',
+                                event = 'norskpixel-radialmenu:ToggleProps',
                                 shouldClose = true
                             }, {
                                 id = 'Watch',
                                 title = 'Ure',
                                 icon = 'stopwatch',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleProps',
+                                event = 'norskpixel-radialmenu:ToggleProps',
                                 shouldClose = true
                             }, {
                                 id = 'Gloves',
                                 title = 'Handsker',
                                 icon = 'mitten',
                                 type = 'client',
-                                event = 'qb-radialmenu:ToggleClothing',
+                                event = 'norskpixel-radialmenu:ToggleClothing',
                                 shouldClose = true
                             }
                         }
@@ -308,42 +308,42 @@ Config.MenuItems = {
                         title = 'Fører dør',
                         icon = 'car-side',
                         type = 'client',
-                        event = 'qb-radialmenu:client:openDoor',
+                        event = 'norskpixel-radialmenu:client:openDoor',
                         shouldClose = false
                     }, {
                         id = 'door4',
                         title = 'Motorhjem',
                         icon = 'car',
                         type = 'client',
-                        event = 'qb-radialmenu:client:openDoor',
+                        event = 'norskpixel-radialmenu:client:openDoor',
                         shouldClose = false
                     }, {
                         id = 'door1',
                         title = 'Passager dør',
                         icon = 'car-side',
                         type = 'client',
-                        event = 'qb-radialmenu:client:openDoor',
+                        event = 'norskpixel-radialmenu:client:openDoor',
                         shouldClose = false
                     }, {
                         id = 'door3',
                         title = 'Højre bagdør',
                         icon = 'car-side',
                         type = 'client',
-                        event = 'qb-radialmenu:client:openDoor',
+                        event = 'norskpixel-radialmenu:client:openDoor',
                         shouldClose = false
                     }, {
                         id = 'door5',
                         title = 'Baggagerum',
                         icon = 'car',
                         type = 'client',
-                        event = 'qb-radialmenu:client:openDoor',
+                        event = 'norskpixel-radialmenu:client:openDoor',
                         shouldClose = false
                     }, {
                         id = 'door2',
                         title = 'Venstre bagdør',
                         icon = 'car-side',
                         type = 'client',
-                        event = 'qb-radialmenu:client:openDoor',
+                        event = 'norskpixel-radialmenu:client:openDoor',
                         shouldClose = false
                     }
                 }
@@ -357,91 +357,91 @@ Config.MenuItems = {
                         title = 'Tilbehør 1',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'norskpixel-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra2',
                         title = 'Tilbehør 2',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'norskpixel-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra3',
                         title = 'Tilbehør 3',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'norskpixel-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra4',
                         title = 'Tilbehør 4',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'norskpixel-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra5',
                         title = 'Tilbehør 5',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'norskpixel-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra6',
                         title = 'Tilbehør 6',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'norskpixel-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra7',
                         title = 'Tilbehør 7',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'norskpixel-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra8',
                         title = 'Tilbehør 8',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'norskpixel-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra9',
                         title = 'Tilbehør 9',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'norskpixel-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra10',
                         title = 'Tilbehør 10',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'norskpixel-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra11',
                         title = 'Tilbehør 11',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'norskpixel-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra12',
                         title = 'Tilbehør 12',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'norskpixel-radialmenu:client:setExtra',
                         shouldClose = false
                     }, {
                         id = 'extra13',
                         title = 'Tilbehør 13',
                         icon = 'box-open',
                         type = 'client',
-                        event = 'qb-radialmenu:client:setExtra',
+                        event = 'norskpixel-radialmenu:client:setExtra',
                         shouldClose = false
                     }
                 }
@@ -455,7 +455,7 @@ Config.MenuItems = {
                         title = 'Fører',
                         icon = 'chair',
                         type = 'client',
-                        event = 'qb-radialmenu:client:ChangeSeat',
+                        event = 'norskpixel-radialmenu:client:ChangeSeat',
                         shouldClose = false
                     }
                 }
@@ -517,14 +517,14 @@ Config.JobInteractions = {
                     title = 'Spawn bårer',
                     icon = 'plus',
                     type = 'client',
-                    event = 'qb-radialmenu:client:TakeStretcher',
+                    event = 'norskpixel-radialmenu:client:TakeStretcher',
                     shouldClose = false
                 }, {
                     id = 'despawnstretcher',
                     title = 'Fjern bårer',
                     icon = 'minus',
                     type = 'client',
-                    event = 'qb-radialmenu:client:RemoveStretcher',
+                    event = 'norskpixel-radialmenu:client:RemoveStretcher',
                     shouldClose = false
                 }
             }
@@ -536,21 +536,21 @@ Config.JobInteractions = {
             title = 'Vis/Gem taxameter',
             icon = 'eye-slash',
             type = 'client',
-            event = 'qb-taxi:client:toggleMeter',
+            event = 'norskpixel-taxi:client:toggleMeter',
             shouldClose = false
         }, {
             id = 'togglemouse',
             title = 'Start/Stop taxameter',
             icon = 'hourglass-start',
             type = 'client',
-            event = 'qb-taxi:client:enableMeter',
+            event = 'norskpixel-taxi:client:enableMeter',
             shouldClose = true
         }, {
             id = 'npc_mission',
             title = 'NPC Mission',
             icon = 'taxi',
             type = 'client',
-            event = 'qb-taxi:client:DoTaxiNpc',
+            event = 'norskpixel-taxi:client:DoTaxiNpc',
             shouldClose = true
         }
     },
@@ -567,7 +567,7 @@ Config.JobInteractions = {
             title = 'Tow køretøj',
             icon = 'truck-pickup',
             type = 'client',
-            event = 'qb-tow:client:TowVehicle',
+            event = 'norskpixel-tow:client:TowVehicle',
             shouldClose = true
         }
     },
@@ -584,14 +584,14 @@ Config.JobInteractions = {
             title = 'Oversigt over tun',
             icon = 'info-circle',
             type = 'client',
-            event = 'qb-tunerchip:client:TuneStatus',
+            event = 'norskpixel-tunerchip:client:TuneStatus',
             shouldClose = true
         }, {
             id = 'resethouse',
             title = 'Reset bolig lås',
             icon = 'key',
             type = 'client',
-            event = 'qb-houses:client:ResetHouse',
+            event = 'norskpixel-houses:client:ResetHouse',
             shouldClose = true
         }, {
             id = 'takedriverlicense',
@@ -706,7 +706,7 @@ Config.JobInteractions = {
             title = 'Slå salg til/fra af Hotdogs',
             icon = 'hotdog',
             type = 'client',
-            event = 'qb-hotdogjob:client:ToggleSell',
+            event = 'norskpixel-hotdogjob:client:ToggleSell',
             shouldClose = true
         }
     }

@@ -4,7 +4,7 @@ AddEventHandler('json:dataStructure', function(data)
     -- ??
 end)
 
-RegisterServerEvent('qb-radialmenu:trunk:server:Door')
-AddEventHandler('qb-radialmenu:trunk:server:Door', function(open, plate, door)
-    TriggerClientEvent('qb-radialmenu:trunk:client:Door', -1, plate, door, open)
+RegisterServerEvent('norskpixel-radialmenu:trunk:server:Door')
+AddEventHandler('norskpixel-radialmenu:trunk:server:Door', function(open, plate, door)
+    TriggerClientEvent('norskpixel-radialmenu:trunk:client:Door', -1, plate, door, open)
 end)

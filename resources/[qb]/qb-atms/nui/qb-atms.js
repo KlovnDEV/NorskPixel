@@ -112,7 +112,7 @@ function ATMStatement(data) {
 }
 
 function closeBanking() {
-    $.post("https://qb-atms/NUIFocusOff", JSON.stringify({}));
+    $.post("https://norskpixel-atms/NUIFocusOff", JSON.stringify({}));
     currentLimit = null;
     clientPin = null;
     cardSelected = null;
@@ -141,7 +141,7 @@ $( function() {
                     $('#errorMsg').addClass('alert-info').removeClass('alert-danger');
                     $('#errorMsg').html('Indtast din pin, for at tilgå hæveautomaten.');
                     $('#pinCode').val('');
-                    $.post("https://qb-atms/loadBankingAccount", JSON.stringify({
+                    $.post("https://norskpixel-atms/loadBankingAccount", JSON.stringify({
                         cid: clientCid,
                         cardnumber: cardNumb
                     }));
@@ -163,7 +163,7 @@ $( function() {
     });
 
     $(document).on('click','[data-action=useCard]',function(){
-        $.post("https://qb-atms/playATMAnim", JSON.stringify({}));
+        $.post("https://norskpixel-atms/playATMAnim", JSON.stringify({}));
         var selectedCard = $(this).data('card')
         clientPin = selectedCard.cardPin;
         cardSelected = selectedCard
@@ -175,7 +175,7 @@ $( function() {
     
     $(document).on('click','[data-action=removeCard]',function(){
         var selectedCard = $(this).data('card')
-        $.post("https://qb-atms/removeCard", JSON.stringify({
+        $.post("https://norskpixel-atms/removeCard", JSON.stringify({
             cardNumber: selectedCard.cardNumber,
             cardType: selectedCard.cardType
         }));
@@ -184,7 +184,7 @@ $( function() {
     $(document).on('click','[data-action=ATMwithdraw]',function(){
         var amount = $(this).data('amount');
         if(amount !== undefined && amount !== null && amount !== 0) {
-            $.post("https://qb-atms/doATMWithdraw", JSON.stringify({
+            $.post("https://norskpixel-atms/doATMWithdraw", JSON.stringify({
                 amount: parseInt(amount),
                 cid: clientCid,
                 cardnumber: cardNumb
@@ -195,7 +195,7 @@ $( function() {
     $(document).on('click','#initiateWithdrawATM',function(){
         var amount = $('#withdrawAmountATM').val();
         if(amount !== undefined && amount !== null && amount !== 0) {
-            $.post("https://qb-atms/doATMWithdraw", JSON.stringify({
+            $.post("https://norskpixel-atms/doATMWithdraw", JSON.stringify({
                 amount: parseInt(amount),
                 cid: clientCid,
                 cardnumber: cardNumb
@@ -211,7 +211,7 @@ $( function() {
                     $('#errorMsg').addClass('alert-info').removeClass('alert-danger');
                     $('#errorMsg').html('Indtast din pin, for at tilgå hæveautomaten.');
                     $('#pinCode').val('');
-                    $.post("https://qb-atms/loadBankingAccount", JSON.stringify({
+                    $.post("https://norskpixel-atms/loadBankingAccount", JSON.stringify({
                         cid: clientCid,
                         cardnumber: cardNumb
                     }));

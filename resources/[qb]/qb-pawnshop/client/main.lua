@@ -1,4 +1,4 @@
-QBCore = exports['qb-core']:GetCoreObject()
+QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local isLoggedIn = false
 local sellItemsSet = false
@@ -33,7 +33,7 @@ Citizen.CreateThread(function()
 							TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_STAND_IMPATIENT", 0, true)
                             QBCore.Functions.Progressbar("sell_pawn_items", "Sælger ting...", math.random(15000, 25000), false, true, {}, {}, {}, {}, function() -- Done
                                 ClearPedTasks(PlayerPedId())
-								TriggerServerEvent("qb-pawnshop:server:sellPawnItems")
+								TriggerServerEvent("norskpixel-pawnshop:server:sellPawnItems")
 								sellItemsSet = false
 								sellPrice = 0
                             end, function() -- Cancel
@@ -75,7 +75,7 @@ Citizen.CreateThread(function()
 							TaskStartScenarioInPlace(PlayerPedId(), "WORLD_HUMAN_STAND_IMPATIENT", 0, true)
                             QBCore.Functions.Progressbar("sell_pawn_items", "Sælger ting...", math.random(15000, 25000), false, true, {}, {}, {}, {}, function() -- Done
                                 ClearPedTasks(PlayerPedId())
-								TriggerServerEvent("qb-pawnshop:server:sellHardwarePawnItems")
+								TriggerServerEvent("norskpixel-pawnshop:server:sellHardwarePawnItems")
 								sellHardwareItemsSet = false
 								sellHardwarePrice = 0
                             end, function() -- Cancel
@@ -101,7 +101,7 @@ end)
 
 function GetSellingPrice()
 	local price = 0
-	QBCore.Functions.TriggerCallback('qb-pawnshop:server:getSellPrice', function(result)
+	QBCore.Functions.TriggerCallback('norskpixel-pawnshop:server:getSellPrice', function(result)
 		price = result
 	end)
 	Citizen.Wait(500)
@@ -110,7 +110,7 @@ end
 
 function GetSellingHardwarePrice()
 	local price = 0
-	QBCore.Functions.TriggerCallback('qb-pawnshop:server:getSellHardwarePrice', function(result)
+	QBCore.Functions.TriggerCallback('norskpixel-pawnshop:server:getSellHardwarePrice', function(result)
 		price = result
 	end)
 	Citizen.Wait(500)

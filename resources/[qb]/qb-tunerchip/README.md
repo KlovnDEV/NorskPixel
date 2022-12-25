@@ -1,4 +1,4 @@
-# qb-tunerchip
+# norskpixel-tunerchip
 Vehicle Tuning System for QB-Core Framework ::
 
 # License
@@ -21,8 +21,8 @@ Vehicle Tuning System for QB-Core Framework ::
 
 
 ## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
-- [qb-hud](https://github.com/qbcore-framework/qb-hud) - For NOS status display
+- [norskpixel-core](https://github.com/qbcore-framework/norskpixel-core)
+- [norskpixel-hud](https://github.com/qbcore-framework/norskpixel-hud) - For NOS status display
 
 ## Screenshots
 ![Tunerchip](https://imgur.com/1NbUqXc.png)
@@ -39,7 +39,7 @@ Vehicle Tuning System for QB-Core Framework ::
 - Download the script and put it in the `[qb]` directory.
 - Add the following code to your server.cfg/resouces.cfg
 ```
-ensure qb-core
-ensure qb-hud
-ensure qb-tunerchip
+ensure norskpixel-core
+ensure norskpixel-hud
+ensure norskpixel-tunerchip
 ```

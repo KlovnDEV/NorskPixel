@@ -1,6 +1,6 @@
 
 local ApartmentObjects = {}
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 -- Functions
 
@@ -29,7 +29,7 @@ end
 
 -- Events
 
-RegisterNetEvent('qb-apartments:server:SetInsideMeta', function(house, insideId, bool)
+RegisterNetEvent('norskpixel-apartments:server:SetInsideMeta', function(house, insideId, bool)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local insideMeta = Player.PlayerData.metadata["inside"]
@@ -50,7 +50,7 @@ RegisterNetEvent('qb-apartments:server:SetInsideMeta', function(house, insideId,
     end
 end)
 
-RegisterNetEvent('qb-apartments:returnBucket', function()
+RegisterNetEvent('norskpixel-apartments:returnBucket', function()
     local src = source
     SetPlayerRoutingBucket(src, 0)
 end)

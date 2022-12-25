@@ -7,7 +7,7 @@ version '1.0.0'
 
 shared_scripts {
 	'config.lua',
-	'@qb-weapons/config.lua'
+	'@norskpixel-weapons/config.lua'
 }
 
 server_script 'server/main.lua'
@@ -28,6 +28,6 @@ files {
 	'html/*.ttf'
 }
 
-dependency 'qb-weapons'
+dependency 'norskpixel-weapons'
 
 lua54 'yes'

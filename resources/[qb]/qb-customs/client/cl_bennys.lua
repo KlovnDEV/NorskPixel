@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local isPlyInBennys = false
 local plyFirstJoin = false
@@ -117,7 +117,7 @@ function AttemptPurchase(type, upgradeLevel)
     if upgradeLevel ~= nil then
         upgradeLevel = upgradeLevel + 2
     end
-    TriggerServerEvent("qb-customs:attemptPurchase", type, upgradeLevel)
+    TriggerServerEvent("norskpixel-customs:attemptPurchase", type, upgradeLevel)
 
     attemptingPurchase = true
 
@@ -860,15 +860,15 @@ CreateThread(function()
 end)
 
 --#[Event Handlers]#--
-RegisterNetEvent("qb-customs:purchaseSuccessful")
-AddEventHandler("qb-customs:purchaseSuccessful", function()
+RegisterNetEvent("norskpixel-customs:purchaseSuccessful")
+AddEventHandler("norskpixel-customs:purchaseSuccessful", function()
     isPurchaseSuccessful = true
     attemptingPurchase = false
     QBCore.Functions.Notify("Købet blev gennemført")
 end)
 
-RegisterNetEvent("qb-customs:purchaseFailed")
-AddEventHandler("qb-customs:purchaseFailed", function()
+RegisterNetEvent("norskpixel-customs:purchaseFailed")
+AddEventHandler("norskpixel-customs:purchaseFailed", function()
     isPurchaseSuccessful = false
     attemptingPurchase = false
     QBCore.Functions.Notify("Du har ikke penge nok", "error")

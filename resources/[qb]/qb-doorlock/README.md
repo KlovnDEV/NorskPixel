@@ -1,4 +1,4 @@
-# qb-doorlock
+# norskpixel-doorlock
 Doorlock Script For QB-Core
 
 # License

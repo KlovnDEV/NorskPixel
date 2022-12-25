@@ -1,4 +1,4 @@
-# qb-policejob
+# norskpixel-policejob
 Police Job for QB-Core Framework :police_officer:
 
 # License
@@ -20,13 +20,13 @@ Police Job for QB-Core Framework :police_officer:
     along with this program.  If not, see <https://www.gnu.org/licenses/>
 
 ## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
-- [qb-bossmenu](https://github.com/qbcore-framework/qb-bossmenu) - For the boss menu
-- [qb-garages](https://github.com/qbcore-framework/qb-garages) - For the vehicle spawner
-- [qb-clothing](https://github.com/qbcore-framework/qb-clothing) - For the locker room
-- [qb-phone](https://github.com/qbcore-framework/qb-phone) - For the MEOS app and notifications etc.
-- [qb-moneysafe](https://github.com/qbcore-framework/qb-moneysafe) - For the money safe
-- [qb-log](https://github.com/qbcore-framework/qb-logs) - For logging certain events
+- [norskpixel-core](https://github.com/qbcore-framework/norskpixel-core)
+- [norskpixel-bossmenu](https://github.com/qbcore-framework/norskpixel-bossmenu) - For the boss menu
+- [norskpixel-garages](https://github.com/qbcore-framework/norskpixel-garages) - For the vehicle spawner
+- [norskpixel-clothing](https://github.com/qbcore-framework/norskpixel-clothing) - For the locker room
+- [norskpixel-phone](https://github.com/qbcore-framework/norskpixel-phone) - For the MEOS app and notifications etc.
+- [norskpixel-moneysafe](https://github.com/qbcore-framework/norskpixel-moneysafe) - For the money safe
+- [norskpixel-log](https://github.com/qbcore-framework/norskpixel-logs) - For logging certain events
 
 ## Screenshots
 ![On Duty / Off Duty](https://imgur.com/KO2ydlt.png)
@@ -96,8 +96,8 @@ Police Job for QB-Core Framework :police_officer:
 - Download the script and put it in the `[qb]` directory.
 - Add the following code to your server.cfg/resouces.cfg
 ```
-ensure qb-core
-ensure qb-policejob
+ensure norskpixel-core
+ensure norskpixel-policejob
 ```
 
 ## Configuration

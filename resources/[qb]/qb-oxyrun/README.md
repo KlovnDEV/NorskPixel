@@ -1,4 +1,4 @@
-# qb-oxyrun
+# norskpixel-oxyrun
 NP style oxy run for QB
 
 # License

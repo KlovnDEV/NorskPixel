@@ -1,14 +1,14 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local VehicleStatus = {}
 local VehicleDrivingDistance = {}
 
-QBCore.Functions.CreateCallback('qb-vehicletuning:server:GetDrivingDistances', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-vehicletuning:server:GetDrivingDistances', function(source, cb)
     cb(VehicleDrivingDistance)
 end)
 
-RegisterNetEvent('qb-vehicletuning:server:SaveVehicleProps', function(vehicleProps)
+RegisterNetEvent('norskpixel-vehicletuning:server:SaveVehicleProps', function(vehicleProps)
     if IsVehicleOwned(vehicleProps.plate) then
         exports.oxmysql:execute('UPDATE player_vehicles SET mods = ? WHERE plate = ?',
             {json.encode(vehicleProps), vehicleProps.plate})
@@ -52,16 +52,16 @@ RegisterNetEvent('vehiclemod:server:setupVehicleStatus', function(plate, engineH
     end
 end)
 
-RegisterNetEvent('qb-vehicletuning:server:UpdateDrivingDistance', function(amount, plate)
+RegisterNetEvent('norskpixel-vehicletuning:server:UpdateDrivingDistance', function(amount, plate)
     VehicleDrivingDistance[plate] = amount
-    TriggerClientEvent('qb-vehicletuning:client:UpdateDrivingDistance', -1, VehicleDrivingDistance[plate], plate)
+    TriggerClientEvent('norskpixel-vehicletuning:client:UpdateDrivingDistance', -1, VehicleDrivingDistance[plate], plate)
     local result = exports.oxmysql:executeSync('SELECT plate FROM player_vehicles WHERE plate = ?', {plate})
     if result[1] ~= nil then
         exports.oxmysql:execute('UPDATE player_vehicles SET drivingdistance = ? WHERE plate = ?', {amount, plate})
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-vehicletuning:server:IsVehicleOwned', function(source, cb, plate)
+QBCore.Functions.CreateCallback('norskpixel-vehicletuning:server:IsVehicleOwned', function(source, cb, plate)
     local retval = false
     local result = exports.oxmysql:scalarSync('SELECT 1 from player_vehicles WHERE plate = ?', {plate})
     if result then
@@ -70,7 +70,7 @@ QBCore.Functions.CreateCallback('qb-vehicletuning:server:IsVehicleOwned', functi
     cb(retval)
 end)
 
-RegisterNetEvent('qb-vehicletuning:server:LoadStatus', function(veh, plate)
+RegisterNetEvent('norskpixel-vehicletuning:server:LoadStatus', function(veh, plate)
     VehicleStatus[plate] = veh
     TriggerClientEvent("vehiclemod:client:setVehicleStatus", -1, plate, veh)
 end)
@@ -96,7 +96,7 @@ RegisterNetEvent('vehiclemod:server:updatePart', function(plate, part, level)
     end
 end)
 
-RegisterNetEvent('qb-vehicletuning:server:SetPartLevel', function(plate, part, level)
+RegisterNetEvent('norskpixel-vehicletuning:server:SetPartLevel', function(plate, part, level)
     if VehicleStatus[plate] ~= nil then
         VehicleStatus[plate][part] = level
         TriggerClientEvent("vehiclemod:client:setVehicleStatus", -1, plate, VehicleStatus[plate])
@@ -149,11 +149,11 @@ QBCore.Commands.Add("setvehiclestatus", "Sæt køretøjs status", {{
     TriggerClientEvent("vehiclemod:client:setPartLevel", source, part, level)
 end, "god")
 
-QBCore.Functions.CreateCallback('qb-vehicletuning:server:GetAttachedVehicle', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-vehicletuning:server:GetAttachedVehicle', function(source, cb)
     cb(Config.Plates)
 end)
 
-QBCore.Functions.CreateCallback('qb-vehicletuning:server:IsMechanicAvailable', function(source, cb)
+QBCore.Functions.CreateCallback('norskpixel-vehicletuning:server:IsMechanicAvailable', function(source, cb)
     local amount = 0
     for k, v in pairs(QBCore.Functions.GetPlayers()) do
         local Player = QBCore.Functions.GetPlayer(v)
@@ -166,24 +166,24 @@ QBCore.Functions.CreateCallback('qb-vehicletuning:server:IsMechanicAvailable', f
     cb(amount)
 end)
 
-RegisterNetEvent('qb-vehicletuning:server:SetAttachedVehicle', function(veh, k)
+RegisterNetEvent('norskpixel-vehicletuning:server:SetAttachedVehicle', function(veh, k)
     if veh ~= false then
         Config.Plates[k].AttachedVehicle = veh
-        TriggerClientEvent('qb-vehicletuning:client:SetAttachedVehicle', -1, veh, k)
+        TriggerClientEvent('norskpixel-vehicletuning:client:SetAttachedVehicle', -1, veh, k)
     else
         Config.Plates[k].AttachedVehicle = nil
-        TriggerClientEvent('qb-vehicletuning:client:SetAttachedVehicle', -1, false, k)
+        TriggerClientEvent('norskpixel-vehicletuning:client:SetAttachedVehicle', -1, false, k)
     end
 end)
 
-RegisterNetEvent('qb-vehicletuning:server:CheckForItems', function(part)
+RegisterNetEvent('norskpixel-vehicletuning:server:CheckForItems', function(part)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local RepairPart = Player.Functions.GetItemByName(Config.RepairCostAmount[part].item)
 
     if RepairPart ~= nil then
         if RepairPart.amount >= Config.RepairCostAmount[part].costs then
-            TriggerClientEvent('qb-vehicletuning:client:RepaireeePart', src, part)
+            TriggerClientEvent('norskpixel-vehicletuning:client:RepaireeePart', src, part)
             Player.Functions.RemoveItem(Config.RepairCostAmount[part].item, Config.RepairCostAmount[part].costs)
 
             for i = 1, Config.RepairCostAmount[part].costs, 1 do
@@ -267,7 +267,7 @@ QBCore.Commands.Add("firemechanic", "Fyr en mekaniker", {{
     end
 end)
 
-QBCore.Functions.CreateCallback('qb-vehicletuning:server:GetStatus', function(source, cb, plate)
+QBCore.Functions.CreateCallback('norskpixel-vehicletuning:server:GetStatus', function(source, cb, plate)
     if VehicleStatus[plate] ~= nil and next(VehicleStatus[plate]) ~= nil then
         cb(VehicleStatus[plate])
     else

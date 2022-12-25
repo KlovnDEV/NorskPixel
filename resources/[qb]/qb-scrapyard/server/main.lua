@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 Citizen.CreateThread(function()
     while true do 
@@ -9,15 +9,15 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterServerEvent('qb-scrapyard:server:LoadVehicleList')
-AddEventHandler('qb-scrapyard:server:LoadVehicleList', function()
+RegisterServerEvent('norskpixel-scrapyard:server:LoadVehicleList')
+AddEventHandler('norskpixel-scrapyard:server:LoadVehicleList', function()
     local src = source
-    TriggerClientEvent("qb-scapyard:client:setNewVehicles", src, Config.CurrentVehicles)
+    TriggerClientEvent("norskpixel-scapyard:client:setNewVehicles", src, Config.CurrentVehicles)
 end)
 
 
-RegisterServerEvent('qb-scrapyard:server:ScrapVehicle')
-AddEventHandler('qb-scrapyard:server:ScrapVehicle', function(listKey)
+RegisterServerEvent('norskpixel-scrapyard:server:ScrapVehicle')
+AddEventHandler('norskpixel-scrapyard:server:ScrapVehicle', function(listKey)
     local src = source 
     local Player = QBCore.Functions.GetPlayer(src)
     if Config.CurrentVehicles[listKey] ~= nil then 
@@ -36,7 +36,7 @@ AddEventHandler('qb-scrapyard:server:ScrapVehicle', function(listKey)
 
         end
         Config.CurrentVehicles[listKey] = nil
-        TriggerClientEvent("qb-scapyard:client:setNewVehicles", -1, Config.CurrentVehicles)
+        TriggerClientEvent("norskpixel-scapyard:client:setNewVehicles", -1, Config.CurrentVehicles)
     end
 end)
 
@@ -48,7 +48,7 @@ function GenerateVehicleList()
             Config.CurrentVehicles[i] = randVehicle
         end
     end
-    TriggerClientEvent("qb-scapyard:client:setNewVehicles", -1, Config.CurrentVehicles)
+    TriggerClientEvent("norskpixel-scapyard:client:setNewVehicles", -1, Config.CurrentVehicles)
 end
 
 function IsInList(name)

@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local ResetStress = false
 
@@ -17,7 +17,7 @@ end)
 
 QBCore.Commands.Add("dev", "Enable/Disable developer Mode", {}, false, function(source, args)
     if QBCore.Functions.HasPermission(source, 'admin') then
-	    TriggerClientEvent("qb-admin:client:ToggleDevmode", source)
+	    TriggerClientEvent("norskpixel-admin:client:ToggleDevmode", source)
     else
         TriggerClientEvent('QBCore:Notify', source, 'Adgang nægtet!', 'error')
     end

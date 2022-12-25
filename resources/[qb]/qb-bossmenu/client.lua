@@ -1,5 +1,5 @@
 
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['norskpixel-core']:GetCoreObject()
 
 local PlayerJob = {}
 local isInMenu = false
@@ -21,8 +21,8 @@ local menu2 = MenuV:CreateMenu(false, 'Firma konto', 'topright', 155, 0, 0, 'siz
 local menu3 = MenuV:CreateMenu(false, 'Ansættelses funktioner', 'topright', 155, 0, 0, 'size-125', 'none', 'menuv', 'employees')
 local menu4 = MenuV:CreateMenu(false, 'Ansæt menu', 'topright', 155, 0, 0, 'size-125', 'none', 'menuv', 'recruit')
 
-RegisterNetEvent('qb-bossmenu:client:openMenu')
-AddEventHandler('qb-bossmenu:client:openMenu', function()
+RegisterNetEvent('norskpixel-bossmenu:client:openMenu')
+AddEventHandler('norskpixel-bossmenu:client:openMenu', function()
     for k, v in pairs(Config.Jobs) do
         if k == PlayerJob.name and PlayerJob.isboss then
             MenuV:OpenMenu(menu)
@@ -92,7 +92,7 @@ end)
 -- Outfit
 menu_button3:On("select", function()
     MenuV:CloseMenu(menu)
-    TriggerEvent('qb-clothing:client:openOutfitMenu')
+    TriggerEvent('norskpixel-clothing:client:openOutfitMenu')
 end)
 
 -- Society
@@ -104,7 +104,7 @@ end)
 menu_button6:On("select", function()
     local result = LocalInput('Beløb til udbetaling', 255, '')
     if result ~= nil then
-        TriggerServerEvent("qb-bossmenu:server:withdrawMoney", tonumber(result))
+        TriggerServerEvent("norskpixel-bossmenu:server:withdrawMoney", tonumber(result))
         UpdateSociety()
     end
 end)
@@ -113,7 +113,7 @@ end)
 menu_button7:On("select", function()
     local result = LocalInput('Beløb til indbetaling', 255, '')
     if result ~= nil then
-        TriggerServerEvent("qb-bossmenu:server:depositMoney", tonumber(result))
+        TriggerServerEvent("norskpixel-bossmenu:server:depositMoney", tonumber(result))
         UpdateSociety()
     end
 end)
@@ -121,7 +121,7 @@ end)
 -- Employees
 menu_button:On("select", function()
     menu3:ClearItems()
-    QBCore.Functions.TriggerCallback('qb-bossmenu:server:GetEmployees', function(cb)
+    QBCore.Functions.TriggerCallback('norskpixel-bossmenu:server:GetEmployees', function(cb)
         for k,v in pairs(cb) do
             local menu_button8 = menu3:AddButton({
                 label = v.grade.name.. ' ' ..v.name,
@@ -148,7 +148,7 @@ menu_button1:On("select", function()
                 description = 'Ansæt ny kollega',
                 select = function(btn)
                     local select = btn.Value
-                    TriggerServerEvent('qb-bossmenu:server:giveJob', GetPlayerServerId(v))
+                    TriggerServerEvent('norskpixel-bossmenu:server:giveJob', GetPlayerServerId(v))
                 end
             })
         end
@@ -179,7 +179,7 @@ end)
 
 -- FUNCTIONS
 function UpdateSociety()
-    QBCore.Functions.TriggerCallback('qb-bossmenu:server:GetAccount', function(cb)
+    QBCore.Functions.TriggerCallback('norskpixel-bossmenu:server:GetAccount', function(cb)
         menu_button5.Label = 'Firma konto: ' ..comma_value(cb) .. ' DKK'
     end, PlayerJob.name)
 end
@@ -213,10 +213,10 @@ function ManageEmployees(employee)
                 if values == 'promote' then
                     local result = LocalInput('New Grade Level', 255, '')
                     if result ~= nil then
-                        TriggerServerEvent('qb-bossmenu:server:updateGrade', employee.source, tonumber(result))
+                        TriggerServerEvent('norskpixel-bossmenu:server:updateGrade', employee.source, tonumber(result))
                     end
                 else
-                    TriggerServerEvent('qb-bossmenu:server:fireEmployee', employee.source)
+                    TriggerServerEvent('norskpixel-bossmenu:server:fireEmployee', employee.source)
                 end
             end
         })

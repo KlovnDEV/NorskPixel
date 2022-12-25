@@ -9,8 +9,8 @@ ui_page 'html/index.html'
 
 shared_scripts {
     'config.lua',
-    '@qb-apartments/config.lua',
-    '@qb-garages/config.lua',
+    '@norskpixel-apartments/config.lua',
+    '@norskpixel-garages/config.lua',
 }
 
 client_scripts {

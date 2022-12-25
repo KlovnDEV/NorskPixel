@@ -1,4 +1,4 @@
-# qb-interior
+# norskpixel-interior
 
 # License
 
